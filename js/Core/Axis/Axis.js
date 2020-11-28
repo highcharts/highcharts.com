@@ -902,7 +902,8 @@ var Axis = /** @class */ (function () {
      * An array of axis values where ticks should be placed.
      */
     Axis.prototype.getLinearTickPositions = function (tickInterval, min, max) {
-        var pos, lastPos, roundedMin = correctFloat(Math.floor(min / tickInterval) * tickInterval), roundedMax = correctFloat(Math.ceil(max / tickInterval) * tickInterval), tickPositions = [], precision;
+        var pos, lastPos, roundedMin = Math.max(// #14555
+        correctFloat(Math.floor(min / tickInterval) * tickInterval), -Number.MAX_VALUE), roundedMax = correctFloat(Math.ceil(max / tickInterval) * tickInterval), tickPositions = [], precision;
         // When the precision is higher than what we filter out in
         // correctFloat, skip it (#6183).
         if (correctFloat(roundedMin + tickInterval) === roundedMin) {
@@ -918,8 +919,9 @@ var Axis = /** @class */ (function () {
         while (pos <= roundedMax) {
             // Place the tick on the rounded value
             tickPositions.push(pos);
-            // Always add the raw tickInterval, not the corrected one.
-            pos = correctFloat(pos + tickInterval, precision);
+            // Always add the raw tickInterval, not the corrected one. Clamp the
+            // position for very high numbers (#14555)
+            pos = clamp(correctFloat(pos + tickInterval, precision), -Number.MAX_VALUE, Number.MAX_VALUE);
             // If the interval is not big enough in the current min - max range
             // to actually increase the loop variable, we need to break out to
             // prevent endless loop. Issue #619
@@ -928,6 +930,11 @@ var Axis = /** @class */ (function () {
             }
             // Record the last value
             lastPos = pos;
+        }
+        // With high numbers on the edge of Number.MAX_VALUE, the computed pos
+        // may exceed roundedMax (#14555)
+        if (pos > roundedMax && tickPositions[tickPositions.length - 1] < roundedMax) {
+            tickPositions.push(roundedMax);
         }
         return tickPositions;
     };
@@ -1441,10 +1448,9 @@ var Axis = /** @class */ (function () {
             // tickPix
             categories ?
                 1 :
-                // don't let it be more than the data range
-                (axis.max - axis.min) *
-                    tickPixelIntervalOption /
-                    Math.max(axis.len, tickPixelIntervalOption));
+                // Don't let it be more than the data range
+                Math.min((axis.max - axis.min) * tickPixelIntervalOption, Number.MAX_VALUE // #14555
+                ) / Math.max(axis.len, tickPixelIntervalOption));
         }
         // Now we're finished detecting min and max, crop and group series data.
         // This is in turn needed in order to find tick positions in ordinal

@@ -44,51 +44,57 @@ QUnit.test('Ticks were drawn in break(#4485)', function (assert) {
 
 });
 
-QUnit.test('alignTicks should consider only axes with series.(#4442)', function (assert) {
-    var chart = $('#container').highcharts({
-        yAxis: [{
-            endOnTick: false,
-            maxPadding: 0.0
-        }, {
-            endOnTick: false,
-            maxPadding: 0.0
-        }],
-        series: [{
-            data: [991, 455],
-            yAxis: 1
-        }]
-    }).highcharts();
+QUnit.test(
+    'alignTicks should consider only axes with series.(#4442)',
+    function (assert) {
+        var chart = $('#container').highcharts({
+            yAxis: [{
+                endOnTick: false,
+                maxPadding: 0.0
+            }, {
+                endOnTick: false,
+                maxPadding: 0.0
+            }],
+            series: [{
+                data: [991, 455],
+                yAxis: 1
+            }]
+        }).highcharts();
 
-    assert.strictEqual(
-        chart.series[0].data[0].plotY,
-        0,
-        'Without extra padding'
-    );
-});
+        assert.strictEqual(
+            chart.series[0].data[0].plotY,
+            0,
+            'Without extra padding'
+        );
+    }
+);
 
-QUnit.test("tickInterval option should take precedence over data range(#4184)", function (assert) {
-    var chart = $("#container").highcharts({
-        xAxis: {
-            min: 0,
-            max: 12,
-            tickInterval: 1
-        },
-        series: [{
-            type: 'column',
-            //pointRange: 1,
-            data: [
-                [7, 7],
-                [10, 8]
-            ]
-        }]
-    }).highcharts();
+QUnit.test(
+    "tickInterval option should take precedence over data range(#4184)",
+    function (assert) {
+        var chart = $("#container").highcharts({
+            xAxis: {
+                min: 0,
+                max: 12,
+                tickInterval: 1
+            },
+            series: [{
+                type: 'column',
+                //pointRange: 1,
+                data: [
+                    [7, 7],
+                    [10, 8]
+                ]
+            }]
+        }).highcharts();
 
-    assert.strictEqual(
-        chart.xAxis[0].tickInterval,
-        1,
-        'Actual tick interval is as option'
-    );
-});
+        assert.strictEqual(
+            chart.xAxis[0].tickInterval,
+            1,
+            'Actual tick interval is as option'
+        );
+    }
+);
 QUnit.test('Prevent dense ticks(#4477)', function (assert) {
 
 
@@ -120,29 +126,41 @@ QUnit.test('Prevent dense ticks(#4477)', function (assert) {
     );
 });
 
-QUnit.test('Clip tickPositions when axis extremes are set(#4086)', function (assert) {
-    var chart = Highcharts.chart('container', {
-        xAxis: {
-            minRange: 8,
-            tickPositions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
-            min: 5,
-            max: 15
-        },
+QUnit.test(
+    'Clip tickPositions when axis extremes are set(#4086)',
+    function (assert) {
+        var chart = Highcharts.chart('container', {
+            xAxis: {
+                minRange: 8,
+                tickPositions: [
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                    13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25
+                ],
+                min: 5,
+                max: 15
+            },
 
-        series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
-                29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-        }]
-    });
+            series: [{
+                data: [
+                    29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,
+                    148.5, 216.4, 194.1, 95.6, 54.4, 29.9, 71.5, 106.4, 129.2,
+                    144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4
+                ]
+            }]
+        });
 
-    assert.strictEqual(
-        chart.xAxis[0].tickPositions.join(','),
-        '5,6,7,8,9,10,11,12,13,14,15',
-        'Tick positions are trimmed'
-    );
-});
+        assert.strictEqual(
+            chart.xAxis[0].tickPositions.join(','),
+            '5,6,7,8,9,10,11,12,13,14,15',
+            'Tick positions are trimmed'
+        );
+    }
+);
 QUnit.test('Step=1 should preserve ticks(#4411)', function (assert) {
-    var data = [107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2];
+    var data = [
+        107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203,
+        2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2, 107, 31, 635, 203, 2
+    ];
     var chart = $('#container').highcharts({
         chart: {
             type: 'bar'
@@ -151,7 +169,14 @@ QUnit.test('Step=1 should preserve ticks(#4411)', function (assert) {
             labels: {
                 step: 1
             },
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Africa', 'America', 'Asia', 'Europe', 'Oceania']
+            categories: [
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania',
+                'Africa', 'America', 'Asia', 'Europe', 'Oceania'
+            ]
         },
         series: [{
             name: 'Year 1800',
@@ -484,7 +509,10 @@ QUnit.test('Monthly ticks (#3500)', function (assert) {
         tickPositions = chart.xAxis[0].tickPositions;
 
     for (var i = 0; i < tickPositions.length; i++) {
-        ticksText.push(chart.xAxis[0].ticks[tickPositions[i]].label.element.childNodes[0].textContent);
+        ticksText.push(
+            chart.xAxis[0].ticks[tickPositions[i]]
+                .label.element.childNodes[0].textContent
+        );
     }
 
     assert.deepEqual(
@@ -609,11 +637,20 @@ QUnit.test('No ticks on short axis (#3195)', function (assert) {
             }
         },
         series: [{
-            data: [380884, 380894, 380894.19, 381027.93, 386350.57, 381027.93, 343328.53, 343560.03, 343364.04, 343364.04, 343364.04, 343364.04]
+            data: [
+                380884, 380894, 380894.19, 381027.93, 386350.57, 381027.93,
+                343328.53, 343560.03, 343364.04, 343364.04, 343364.04, 343364.04
+            ]
         }, {
-            data: [370207, 367742, 367309, 370140, 374598, 369605, 332312, 330942.6462461687, 331200, 333260, 332632, 329863]
+            data: [
+                370207, 367742, 367309, 370140, 374598, 369605, 332312,
+                330942.6462461687, 331200, 333260, 332632, 329863
+            ]
         }, {
-            data: [217020, 217020, 217020, 217020, 217020, 217020, 217020, 217020.83795782478, 217020, 217020, 217020, 217020]
+            data: [
+                217020, 217020, 217020, 217020, 217020, 217020,
+                217020, 217020.83795782478, 217020, 217020, 217020, 217020
+            ]
         }]
     });
 
@@ -638,28 +675,32 @@ QUnit.test('No ticks on short axis (#3195)', function (assert) {
     );
 });
 
-QUnit.test('The ticks should be visible when specified tick amount and chart height <200px', function (assert) {
-    var chart = Highcharts.chart('container', {
-        chart: {
-            height: 170
-        },
-        yAxis: {
-            tickAmount: 5
-        },
-        series: [{
-            data: [3, 5, 6, 7, 9, 5]
-        }]
-    });
+QUnit.test(
+    'The ticks should be visible when specified' +
+    ' tick amount and chart height <200px',
+    function (assert) {
+        var chart = Highcharts.chart('container', {
+            chart: {
+                height: 170
+            },
+            yAxis: {
+                tickAmount: 5
+            },
+            series: [{
+                data: [3, 5, 6, 7, 9, 5]
+            }]
+        });
 
-    var yAxis = chart.yAxis[0],
-        tickAmount = yAxis.tickPositions.length;
+        var yAxis = chart.yAxis[0],
+            tickAmount = yAxis.tickPositions.length;
 
-    assert.strictEqual(
-        tickAmount,
-        5,
-        "The amount of tick should be 5."
-    );
-});
+        assert.strictEqual(
+            tickAmount,
+            5,
+            "The amount of tick should be 5."
+        );
+    }
+);
 
 QUnit.test('Ticks and setSize', assert => {
     const clock = TestUtilities.lolexInstall();
@@ -699,8 +740,8 @@ QUnit.test('Ticks and setSize', assert => {
                 pos150,
                 (pos100 + pos200) / 2,
                 1,
-                'The new tick should appear centered between the two existing ' +
-                'ticks (#13507)'
+                'The new tick should appear centered between the two ' +
+                'existing ticks (#13507)'
             );
             done();
         }, 1);
@@ -712,7 +753,8 @@ QUnit.test('Ticks and setSize', assert => {
             assert.strictEqual(
                 chart.xAxis[0].ticks[0].label.attr('opacity'),
                 1,
-                'The label should remain visible after the update sequence (#12137)'
+                'The label should remain visible after the update ' +
+                'sequence (#12137)'
             );
             done();
         }, 2);
@@ -725,7 +767,8 @@ QUnit.test('Ticks and setSize', assert => {
 
 });
 
-QUnit.test('The tick interval after updating series visibility should stay the same (#13369)', function (assert) {
+QUnit.test('The tick interval after updating series visibility should stay ' +
+    'the same (#13369)', function (assert) {
     var chart = Highcharts.chart('container', {
         xAxis: {
             type: 'datetime'
@@ -762,7 +805,8 @@ QUnit.test('The tick interval after updating series visibility should stay the s
     assert.deepEqual(
         initialTickInterval,
         chart.xAxis[0].tickPositions,
-        "Using the scatter and line series the tick interval should stay the same."
+        'Using the scatter and line series the ' +
+        'tick interval should stay the same.'
     );
 
     chart.addSeries({
@@ -780,11 +824,13 @@ QUnit.test('The tick interval after updating series visibility should stay the s
     assert.deepEqual(
         chart.xAxis[0].tickPositions,
         [1580515200000, 1580688000000],
-        "After adding columns series the tick interval should change to make a place for columns."
+        'After adding columns series the tick interval ' +
+        'should change to make a place for columns.'
     );
 });
 
-QUnit.test('In trimTicks, Min and max must be checked when start/endOntick are false (#14417).', function (assert) {
+QUnit.test('In trimTicks, Min and max must be checked when ' +
+    'start/endOntick are false (#14417).', function (assert) {
     var chart = Highcharts.chart('container', {
         xAxis: {
             categories: ['Jan', 'Feb']
@@ -801,7 +847,10 @@ QUnit.test('In trimTicks, Min and max must be checked when start/endOntick are f
         }]
     });
 
-    assert.ok(chart.yAxis[0].max >= 220, 'Max must be 220 to prevent showing parts of chart');
+    assert.ok(
+        chart.yAxis[0].max >= 220,
+        'Max must be 220 to prevent showing parts of chart'
+    );
 
     chart.yAxis[0].update({
         startOnTick: false,
@@ -810,5 +859,30 @@ QUnit.test('In trimTicks, Min and max must be checked when start/endOntick are f
         max: 22   // Now max is less than 29.9
     });
 
-    assert.ok(chart.yAxis[0].min <= 22, 'Min must be 22 to prevent showing parts of chart');
+    assert.ok(
+        chart.yAxis[0].min <= 22,
+        'Min must be 22 to prevent showing parts of chart'
+    );
+});
+
+QUnit.test('#14555: Big values', assert => {
+    [
+        [0, 1.7e+308],
+        [0, -1.7e+308]
+    ].forEach(data => {
+        const chart = Highcharts.chart('container', {
+            series: [{ data }]
+        });
+
+        const axis = chart.yAxis[0];
+
+        assert.ok(
+            axis.tickInterval < Infinity,
+            'tickInterval should be finite'
+        );
+        assert.ok(
+            axis.tickPositions.length > 0,
+            'There should be more than 0 ticks'
+        );
+    });
 });

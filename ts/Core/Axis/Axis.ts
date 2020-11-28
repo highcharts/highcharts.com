@@ -4783,8 +4783,10 @@ class Axis {
     ): Array<number> {
         var pos,
             lastPos,
-            roundedMin =
+            roundedMin = Math.max( // #14555
                 correctFloat(Math.floor(min / tickInterval) * tickInterval),
+                -Number.MAX_VALUE
+            ),
             roundedMax =
                 correctFloat(Math.ceil(max / tickInterval) * tickInterval),
             tickPositions = [],
@@ -4809,11 +4811,12 @@ class Axis {
             // Place the tick on the rounded value
             tickPositions.push(pos);
 
-            // Always add the raw tickInterval, not the corrected one.
-            pos = correctFloat(
+            // Always add the raw tickInterval, not the corrected one. Clamp the
+            // position for very high numbers (#14555)
+            pos = clamp(correctFloat(
                 pos + tickInterval,
                 precision
-            );
+            ), -Number.MAX_VALUE, Number.MAX_VALUE);
 
             // If the interval is not big enough in the current min - max range
             // to actually increase the loop variable, we need to break out to
@@ -4825,6 +4828,13 @@ class Axis {
             // Record the last value
             lastPos = pos;
         }
+
+        // With high numbers on the edge of Number.MAX_VALUE, the computed pos
+        // may exceed roundedMax (#14555)
+        if (pos > roundedMax && tickPositions[tickPositions.length - 1] < roundedMax) {
+            tickPositions.push(roundedMax);
+        }
+
         return tickPositions;
     }
 
@@ -5542,10 +5552,11 @@ class Axis {
                 // tickPix
                 categories ?
                     1 :
-                    // don't let it be more than the data range
-                    ((axis.max as any) - (axis.min as any)) *
-                    (tickPixelIntervalOption as any) /
-                    Math.max(axis.len, tickPixelIntervalOption as any)
+                    // Don't let it be more than the data range
+                    Math.min(
+                        ((axis.max as any) - (axis.min as any)) * (tickPixelIntervalOption as any),
+                        Number.MAX_VALUE // #14555
+                    ) / Math.max(axis.len, tickPixelIntervalOption as any)
             );
         }
 
