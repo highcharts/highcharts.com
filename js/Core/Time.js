@@ -555,11 +555,11 @@ var Time = /** @class */ (function () {
             if (interval === timeUnits.week) {
                 // get start of current week, independent of count
                 minDay = time.get('Day', minDate);
-                time.set('Date', minDate, (time.get('Date', minDate) -
+                time.set('Date', minDate, Math.max(1, (time.get('Date', minDate) -
                     minDay + startOfWeek +
                     // We don't want to skip days that are before
                     // startOfWeek (#7051)
-                    (minDay < startOfWeek ? -7 : 0)));
+                    (minDay < startOfWeek ? -7 : 0))));
             }
             // Get basics for variable time spans
             minYear = time.get('FullYear', minDate);
