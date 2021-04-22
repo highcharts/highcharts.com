@@ -138,15 +138,12 @@ H.AccessibilityComponent = AccessibilityComponent as any;
  *
  * @class
  * @name Highcharts.Accessibility
- *
- * @param {Highcharts.Chart} chart
- *        Chart object
  */
 function Accessibility(
-    this: Highcharts.Accessibility,
-    chart: Chart
+    this: Highcharts.Accessibility
 ): void {
-    this.init(chart);
+    // Separate init function to allow for setting events on
+    // itself during init
 }
 
 Accessibility.prototype = {
@@ -328,7 +325,8 @@ H.Chart.prototype.updateA11yEnabled = function (): void {
         if (a11y) {
             a11y.update();
         } else {
-            this.accessibility = a11y = new (Accessibility as any)(this);
+            this.accessibility = a11y = new (Accessibility as any)();
+            (a11y as Highcharts.Accessibility).init(this);
         }
     } else if (a11y) {
         // Destroy if after update we have a11y and it is disabled

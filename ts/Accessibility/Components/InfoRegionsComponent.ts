@@ -24,6 +24,7 @@ import U from '../../Core/Utilities.js';
 const {
     extend,
     format,
+    fireEvent,
     pick
 } = U;
 
@@ -43,7 +44,6 @@ const {
 import HTMLUtilities from '../Utils/HTMLUtilities.js';
 const {
     addClass,
-    escapeStringForHTML,
     getElement,
     getHeadingTagNameForElement,
     setElAttrs,
@@ -361,6 +361,8 @@ extend(InfoRegionsComponent.prototype, /** @lends Highcharts.InfoRegionsComponen
         ): void {
             component.updateScreenReaderSection(regionKey);
         });
+
+        fireEvent(this.chart.accessibility, 'afterScreenReaderSectionsUpdated');
     },
 
 
@@ -423,15 +425,20 @@ extend(InfoRegionsComponent.prototype, /** @lends Highcharts.InfoRegionsComponen
                 (sectionDiv.firstChild as any) || this.createElement('div')
             );
 
-        this.setScreenReaderSectionAttribs(sectionDiv, regionKey);
-        AST.setElementHTML(hiddenDiv, content);
-        sectionDiv.appendChild(hiddenDiv);
-        region.insertIntoDOM(sectionDiv, chart);
+        if (content) {
+            this.setScreenReaderSectionAttribs(sectionDiv, regionKey);
+            AST.setElementHTML(hiddenDiv, content);
+            sectionDiv.appendChild(hiddenDiv);
+            region.insertIntoDOM(sectionDiv, chart);
 
-        visuallyHideElement(hiddenDiv);
-        unhideChartElementFromAT(chart, hiddenDiv);
-        if (region.afterInserted) {
-            region.afterInserted();
+            visuallyHideElement(hiddenDiv);
+            unhideChartElementFromAT(chart, hiddenDiv);
+            if (region.afterInserted) {
+                region.afterInserted();
+            }
+        } else if (sectionDiv.parentNode) {
+            sectionDiv.parentNode.removeChild(sectionDiv);
+            delete region.element;
         }
     },
 
@@ -456,7 +463,7 @@ extend(InfoRegionsComponent.prototype, /** @lends Highcharts.InfoRegionsComponen
 
         setElAttrs(sectionDiv, {
             id: sectionId,
-            'aria-label': labelText
+            'aria-label': labelText || null
         });
 
         // Sections are wrapped to be positioned relatively to chart in case

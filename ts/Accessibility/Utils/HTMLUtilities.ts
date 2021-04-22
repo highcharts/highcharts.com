@@ -209,7 +209,7 @@ function reverseChildNodes(node: DOMElementType): void {
  */
 function setElAttrs(
     el: DOMElementType,
-    attrs: (HTMLAttributes|SVGAttributes)
+    attrs: AnyRecord
 ): void {
     Object.keys(attrs).forEach(function (attr: string): void {
         var val = (attrs as any)[attr];

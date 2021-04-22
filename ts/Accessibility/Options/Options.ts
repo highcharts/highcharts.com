@@ -320,6 +320,8 @@ var options: DeepPartial<Highcharts.Options> = {
              * corresponds to the heading level below the previous heading in
              * the DOM.
              *
+             * Set to empty to remove the region.
+             *
              * @since 8.0.0
              */
             beforeChartFormat:
@@ -346,6 +348,8 @@ var options: DeepPartial<Highcharts.Options> = {
             /**
              * Format for the screen reader information region after the chart.
              * Analogous to [beforeChartFormat](#accessibility.screenReaderSection.beforeChartFormat).
+             *
+             * Set to empty to remove the region.
              *
              * @since 8.0.0
              */
@@ -540,7 +544,7 @@ var options: DeepPartial<Highcharts.Options> = {
          * element will be included in the chart description for screen reader
          * users.
          *
-         * By default, the chart looks for an adjacent sibling element with the
+         * By default, the chart looks for a sibling element with the
          * `highcharts-description` class.
          *
          * The feature can be disabled by setting the option to an empty string,
@@ -565,7 +569,7 @@ var options: DeepPartial<Highcharts.Options> = {
          * @type  {string|Highcharts.HTMLDOMElement}
          * @since 8.0.0
          */
-        linkedDescription: '*[data-highcharts-chart="{index}"] + .highcharts-description', // eslint-disable-line
+        linkedDescription: '*[data-highcharts-chart="{index}"] ~ .highcharts-description', // eslint-disable-line
 
         /**
          * A hook for adding custom components to the accessibility module.

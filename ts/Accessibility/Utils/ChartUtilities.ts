@@ -25,7 +25,9 @@ import U from '../../Core/Utilities.js';
 const {
     defined,
     find,
-    fireEvent
+    fireEvent,
+    isNumber,
+    numberFormat
 } = U;
 
 
@@ -193,17 +195,36 @@ function getAxisTimeLengthDesc(axis: Highcharts.Axis): string {
  * @return {string}
  */
 function getAxisFromToDescription(axis: Highcharts.Axis): string {
-    const chart = axis.chart;
+    const chart = axis.chart as Highcharts.AccessibilityChart;
     const dateRangeFormat = (
         chart.options &&
         chart.options.accessibility &&
         chart.options.accessibility.screenReaderSection.axisRangeDateFormat ||
         ''
     );
+    const linearValueFormat = (val: number): string => {
+        const a11yOptions = chart.options.accessibility,
+            a11yPointOptions = a11yOptions && a11yOptions.point || {},
+            tooltipOptions = chart.options.tooltip || {},
+            lang = chart.options.lang || {};
+
+        if (isNumber(val)) {
+            return numberFormat(
+                val,
+                a11yPointOptions.valueDecimals ||
+                    tooltipOptions.valueDecimals ||
+                    -1,
+                lang.decimalPoint,
+                (lang.accessibility as any).thousandsSep || lang.thousandsSep
+            );
+        }
+
+        return val;
+    };
     const format = function (axisKey: string): string {
         return axis.dateTime ? chart.time.dateFormat(
             dateRangeFormat, (axis as any)[axisKey]
-        ) : (axis as any)[axisKey];
+        ) : linearValueFormat((axis as any)[axisKey]);
     };
 
     return chart.langFormat(

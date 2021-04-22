@@ -1,0 +1,173 @@
+#dashboard-section {
+    font-family: 'Roboto', sans-serif;
+    margin: 1.2em;
+    margin-bottom: 30px;
+}
+
+#dashboard-section a, #dashboard-section a:visited  {
+    color: #2256a3;
+    text-decoration: underline;
+}
+
+#intro-container {
+    max-width: 1000px;
+}
+
+#charts-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 25px 0;
+    padding: 0;
+}
+
+.population-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    padding-left: 15px;
+    max-width: 350px;
+    min-width: 300px;
+    border-left: 1px solid #f5f5f5;
+}
+
+.population-details h2 {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: normal;
+    color: #333333;
+}
+
+.population-details select {
+    margin: 0 20px 0 10px;
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+
+.details-figure, .mini-charts  {
+    margin: 20px auto 5px;
+    width: 100%;
+}
+
+.mini-charts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.map-figure, .highcharts-data-table table {
+    min-width: 300px; 
+    max-width: 1200px;
+    font-size: 0.9em;
+    margin: 0;
+    flex: 1;
+    padding-right: 15px;
+}
+
+#map-container {
+    height: 600px;
+}
+
+#history-container {
+    height: 200px;
+}
+
+#increase-container, #density-container {
+    height: 180px;
+}
+
+#cities-container {
+    height: 200px;
+    margin: 0 15px;
+}
+
+.labelled-dropdown {
+    display: flex;
+}
+
+.labelled-dropdown select {
+    flex: 1;
+}
+
+.highcharts-data-table table {
+    font-family: 'Roboto', sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+}
+.highcharts-data-table caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0);
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+.highcharts-data-table thead th {
+    font-weight: bold;
+}
+.highcharts-data-table th {
+    font-weight: normal;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8fa;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+@media screen and (max-width: 810px) {
+    #charts-container {
+        display: block;
+    }
+    .population-details {
+        margin: 0 auto;
+        max-width: 450px;
+        border-left: none;
+        padding-left: 0;
+    }
+    .map-figure, .highcharts-data-table table {
+        padding-right: 0;
+    }
+}
+
+@media screen and (min-width: 810px) and (max-width: 1050px) {
+    .population-details {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #map-container {
+        height: 350px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px) {
+    #map-container {
+        height: 400px;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    #map-container {
+        height: 450px;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+    #map-container {
+        height: 550px;
+    }
+}

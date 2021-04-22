@@ -186,6 +186,14 @@ KeyboardNavigation.prototype = {
             this.pointerIsOverChart = false;
         });
 
+        ep.addEvent(chart.accessibility, 'afterScreenReaderSectionsUpdated', (): void => {
+            const a11yOptions = this.chart.options.accessibility;
+            const keyboardOptions = a11yOptions && a11yOptions.keyboardNavigation;
+            if (keyboardOptions && keyboardOptions.enabled) {
+                this.updateExitAnchor();
+            }
+        });
+
         // Init first module
         if (this.modules.length) {
             this.modules[0].init(1);
@@ -395,6 +403,10 @@ KeyboardNavigation.prototype = {
     updateExitAnchor: function (this: Highcharts.KeyboardNavigation): void {
         var endMarkerId = 'highcharts-end-of-chart-marker-' + this.chart.index,
             endMarker = getElement(endMarkerId);
+
+        if (endMarker === this.exitAnchor) {
+            return; // Nothing to update
+        }
 
         this.removeExitAnchor();
 

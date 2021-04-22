@@ -1,0 +1,64 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/maps/modules/map.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+<script src="https://code.highcharts.com/modules/sonification.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/themes/high-contrast-light.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/nordic-countries.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<section id="dashboard-section" aria-labelledby="section-heading">
+    <h1 id="section-heading">Highcharts Population Dashboard</h1>
+
+    <div id="intro-container">
+        <p>This is an example dashboard highlighting some accessibility features of Highcharts. The dashboard visualizes population data for 7 Nordic countries, and involves multiple interactive charts. The chart data is collected from <a href="https://www.worldbank.org/">WorldBank.org</a>, using census data from 1984 to 2019.</p>
+
+        <p>Clicking on countries in the map will display population details for that country in the adjacent charts.</p>
+    </div>
+
+    <div id="charts-container">
+        <figure class="map-figure">
+            <div id="map-container"></div>
+            <p class="highcharts-description">
+                Map and table showing the population of 7 Nordic countries. Click on the countries in the map to view population details. Sweden is by far the most populated country, with Faroe Islands being the least populated.
+            </p>
+        </figure>
+
+        <div class="population-details">
+            <h2>Details</h2>
+            
+            <div class="labelled-dropdown">
+                <label for="selected-country">Selected country:</label>
+                <select id="selected-country">
+                    <option value="se">Sweden</option>
+                    <option value="dk">Denmark</option>
+                    <option value="fi">Finland</option>
+                    <option value="no">Norway</option>
+                    <option value="is">Iceland</option>
+                    <option value="gl">Greenland</option>
+                    <option value="fo">Faroe Islands</option>
+                </select>
+            </div>
+
+            <figure class="details-figure">
+                <div id="history-container"></div>
+            </figure>
+
+            <div class="mini-charts">
+                <div id="increase-container"></div>
+                <div id="density-container"></div>
+            </div>
+
+            <figure class="details-figure">
+                <div id="cities-container"></div>
+            </figure>
+        </div>
+    </div>
+
+    <p>For more information, visit us at <a href="https://www.highcharts.com">highcharts.com</a>.</p>
+</section>

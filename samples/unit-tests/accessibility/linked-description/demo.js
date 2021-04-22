@@ -97,8 +97,8 @@ QUnit.module('linked-description', function (hooks) {
                 ['containerChild', ''],
                 ['containerAmbiguous', ''],
                 ['containerDecoy', 'Decoy'],
-                ['containerMultiple', 'Second'],
-                ['containerMultiple2A', ''],
+                ['containerMultiple', ''],
+                ['containerMultiple2A', 'Multiple'],
                 ['containerMultiple2B', 'Multiple']
             ];
 

@@ -174,8 +174,8 @@ extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */
     makeCreditsAccessible: function (
         this: Highcharts.ContainerComponent
     ): void {
-        var chart = this.chart,
-            credits = chart.credits;
+        const chart = this.chart;
+        const credits = chart.credits;
 
         if (credits) {
             if (credits.textStr) {
@@ -186,6 +186,14 @@ extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */
                     )
                 );
             }
+
+            // Hide links in credits from tab navigation until this can be
+            // dealt with properly, to avoid keyboard traps.
+            const links = credits.element.getElementsByTagName('a');
+            for (let i = 0; i < links.length; ++i) {
+                links[i].setAttribute('tabindex', -1);
+            }
+
             unhideChartElementFromAT(chart, credits.element);
         }
     },
