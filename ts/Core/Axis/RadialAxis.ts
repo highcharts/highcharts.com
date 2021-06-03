@@ -959,7 +959,7 @@ class RadialAxis {
             // Disable certain features on angular and polar axes
             if (angular || polar) {
                 axis.isRadial = true;
-                (chartOptions.chart as any).zoomType = null as any;
+                //// (chartOptions.chart as any).zoomType = null as any;
 
                 if (!axis.labelCollector) {
                     axis.labelCollector = axis.createLabelCollector();

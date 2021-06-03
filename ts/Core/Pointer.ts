@@ -315,7 +315,10 @@ class Pointer {
             Math.pow(mouseDownY - chartY, 2)
         );
 
-        if (this.hasDragged > 10) {
+        //// if (this.hasDragged > 10) {
+        ///
+        if (this.hasDragged > 10 || chart.polar) {
+        ///
             clickedInside = chart.isInsidePlot(
                 mouseDownX - plotLeft,
                 mouseDownY - plotTop,
@@ -324,6 +327,53 @@ class Pointer {
                 }
             );
 
+            /// TO DO: refactor
+            let center = (chart as any).pane[0] &&
+                (chart as any).pane[0].center,
+                centerX = center[0] + chart.plotLeft,
+                centerY = center[1] + chart.plotTop;
+
+            // make a selection
+            if (chart.hasCartesianSeries &&
+                (this.zoomX || this.zoomY) &&
+                clickedInside &&
+                !panKey) {
+                if (!selectionMarker) {
+                    if (chart.polar) {
+                        /// TO DO: Determine which pane should be picked
+                        selectionMarker = chart.renderer.arc(
+                            centerX,
+                            centerY
+                        );
+                    } else {
+                        selectionMarker = chart.renderer.rect(
+                            plotLeft,
+                            plotTop,
+                            zoomHor ? 1 : plotWidth,
+                            zoomVert ? 1 : plotHeight,
+                            0
+                        );
+                    }
+
+                    this.selectionMarker = selectionMarker
+                        .attr({
+                            'class': 'highcharts-selection-marker',
+                            zIndex: 7
+                        }).add();
+
+                    if (!chart.styledMode) {
+                        selectionMarker.attr({
+                            fill: (chartOptions.selectionMarkerFill ||
+                                color('#335cad')
+                                    .setOpacity(0.25).get())
+                        });
+                    }
+                }
+            }
+            ///
+
+            ////
+            /*
             // make a selection
             if (
                 chart.hasCartesianSeries &&
@@ -357,7 +407,110 @@ class Pointer {
                     }
                 }
             }
+            */
+            ////
 
+            ///
+            if (chart.polar) {
+                let fullCircle = Math.PI * 2,
+                    startAngle = 0,
+                    endAngle = fullCircle,
+                    r = center[2] / 2,
+                    innerR = center[3] / 2;
+
+                // adjust the width of the selection marker
+                if (selectionMarker && zoomHor) {
+                    let center;
+                    if (chart.polar) {
+                        center = (chart as any).pane[0].center;
+                    }
+                    let startAngleRad = (chart as any).xAxis[0].startAngleRad,
+                        sAngle = Math.atan2(
+                            mouseDownY - chart.plotTop - center[1],
+                            mouseDownX - chart.plotLeft - center[0]
+                        ) - startAngleRad,
+                        eAngle = Math.atan2(
+                            chartY - chart.plotTop - center[1],
+                            chartX - chart.plotLeft - center[0]
+                        ) - startAngleRad;
+
+                    if (sAngle <= 0) {
+                        sAngle += fullCircle;
+                    }
+
+                    if (eAngle <= 0) {
+                        eAngle += fullCircle;
+                    }
+
+                    if (eAngle < sAngle) {
+                        // Swapping angles
+                        eAngle = [sAngle, sAngle = eAngle][0];
+                    }
+
+                    startAngle = sAngle + startAngleRad;
+                    endAngle = eAngle + startAngleRad;
+
+                    /// TO DO: Create a constrain for the angle range
+                    // selectionMarker.attr({
+                    //     r: center[2] / 2,
+                    //     innerR: center[3] / 2,
+                    //     start: sAngle + startAngleRad,
+                    //     end: eAngle + startAngleRad
+                    // });
+                }
+                // adjust the height of the selection marker
+                if (selectionMarker && zoomVert) {
+                    let center;
+                    if (chart.polar) {
+                        center = (chart as any).pane[0].center;
+                    }
+                    let fullCircle = Math.PI * 2,
+                        innR = Math.sqrt(
+                            Math.pow(mouseDownX - chart.plotLeft - center[0], 2) +
+                            Math.pow(mouseDownY - chart.plotTop - center[1], 2)
+                        ),
+                        rd = Math.sqrt(
+                            Math.pow(chartX - chart.plotLeft - center[0], 2) +
+                            Math.pow(chartY - chart.plotTop - center[1], 2)
+                        );
+
+                    if (rd < innR) {
+                        // Swapping angles
+                        innR = [rd, rd = innR][0];
+                    }
+
+                    if (rd > center[2] / 2) {
+                        rd = center[2] / 2;
+                    }
+
+                    if (innR < center[3] / 2) {
+                        innR = center[3] / 2;
+                    }
+
+                    r = rd;
+                    innerR = innR;
+
+                    /// TO DO: Create the constrain for angle range
+                    // selectionMarker.attr({
+                    //     r: rd,
+                    //     innerR: innR,
+                    //     start: 0,
+                    //     end: fullCircle
+                    // });
+                }
+
+                /// TO DO: Create the constrain for angle range
+                (selectionMarker as any).attr({
+                    r: r,
+                    innerR: innerR,
+                    start: startAngle,
+                    end: endAngle
+                });
+            }
+            ///
+
+            ////
+            /*
             // adjust the width of the selection marker
             if (selectionMarker && zoomHor) {
                 size = chartX - mouseDownX;
@@ -374,6 +527,8 @@ class Pointer {
                     y: (size > 0 ? 0 : size) + mouseDownY
                 });
             }
+            */
+            ////
 
             // panning
             if (clickedInside &&
@@ -432,6 +587,26 @@ class Pointer {
 
             let runZoom;
 
+            /// TO DO: refactor
+            if (chart.polar) {
+                selectionLeft = selectionBox.attr ?
+                    selectionBox.attr('start') :
+                    selectionBox.start;
+
+                selectionTop = selectionBox.attr ?
+                    selectionBox.attr('r') :
+                    selectionBox.r;
+
+                selectionWidth = selectionBox.attr ?
+                    selectionBox.attr('end') :
+                    selectionBox.end;
+
+                selectionHeight = selectionBox.attr ?
+                    selectionBox.attr('innerR') :
+                    selectionBox.innerR;
+            }
+            ///
+
             // a selection has been made
             if (this.hasDragged || hasPinched) {
 
@@ -453,7 +628,9 @@ class Pointer {
                         isNumber(selectionLeft) &&
                         isNumber(selectionTop)
                     ) { // #859, #3569
-                        const horiz = axis.horiz,
+                        //// const horiz = axis.horiz,
+                        ///
+                        let horiz = axis.horiz,
                             minPixelPadding = e.type === 'touchend' ?
                                 axis.minPixelPadding :
                                 0, // #1207, #3075
@@ -468,6 +645,21 @@ class Pointer {
                                         selectionTop + selectionHeight
                                 ) - minPixelPadding
                             );
+
+                        ///
+                        /// TO DO: REFACTOR
+                        if (chart.polar) {
+                            selectionMin = axis.toValue(
+                                selectionLeft - (axis as any).startAngleRad,
+                                true
+                            );
+
+                            selectionMax = axis.toValue(
+                                selectionWidth - (axis as any).startAngleRad,
+                                true
+                            );
+                        }
+                        ///
 
                         (selectionData as any)[axis.coll].push({
                             axis: axis,
