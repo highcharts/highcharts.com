@@ -28,6 +28,7 @@ const {
     attr,
     createElement,
     extend,
+    isNumber,
     pick
 } = U;
 
@@ -268,7 +269,13 @@ class HTMLRenderer extends SVGRenderer {
                                     opacity: parentGroup.opacity, // #5075
                                     cursor: parentGroupStyles.cursor, // #6794
                                     pointerEvents:
-                                        parentGroupStyles.pointerEvents // #5595
+                                        parentGroupStyles.pointerEvents, // #5595
+                                    zIndex: // #11701
+                                        isNumber(parentGroup.zIndex) ?
+                                            (Number(
+                                                renderer.box.parentNode.style.zIndex
+                                            ) || 0) + parentGroup.zIndex :
+                                            void 0
 
                                 // the top group is appended to container
                                 },
