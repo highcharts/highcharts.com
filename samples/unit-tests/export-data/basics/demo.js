@@ -1168,11 +1168,9 @@ QUnit.test('Point name with category (#13293)', function (assert) {
 
 QUnit.test('Toggle data table (#13690)', function (assert) {
     var chart = Highcharts.chart('container', {
-        series: [
-            {
-                data: [2, 5, 1, 6, 7, 8, 5]
-            }
-        ]
+        series: [{
+            data: [2, 5, 1, 6, 7]
+        }]
     });
 
     assert.notOk(chart.dataTableDiv, 'Table should not be visible.');
@@ -1185,6 +1183,34 @@ QUnit.test('Toggle data table (#13690)', function (assert) {
         chart.dataTableDiv.style.display,
         'none',
         'Table should not be visible again.'
+    );
+
+    chart.viewData();
+    const csv = '"Category","Series 1"\n' +
+        `0,2\n` +
+        `1,5\n` +
+        '2,1\n' +
+        '3,6\n' +
+        '4,7';
+    assert.strictEqual(
+        csv,
+        chart.getCSV(),
+        'The table should show the values.'
+    );
+
+    chart.series[0].update({
+        data: [7, 6, 5, 4, 3]
+    });
+    const csvUpdated = '"Category","Series 1"\n' +
+        '0,7\n' +
+        '1,6\n' +
+        '2,5\n' +
+        '3,4\n' +
+        '4,3';
+    assert.strictEqual(
+        csvUpdated,
+        chart.getCSV(),
+        'The table should re-render after a data update, #14320.'
     );
 });
 
