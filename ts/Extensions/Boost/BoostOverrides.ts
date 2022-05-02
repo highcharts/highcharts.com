@@ -338,7 +338,7 @@ wrap(Series.prototype, 'getExtremes', function (
         this: Series,
         proceed: Function
     ): void {
-        const letItPass = this.options.stacking &&
+        const letItPass = (this.options.stacking || this.type === 'networkgraph') &&
             (method === 'translate' || method === 'generatePoints');
 
         if (
@@ -369,7 +369,8 @@ wrap(Series.prototype, 'getExtremes', function (
             'arearange',
             'columnrange',
             'heatmap',
-            'treemap'
+            'treemap',
+            'networkgraph'
         ].forEach(function (type: string): void {
             if (seriesTypes[type]) {
                 wrap(seriesTypes[type].prototype, method, branch);
@@ -562,6 +563,9 @@ Series.prototype.destroyGraphics = function (): void {
         for (i = 0; i < points.length; i = i + 1) {
             point = points[i];
             if (point && point.destroyElements) {
+                if (series.is('networkgraph') && point.dataLabel) {
+                    (point as any).dataLabelStr = point.dataLabel.textStr;
+                }
                 point.destroyElements(); // #7557
             }
         }

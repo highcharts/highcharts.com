@@ -321,7 +321,7 @@ function init(): void {
                 fireEvent(series, 'renderedCanvas');
 
                 // Go back to prototype, ready to build
-                delete series.buildKDTree;
+                delete (series as any).buildKDTree;
                 series.buildKDTree();
 
                 if (boostOptions.debug.timeKDTree) {
@@ -364,7 +364,7 @@ function init(): void {
     if (seriesTypes.bubble) {
         // By default, the bubble series does not use the KD-tree, so force it
         // to.
-        delete seriesTypes.bubble.prototype.buildKDTree;
+        delete (seriesTypes as any).bubble.prototype.buildKDTree;
         // seriesTypes.bubble.prototype.directTouch = false;
 
         // Needed for markers to work correctly

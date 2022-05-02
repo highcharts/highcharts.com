@@ -54,7 +54,7 @@ export interface DataLabelOptions {
     className?: string;
     color?: ColorType;
     crop?: boolean;
-    defer?: boolean;
+    defer?: boolean | number;
     enabled?: boolean;
     filter?: DataLabelFilterOptions;
     format?: string;

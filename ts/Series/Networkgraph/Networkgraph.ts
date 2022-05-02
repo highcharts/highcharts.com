@@ -668,6 +668,7 @@ interface NetworkgraphSeries {
     drawGraph: void;
     forces: Array<string>;
     hasDraggableNodes: boolean;
+    initialisedDataLabels?: boolean;
     isCartesian: boolean;
     layout: Highcharts.NetworkgraphLayout;
     nodeLookup: NodesComposition.SeriesComposition['nodeLookup'];
@@ -956,27 +957,40 @@ extend(NetworkgraphSeries.prototype, {
     render: function (this: NetworkgraphSeries): void {
         const series = this,
             points = series.points,
+            seriesOptions = series.options,
             hoverPoint = series.chart.hoverPoint,
             dataLabels = [] as Array<SVGElement>;
 
         // Render markers:
         series.points = series.nodes;
         seriesTypes.line.prototype.render.call(this);
-        series.points = points;
 
-        points.forEach(function (
-            point: Highcharts.NetworkgraphPoint
-        ): void {
-            if (point.fromNode && point.toNode) {
-                point.renderLink();
-                point.redrawLink();
-            }
-        });
+        series.points = points || [];
+
+        // Draw the data labels if not handled by standard render method.
+        if (
+            series.chart.isBoosting &&
+            series.drawDataLabels &&
+            seriesOptions.dataLabels &&
+            seriesOptions.dataLabels.enabled
+        ) {
+            series.drawDataLabels();
+        } else {
+            (points || []).forEach(function (
+                point: Highcharts.NetworkgraphPoint
+            ): void {
+                if (point.fromNode && point.toNode) {
+                    point.renderLink();
+                    point.redrawLink();
+                }
+            });
+        }
+
+        seriesTypes.line.prototype.render.call(this);
 
         if (hoverPoint && hoverPoint.series === series) {
             series.redrawHalo(hoverPoint);
         }
-
         if (series.chart.hasRendered &&
             !(series.options.dataLabels as any).allowOverlap
         ) {
@@ -992,20 +1006,65 @@ extend(NetworkgraphSeries.prototype, {
     // Networkgraph has two separate collecions of nodes and lines, render
     // dataLabels for both sets:
     drawDataLabels: function (this: NetworkgraphSeries): void {
-        const textPath = (this.options.dataLabels as any).textPath;
 
-        // Render node labels:
-        Series.prototype.drawDataLabels.apply(this, arguments as any);
+        const series = this,
+            dLOptions = series.options.dataLabels;
+        let opacity: number | undefined;
 
-        // Render link labels:
-        this.points = this.data;
-        (this.options.dataLabels as any).textPath =
-            (this.options.dataLabels as any).linkTextPath;
-        Series.prototype.drawDataLabels.apply(this, arguments as any);
+        if (dLOptions) {
+            const textPath = dLOptions.textPath;
 
-        // Restore nodes
-        this.points = this.nodes;
-        (this.options.dataLabels as any).textPath = textPath;
+            if (!this.initialisedDataLabels) {
+
+                if (dLOptions.style) {
+                    opacity = dLOptions.style.opacity;
+                    dLOptions.style.opacity = 0;
+                }
+                series.initialisedDataLabels = true;
+
+                // Render node labels:
+                Series.prototype.drawDataLabels.apply(this, arguments as any);
+
+                // Render link labels:
+                if (dLOptions.linkFormat) {
+
+                    series.points = series.data;
+                    dLOptions.textPath = dLOptions.linkTextPath;
+
+                    Series.prototype.drawDataLabels.apply(this, arguments as any);
+
+                    // Restore nodes
+                    series.points = series.nodes;
+                    dLOptions.textPath = textPath;
+                }
+
+            } else if (Date.now() - (this.layout.startTime || 0) > (dLOptions.defer || 0)) {
+
+                series.nodes.forEach(function (point: NetworkgraphPoint): void {
+                    if (point.dataLabel) {
+                        point.dataLabel.css({
+                            opacity: opacity
+                        });
+                        point.dataLabel.attr({
+                            x: point.plotX,
+                            y: point.plotY
+                        });
+                    }
+                });
+
+                series.data.forEach(function (point: NetworkgraphPoint): void {
+                    if (point.dataLabel) {
+                        point.dataLabel.css({
+                            opacity: opacity
+                        });
+                        point.dataLabel.attr({
+                            x: point.plotX,
+                            y: point.plotY
+                        });
+                    }
+                });
+            }
+        }
     },
 
     // Return the presentational attributes.

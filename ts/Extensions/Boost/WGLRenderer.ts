@@ -702,6 +702,81 @@ function GLRenderer(
         //     }
         // });
 
+        if (series.is('networkgraph')) {
+            let colorIndex = 0;
+            while (i < sdata.length - 1) {
+
+                d = (series.data[++i] as any).getLinkPath();
+
+                if (typeof d === 'undefined') {
+                    continue;
+                }
+
+                if (chartDestroyed) {
+                    break;
+                }
+
+                if (d) {
+                    nextInside = true;
+                }
+
+                beginSegment();
+
+                x = (d as any)[0][1] - chart.plotLeft;
+                y = (d as any)[0][2] - chart.plotTop;
+
+                if (y === null && connectNulls || !nextInside) {
+                    continue;
+                }
+
+                // Uncomment this to enable color by point.
+                // This currently left disabled as the charts look really ugly
+                // when enabled and there's a lot of points.
+                // Leaving in for the future (tm).
+                if (series.options.colorByPoint) {
+                    colorIndex = ++colorIndex %
+                        (series as any).chart.options.colors.length;
+                    pcolor = color((series as any).chart.options.colors[colorIndex]).rgba as any;
+                    pcolor[0] /= 255.0;
+                    pcolor[1] /= 255.0;
+                    pcolor[2] /= 255.0;
+                }
+
+                // useGPUTranslations is always false in Networkgraph
+                inst.skipTranslation = true;
+
+                vertice(
+                    x,
+                    y,
+                    0 as any,
+                    2,
+                    pcolor
+                );
+
+                hadPoints = true;
+                firstPoint = false;
+
+
+                x = (d as any)[1][1] - chart.plotLeft;
+                y = (d as any)[1][2] - chart.plotTop;
+
+                if (y === null && connectNulls || !nextInside) {
+                    continue;
+                }
+
+                vertice(
+                    x,
+                    y,
+                    0 as any,
+                    2,
+                    pcolor
+                );
+
+                lastX = x;
+                lastY = y;
+            }
+        }
+
         while (i < sdata.length - 1) {
             d = sdata[++i];
 
@@ -1131,6 +1206,7 @@ function GLRenderer(
                     'bar': 'lines',
                     'line': 'line_strip',
                     'scatter': 'points',
+                    'networkgraph': 'line_strip',
                     'heatmap': 'triangles',
                     'treemap': 'triangles',
                     'bubble': 'points'

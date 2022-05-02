@@ -106,6 +106,7 @@ declare global {
             public series: Array<NetworkgraphSeries>;
             public simulation: (boolean|number);
             public startTemperature?: number;
+            public startTime?: number;
             public systemTemperature?: number;
             public temperature?: number;
             public addElementsToCollection<T, C extends T>(
@@ -229,7 +230,8 @@ extend(
                 series = this.series,
                 options = this.options;
 
-
+            // Store starting time of simulation for Defer option
+            layout.startTime = Date.now();
             layout.currentStep = 0;
             layout.forces = series[0] && series[0].forces || [];
             layout.chart = series[0] && series[0].chart;
