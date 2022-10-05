@@ -89,9 +89,11 @@ interface BoxObject extends R.BoxObject {
     anchorX: number;
     anchorY: number;
     boxWidth: number;
+    boxHeight: number;
     point: Point;
     tt: SVGElement;
-    x: number;
+    x?: number;
+    y?: number;
 }
 
 /* *
@@ -894,7 +896,7 @@ class Tooltip {
          * @name Highcharts.Tooltip#split
          * @type {boolean|undefined}
          */
-        this.split = options.split && !chart.inverted && !chart.polar;
+        this.split = options.split && !chart.polar;
 
         /**
          * When the tooltip is shared, the entire plot area will capture mouse
@@ -1180,7 +1182,9 @@ class Tooltip {
             chart: {
                 chartWidth,
                 chartHeight,
+                inverted,
                 plotHeight,
+                plotWidth,
                 plotLeft,
                 plotTop,
                 pointer,
@@ -1237,23 +1241,27 @@ class Tooltip {
             let anchorX;
             let anchorY;
             if (isHeader) {
-                // Set anchorX to plotX
-                anchorX = plotLeft + plotX;
-                // Set anchorY to center of visible plot area.
-                anchorY = plotTop + plotHeight / 2;
+                // Set anchorX to plotX or if inverted axes start of plot
+                anchorX = inverted ? 0 : plotLeft + plotX;
+                // Set anchorY to center of visible plot area or to plotX
+                anchorY = inverted ? plotHeight - plotX :
+                    plotTop + plotHeight / 2;
             } else {
                 const { xAxis, yAxis } = series;
                 // Set anchorX to plotX. Limit to within xAxis.
-                anchorX = xAxis.pos + clamp(
-                    plotX,
-                    -distance,
-                    xAxis.len + distance
-                );
+                anchorX = inverted ? plotWidth - plotY :
+                    xAxis.pos + clamp(
+                        plotX,
+                        -distance,
+                        xAxis.len + distance
+                    );
 
-                // Set anchorY, limit to the scrollable plot area
-                if (series.shouldShowTooltip(0, yAxis.pos - plotTop + plotY, {
-                    ignoreX: true
-                })) {
+                if (inverted) {
+                    anchorY = plotHeight + plotTop - plotX;
+                } else if (series.shouldShowTooltip(0,
+                    yAxis.pos - plotTop + plotY, { ignoreX: true }
+                )) {
+                    // Set anchorY, limit to the scrollable plot area
                     anchorY = yAxis.pos + plotY;
                 }
             }
@@ -1292,23 +1300,34 @@ class Tooltip {
             anchorY: number,
             isHeader: (boolean|undefined),
             boxWidth: number,
+            boxHeight: number,
             alignedLeft = true
         ): PositionObject {
             let y;
             let x;
 
             if (isHeader) {
-                y = headerTop ? 0 : adjustedPlotHeight;
+                if (inverted) {
+                    y = clamp(
+                        anchorY - boxHeight / 2,
+                        bounds.top,
+                        bounds.bottom
+                    );
+                } else {
+                    y = headerTop ? 0 : adjustedPlotHeight;
+                }
+
                 x = clamp(
                     anchorX - (boxWidth / 2),
                     bounds.left,
                     bounds.right - boxWidth - (tooltip.outside ? chartLeft : 0)
                 );
             } else {
-                y = anchorY - distributionBoxTop;
+                y = anchorY;
                 x = alignedLeft ?
                     anchorX - boxWidth - distance :
-                    anchorX + distance;
+                    inverted ? anchorX + distance + boxWidth :
+                        anchorX + distance;
                 x = clamp(
                     x, alignedLeft ? x : bounds.left, bounds.right
                 );
@@ -1424,6 +1443,7 @@ class Tooltip {
                 // case of overflow
                 const bBox = tt.getBBox();
                 const boxWidth = bBox.width + tt.strokeWidth();
+                const boxHeight = bBox.height;
                 if (isHeader) {
                     headerHeight = bBox.height;
                     adjustedPlotHeight += headerHeight;
@@ -1434,7 +1454,7 @@ class Tooltip {
 
                 const { anchorX, anchorY } = getAnchor(point);
                 if (typeof anchorY === 'number') {
-                    const size = bBox.height + 1;
+                    const size = inverted ? bBox.width + 1 : bBox.height + 1;
                     const boxPosition = (
                         positioner ?
                             positioner.call(
@@ -1447,7 +1467,9 @@ class Tooltip {
                                 anchorX,
                                 anchorY,
                                 isHeader,
-                                boxWidth
+                                boxWidth,
+                                boxHeight,
+                                !inverted
                             )
                     );
 
@@ -1457,12 +1479,14 @@ class Tooltip {
                         anchorX,
                         anchorY,
                         boxWidth,
+                        boxHeight,
                         point,
                         rank: pick((boxPosition as any).rank, isHeader ? 1 : 0),
                         size,
-                        target: boxPosition.y,
+                        target: inverted ? boxPosition.x : boxPosition.y,
                         tt,
-                        x: boxPosition.x
+                        x: boxPosition.x,
+                        y: boxPosition.y
                     });
                 } else {
                     // Hide tooltips which anchorY is outside the visible plot
@@ -1497,8 +1521,16 @@ class Tooltip {
                     box.anchorY,
                     box.point.isHeader,
                     box.boxWidth,
+                    box.boxHeight,
                     false
                 );
+                if (inverted) {
+                    return extend(box, {
+                        target: x,
+                        y
+                    });
+                }
+
                 return extend(box, {
                     target: y,
                     x
@@ -1510,7 +1542,7 @@ class Tooltip {
         tooltip.cleanSplit();
 
         // Distribute and put in place
-        distribute(boxes, adjustedPlotHeight);
+        distribute(boxes, inverted ? plotWidth : adjustedPlotHeight);
         const boxExtremes = {
             left: chartLeft,
             right: chartLeft
@@ -1536,6 +1568,7 @@ class Tooltip {
         boxes.forEach(function (box: AnyRecord): void {
             const {
                 x,
+                y,
                 anchorX,
                 anchorY,
                 pos,
@@ -1545,13 +1578,13 @@ class Tooltip {
             } = box;
             const attributes = {
                 visibility: typeof pos === 'undefined' ? 'hidden' : 'inherit',
-                x,
+                x: inverted ? pos : x,
                 /* NOTE: y should equal pos to be consistent with !split
                  * tooltip, but is currently relative to plotTop. Is left as is
                  * to avoid breaking change. Remove distributionBoxTop to make
                  * it consistent.
                  */
-                y: pos + distributionBoxTop,
+                y: inverted ? y : pos + distributionBoxTop,
                 anchorX,
                 anchorY
             };
