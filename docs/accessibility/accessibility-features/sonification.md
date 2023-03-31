@@ -16,6 +16,11 @@ Installation
 
 Requires the `sonification.js` module. This adds the functions [Chart.sonify](https://api.highcharts.com/class-reference/Highcharts.Chart#sonify), [Series.sonify](https://api.highcharts.com/class-reference/Highcharts.Series#sonify), and [Point.sonify](https://api.highcharts.com/class-reference/Highcharts.Point#sonify), as well as several helper classes and functionality for controlling the playback of the chart. These are detailed below.
 
+```html
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/sonification.js"></script>
+```
+
 Features
 ----------------------------------------------
 
@@ -48,43 +53,43 @@ Use Cases
 **Simple sonification of points**  
 In this example, we will show how to use [Point.sonify](https://api.highcharts.com/class-reference/Highcharts.Point#sonify) to sonify single points.
 
-    
-    Highcharts.chart('container', {
+```js  
+Highcharts.chart('container', {
+    // ...
+    series: [{
         // ...
-        series: [{
-            // ...
-            data: [
-                1, 2, { y: 4, color: 'red' }, 5, 7, 9, 11, 13,
-                { y: 6, color: 'red' }, 7, 1
-            ],
-            point: {
-                events: {
-                    click: function () {
-                        // Sonify the point when clicked
-                        this.sonify({
-                            instruments: [{
-                                instrument: 'triangleMajor',
-                                instrumentMapping: {
-                                    volume: function (point) {
-                                        return point.color === 'red' ? 0.2 : 0.8;
-                                    },
-                                    duration: 200,
-                                    pan: 'x',
-                                    frequency: 'y'
+        data: [
+            1, 2, { y: 4, color: 'red' }, 5, 7, 9, 11, 13,
+            { y: 6, color: 'red' }, 7, 1
+        ],
+        point: {
+            events: {
+                click: function () {
+                    // Sonify the point when clicked
+                    this.sonify({
+                        instruments: [{
+                            instrument: 'triangleMajor',
+                            instrumentMapping: {
+                                volume: function (point) {
+                                    return point.color === 'red' ? 0.2 : 0.8;
                                 },
-                                // Start at C5 note, end at C6
-                                instrumentOptions: {
-                                    minFrequency: 520,
-                                    maxFrequency: 1050
-                                }
-                            }]
-                        });
-                    }
+                                duration: 200,
+                                pan: 'x',
+                                frequency: 'y'
+                            },
+                            // Start at C5 note, end at C6
+                            instrumentOptions: {
+                                minFrequency: 520,
+                                maxFrequency: 1050
+                            }
+                        }]
+                    });
                 }
             }
-        }]
-    });
-    
+        }
+    }]
+});
+```
 
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/sonification/point-basic allow="fullscreen"></iframe>
 
@@ -95,39 +100,39 @@ For a full overview of the available options, see [Point.sonify](https://api.hig
 **Simple sonification of series**  
 In this example we will show how to use [Series.sonify](https://api.highcharts.com/class-reference/Highcharts.Series#sonify) to sonify series, and how this differs from sonifying single points.
 
-    
-    Highcharts.chart('container', {
-        // ...
-        plotOptions: {
-            series: {
-                // ...
-                events: {
-                    click: function () {
-                        // Sonify the series when clicked
-                        this.sonify({
-                            duration: 2200,
-                            pointPlayTime: 'x',
-                            instruments: [{
-                                instrument: 'triangleMajor',
-                                instrumentMapping: {
-                                    volume: 0.8,
-                                    duration: 250,
-                                    pan: 'x',
-                                    frequency: 'y'
-                                },
-                                // Start at C5 note, end at C6
-                                instrumentOptions: {
-                                    minFrequency: 520,
-                                    maxFrequency: 1050
-                                }
-                            }]
-                        });
-                    }
+```js  
+Highcharts.chart('container', {
+    // ...
+    plotOptions: {
+        series: {
+            // ...
+            events: {
+                click: function () {
+                    // Sonify the series when clicked
+                    this.sonify({
+                        duration: 2200,
+                        pointPlayTime: 'x',
+                        instruments: [{
+                            instrument: 'triangleMajor',
+                            instrumentMapping: {
+                                volume: 0.8,
+                                duration: 250,
+                                pan: 'x',
+                                frequency: 'y'
+                            },
+                            // Start at C5 note, end at C6
+                            instrumentOptions: {
+                                minFrequency: 520,
+                                maxFrequency: 1050
+                            }
+                        }]
+                    });
                 }
             }
         }
-    });
-    
+    }
+});
+```   
 
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/sonification/series-basic allow="fullscreen"></iframe>
 
@@ -143,36 +148,36 @@ For a full overview of the available options, see [Series.sonify](https://api.hi
 
 In this example we will show how to sonify a chart with multiple series using [Chart.sonify](https://api.highcharts.com/class-reference/Highcharts.Chart#sonify), and clarify the differences from sonifying single series.
 
-    
-    // Set up a chart
-        var chart = Highcharts.chart('container', {
-            // ...
-        });
-        
-        // Click button to call chart.sonify()
-        document.getElementById('sonify').onclick = function () {
-            chart.sonify({
-                duration: 3000,
-                order: 'sequential',
-                pointPlayTime: 'x',
-                afterSeriesWait: 1000,
-                instruments: [{
-                    instrument: 'triangleMajor',
-                    instrumentMapping: {
-                        volume: 0.8,
-                        duration: 250,
-                        pan: 'x',
-                        frequency: 'y'
-                    },
-                    // Start at C5 note, end at C6
-                    instrumentOptions: {
-                        minFrequency: 520,
-                        maxFrequency: 1050
-                    }
-                }]
-            });
-        };
-        
+```js  
+// Set up a chart
+var chart = Highcharts.chart('container', {
+    // ...
+});
+
+// Click button to call chart.sonify()
+document.getElementById('sonify').onclick = function () {
+    chart.sonify({
+        duration: 3000,
+        order: 'sequential',
+        pointPlayTime: 'x',
+        afterSeriesWait: 1000,
+        instruments: [{
+            instrument: 'triangleMajor',
+            instrumentMapping: {
+                volume: 0.8,
+                duration: 250,
+                pan: 'x',
+                frequency: 'y'
+            },
+            // Start at C5 note, end at C6
+            instrumentOptions: {
+                minFrequency: 520,
+                maxFrequency: 1050
+            }
+        }]
+    });
+};
+```      
 
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/sonification/chart-sequential allow="fullscreen"></iframe>
 
@@ -188,77 +193,78 @@ For a full overview of the available options, see [Chart.sonify](https://api.hig
 
 In this example we will take a look at Earcons and how to use them in a chart.
 
-    
-        Highcharts.chart('container', {
-          // ...
-          plotOptions: {
-              series: {
-                  events: {
-                      click: function () {
-                          // Sonify the series when clicked
-                          this.sonify({
-                              duration: 2000,
-                              pointPlayTime: 'x',
-                              instruments: [{
-                                  instrument: 'sineMajor',
-                                  instrumentMapping: {
-                                      volume: 0.8,
-                                      duration: 250,
-                                      pan: 'x',
-                                      frequency: 'y'
-                                  }
-                              }],
-                              earcons: [{
-                                  // Define the earcon we want to play
-                                  earcon: new Highcharts.sonification.Earcon({
-                                      // Global volume for earcon
-                                      volume: 0.3,
-                                      // Play two instruments for this earcon
-                                      instruments: [{
-                                          instrument: 'triangleMajor',
-                                          playOptions: {
-                                              // Play a rising frequency
-                                              frequency: function (time) {
-                                                  return time * 1760;
-                                              },
-                                              duration: 200,
-                                              pan: 0.8 // Pan 80% right
-                                          }
-                                      }, {
-                                          instrument: 'triangleMajor',
-                                          playOptions: {
-                                              // Play another rising frequency
-                                              frequency: function (time) {
-                                                  return time * 2217;
-                                              },
-                                              duration: 200,
-                                              pan: -0.8 // Pan 80% left
-                                          }
-                                      }]
-                                  }),
-                                  // Play this earcon if this point is crossing
-                                  // another series.
-                                  condition: function (point) {
-                                      var chart = point.series.chart;
-                                      // Go through the other series in the chart
-                                      // and see if there is a point with the same
-                                      // value. If so we return true, and the earcon
-                                      // is played.
-                                      return chart.series.some(function (series) {
-                                          return series !== point.series &&
-                                              series.points.some(function (p) {
-                                                  return p.y === point.y &&
-                                                      p.x === point.x;
-                                              });
-                                      });
-                                  }
-                              }]
-                          });
-                      }
-                  }
-              }
-          }
-      });
+```js     
+Highcharts.chart('container', {
+    // ...
+    plotOptions: {
+        series: {
+            events: {
+                click: function () {
+                    // Sonify the series when clicked
+                    this.sonify({
+                        duration: 2000,
+                        pointPlayTime: 'x',
+                        instruments: [{
+                            instrument: 'sineMajor',
+                            instrumentMapping: {
+                                volume: 0.8,
+                                duration: 250,
+                                pan: 'x',
+                                frequency: 'y'
+                            }
+                        }],
+                        earcons: [{
+                            // Define the earcon we want to play
+                            earcon: new Highcharts.sonification.Earcon({
+                                // Global volume for earcon
+                                volume: 0.3,
+                                // Play two instruments for this earcon
+                                instruments: [{
+                                    instrument: 'triangleMajor',
+                                    playOptions: {
+                                        // Play a rising frequency
+                                        frequency: function (time) {
+                                            return time * 1760;
+                                        },
+                                        duration: 200,
+                                        pan: 0.8 // Pan 80% right
+                                    }
+                                }, {
+                                    instrument: 'triangleMajor',
+                                    playOptions: {
+                                        // Play another rising frequency
+                                        frequency: function (time) {
+                                            return time * 2217;
+                                        },
+                                        duration: 200,
+                                        pan: -0.8 // Pan 80% left
+                                    }
+                                }]
+                            }),
+                            // Play this earcon if this point is crossing
+                            // another series.
+                            condition: function (point) {
+                                var chart = point.series.chart;
+                                // Go through the other series in the chart
+                                // and see if there is a point with the same
+                                // value. If so we return true, and the earcon
+                                // is played.
+                                return chart.series.some(function (series) {
+                                    return series !== point.series &&
+                                        series.points.some(function (p) {
+                                            return p.y === point.y &&
+                                                p.x === point.x;
+                                        });
+                                });
+                            }
+                        }]
+                    });
+                }
+            }
+        }
+    }
+});
+```
 
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/sonification/series-earcon allow="fullscreen"></iframe>
 

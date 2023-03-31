@@ -28,6 +28,8 @@ We also recommend including the exporting and export-data modules. This lets use
 Example of a line chart with the accessibility module:
 <iframe style="width: 100%; height: 470px; border: none;" src='https://www.highcharts.com/samples/embed/highcharts/accessibility/accessible-line' allow="fullscreen"></iframe>
 
+[View demo code](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/accessibility/accessible-line)
+
 Basic configuration
 -------------------
 
@@ -35,7 +37,7 @@ The accessibility module is highly configurable, but the most important option w
 
 If you place the description next to the chart with the `highcharts-description` class set on the description element, Highcharts will automatically link this description to the chart and make it available to screen reader users.
 
-**Linked description:**
+### Linked description:
 
 This behavior can be configured with the [`accessibility.linkedDescription`](https://api.highcharts.com/highcharts/accessibility.linkedDescription) option. It is possible to link the chart to any element on the page using this option. The use of the `<figure>` element in the example above is optional, but can help convey to screen reader users that they are navigating a diagram. Note that use of the `<figcaption>` element should be avoided in this context, as it will interfere with the accessibility features of Highcharts.
 
@@ -47,14 +49,16 @@ This behavior can be configured with the [`accessibility.linkedDescription`](htt
 ```
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/accessibility/accessible-avg-temp allow="fullscreen"></iframe>
 
-**Caption:**
+[View demo code](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/accessibility/accessible-avg-tmp)
+
+### Caption:
 
 It is possible to add the text description directly on the chart SVG as well, using the [`caption`](https://api.highcharts.com/highcharts/caption) option. If this option is used, the caption will automatically be made available to screen reader users. The caption renders at the bottom of the chart, and is included if the chart is exported.
 
 ```js
 Highcharts.chart('container', {
     caption: {
-        text: '<b>The caption renders in the bottom, and is part of the exported chart.</b>'
+        text: '<b>The caption renders at the bottom of the chart, and is included if the chart is exported.</b>'
     },
     // ...
 });
@@ -62,33 +66,46 @@ Highcharts.chart('container', {
 ```
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/caption/text allow="fullscreen"></iframe>
 
-**Description:**
+[View demo code](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/caption/text)
+
+### Description:
 
 If making the text visible is not desirable, or you prefer to add a separate description for screen reader users, you can set the [`accessibility.description`](https://api.highcharts.com/highcharts/accessibility.description) option. Setting this option will expose the description to screen reader users, but keep it visually hidden. This is not generally recommended, since making the description visible will also improve cognitive accessibility, and make it easier for all users to understand the message of the chart. Hidden descriptions are also prone to be forgotten if the chart is updated in the future.
 
+Example with [`series.bar.data.description`](https://api.highcharts.com/highcharts/series.bar.data.description)
 ```js
 Highcharts.chart('container', {
-    accessibility: {
-        description: 'This is the most used desktop screen reader'
-    },
+    series: [{
+        name: 'Percentage usage',
+        data: [{
+            name: 'JAWS',
+            y: 30.2,
+            accessibility: {
+                description: 'This is the most used desktop screen reader'
+            }
+        },
+        // ...
+    }]
     // ...
 });
 ```
 
 <iframe style="width: 100%; height: 470px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/accessibility/accessible-bar allow="fullscreen"></iframe>
 
+[View demo code](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/accessibility/accessible-bar)
+
 
 Other accessible features
 -------------------------
 The Accessibility module adds several layers of functionality for making your charts compatible with assistive technologies, improving the usability of your charts, and helping you reach a broader audience.
-- Keyboard navigation
-- Screen readers
-- Low vision features
-- Voice input
-- Tactile export
-- Sonification
-- Cognitive accessibility
-- Internationalization
+- [Keyboard navigation](https://www.highcharts.com/docs/accessibility/accessibility-features/keyboard-navigation)
+- [Screen readers](https://www.highcharts.com/docs/accessibility/accessibility-features/screen-readers)
+- [Low vision features](https://www.highcharts.com/docs/accessibility/accessibility-features/low-vision)
+- [Voice input](https://www.highcharts.com/docs/accessibility/accessibility-features/voice-input)
+- [Tactile export](https://www.highcharts.com/docs/accessibility/accessibility-features/tactile-export)
+- [Sonification](https://www.highcharts.com/docs/accessibility/accessibility-features/sonification)
+- [Cognitive accessibility](https://www.highcharts.com/docs/accessibility/accessibility-features/cognitive-accessibility)
+- [Internationalization](https://www.highcharts.com/docs/accessibility/accessibility-features/internationalization)
 
 
 See [demos using the Accessibility module](https://www.highcharts.com/demo#accessible-charts).

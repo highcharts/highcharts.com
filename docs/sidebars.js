@@ -170,13 +170,22 @@ module.exports = {
         ],
         'Accessibility': [
             'accessibility/accessibility-module',
-            'accessibility/accessibility-module-feature-overview',
+            {
+                'Accessibility features': [
+                    'accessibility/accessibility-features/feature-overview',
+                    'accessibility/accessibility-features/screen-readers',
+                    'accessibility/accessibility-features/low-vision',
+                    'accessibility/accessibility-features/voice-input',
+                    'accessibility/accessibility-features/tactile-export',
+                    'accessibility/accessibility-features/sonification',
+                    'accessibility/accessibility-features/cognitive-accessibility',
+                    'accessibility/accessibility-features/internationalization'
+                ]
+            },
             'accessibility/configure-the-accessibility-module',
             'accessibility/accessible-dynamic-data',
-            'accessibility/sonification',
             'accessibility/patterns-and-contrast',
-            'accessibility/tables',
-            'accessibility/compliance'
+            'accessibility/tables'
         ],
         'Extending Highcharts': [
             'extending-highcharts/extending-highcharts'
