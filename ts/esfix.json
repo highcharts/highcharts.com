@@ -1,0 +1,295 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "highcharts",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "brace-style": "off", // ts
+        "camelcase": [
+            "error",
+            {
+                "properties": "always"
+            }
+        ],
+        "class-methods-use-this": 1, // @todo
+        "comma-dangle": "off", // ts
+        "consistent-return": 0,
+        "default-case": 0,
+        "default-param-last": 0,
+        "dot-notation": 0,
+        "func-call-spacing": "off", // ts
+        "func-style": 0,
+        "function-paren-newline": [
+            "error",
+            "consistent"
+        ],
+        "indent": "off", // ts
+        "max-len": [
+            "error",
+            {
+                "code": 80,
+                "comments": 80,
+                "ignoreRegExpLiterals": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "ignoreTrailingComments": true,
+                "ignoreUrls": true,
+                "ignorePattern": "`|eslint-disable-line|headerFormat|pointFormat|static defaultOptions| (extends|implements) |@\\w|\\w<|\\.\\/| highcharts\\/|\\]\\(#"
+            }
+        ],
+        "multiline-ternary": [
+            "off", // @todo
+            "always-multiline"
+        ],
+        "no-dupe-class-members": 0,
+        "no-extra-parens": "off", // ts
+        "no-extra-semi": "off", // ts
+        "no-inner-declarations": 0, // deprecated with ES6
+        "no-invalid-this": "off", // ts
+        "no-shadow": 0, // @todo
+        "no-undef": 0,
+        "no-underscore-dangle": 0, // @todo
+        "no-unused-expressions": 0,
+        "no-use-before-define": 0,
+        "no-useless-constructor": 0,
+        "no-useless-escape": 0, // @todo
+        "no-useless-return": 0,
+        "object-curly-spacing": "off", // ts
+        "object-property-newline": [
+            "off", // @todo
+            {
+                "allowAllPropertiesOnSameLine": false
+            }
+        ],
+        "object-shorthand": 0,
+        "prefer-const": 1, // @todo
+        "prefer-spread": 0, // @todo
+        "prefer-rest-params": 0, // @todo
+        "quote-props": [
+            "error",
+            "as-needed",
+            {
+                "keywords": true,
+                "unnecessary": false
+            }
+        ],
+        "require-unicode-regexp": 0, // @todo after IE
+        "semi": 0, // ts
+        "semi-spacing": [
+            "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "space-before-function-paren": "off", // ts
+        "space-infix-ops": "off", // ts
+        "valid-jsdoc": 0,
+        "@typescript-eslint/array-type": [
+            "error",
+            {
+                "default": "generic",
+                "readonly": "generic"
+            }
+        ],
+        "@typescript-eslint/ban-types": 0, // @todo
+        "@typescript-eslint/brace-style": [
+            "error",
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "@typescript-eslint/camelcase": "off", // deprecated
+        "@typescript-eslint/comma-dangle": [
+            "error",
+            "never"
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            {
+                "allowExpressions": false,
+                "allowTypedFunctionExpressions": false
+            }
+        ],
+        "@typescript-eslint/func-call-spacing": [
+            "error",
+            "never"
+        ],
+        "@typescript-eslint/indent": [
+            "error",
+            4,
+            {
+                "CallExpression": {
+                    "arguments": "off"
+                },
+                "FunctionDeclaration": {
+                    "body": 1,
+                    "parameters": "first"
+                },
+                "FunctionExpression": {
+                    "body": 1,
+                    "parameters": "first"
+                },
+                "VariableDeclarator": {
+                    "const": 1,
+                    "let": 1,
+                    "var": 1
+                },
+                "ArrayExpression": 1,
+                "ImportDeclaration": 1,
+                "MemberExpression": 1,
+                "ObjectExpression": 1,
+                "outerIIFEBody": 1,
+                "SwitchCase": 1,
+                "flatTernaryExpressions": false,
+                "ignoreComments": false,
+                "offsetTernaryExpressions": false
+            }
+        ],
+        "@typescript-eslint/no-empty-function": 0, // @todo
+        "@typescript-eslint/no-empty-interface": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        // @todo
+        // "@typescirpt-eslint/no-extra-parens": [
+        //     "error",
+        //     "all",
+        //     {
+        //         "conditionalAssign": false,
+        //         "enforceForArrowConditionals": true,
+        //         "enforceForFunctionPrototypeMethods": true,
+        //         "enforceForNewInMemberExpressions": true,
+        //         "enforceForSequenceExpressions": true,
+        //         "nestedBinaryExpressions": false,
+        //         "returnAssign": false
+        //     }
+        // ],
+        "@typescript-eslint/no-extra-semi": "error",
+        "@typescript-eslint/no-floating-promises": 1, // @todo
+        "@typescript-eslint/no-inferrable-types": 0, // @todo ?
+        "@typescript-eslint/no-invalid-this": "off",
+        "@typescript-eslint/no-namespace": 0,
+        "@typescript-eslint/no-object-literal-type-assertion": 0,
+        "@typescript-eslint/no-this-alias": 0, // @todo
+        "@typescript-eslint/no-unnecessary-qualifier": "error",
+        "@typescript-eslint/no-unnecessary-type-assertion": 0, // @todo
+        "@typescript-eslint/no-unsafe-argument": 0, // @todo
+        "@typescript-eslint/no-unsafe-assignment": 0, // @todo
+        "@typescript-eslint/no-unsafe-call": 0, // @todo
+        "@typescript-eslint/no-unsafe-member-access": 0, // @todo
+        "@typescript-eslint/no-unsafe-return": 0, // @todo
+        "@typescript-eslint/no-unused-vars": 0, // @todo
+        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/no-useless-constructor": 2,
+        "@typescript-eslint/object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "@typescript-eslint/prefer-includes": 0, // @todo
+        "@typescript-eslint/prefer-optional-chain": "off",
+        "@typescript-eslint/prefer-regexp-exec": 0, // @todo
+        "@typescript-eslint/prefer-string-starts-ends-with": 0, // @todo
+        "@typescript-eslint/restrict-plus-operands": 1, // @todo
+        "@typescript-eslint/restrict-template-expressions": 1, // @todo
+        "@typescript-eslint/semi": "error",
+        // @todo
+        // "@typescirpt-eslint/sort-type-union-intersection-members": [
+        //     "error", 
+        //     {
+        //         "groupOrder": [
+        //             "nullish",
+        //             "literal",
+        //             "keyword",
+        //             "named",
+        //             "operator",
+        //             "intersection",
+        //             "union",
+        //             "tuple",
+        //             "object",
+        //             "function",
+        //             "import",
+        //             "conditional"
+        //         ]
+        //     }
+        // ],
+        "@typescript-eslint/space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        "@typescript-eslint/space-infix-ops": [
+            "off", // @todo
+            {
+                "int32Hint": false
+            }
+        ],
+        "@typescript-eslint/unbound-method": 0, // @todo
+        "highcharts/generic-array-type": 2,
+        "highcharts/pretty-length": [
+            1,
+            {
+                "maximalLength": 80
+            }
+        ],
+        "highcharts/doclet-apioption-last": 2,
+        "highcharts/no-highcharts-namespace": 1, // @todo
+        "highcharts/no-highcharts-object": 2,
+        "highcharts/no-import-effects": 1, // @todo
+        "highcharts/no-import-modification": 1, // @todo
+        "highcharts/no-import-type": 2, // @todo
+        "highcharts/no-mixin": 1, // @todo
+        "highcharts/no-optional-chaining": 2,
+        "highcharts/no-private-constructor-doclet": 0,
+        "highcharts/no-wrap": 1, // @todo
+        "highcharts/quote-members": 2,
+        "jsdoc/check-alignment": 1,
+        "jsdoc/check-param-names": 1,
+        "jsdoc/check-tag-names": [
+            "error",
+            {
+                "definedTags": [
+                    "apioption",
+                    "context",
+                    "declare",
+                    "exclude",
+                    "excluding",
+                    "ignore-declaration",
+                    "ignore-option",
+                    "internal",
+                    "optionparent",
+                    "product",
+                    "productdesc",
+                    "sample",
+                    "validvalue"
+                ]
+            }
+        ],
+        "jsdoc/check-types": 0,
+        "jsdoc/require-description": 1,
+        "jsdoc/require-jsdoc": 1, // @todo
+        "jsdoc/require-param": 0, // @todo
+        "jsdoc/require-param-description": 1, // @todo
+        "jsdoc/require-param-type": 1, // @todo
+        "node/no-missing-import": 0, // @todo
+        "node/no-unsupported-features/es-builtins": 0, // @todo
+        "node/no-unsupported-features/es-syntax": 0 // @todo
+    },
+    "settings": {
+        "jsdoc": {
+            "mode": "typescript"
+        }
+    }
+}

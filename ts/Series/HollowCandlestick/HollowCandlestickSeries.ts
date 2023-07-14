@@ -64,81 +64,84 @@ class HollowCandlestickSeries extends CandlestickSeries {
      *
      * */
 
-    /**
-     * A hollow candlestick chart is a style of financial chart used to
-     * describe price movements over time.
-     *
-     * @sample stock/demo/hollow-candlestick/
-     *         Hollow Candlestick chart
-     *
-     * @extends      plotOptions.candlestick
-     * @product      highstock
-     * @requires     modules/hollowcandlestick
-     * @optionparent plotOptions.hollowcandlestick
-     */
-    public static defaultOptions: HollowCandlestickSeriesOptions = merge(CandlestickSeries.defaultOptions, {
+    public static defaultOptions: HollowCandlestickSeriesOptions = merge(
+        CandlestickSeries.defaultOptions,
         /**
-         * The fill color of the candlestick when the current
-         * close is lower than the previous one.
+         * A hollow candlestick chart is a style of financial chart used to
+         * describe price movements over time.
          *
-         * @sample stock/plotoptions/hollow-candlestick-color/
-         *     Custom colors
-         * @sample {highstock} highcharts/css/hollow-candlestick/
-         *         Colors in styled mode
+         * @sample stock/demo/hollow-candlestick/
+         *         Hollow Candlestick chart
          *
-         * @type    {ColorType}
-         * @product highstock
+         * @extends      plotOptions.candlestick
+         * @product      highstock
+         * @requires     modules/hollowcandlestick
+         * @optionparent plotOptions.hollowcandlestick
          */
-        color: Palette.negativeColor,
+        {
+            /**
+             * The fill color of the candlestick when the current
+             * close is lower than the previous one.
+             *
+             * @sample stock/plotoptions/hollow-candlestick-color/
+             *     Custom colors
+             * @sample {highstock} highcharts/css/hollow-candlestick/
+             *         Colors in styled mode
+             *
+             * @type    {ColorType}
+             * @product highstock
+             */
+            color: Palette.negativeColor,
 
-        dataGrouping: {
-            groupAll: true,
-            groupPixelWidth: 10
-        },
+            dataGrouping: {
+                groupAll: true,
+                groupPixelWidth: 10
+            },
 
-        /**
-         * The color of the line/border of the hollow candlestick when
-         * the current close is lower than the previous one.
-         *
-         * @sample stock/plotoptions/hollow-candlestick-color/
-         *     Custom colors
-         * @sample {highstock} highcharts/css/hollow-candlestick/
-         *         Colors in styled mode
-         *
-         * @type    {ColorType}
-         * @product highstock
-         */
-        lineColor: Palette.negativeColor,
+            /**
+             * The color of the line/border of the hollow candlestick when
+             * the current close is lower than the previous one.
+             *
+             * @sample stock/plotoptions/hollow-candlestick-color/
+             *     Custom colors
+             * @sample {highstock} highcharts/css/hollow-candlestick/
+             *         Colors in styled mode
+             *
+             * @type    {ColorType}
+             * @product highstock
+             */
+            lineColor: Palette.negativeColor,
 
-        /**
-         * The fill color of the candlestick when the current
-         * close is higher than the previous one.
-         *
-         * @sample stock/plotoptions/hollow-candlestick-color/
-         *     Custom colors
-         * @sample {highstock} highcharts/css/hollow-candlestick/
-         *         Colors in styled mode
-         *
-         * @type    {ColorType}
-         * @product highstock
-         */
-        upColor: Palette.positiveColor,
+            /**
+             * The fill color of the candlestick when the current
+             * close is higher than the previous one.
+             *
+             * @sample stock/plotoptions/hollow-candlestick-color/
+             *     Custom colors
+             * @sample {highstock} highcharts/css/hollow-candlestick/
+             *         Colors in styled mode
+             *
+             * @type    {ColorType}
+             * @product highstock
+             */
+            upColor: Palette.positiveColor,
 
-        /**
-         * The color of the line/border of the hollow candlestick when
-         * the current close is higher than the previous one.
-         *
-         * @sample stock/plotoptions/hollow-candlestick-color/
-         *     Custom colors
-         * @sample {highstock} highcharts/css/hollow-candlestick/
-         *         Colors in styled mode
-         *
-         * @type    {ColorType}
-         * @product highstock
-         */
-        upLineColor: Palette.positiveColor
+            /**
+             * The color of the line/border of the hollow candlestick when
+             * the current close is higher than the previous one.
+             *
+             * @sample stock/plotoptions/hollow-candlestick-color/
+             *     Custom colors
+             * @sample {highstock} highcharts/css/hollow-candlestick/
+             *         Colors in styled mode
+             *
+             * @type    {ColorType}
+             * @product highstock
+             */
+            upLineColor: Palette.positiveColor
 
-    } as HollowCandlestickSeriesOptions);
+        } as HollowCandlestickSeriesOptions
+    );
 
     /* *
      *

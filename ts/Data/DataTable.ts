@@ -1681,7 +1681,7 @@ namespace DataTable {
     /**
      * Array of table cells in vertical expansion.
      */
-    export interface Column extends Array<DataTable.CellType> {
+    export interface Column extends Array<CellType> {
         [index: number]: CellType;
     }
 

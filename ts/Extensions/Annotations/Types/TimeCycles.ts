@@ -179,7 +179,8 @@ class TimeCycles extends CrookedLine {
                     0
                 );
                 this.controlPoints.push(controlPoint);
-            });
+            }
+        );
     }
 
     public setPathProperties(): void {

@@ -271,7 +271,8 @@ function getDlOptions(
             // Setting width and padding
             (options.style as any).width = Math.max(
                 (point.shapeExisting.r * 2) -
-                2 * (options.padding || 0), 1);
+                2 * (options.padding || 0), 1
+            );
         } else if (
             point.dlOptions &&
             point.dlOptions.textPath &&
@@ -288,7 +289,8 @@ function getDlOptions(
             (options.style as any).width = Math.max(
                 ((point.outerArcLength as any) +
                 (point.innerArcLength as any)) / 2 -
-                2 * (options.padding || 0), 1);
+                2 * (options.padding || 0), 1
+            );
         }
     }
     // NOTE: alignDataLabel positions the data label differntly when rotation is

@@ -354,7 +354,7 @@ class AxisResizer {
                         // If it's a number - it's an index
                         chart.yAxis[axisInfo] :
                         (
-                            // If it's first elem. in first group
+                        // If it's first elem. in first group
                             (!isNext && !i) ?
                                 // then it's an Axis object
                                 axisInfo as any :

@@ -599,7 +599,7 @@ namespace OfflineExporting {
                         'Image type not supported for charts with embedded HTML'
                     ));
                 } else {
-                    OfflineExporting.downloadSVGLocal(
+                    downloadSVGLocal(
                         svg,
                         extend(
                             { filename: chart.getFilename() },
@@ -704,7 +704,7 @@ namespace OfflineExporting {
      */
     export function getScript(
         scriptLocation: string,
-        callback: OfflineExporting.ScriptOnLoadCallbackFunction
+        callback: ScriptOnLoadCallbackFunction
     ): void {
         const head = doc.getElementsByTagName('head')[0],
             script = doc.createElement('script');
@@ -815,7 +815,7 @@ namespace OfflineExporting {
                     'href'
                 );
                 if (href) {
-                    OfflineExporting.imageToDataUrl(
+                    imageToDataUrl(
                         href,
                         'image/png',
                         { imageElement: el },

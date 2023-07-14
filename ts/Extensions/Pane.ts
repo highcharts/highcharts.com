@@ -71,7 +71,7 @@ declare global {
         }
         interface PaneChart extends Chart {
             pane: Array<Pane>;
-            getHoverPane(eventArgs: any): Highcharts.Pane|undefined;
+            getHoverPane(eventArgs: any): Pane|undefined;
         }
         interface PaneOptions {
             background?: Array<PaneBackgroundOptions>;

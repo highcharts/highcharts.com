@@ -174,6 +174,12 @@ function ichimokuAverages(): Array<(number|null|undefined)> | undefined {
  *
  * */
 
+/* *
+ *
+ * Class
+ *
+ * */
+
 /**
  * The IKH series type.
  *

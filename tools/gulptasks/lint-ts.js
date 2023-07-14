@@ -26,15 +26,26 @@ const SOURCE_GLOB = './**/*.ts';
  */
 function task() {
 
+    const argv = require('yargs').argv;
     const logLib = require('./lib/log');
     const processLib = require('./lib/process');
 
     return new Promise((resolve, reject) => {
+        const esArgs = [];
+        const sourceGlob = argv.p || SOURCE_GLOB;
 
-        logLib.message('Linting [', SOURCE_GLOB, ']...');
+        logLib.message('Linting [', sourceGlob, ']...');
+
+        if (argv.fix) {
+            esArgs.push('--config esfix.json');
+            esArgs.push('--fix');
+        }
+
+        esArgs.push('--quiet');
+        esArgs.push(`"${sourceGlob}"`);
 
         processLib
-            .exec('cd ts && npx eslint --quiet "' + SOURCE_GLOB + '"')
+            .exec(`cd ts && npx eslint ${esArgs.join(' ')}`)
             .then(() => logLib.success('Finished linting'))
             .then(resolve)
             .catch(reject);

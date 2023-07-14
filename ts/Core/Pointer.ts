@@ -1049,7 +1049,8 @@ class Pointer {
                     touches.item(0) as Touch :
                     (pick( // #13534
                         touches.changedTouches,
-                        (e as TouchEvent).changedTouches)
+                        (e as TouchEvent).changedTouches
+                    )
                     )[0] :
                 e as unknown as PointerEvent
         );
@@ -1872,8 +1873,7 @@ class Pointer {
                 point = chart.hoverPoint; // #13002
                 if (!point || (point.series as any)[axis.coll] !== axis) {
                     point = find(points, (p: Point): boolean =>
-                        p.series && (p.series as any)[axis.coll] === axis
-                    );
+                        p.series && (p.series as any)[axis.coll] === axis);
                 }
             }
 

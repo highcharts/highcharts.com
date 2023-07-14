@@ -193,7 +193,8 @@ class KlingerIndicator extends SMAIndicator {
             function (series): boolean|undefined {
                 return series && series.xData && series.xData.length >=
                 (options.params as any).slowAvgPeriod;
-            });
+            }
+        );
 
         return !!(isLengthValid && isSeriesOHLC);
     }

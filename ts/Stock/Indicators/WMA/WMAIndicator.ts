@@ -75,7 +75,8 @@ function weightedSumArray(
             i: number
         ): [(number|null), (number|Array<number>)] {
             return [null, (prev[1] as any) + (cur[1] as any) * (i + 1)];
-        })[1] as any) / denominator;
+        }
+    )[1] as any) / denominator;
 }
 
 /**

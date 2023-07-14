@@ -3,7 +3,6 @@
  */
 
 const gulp = require('gulp');
-const argv = require('yargs').argv;
 
 /* *
  *
@@ -42,6 +41,7 @@ const IGNORE_GLOBS = [
  */
 function task() {
 
+    const argv = require('yargs').argv;
     const eslint = require('eslint');
     const log = require('./lib/log');
 

@@ -500,8 +500,7 @@ class SupertrendIndicator extends SMAIndicator {
                 (indicator as any)[
                     'graph' + lineName + 'Line'
                 ] = indicator.graph;
-            }
-        );
+            });
 
         // Restore options:
         indicator.points = indicPoints;

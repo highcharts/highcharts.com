@@ -175,7 +175,8 @@ wrap(Pointer.prototype, 'zoomOption', function (
     // Pinch status
     if (pick(
         (mapNavigation as any).enableTouchZoom,
-        (mapNavigation as any).enabled)
+        (mapNavigation as any).enabled
+    )
     ) {
         this.chart.zooming.pinchType = 'xy';
     }

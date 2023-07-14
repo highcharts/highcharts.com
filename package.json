@@ -61,7 +61,7 @@
     "dtslint": "^4.2.1",
     "eslint": "^8.33.0",
     "eslint-config-eslint": "^7.0.0",
-    "eslint-plugin-highcharts": "github:highcharts/eslint-plugin-highcharts#v1.0.9",
+    "eslint-plugin-highcharts": "github:highcharts/eslint-plugin-highcharts#v2.0.0",
     "eslint-plugin-jsdoc": "^39.7.5",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-security": "^1.7.0",

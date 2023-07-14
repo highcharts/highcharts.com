@@ -284,7 +284,8 @@ class VBPIndicator extends SMAIndicator {
                 unbinder();
             }, {
                 order: 1
-            });
+            }
+        );
 
         return indicator;
     }

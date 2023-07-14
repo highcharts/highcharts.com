@@ -167,7 +167,7 @@ namespace Chart3D {
          * */
 
         public chart: Chart3D;
-        public frame3d: Chart3D.FrameObject = void 0 as any;
+        public frame3d: FrameObject = void 0 as any;
 
         /* *
          *
@@ -175,7 +175,7 @@ namespace Chart3D {
          *
          * */
 
-        public get3dFrame(): Chart3D.FrameObject {
+        public get3dFrame(): FrameObject {
             const chart = this.chart,
                 options3d = chart.options.chart.options3d as any,
                 frameOptions = options3d.frame,
@@ -270,9 +270,9 @@ namespace Chart3D {
                 sources: Array<unknown>,
                 faceOrientation: number,
                 defaultVisible?: ('auto'|'default'|boolean)
-            ): Chart3D.FrameSideObject {
+            ): FrameSideObject {
                 const faceAttrs = ['size', 'color', 'visible'],
-                    options: Chart3D.FrameSideOptions = {};
+                    options: FrameSideOptions = {};
 
                 for (let i = 0; i < faceAttrs.length; i++) {
                     const attr = faceAttrs[i];
@@ -306,7 +306,7 @@ namespace Chart3D {
 
             // docs @TODO: Add all frame options (left, right, top, bottom,
             // front, back) to apioptions JSDoc once the new system is up.
-            const ret: Chart3D.FrameObject = {
+            const ret: FrameObject = {
                 axes: {},
                 // FIXME: Previously, left/right, top/bottom and front/back
                 // pairs shared size and color.
@@ -363,8 +363,8 @@ namespace Chart3D {
             // should be one the left-most edge (right-most if opposite).
             if (options3d.axisLabelPosition === 'auto') {
                 const isValidEdge = function (
-                    face1: Chart3D.FrameSideObject,
-                    face2: Chart3D.FrameSideObject
+                    face1: FrameSideObject,
+                    face2: FrameSideObject
                 ): (boolean|undefined) {
                     return (
                         (face1.visible !== face2.visible) ||

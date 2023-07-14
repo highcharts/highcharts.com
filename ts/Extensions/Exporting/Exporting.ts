@@ -163,8 +163,8 @@ namespace Exporting {
     export declare class ChartComposition extends Chart {
         btnCount?: number;
         buttonOffset?: number;
-        exportContextMenu?: Exporting.DivElement;
-        exportDivElements?: Array<(Exporting.DivElement|null)>;
+        exportContextMenu?: DivElement;
+        exportDivElements?: Array<(DivElement|null)>;
         exportEvents?: Array<Function>;
         exporting: ChartAdditions;
         exportingGroup?: SVGElement;
@@ -185,7 +185,7 @@ namespace Exporting {
         /** @requires modules/exporting */
         contextMenu(
             className: string,
-            items: Array<(string|Exporting.MenuObject)>,
+            items: Array<(string|MenuObject)>,
             x: number,
             y: number,
             width: number,
@@ -735,7 +735,7 @@ namespace Exporting {
     function contextMenu(
         this: ChartComposition,
         className: string,
-        items: Array<(string|Exporting.MenuObject)>,
+        items: Array<(string|MenuObject)>,
         x: number,
         y: number,
         width: number,
@@ -750,7 +750,7 @@ namespace Exporting {
             cacheName = 'cache-' + className,
             menuPadding = Math.max(width, height); // for mouse leave detection
         let innerMenu: HTMLDOMElement,
-            menu: Exporting.DivElement = (chart as any)[cacheName];
+            menu: DivElement = (chart as any)[cacheName];
 
         // create the menu only the first time
         if (!menu) {
@@ -768,7 +768,7 @@ namespace Exporting {
                         pointerEvents: 'auto'
                     },
                     chart.fixedDiv || chart.container
-                ) as Exporting.DivElement;
+                ) as DivElement;
 
             innerMenu = createElement(
                 'ul',
@@ -830,7 +830,7 @@ namespace Exporting {
 
             // create the items
             items.forEach(function (
-                item: (string|Exporting.MenuObject)
+                item: (string|MenuObject)
             ): void {
 
                 if (typeof item === 'string') {
@@ -874,8 +874,7 @@ namespace Exporting {
                         }, void 0, innerMenu);
 
                         AST.setElementHTML(element, item.text ||
-                            (chart.options.lang as any)[item.textKey as any]
-                        );
+                            (chart.options.lang as any)[item.textKey as any]);
 
                         if (!chart.styledMode) {
                             element.onmouseover = function (
@@ -978,7 +977,7 @@ namespace Exporting {
         // Destroy the divs for the menu
         if (exportDivElements) {
             exportDivElements.forEach(function (
-                elem: (Exporting.DivElement|null),
+                elem: (DivElement|null),
                 i: number
             ): void {
                 if (elem) {
@@ -1682,7 +1681,7 @@ namespace Exporting {
      * @requires modules/exporting
      */
     function renderExporting(this: ChartComposition): void {
-        const chart = this as Exporting.ChartComposition,
+        const chart = this as ChartComposition,
             exportingOptions: ExportingOptions =
                 chart.options.exporting as any,
             buttons = exportingOptions.buttons,

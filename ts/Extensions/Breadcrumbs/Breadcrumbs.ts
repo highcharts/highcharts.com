@@ -357,8 +357,7 @@ class Breadcrumbs {
             lang = chart.options.lang,
             textFormat = pick(breadcrumbsOptions.format,
                 breadcrumbsOptions.showFullPath ?
-                    '{level.name}' : '← {level.name}'
-            ),
+                    '{level.name}' : '← {level.name}'),
             defaultText = lang && pick(
                 lang.drillUpText,
                 lang.mainBreadcrumb

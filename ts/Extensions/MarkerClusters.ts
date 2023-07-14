@@ -1363,7 +1363,8 @@ Scatter.prototype.getPointsState = function (
             oldState.parentStateId &&
             state[newState.parentStateId] &&
             state[newState.parentStateId].parentsId.indexOf(
-                oldState.parentStateId) === -1
+                oldState.parentStateId
+            ) === -1
         ) {
             state[newState.parentStateId].parentsId.push(
                 oldState.parentStateId
@@ -2069,8 +2070,7 @@ Scatter.prototype.hideClusteredData = function (): void {
         oldState =
             ((series.markerClusterInfo || {}).pointsState || {}).oldState || {},
         oldPointsId = oldPointsStateId.map((elem): string =>
-            (oldState[elem].point || {}).id || ''
-        );
+            (oldState[elem].point || {}).id || '');
 
     (clusteredSeriesData || []).forEach(function (
         point: (Point | null)

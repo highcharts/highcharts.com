@@ -59,7 +59,7 @@ declare global {
     }
     class jsPDF {
         static API: JsPDFAPI;
-        constructor (a: string, b: string, c: Array<number>);
+        constructor(a: string, b: string, c: Array<number>);
         addFileToVFS(
             filename: string,
             data: string
@@ -72,7 +72,7 @@ declare global {
         ): void;
         output: Function;
         setFont(fontFamily: string): void;
-        svg (
+        svg(
             svgElement: SVGElement,
             options: AnyRecord
         ): Promise<jsPDF>;

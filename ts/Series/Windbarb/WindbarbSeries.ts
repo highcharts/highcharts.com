@@ -396,7 +396,8 @@ class WindbarbSeries extends ColumnSeries {
 
     // Fade in the arrows on initializing series.
     public animate(
-        init?: boolean): void {
+        init?: boolean
+    ): void {
         if (init) {
             (this.markerGroup as any).attr({
                 opacity: 0.01

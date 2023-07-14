@@ -62,7 +62,13 @@
         "quote-props": [2, "as-needed", { "keywords": true, "unnecessary": false }],
         "semi": 0,
         "valid-jsdoc": 0,
-        "@typescript-eslint/array-type": 0,
+        "@typescript-eslint/array-type": [
+            "warn",
+            {
+                "default": "generic",
+                "readonly": "generic"
+            }
+        ],
         "@typescript-eslint/ban-types": 0, // @todo
         "@typescript-eslint/explicit-function-return-type": [
             "error",
@@ -104,9 +110,13 @@
         "@typescript-eslint/restrict-template-expressions": 1, // @todo
         "@typescript-eslint/semi": 2,
         "@typescript-eslint/unbound-method": 0, // @todo
+        "highcharts/generic-array-type": 1,
         "highcharts/doclet-apioption-last": 2,
         "highcharts/no-highcharts-namespace": 1, // @todo
         "highcharts/no-highcharts-object": 2,
+        "highcharts/no-import-effects": 1, // @todo
+        "highcharts/no-import-modification": 1, // @todo
+        "highcharts/no-import-type": 1, // @todo
         "highcharts/no-mixin": 1, // @todo
         "highcharts/no-private-constructor-doclet": 0,
         "highcharts/no-wrap": 1, // @todo

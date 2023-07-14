@@ -305,7 +305,8 @@ namespace A11yI18nComposition {
         const getFirstBracketStatement = (
                 sourceStr: string,
                 offset: number
-            ): (A11yBracketStatementObject|undefined) => {
+            ): (A11yBracketStatementObject|undefined
+                ) => {
                 const str = sourceStr.slice(offset || 0),
                     startBracket = str.indexOf('{'),
                     endBracket = str.indexOf('}');

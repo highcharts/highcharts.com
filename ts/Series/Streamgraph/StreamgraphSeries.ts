@@ -37,47 +37,57 @@ const {
  * @augments Highcharts.Series
  */
 class StreamgraphSeries extends AreaSplineSeries {
-    /**
-     * A streamgraph is a type of stacked area graph which is displaced around a
-     * central axis, resulting in a flowing, organic shape.
-     *
-     * @sample {highcharts|highstock} highcharts/demo/streamgraph/
-     *         Streamgraph
-     *
-     * @extends      plotOptions.areaspline
-     * @since        6.0.0
-     * @product      highcharts highstock
-     * @requires     modules/streamgraph
-     * @optionparent plotOptions.streamgraph
-     */
-    public static defaultOptions: StreamgraphSeriesOptions = merge(AreaSplineSeries.defaultOptions, {
-        /**
-         * @see [fillColor](#plotOptions.streamgraph.fillColor)
-         * @see [fillOpacity](#plotOptions.streamgraph.fillOpacity)
-         *
-         * @apioption plotOptions.streamgraph.color
-         */
 
-        /**
-         * @see [color](#plotOptions.streamgraph.color)
-         * @see [fillOpacity](#plotOptions.streamgraph.fillOpacity)
-         *
-         * @apioption plotOptions.streamgraph.fillColor
-         */
+    /* *
+     *
+     *  Static Properties
+     *
+     * */
 
+    public static defaultOptions: StreamgraphSeriesOptions = merge(
+        AreaSplineSeries.defaultOptions,
         /**
-         * @see [color](#plotOptions.streamgraph.color)
-         * @see [fillColor](#plotOptions.streamgraph.fillColor)
+         * A streamgraph is a type of stacked area graph which is displaced
+         * around a central axis, resulting in a flowing, organic shape.
          *
-         * @apioption plotOptions.streamgraph.fillOpacity
+         * @sample {highcharts|highstock} highcharts/demo/streamgraph/
+         *         Streamgraph
+         *
+         * @extends      plotOptions.areaspline
+         * @since        6.0.0
+         * @product      highcharts highstock
+         * @requires     modules/streamgraph
+         * @optionparent plotOptions.streamgraph
          */
-        fillOpacity: 1,
-        lineWidth: 0,
-        marker: {
-            enabled: false
-        },
-        stacking: 'stream'
-    } as StreamgraphSeriesOptions);
+        {
+            /**
+             * @see [fillColor](#plotOptions.streamgraph.fillColor)
+             * @see [fillOpacity](#plotOptions.streamgraph.fillOpacity)
+             *
+             * @apioption plotOptions.streamgraph.color
+             */
+
+            /**
+             * @see [color](#plotOptions.streamgraph.color)
+             * @see [fillOpacity](#plotOptions.streamgraph.fillOpacity)
+             *
+             * @apioption plotOptions.streamgraph.fillColor
+             */
+
+            /**
+             * @see [color](#plotOptions.streamgraph.color)
+             * @see [fillColor](#plotOptions.streamgraph.fillColor)
+             *
+             * @apioption plotOptions.streamgraph.fillOpacity
+             */
+            fillOpacity: 1,
+            lineWidth: 0,
+            marker: {
+                enabled: false
+            },
+            stacking: 'stream'
+        } as StreamgraphSeriesOptions
+    );
 
     /* *
      *

@@ -195,12 +195,14 @@ class AroonIndicator extends SMAIndicator {
             xLow = getExtremeIndexInArray(slicedY.map(
                 function (elem): number {
                     return pick(elem[low], (elem as any));
-                }), 'min');
+                }
+            ), 'min');
 
             xHigh = getExtremeIndexInArray(slicedY.map(
                 function (elem): number {
                     return pick(elem[high], (elem as any));
-                }), 'max');
+                }
+            ), 'max');
 
             aroonUp = (xHigh / period) * 100;
             aroonDown = (xLow / period) * 100;

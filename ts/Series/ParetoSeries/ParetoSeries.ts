@@ -132,8 +132,7 @@ class ParetoSeries extends LineSeries {
         yValues: Array<number>,
         xValues: Array<number>,
         sum: number,
-        isSum?: T
-    ): (T extends true ? number : Array<Array<number>>) {
+        isSum?: T): (T extends true ? number : Array<Array<number>>) {
         let sumY = 0,
             sumPercent = 0,
             percentPoints: Array<Array<number>> = [],

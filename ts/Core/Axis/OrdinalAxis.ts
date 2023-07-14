@@ -416,7 +416,7 @@ namespace OrdinalAxis {
      * @param {number} index
      * The index value of searched point
      */
-    function index2val(this: OrdinalAxis.Composition, index: number): number {
+    function index2val(this: Composition, index: number): number {
         const axis = this,
             ordinal = axis.ordinal,
             // Context could be changed to extendedOrdinalPositions.
@@ -457,7 +457,7 @@ namespace OrdinalAxis {
      * @param {number} val
      * The linear abstracted value.
      */
-    function lin2val(this: OrdinalAxis.Composition, val: number): number {
+    function lin2val(this: Composition, val: number): number {
         const axis = this,
             ordinal = axis.ordinal,
             localMin = axis.old ? axis.old.min : axis.min,
@@ -535,7 +535,7 @@ namespace OrdinalAxis {
      */
     function getIndexInArray(ordinalPositions: Array<number>, val: number): number {
         const index =
-        OrdinalAxis.Additions.findIndexOf(ordinalPositions, val, true);
+        Additions.findIndexOf(ordinalPositions, val, true);
         if (ordinalPositions[index] === val) {
             return index;
         }
@@ -552,7 +552,7 @@ namespace OrdinalAxis {
         const axis = this;
 
         if (!axis.ordinal) {
-            axis.ordinal = new OrdinalAxis.Additions(axis as Composition);
+            axis.ordinal = new Additions(axis as Composition);
         }
     }
 
@@ -622,7 +622,7 @@ namespace OrdinalAxis {
      */
     function onChartPan(this: Chart, e: Event): void {
         const chart = this,
-            xAxis = chart.xAxis[0] as OrdinalAxis.Composition,
+            xAxis = chart.xAxis[0] as Composition,
             overscroll = xAxis.options.overscroll,
             chartX = (e as any).originalEvent.chartX,
             panning = chart.options.chart.panning;
@@ -783,7 +783,7 @@ namespace OrdinalAxis {
      * Whether to return the index in the ordinalPositions or the new value.
      */
     function val2lin(
-        this: OrdinalAxis.Composition,
+        this: Composition,
         val: number,
         toIndex?: boolean
     ): number {

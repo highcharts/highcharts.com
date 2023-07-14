@@ -512,8 +512,7 @@ wrap(columnProto, 'pointAttribs', pointAttribs);
 wrap(columnProto, 'setState', setState);
 wrap(columnProto.pointClass.prototype,
     'hasNewShapeType',
-    hasNewShapeType
-);
+    hasNewShapeType);
 
 if (SeriesRegistry.seriesTypes.columnRange) {
     const columnRangeProto = SeriesRegistry.seriesTypes.columnrange.prototype;

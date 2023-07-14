@@ -250,8 +250,7 @@ class NewDataAnnouncer {
                 Object
                     .keys(this.dirty.allSeries)
                     .map((ix): Accessibility.SeriesComposition =>
-                        announcer.dirty.allSeries[ix]
-                    ),
+                        announcer.dirty.allSeries[ix]),
                 this.dirty.newSeries,
                 newPoint
             );

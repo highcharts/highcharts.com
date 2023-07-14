@@ -393,7 +393,8 @@ class Projection {
                 // primarily to Antarctica.
                 if (intersections.length % 2 === 1) {
                     polarIntersection = intersections.slice().sort(
-                        (a, b): number => Math.abs(b.lat) - Math.abs(a.lat))[0];
+                        (a, b): number => Math.abs(b.lat) - Math.abs(a.lat)
+                    )[0];
 
                     erase(intersections, polarIntersection);
                 }

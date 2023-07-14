@@ -1398,7 +1398,8 @@ class TreemapSeries extends ScatterSeries {
                         if (breadcrumbs && e.options.breadcrumbs) {
                             breadcrumbs.update(e.options.breadcrumbs);
                         }
-                    })
+                    }
+                )
             );
 
             series.eventsToUnbind.push(
@@ -1411,8 +1412,7 @@ class TreemapSeries extends ScatterSeries {
                                 chart.breadcrumbs = void 0;
                             }
                         }
-                    }
-                )
+                    })
             );
         }
 

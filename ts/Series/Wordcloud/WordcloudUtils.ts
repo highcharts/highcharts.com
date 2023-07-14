@@ -120,8 +120,7 @@ function getAxesFromPolygon(
                     existing
                 ): boolean =>
                     existing[0] === axis[0] &&
-                    existing[1] === axis[1]
-                )) {
+                    existing[1] === axis[1])) {
                     axes.push(axis);
                 }
 

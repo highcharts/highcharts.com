@@ -114,7 +114,7 @@ namespace DateTimeAxis{
         if (U.pushUnique(composedMembers, AxisClass)) {
             AxisClass.keepProps.push('dateTime');
 
-            const axisProto = AxisClass.prototype as DateTimeAxis.Composition;
+            const axisProto = AxisClass.prototype as Composition;
 
             axisProto.getTimeTicks = getTimeTicks;
 
@@ -163,7 +163,7 @@ namespace DateTimeAxis{
         }
 
         if (!axis.dateTime) {
-            axis.dateTime = new Additions(axis as DateTimeAxis.Composition);
+            axis.dateTime = new Additions(axis as Composition);
         }
     }
 
@@ -181,7 +181,7 @@ namespace DateTimeAxis{
          *
          * */
 
-        public constructor(axis: DateTimeAxis.Composition) {
+        public constructor(axis: Composition) {
             this.axis = axis;
         }
 

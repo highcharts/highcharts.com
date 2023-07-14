@@ -2108,8 +2108,7 @@ class Axis {
                 tickPositions.length < 2 &&
                 !this.categories &&
                 !this.series.some((s): boolean =>
-                    (s.is('heatmap') && s.options.pointPlacement === 'between')
-                )
+                    (s.is('heatmap') && s.options.pointPlacement === 'between'))
             ) {
                 this.min -= 0.5;
                 this.max += 0.5;

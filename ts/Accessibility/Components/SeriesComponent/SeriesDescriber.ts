@@ -346,12 +346,14 @@ function getPointA11yTimeDescription(
                 point.x || 0,
                 chart.options.tooltip.dateTimeLabelFormats
             ),
-            dateFormat = seriesA11yOptions.dateFormatter &&
+            dateFormat = (
+                seriesA11yOptions.dateFormatter &&
                 seriesA11yOptions.dateFormatter(point) ||
                 a11yOptions.dateFormatter && a11yOptions.dateFormatter(point) ||
                 seriesA11yOptions.dateFormat ||
                 a11yOptions.dateFormat ||
-                tooltipDateFormat;
+                tooltipDateFormat
+            );
 
         return chart.time.dateFormat(dateFormat, point.x || 0, void 0);
     }

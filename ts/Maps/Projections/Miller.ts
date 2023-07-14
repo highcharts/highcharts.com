@@ -32,7 +32,8 @@ class Miller implements ProjectionDefinition {
         return [
             (xy[0] / scale) / deg2rad,
             2.5 * (Math.atan(
-                Math.exp(0.8 * (xy[1] / scale))) - quarterPI
+                Math.exp(0.8 * (xy[1] / scale))
+            ) - quarterPI
             ) / deg2rad
         ];
     }

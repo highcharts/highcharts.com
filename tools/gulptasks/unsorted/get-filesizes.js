@@ -14,7 +14,7 @@ gulp.task('get-filesizes', () => {
     } = require('@highcharts/highcharts-assembler/src/build.js');
     const {
         getFileSizes
-    } = require('../../compareFilesize.js');
+    } = require('./compare-filesizes.js');
     const {
         argv
     } = require('yargs');

@@ -258,7 +258,8 @@ class HLCSeries extends ColumnSeries {
                         (point as any)[translated[i]] =
                             yAxis.toPixels(value, true);
                     }
-                });
+                }
+            );
 
             // Align the tooltip to the high value to avoid covering the
             // point

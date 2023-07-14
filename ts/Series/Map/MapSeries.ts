@@ -91,8 +91,7 @@ declare module '../../Core/Series/SeriesOptions' {
         /** @requires modules/map */
         mapData?: (Array<MapPointOptions>|GeoJSON|TopoJSON);
     }
-    interface SeriesStateHoverOptions
-    {
+    interface SeriesStateHoverOptions {
         brightness?: number;
         color?: ColorType;
     }
