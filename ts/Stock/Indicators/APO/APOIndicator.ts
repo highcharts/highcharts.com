@@ -26,12 +26,9 @@ import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const {
     ema: EMAIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
-const {
-    extend,
-    merge,
-    error
-} = U;
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import error from '../../../Shared/Helpers/Error.js';
+const { extend, merge } = OH;
 
 /* *
  *

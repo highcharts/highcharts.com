@@ -30,7 +30,7 @@ const {
     addClass,
     visuallyHideElement
 } = HU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const { attr } = U;
 
 /* *

@@ -54,22 +54,26 @@ const {
     win
 } = H;
 import { Palette } from '../../Color/Palettes.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    erase
+} = AH;
+const { isArray, isFunction, isObject, isString } = TC;
+const {
+    defined,
+    extend,
+    merge,
+    objectEach
+} = OH;
+const { addEvent, fireEvent } = EH;
+const {
     attr,
     createElement,
     css,
-    defined,
-    erase,
-    extend,
-    fireEvent,
-    isArray,
-    isFunction,
-    isObject,
-    isString,
-    merge,
-    objectEach,
     pick,
     pInt,
     syncTimeout,

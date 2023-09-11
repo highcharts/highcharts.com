@@ -29,9 +29,14 @@ import type Series from '../../Core/Series/Series';
 import type SeriesOptions from '../../Core/Series/SeriesOptions';
 
 import BoostableMap from './BoostableMap.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     pick
 } = U;
 
@@ -81,7 +86,7 @@ function compose<T extends typeof Chart>(
     wglMode?: boolean
 ): T {
 
-    if (wglMode && U.pushUnique(composedClasses, ChartClass)) {
+    if (wglMode && pushUnique(composedClasses, ChartClass)) {
         ChartClass.prototype.callbacks.push(onChartCallback);
     }
 

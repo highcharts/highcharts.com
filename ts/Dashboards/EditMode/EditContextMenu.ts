@@ -15,16 +15,15 @@
  * */
 
 import EditGlobals from './EditGlobals.js';
-import U from '../../Core/Utilities.js';
 import MenuItem from './Menu/MenuItem.js';
 import Menu from './Menu/Menu.js';
 import EditMode from './EditMode.js';
 import { HTMLDOMElement } from '../../Core/Renderer/DOMElementType.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { addEvent } = EH;
 
-const {
-    addEvent,
-    merge
-} = U;
 
 /**
  * Class to create context menu.

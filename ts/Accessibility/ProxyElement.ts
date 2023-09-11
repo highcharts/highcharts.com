@@ -40,17 +40,18 @@ export type NullableHTMLAttributes = Nullable<HTMLAttributes>;
 
 import H from '../Core/Globals.js';
 const { doc } = H;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
     attr,
-    css,
-    merge
+    css
 } = U;
 
 import EventProvider from './Utils/EventProvider.js';
 import ChartUtilities from './Utils/ChartUtilities.js';
 const { fireEventOnWrappedOrUnwrappedElement } = ChartUtilities;
 import HTMLUtilities from './Utils/HTMLUtilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 const {
     cloneMouseEvent,
     cloneTouchEvent,

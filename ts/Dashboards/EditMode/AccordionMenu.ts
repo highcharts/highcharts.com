@@ -25,12 +25,13 @@ import type EditableOptions from '../Components/EditableOptions';
 import type Globals from '../Globals';
 
 import EditRenderer from './EditRenderer.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import EditGlobals from './EditGlobals.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import error from '../../Shared/Helpers/Error.js';
+const { merge } = OH;
 const {
-    createElement,
-    merge,
-    error
+    createElement
 } = U;
 
 /* *

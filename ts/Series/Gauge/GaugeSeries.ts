@@ -39,15 +39,16 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined } = OH;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { extend, merge } = OH;
 const {
     clamp,
-    isNumber,
-    extend,
-    merge,
     pick,
-    pInt,
-    defined
+    pInt
 } = U;
 
 

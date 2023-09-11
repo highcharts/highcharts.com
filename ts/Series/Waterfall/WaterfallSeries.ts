@@ -28,20 +28,24 @@ const {
         line: LineSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    addEvent,
-    arrayMax,
-    arrayMin,
     correctFloat,
-    extend,
-    isNumber,
-    merge,
-    objectEach,
     pick
 } = U;
 import WaterfallAxis from '../../Core/Axis/WaterfallAxis.js';
 import WaterfallPoint from './WaterfallPoint.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    arrayMin,
+    arrayMax
+} = AH;
+const { isNumber } = TC;
+const { extend, merge, objectEach } = OH;
+const { addEvent } = EH;
 
 /* *
  *

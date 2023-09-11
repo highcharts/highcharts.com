@@ -68,7 +68,7 @@ export const enum Palette {
     /**
      * Indicators
      */
-    negativeColor = '#f21313',
+    negativeColor = '#f21313'
 }
 /**
  * Series palettes for Highcharts. Series colors are defined in highcharts.css.

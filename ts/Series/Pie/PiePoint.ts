@@ -28,13 +28,14 @@ import type SVGPath from '../../Core/Renderer/SVG/SVGPath';
 import A from '../../Core/Animation/AnimationUtilities.js';
 const { setAnimation } = A;
 import Point from '../../Core/Series/Point.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined, extend } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    defined,
-    extend,
-    isNumber,
-    isString,
     pick,
     relativeLength
 } = U;

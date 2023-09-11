@@ -31,15 +31,9 @@ import D from '../Core/Defaults.js';
 const { defaultOptions } = D;
 import H from '../Core/Globals.js';
 import Point from '../Core/Series/Point.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
-    addEvent,
-    defined,
-    error,
-    extend,
-    merge,
-    pick,
-    splat
+    pick
 } = U;
 
 /* *
@@ -213,6 +207,15 @@ declare global {
 ''; // detach doclets above
 
 import pathfinderAlgorithms from './PathfinderAlgorithms.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+import error from '../Shared/Helpers/Error.js';
+const {
+    splat
+} = AH;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
 
 const max = Math.max,
     min = Math.min;

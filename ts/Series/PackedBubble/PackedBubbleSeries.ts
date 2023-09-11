@@ -54,21 +54,18 @@ const {
     initDataLabels,
     initDataLabelsDefer
 } = D;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    addEvent,
     clamp,
-    defined,
-    extend,
-    fireEvent,
-    isArray,
-    isNumber,
-    merge,
-    pick,
-    syncTimeout
+    pick
 } = U;
-import A from '../../Core/Animation/AnimationUtilities.js';
-const { animObject } = A;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber } = TC;
+const { defined, merge } = OH;
+const { addEvent, fireEvent } = EH;
 
 /* *
  *

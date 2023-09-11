@@ -26,11 +26,15 @@ import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const {
     candlestick: CandlestickSeries
 } = SeriesRegistry.seriesTypes;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    merge
-} = U;
+    pushUnique
+} = AH;
+const { merge } = OH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -149,11 +153,11 @@ class HeikinAshiSeries extends CandlestickSeries {
     ): void {
         CandlestickSeries.compose(SeriesClass);
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             addEvent(AxisClass, 'postProcessData', onAxisPostProcessData);
         }
 
-        if (U.pushUnique(composedMembers, HeikinAshiSeries)) {
+        if (pushUnique(composedMembers, HeikinAshiSeries)) {
             addEvent(
                 HeikinAshiSeries,
                 'afterTranslate',

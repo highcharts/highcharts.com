@@ -26,11 +26,15 @@ import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const {
     column: { prototype: columnProto }
 } = SeriesRegistry.seriesTypes;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined
-} = U;
+    pushUnique
+} = AH;
+const { defined } = OH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -124,7 +128,7 @@ namespace ColorMapComposition {
     ): (T&typeof SeriesComposition) {
         const PointClass = SeriesClass.prototype.pointClass;
 
-        if (U.pushUnique(composedMembers, PointClass)) {
+        if (pushUnique(composedMembers, PointClass)) {
             addEvent(PointClass, 'afterSetState', onPointAfterSetState);
         }
 

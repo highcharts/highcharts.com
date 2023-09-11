@@ -49,16 +49,22 @@ import H from '../Core/Globals.js';
 import Series from '../Core/Series/Series.js';
 import Pane from '../Extensions/Pane.js';
 import RadialAxis from '../Core/Axis/RadialAxis.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
     find,
-    isNumber,
-    merge,
+    splat,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { defined, merge } = OH;
+const { addEvent } = EH;
+const {
     pick,
     relativeLength,
-    splat,
     uniqueKey,
     wrap
 } = U;
@@ -1445,7 +1451,7 @@ class PolarAdditions {
     ): void {
         RadialAxis.compose(AxisClass, TickClass);
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'afterDrawChartBox', onChartAfterDrawChartBox);
             addEvent(ChartClass, 'getAxes', onChartGetAxes);
             addEvent(ChartClass, 'init', onChartAfterInit);
@@ -1455,7 +1461,7 @@ class PolarAdditions {
             wrap(chartProto, 'get', wrapChartGet);
         }
 
-        if (U.pushUnique(composedMembers, PointerClass)) {
+        if (pushUnique(composedMembers, PointerClass)) {
             const pointerProto = PointerClass.prototype;
 
             wrap(pointerProto, 'getCoordinates', wrapPointerGetCoordinates);
@@ -1472,7 +1478,7 @@ class PolarAdditions {
             );
         }
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             addEvent(SeriesClass, 'afterInit', onSeriesAfterInit);
             addEvent(
                 SeriesClass,
@@ -1495,7 +1501,7 @@ class PolarAdditions {
 
         if (
             ColumnSeriesClass &&
-            U.pushUnique(composedMembers, ColumnSeriesClass)
+            pushUnique(composedMembers, ColumnSeriesClass)
         ) {
             const columnProto = ColumnSeriesClass.prototype;
 
@@ -1505,7 +1511,7 @@ class PolarAdditions {
 
         if (
             LineSeriesClass &&
-            U.pushUnique(composedMembers, LineSeriesClass)
+            pushUnique(composedMembers, LineSeriesClass)
         ) {
             const lineProto = LineSeriesClass.prototype;
 
@@ -1514,7 +1520,7 @@ class PolarAdditions {
 
         if (
             SplineSeriesClass &&
-            U.pushUnique(composedMembers, SplineSeriesClass)
+            pushUnique(composedMembers, SplineSeriesClass)
         ) {
             const splineProto = SplineSeriesClass.prototype;
 
@@ -1522,7 +1528,7 @@ class PolarAdditions {
 
             if (
                 AreaSplineRangeSeriesClass &&
-                U.pushUnique(composedMembers, AreaSplineRangeSeriesClass)
+                pushUnique(composedMembers, AreaSplineRangeSeriesClass)
             ) {
                 const areaSplineRangeProto =
                     AreaSplineRangeSeriesClass.prototype;

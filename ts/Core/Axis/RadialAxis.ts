@@ -34,14 +34,21 @@ import D from '../Defaults.js';
 const { defaultOptions } = D;
 import H from '../Globals.js';
 const { noop } = H;
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
-    correctFloat,
     defined,
-    extend,
-    fireEvent,
     merge,
+    extend
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent, fireEvent } = EH;
+const {
+    correctFloat,
     pick,
     relativeLength,
     wrap
@@ -351,7 +358,7 @@ namespace RadialAxis {
         TickClass: typeof Tick
     ): (T&typeof AxisComposition) {
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             addEvent(
                 AxisClass as (T&typeof AxisComposition),
                 'afterInit',
@@ -379,7 +386,7 @@ namespace RadialAxis {
             );
         }
 
-        if (U.pushUnique(composedMembers, TickClass)) {
+        if (pushUnique(composedMembers, TickClass)) {
             addEvent(
                 TickClass as typeof TickComposition,
                 'afterGetLabelPosition',

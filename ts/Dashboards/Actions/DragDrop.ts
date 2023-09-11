@@ -13,7 +13,7 @@
  *  - Sophie Bremer
  *
  * */
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import type Row from '../Layout/Row.js';
 import type Cell from '../Layout/Cell.js';
 import Globals from '../Globals.js';
@@ -22,12 +22,13 @@ import EditMode from '../EditMode/EditMode.js';
 import { HTMLDOMElement } from '../../Core/Renderer/DOMElementType.js';
 import GUIElement from '../Layout/GUIElement.js';
 import ContextDetection from './ContextDetection.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { addEvent, fireEvent } = EH;
 
 const {
-    addEvent,
-    merge,
     css,
-    fireEvent,
     createElement
 } = U;
 

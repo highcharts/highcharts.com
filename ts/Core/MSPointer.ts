@@ -28,13 +28,20 @@ const {
     win
 } = H;
 import Pointer from './Pointer.js';
-import U from './Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
+    objectEach
+} = OH;
+import EH from '../Shared/Helpers/EventHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent, removeEvent } = EH;
+const {
     css,
-    objectEach,
-    pick,
-    removeEvent
+    pick
 } = U;
 
 /* *
@@ -286,7 +293,7 @@ namespace MSPointer {
      */
     export function compose(ChartClass: typeof Chart): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'beforeRender', function (): void {
                 this.pointer = new MSPointer(this, this.options);
             });

@@ -32,11 +32,17 @@ import D from '../../Core/Defaults.js';
 const { setOptions } = D;
 import StockToolsDefaults from './StockToolsDefaults.js';
 import Toolbar from './StockToolbar.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { merge } = OH;
+const { addEvent } = EH;
+const {
     getStyle,
-    merge,
     pick
 } = U;
 
@@ -108,7 +114,7 @@ function compose(
     NavigationBindingsClass: typeof NavigationBindings
 ): void {
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         addEvent(ChartClass, 'afterGetContainer', onChartAfterGetContainer);
         addEvent(ChartClass, 'beforeRedraw', onChartBeforeRedraw);
         addEvent(ChartClass, 'beforeRender', onChartBeforeRedraw);
@@ -120,7 +126,7 @@ function compose(
         ChartClass.prototype.setStockTools = chartSetStockTools;
     }
 
-    if (U.pushUnique(composedMembers, NavigationBindingsClass)) {
+    if (pushUnique(composedMembers, NavigationBindingsClass)) {
         addEvent(
             NavigationBindingsClass,
             'deselectButton',
@@ -133,7 +139,7 @@ function compose(
         );
     }
 
-    if (U.pushUnique(composedMembers, setOptions)) {
+    if (pushUnique(composedMembers, setOptions)) {
         setOptions(StockToolsDefaults);
     }
 }

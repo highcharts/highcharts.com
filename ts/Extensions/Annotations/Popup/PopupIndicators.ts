@@ -36,15 +36,19 @@ import NU from '../NavigationBindingsUtilities.js';
 const { annotationsFieldsTypes } = NU;
 import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    createElement,
-    defined,
-    isArray,
-    isObject,
-    objectEach,
     stableSort
+} = AH;
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray, isObject } = TC;
+const { defined, objectEach } = OH;
+const { addEvent } = EH;
+const {
+    createElement
 } = U;
 
 /* *

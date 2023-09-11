@@ -25,9 +25,9 @@ import type InvertModifierOptions from './InvertModifierOptions';
 
 import DataModifier from './DataModifier.js';
 import DataTable from '../DataTable.js';
-import U from '../../Core/Utilities.js';
-const { merge } = U;
 
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 /* *
  *
  *  Class

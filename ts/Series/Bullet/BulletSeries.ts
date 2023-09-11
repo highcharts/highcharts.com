@@ -26,11 +26,12 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 const {
-    extend,
-    isNumber,
-    merge,
     pick,
     relativeLength
 } = U;

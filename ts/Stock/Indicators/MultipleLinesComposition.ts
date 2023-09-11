@@ -28,12 +28,13 @@ import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const {
     sma: { prototype: smaProto }
 } = SeriesRegistry.seriesTypes;
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    defined,
-    error,
-    merge
-} = U;
+    pushUnique
+} = AH;
+const { defined, merge } = OH;
 
 /* *
  *
@@ -133,7 +134,7 @@ namespace MultipleLinesComposition {
         IndicatorClass: T
     ): (T&typeof IndicatorComposition) {
 
-        if (U.pushUnique(composedMembers, IndicatorClass)) {
+        if (pushUnique(composedMembers, IndicatorClass)) {
             const proto = IndicatorClass.prototype as IndicatorComposition;
 
             proto.linesApiNames = (

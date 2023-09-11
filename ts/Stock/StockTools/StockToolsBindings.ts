@@ -46,12 +46,12 @@ const {
     updateNthPoint,
     updateRectSize
 } = STU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import FibonacciTimeZones from '../../Extensions/Annotations/Types/FibonacciTimeZones';
-const {
-    fireEvent,
-    merge
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { fireEvent } = EH;
 
 /* *
  *

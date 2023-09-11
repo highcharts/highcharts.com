@@ -25,6 +25,8 @@ import type TilemapSeries from './TilemapSeries';
 
 import ColorAxisComposition from '../../Core/Axis/Color/ColorAxisComposition.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
 const {
     series: {
         prototype: {
@@ -39,8 +41,6 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { extend } = U;
 
 /* *
  *

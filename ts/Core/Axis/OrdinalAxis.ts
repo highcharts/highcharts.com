@@ -26,13 +26,21 @@ import Chart from '../Chart/Chart.js';
 import H from '../Globals.js';
 import Point from '../Series/Point.js';
 import Series from '../Series/Series.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
+    defined
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     correctFloat,
     css,
-    defined,
-    error,
     pick,
     timeUnits
 } = U;
@@ -154,7 +162,7 @@ namespace OrdinalAxis {
         ChartClass: typeof Chart
     ): (typeof Composition&T) {
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             const axisProto = AxisClass.prototype as Composition;
 
             axisProto.getTimeTicks = getTimeTicks;
@@ -178,10 +186,10 @@ namespace OrdinalAxis {
             );
         }
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'pan', onChartPan);
         }
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             addEvent(SeriesClass, 'updatedData', onSeriesUpdatedData);
         }
 

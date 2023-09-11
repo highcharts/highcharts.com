@@ -23,8 +23,10 @@ import type DataEvent from '../DataEvent';
 
 import DataConverter from './DataConverter.js';
 import DataTable from '../DataTable.js';
-import U from '../../Core/Utilities.js';
-const { merge, isArray } = U;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 /* *
  *

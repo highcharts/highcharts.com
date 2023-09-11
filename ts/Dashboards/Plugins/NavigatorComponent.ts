@@ -38,12 +38,21 @@ import DataModifier from '../../Data/Modifiers/DataModifier.js';
 const { Range: RangeModifier } = DataModifier.types;
 import Globals from '../Globals.js';
 import NavigatorComponentDefaults from './NavigatorComponentDefaults.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EventHelper from '../../Shared/Helpers/EventHelper.js';
+import ObjectHelper from '../../Shared/Helpers/ObjectHelper.js';
+import TypeChecker from '../../Shared/Helpers/TypeChecker.js';
 const {
-    addEvent,
     diffObjects,
-    isNumber,
-    merge,
+    merge
+} = ObjectHelper;
+const {
+    isNumber
+} = TypeChecker;
+const {
+    addEvent
+} = EventHelper;
+const {
     pick
 } = U;
 

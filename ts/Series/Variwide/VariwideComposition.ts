@@ -25,9 +25,14 @@ import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 import type Tick from '../../Core/Axis/Tick';
 
 import VariwidePoint from './VariwidePoint.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     wrap
 } = U;
 
@@ -76,12 +81,12 @@ function compose(
     TickClass: typeof Tick
 ): void {
 
-    if (U.pushUnique(composedMembers, AxisClass)) {
+    if (pushUnique(composedMembers, AxisClass)) {
         addEvent(AxisClass, 'afterDrawCrosshair', onAxisAfterDrawCrosshair);
         addEvent(AxisClass, 'afterRender', onAxisAfterRender);
     }
 
-    if (U.pushUnique(composedMembers, TickClass)) {
+    if (pushUnique(composedMembers, TickClass)) {
         addEvent(TickClass, 'afterGetPosition', onTickAfterGetPosition);
 
         const tickProto = TickClass.prototype;

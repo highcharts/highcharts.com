@@ -15,18 +15,14 @@
  * */
 
 import EditMode from '../EditMode.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
 import Row from '../../Layout/Row.js';
 import EditGlobals from '../EditGlobals.js';
-import Menu from '../Menu/Menu.js';
 import MenuItem from '../Menu/MenuItem.js';
 import EditToolbar from './EditToolbar.js';
 import GUIElement from '../../Layout/GUIElement.js';
-
-const {
-    merge,
-    objectEach
-} = U;
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { merge, objectEach } = OH;
 
 /**
  * @internal

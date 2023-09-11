@@ -31,8 +31,12 @@ import PictorialUtilities from './PictorialUtilities.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 import StackItem from '../../Core/Axis/Stacking/StackItem.js';
 import SVGAttributes from '../../Core/Renderer/SVG/SVGAttributes.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import { PictorialPathOptions } from './PictorialSeriesOptions';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, merge, objectEach } = OH;
+const { addEvent } = EH;
 
 const ColumnSeries: typeof ColumnSeriesType = SeriesRegistry.seriesTypes.column;
 
@@ -47,10 +51,6 @@ const {
 } = PictorialUtilities;
 
 const {
-    addEvent,
-    defined,
-    merge,
-    objectEach,
     pick
 } = U;
 export interface StackShadowOptions {

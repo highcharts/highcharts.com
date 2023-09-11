@@ -53,14 +53,18 @@ import MockPoint from './MockPoint.js';
 import NavigationBindings from './NavigationBindings.js';
 import Pointer from '../../Core/Pointer.js';
 import PopupComposition from './Popup/PopupComposition.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    destroyObjectProperties,
     erase,
-    fireEvent,
-    merge,
-    pick,
     splat
+} = AH;
+const { destroyObjectProperties, merge } = OH;
+const { fireEvent } = EH;
+const {
+    pick
 } = U;
 
 /* *

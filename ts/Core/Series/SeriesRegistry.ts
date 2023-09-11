@@ -23,10 +23,11 @@ import H from '../Globals.js';
 import D from '../Defaults.js';
 const { defaultOptions } = D;
 import Point from './Point.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 const {
-    extendClass,
-    merge
+    extendClass
 } = U;
 
 /* *

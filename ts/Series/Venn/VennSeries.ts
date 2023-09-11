@@ -59,16 +59,12 @@ const {
 } = SeriesRegistry;
 import VennPoint from './VennPoint.js';
 import VennUtils from './VennUtils.js';
-import U from '../../Core/Utilities.js';
-const {
-    addEvent,
-    extend,
-    isArray,
-    isNumber,
-    isObject,
-    isString,
-    merge
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject } = TC;
+const { extend, merge } = OH;
+const { addEvent } = EH;
 
 /**
  * Internal types

@@ -86,34 +86,37 @@ import SeriesRegistry from '../Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import SVGRenderer from '../Renderer/SVG/SVGRenderer.js';
 import Time from '../Time.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
 import AST from '../Renderer/HTML/AST.js';
 import { AxisCollectionKey, XAxisOptions } from '../Axis/AxisOptions';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    addEvent,
+    erase,
+    find,
+    splat
+} = AH;
+const { isArray, isNumber, isObject, isString } = TC;
+const {
+    merge,
+    defined,
+    diffObjects,
+    extend,
+    objectEach
+} = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
+const {
     attr,
     createElement,
     css,
-    defined,
-    diffObjects,
     discardElement,
-    erase,
-    error,
-    extend,
-    find,
-    fireEvent,
     getStyle,
-    isArray,
-    isNumber,
-    isObject,
-    isString,
-    merge,
-    objectEach,
     pick,
     pInt,
     relativeLength,
-    removeEvent,
-    splat,
     syncTimeout,
     uniqueKey
 } = U;

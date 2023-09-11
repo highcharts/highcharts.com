@@ -39,13 +39,10 @@ import TreegraphNode from './TreegraphNode.js';
 import TreegraphPoint from './TreegraphPoint.js';
 import TU from '../TreeUtilities.js';
 const { getLevelOptions } = TU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    extend,
-    merge,
     pick,
-    relativeLength,
-    splat
+    relativeLength
 } = U;
 
 import TreegraphLink from './TreegraphLink.js';
@@ -54,6 +51,12 @@ import { TreegraphSeriesLevelOptions } from './TreegraphSeriesOptions.js';
 import TreegraphSeriesDefaults from './TreegraphSeriesDefaults.js';
 import SVGLabel from '../../Core/Renderer/SVG/SVGLabel.js';
 import TreemapPoint from '../Treemap/TreemapPoint.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    splat
+} = AH;
+const { extend, merge } = OH;
 
 /* *
  *

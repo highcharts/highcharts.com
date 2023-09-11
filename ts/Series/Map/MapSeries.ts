@@ -55,20 +55,21 @@ const {
     }
 } = SeriesRegistry;
 import SVGRenderer from '../../Core/Renderer/SVG/SVGRenderer.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    extend,
-    find,
-    fireEvent,
+    splat,
+    find
+} = AH;
+const { isArray, isNumber, isObject } = TC;
+const { defined, extend, merge, objectEach } = OH;
+const { fireEvent } = EH;
+const {
     getNestedProperty,
-    isArray,
-    defined,
-    isNumber,
-    isObject,
-    merge,
-    objectEach,
-    pick,
-    splat
+    pick
 } = U;
 
 /* *

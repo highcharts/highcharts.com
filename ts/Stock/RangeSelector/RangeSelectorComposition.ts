@@ -28,14 +28,19 @@ const {
     setOptions
 } = D;
 import RangeSelectorDefaults from './RangeSelectorDefaults.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    extend,
     find,
-    isNumber,
-    merge,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
+const {
     pick
 } = U;
 
@@ -153,11 +158,11 @@ function compose(
 
     RangeSelectorConstructor = RangeSelectorClass;
 
-    if (U.pushUnique(composedMembers, AxisClass)) {
+    if (pushUnique(composedMembers, AxisClass)) {
         AxisClass.prototype.minFromRange = axisMinFromRange;
     }
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         addEvent(ChartClass, 'afterGetContainer', onChartAfterGetContainer);
         addEvent(ChartClass, 'beforeRender', onChartBeforeRender);
         addEvent(ChartClass, 'destroy', onChartDestroy);
@@ -170,7 +175,7 @@ function compose(
         chartProto.callbacks.push(onChartCallback);
     }
 
-    if (U.pushUnique(composedMembers, setOptions)) {
+    if (pushUnique(composedMembers, setOptions)) {
         extend(
             defaultOptions,
             { rangeSelector: RangeSelectorDefaults.rangeSelector }

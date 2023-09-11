@@ -23,7 +23,7 @@ const {
     doc
 } = H;
 import Point from '../Core/Series/Point.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 
 import DataTable from '../../Data/DataTable.js';
 import GoogleSheetsConnector from '../../Data/Connectors/GoogleSheetsConnector.js'

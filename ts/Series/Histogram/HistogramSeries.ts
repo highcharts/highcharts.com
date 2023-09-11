@@ -29,15 +29,18 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    arrayMax,
     arrayMin,
-    correctFloat,
-    extend,
-    isNumber,
-    merge,
-    objectEach
+    arrayMax
+} = AH;
+const { isNumber } = TC;
+const { extend, merge, objectEach } = OH;
+const {
+    correctFloat
 } = U;
 
 /* ************************************************************************** *

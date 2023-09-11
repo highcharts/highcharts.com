@@ -26,8 +26,8 @@ import type HTMLTableConnectorOptions from '../../Data/Connectors/HTMLTableConne
 import DataTableHelper from './DataTableHelper.js';
 import HTMLTableConnector from '../../Data/Connectors/HTMLTableConnector.js';
 import Serializable from '../Serializable.js';
-import U from '../../Core/Utilities.js';
-const { merge } = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 /* *
  *

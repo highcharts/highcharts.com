@@ -22,13 +22,18 @@ import type PlotLineOptions from './PlotLineOptions';
 import type PlotLineOrBand from './PlotLineOrBand';
 import type SVGPath from '../../Renderer/SVG/SVGPath';
 
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
     erase,
-    extend,
-    isNumber
-} = U;
-
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const {
+    extend
+} = OH;
 /* *
  *
  *  Declarations
@@ -213,7 +218,7 @@ namespace PlotLineOrBandAxis {
             PlotLineOrBandClass = PlotLineOrBandType;
         }
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             extend(
                 AxisClass.prototype as Composition,
                 {

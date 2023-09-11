@@ -32,13 +32,13 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    extend,
-    merge,
     pick
 } = U;
 import WindbarbPoint from './WindbarbPoint.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /**
  * @private

@@ -16,13 +16,11 @@
 
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement.js';
 import type { PictorialPathOptions } from './PictorialSeriesOptions';
-import U from '../../Core/Utilities.js';
 
 import Axis from '../../Core/Axis/Axis.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined } = OH;
 
-const {
-    defined
-} = U;
 
 function rescalePatternFill(
     element: SVGElement,

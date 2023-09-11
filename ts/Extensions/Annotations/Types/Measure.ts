@@ -35,15 +35,15 @@ import type SVGPath from '../../../Core/Renderer/SVG/SVGPath';
 
 import Annotation from '../Annotation.js';
 import ControlPoint from '../ControlPoint.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
 const {
-    defined,
-    extend,
-    isNumber,
-    merge,
     pick
 } = U;
 import { Palette } from '../../../Core/Color/Palettes.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined, extend, merge } = OH;
 
 /* *
  *

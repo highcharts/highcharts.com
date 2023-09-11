@@ -23,11 +23,16 @@ import type { HTMLDOMElement } from '../DOMElementType';
 import AST from './AST.js';
 import SVGElement from '../SVG/SVGElement.js';
 import SVGRenderer from '../SVG/SVGRenderer.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { extend } = OH;
 const {
     attr,
     createElement,
-    extend,
     pick
 } = U;
 
@@ -74,7 +79,7 @@ class HTMLRenderer extends SVGRenderer {
         SVGRendererClass: T
     ): (T&typeof HTMLRenderer) {
 
-        if (U.pushUnique(composedMembers, SVGRendererClass)) {
+        if (pushUnique(composedMembers, SVGRendererClass)) {
             const htmlRendererProto = HTMLRenderer.prototype,
                 svgRendererProto = SVGRendererClass.prototype;
 

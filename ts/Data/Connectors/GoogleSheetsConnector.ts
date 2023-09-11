@@ -28,9 +28,10 @@ import type Types from '../../Shared/Types';
 
 import DataConnector from './DataConnector.js';
 import GoogleSheetsConverter from '../Converters/GoogleSheetsConverter.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 const {
-    merge,
     pick
 } = U;
 

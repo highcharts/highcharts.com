@@ -30,15 +30,21 @@ import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import H from '../../../Core/Globals.js';
 const { doc } = H;
-import U from '../../../Core/Utilities.js';
-const {
-    defined,
-    fireEvent
-} = U;
+import U from '../../../Shared/Utilities.js';
 
 import KeyboardNavigationHandler from '../../KeyboardNavigationHandler.js';
 import EventProvider from '../../Utils/EventProvider.js';
 import ChartUtilities from '../../Utils/ChartUtilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const {
+    defined
+} = OH;
+const { fireEvent } = EH;
 const {
     getPointFromXY,
     getSeriesFromName,
@@ -900,7 +906,7 @@ namespace SeriesKeyboardNavigation {
         SeriesClass: typeof Series
     ): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as ChartComposition;
 
             chartProto.highlightAdjacentPoint = chartHighlightAdjacentPoint;
@@ -910,13 +916,13 @@ namespace SeriesKeyboardNavigation {
             chartProto.highlightAdjacentSeries = chartHighlightAdjacentSeries;
         }
 
-        if (U.pushUnique(composedMembers, PointClass)) {
+        if (pushUnique(composedMembers, PointClass)) {
             const pointProto = PointClass.prototype as PointComposition;
 
             pointProto.highlight = pointHighlight;
         }
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype as SeriesComposition;
 
             /**

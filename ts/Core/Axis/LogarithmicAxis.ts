@@ -18,9 +18,14 @@
 
 import type Axis from './Axis';
 
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     normalizeTickInterval,
     pick
 } = U;
@@ -88,7 +93,7 @@ namespace LogarithmicAxis {
         AxisClass: T
     ): (T&typeof Composition) {
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             AxisClass.keepProps.push('logarithmic');
 
             addEvent(AxisClass, 'init', onInit);

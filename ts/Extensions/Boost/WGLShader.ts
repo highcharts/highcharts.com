@@ -19,10 +19,10 @@
  * */
 
 import type BubbleSeries from '../../Series/Bubble/BubbleSeries';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
     clamp,
-    error,
     pick
 } = U;
 

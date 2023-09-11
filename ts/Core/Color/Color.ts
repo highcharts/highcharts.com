@@ -21,10 +21,14 @@ import type { ColorLike, ColorType } from './ColorType';
 import type GradientColor from './GradientColor';
 
 import H from '../Globals.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
 const {
-    isNumber,
-    merge,
+    merge
+} = OH;
+const {
     pInt
 } = U;
 

@@ -31,12 +31,13 @@ import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const {
     sma: SMAIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+const { extend, merge } = OH;
 const {
-    correctFloat,
-    extend,
-    isArray,
-    merge
+    correctFloat
 } = U;
 
 /* *

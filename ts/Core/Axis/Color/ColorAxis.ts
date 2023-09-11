@@ -41,13 +41,17 @@ import LegendSymbol from '../../Legend/LegendSymbol.js';
 import SeriesRegistry from '../../Series/SeriesRegistry.js';
 import SeriesClass from '../../Series/Series';
 const { series: Series } = SeriesRegistry;
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber } = TC;
 const {
-    extend,
-    fireEvent,
-    isArray,
-    isNumber,
     merge,
+    extend
+} = OH;
+const { fireEvent } = EH;
+const {
     pick
 } = U;
 

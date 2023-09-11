@@ -20,7 +20,7 @@ import type DataEventEmitter from './DataEventEmitter';
 import DataConverter from './DataConverter.js';
 import DataJSON from './DataJSON.js';
 import DataTableRow from './DataTableRow.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
     addEvent,
     fireEvent,

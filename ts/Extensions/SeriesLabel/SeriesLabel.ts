@@ -59,13 +59,19 @@ const {
     boxIntersectLine,
     intersectRect
 } = SLU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import { Palette } from '../../Core/Color/Palettes';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    extend,
-    fireEvent,
-    isNumber,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { extend } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     pick,
     syncTimeout
 } = U;
@@ -362,17 +368,17 @@ function compose(
     SVGRendererClass: typeof SVGRenderer
 ): void {
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         // Leave both events, we handle animation differently (#9815)
         addEvent(Chart, 'load', onChartRedraw);
         addEvent(Chart, 'redraw', onChartRedraw);
     }
 
-    if (U.pushUnique(composedMembers, SVGRendererClass)) {
+    if (pushUnique(composedMembers, SVGRendererClass)) {
         SVGRendererClass.prototype.symbols.connector = symbolConnector;
     }
 
-    if (U.pushUnique(composedMembers, setOptions)) {
+    if (pushUnique(composedMembers, setOptions)) {
         setOptions({ plotOptions: { series: { label: SeriesLabelDefaults } } });
     }
 

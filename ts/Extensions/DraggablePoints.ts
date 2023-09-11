@@ -46,14 +46,16 @@ import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const {
     seriesTypes
 } = SeriesRegistry;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 import { CursorValue } from '../Core/Renderer/CSSObject';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { merge, objectEach } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
     clamp,
-    isNumber,
-    merge,
-    objectEach,
     pick
 } = U;
 

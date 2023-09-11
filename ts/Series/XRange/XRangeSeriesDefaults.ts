@@ -21,11 +21,11 @@
 import type XRangePoint from './XRangePoint';
 import type XRangeSeriesOptions from './XRangeSeriesOptions';
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber, isObject } = TC;
 const {
-    correctFloat,
-    isNumber,
-    isObject
+    correctFloat
 } = U;
 
 /* *

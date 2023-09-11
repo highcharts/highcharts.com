@@ -22,11 +22,10 @@ import Chart from '../Core/Chart/Chart.js';
 import D from '../Core/Defaults.js';
 const { getOptions } = D;
 import { Palette } from '../Core/Color/Palettes.js';
-import U from '../Core/Utilities.js';
-const {
-    addEvent,
-    extend
-} = U;
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
+const { addEvent } = EH;
 
 declare module '../Core/Chart/ChartLike' {
     interface ChartLike {

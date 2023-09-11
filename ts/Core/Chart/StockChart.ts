@@ -44,21 +44,29 @@ import RangeSelectorDefaults from
 import ScrollbarDefaults from '../../Stock/Scrollbar/ScrollbarDefaults.js';
 import Series from '../Series/Series.js';
 import SVGRenderer from '../Renderer/SVG/SVGRenderer.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    addEvent,
     clamp,
-    defined,
-    extend,
-    find,
-    isNumber,
-    isString,
-    merge,
-    pick,
-    splat
+    pick
 } = U;
 
 import '../Pointer.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    find,
+    splat
+} = AH;
+const { isNumber, isString } = TC;
+const {
+    defined,
+    extend,
+    merge
+} = OH;
+
+const { addEvent } = EH;
 
 /* *
  *

@@ -30,8 +30,8 @@ const {
 import { Palette } from './Color/Palettes.js';
 import Palettes from './Color/Palettes.js';
 import Time from './Time.js';
-import U from './Utilities.js';
-const { merge } = U;
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 /* *
  *

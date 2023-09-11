@@ -30,6 +30,7 @@ import Globals from '../Dashboards/Globals.js';
 import PluginHandler from '../Dashboards/PluginHandler.js';
 import Sync from '../Dashboards/Components/Sync/Sync.js';
 import Utilities from '../Dashboards/Utilities.js';
+import EventHelper from '../Shared/Helpers/EventHelper.js';
 
 // Fill registries
 import '../Data/Connectors/CSVConnector.js';
@@ -51,6 +52,7 @@ import '../Data/Modifiers/SortModifier.js';
 
 declare global {
     interface Dashboards {
+        addEvent: typeof EventHelper.addEvent;
         board: typeof Board.board;
         boards: typeof Globals.boards;
         merge: typeof Utilities.merge;
@@ -84,6 +86,7 @@ declare global {
 const G = Globals as unknown as Dashboards;
 
 G.board = Board.board;
+G.addEvent = EventHelper.addEvent;
 G.merge = Utilities.merge;
 G.uniqueKey = Utilities.uniqueKey;
 G.Board = Board;

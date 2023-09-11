@@ -43,20 +43,20 @@ const {
 } = SeriesRegistry;
 import SVGRenderer from '../../Core/Renderer/SVG/SVGRenderer.js';
 const { prototype: { symbols } } = SVGRenderer;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 
 const {
-    addEvent,
     clamp,
-    extend,
-    fireEvent,
-    isNumber,
-    merge,
-    pick,
-    defined
+    pick
 } = U;
 
 import IU from '../InterpolationUtilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { extend, merge } = OH;
+const { addEvent, fireEvent } = EH;
 
 const {
     colorFromPoint,

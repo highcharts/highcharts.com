@@ -27,11 +27,8 @@ import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const {
     linearRegression: LinearRegressionIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
-const {
-    extend,
-    merge
-} = U;
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /* *
  *

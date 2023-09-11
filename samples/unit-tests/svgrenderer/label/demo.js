@@ -624,6 +624,7 @@ QUnit.test('Label padding', assert => {
 });
 
 QUnit.test('Label callout tests', assert => {
+    // eslint-disable-next-line max-len
     // #14858: Callout missing line when anchorX within width and no room for chevron
     const ren = new Highcharts.Renderer(
         document.getElementById('container'),

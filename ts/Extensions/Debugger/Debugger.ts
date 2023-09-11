@@ -24,12 +24,16 @@ import ErrorMessages from './ErrorMessages.js';
 import H from '../../Core/Globals.js';
 import D from '../../Core/Defaults.js';
 const { setOptions } = D;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
     find,
-    isNumber
-} = U;
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { addEvent } = EH;
 
 /* *
  *
@@ -89,15 +93,15 @@ function compose(
     ChartClass: typeof Chart
 ): void {
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         addEvent(ChartClass, 'beforeRedraw', onChartBeforeRedraw);
     }
 
-    if (U.pushUnique(composedMembers, H)) {
+    if (pushUnique(composedMembers, H)) {
         addEvent(H, 'displayError', onHighchartsDisplayError);
     }
 
-    if (U.pushUnique(composedMembers, setOptions)) {
+    if (pushUnique(composedMembers, setOptions)) {
         setOptions(defaultOptions);
     }
 

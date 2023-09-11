@@ -40,16 +40,15 @@ import KPISyncHandlers from '../Plugins/KPISyncHandlers.js';
 const {
     format
 } = Templating;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber } = TC;
+const { defined, diffObjects, merge } = OH;
 const {
     createElement,
     css,
-    defined,
-    getStyle,
-    isArray,
-    isNumber,
-    merge,
-    diffObjects
+    getStyle
 } = U;
 
 /* *

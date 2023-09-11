@@ -26,14 +26,19 @@ import SVGElement from '../Core/Renderer/SVG/SVGElement.js';
 
 const { bubble, pie, sunburst } = SeriesRegistry.seriesTypes;
 
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 import Chart from '../Core/Chart/Chart';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
     find,
-    isNumber
-} = U;
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { defined } = OH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -138,7 +143,7 @@ namespace SeriesOnPointComposition {
         // - sunburst
         pie.prototype.onPointSupported = true;
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             addEvent(Series, 'afterInit', seriesAfterInit);
             addEvent(Series, 'afterRender', seriesAfterRender);
             addEvent(Series, 'afterGetCenter', seriesGetCenter);
@@ -147,7 +152,7 @@ namespace SeriesOnPointComposition {
             addEvent(Series, 'translate', seriesTranslate);
         }
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'beforeRender', chartGetZData);
             addEvent(ChartClass, 'beforeRedraw', chartGetZData);
         }

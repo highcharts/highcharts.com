@@ -12,14 +12,12 @@
  *
  * */
 
-import type Annotation from './Annotation';
 import type AnnotationChart from './AnnotationChart';
 import type {
     AnnotationPoint,
     AnnotationPointType
 } from './AnnotationSeries';
 import type Axis from '../../Core/Axis/Axis';
-import type Controllable from './Controllables/Controllable';
 import type ControlTarget from './ControlTarget';
 import type MockPointOptions from './MockPointOptions';
 import type PositionObject from '../../Core/Renderer/PositionObject';
@@ -27,11 +25,10 @@ import type Series from '../../Core/Series/Series';
 
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const { series: { prototype: seriesProto } } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const {
-    defined,
-    fireEvent
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined } = OH;
+const { fireEvent } = EH;
 
 /* *
  *

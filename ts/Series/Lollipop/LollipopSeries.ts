@@ -28,15 +28,11 @@ const {
         },
         dumbbell: {
             prototype: dumbbellProto
-        },
-        scatter: ScatterSeries
+        }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    merge
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /* *
  *

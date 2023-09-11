@@ -20,9 +20,9 @@ import type MockPointOptions from '../MockPointOptions';
 import Annotation from '../Annotation.js';
 import InfinityLine from './InfinityLine.js';
 import MockPoint from '../MockPoint.js';
-import U from '../../../Core/Utilities.js';
-const { merge } = U;
 
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 /* *
  *
  *  Class

@@ -21,11 +21,11 @@ import type ColumnPyramidSeriesOptions from './ColumnPyramidSeriesOptions';
 import ColumnSeries from '../Column/ColumnSeries.js';
 const { prototype: colProto } = ColumnSeries;
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+import U from '../../Shared/Utilities.js';
 const {
     clamp,
-    extend,
-    merge,
     pick
 } = U;
 

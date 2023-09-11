@@ -20,10 +20,12 @@ import type SVGPath from './SVGPath';
 import type SymbolOptions from './SymbolOptions';
 import type { SymbolTypeRegistry } from './SymbolType';
 
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined } = OH;
 const {
-    defined,
-    isNumber,
     pick
 } = U;
 

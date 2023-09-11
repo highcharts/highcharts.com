@@ -19,13 +19,14 @@ import type EditMode from '../EditMode';
 
 import { HTMLDOMElement } from '../../../Core/Renderer/DOMElementType.js';
 import EditGlobals from '../EditGlobals.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
 import MenuItem from './MenuItem.js';
 import MenuItemBindings from './MenuItemBindings.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 const {
-    createElement,
-    merge
+    createElement
 } = U;
 
 class Menu {

@@ -29,16 +29,14 @@ const { defaultOptions } = D;
 import H from '../../Core/Globals.js';
 import ScrollbarAxis from '../../Core/Axis/ScrollbarAxis.js';
 import ScrollbarDefaults from './ScrollbarDefaults.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, destroyObjectProperties, merge } = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
 const {
-    addEvent,
     correctFloat,
-    defined,
-    destroyObjectProperties,
-    fireEvent,
-    merge,
-    pick,
-    removeEvent
+    pick
 } = U;
 
 /* *

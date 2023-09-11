@@ -39,9 +39,12 @@ const {
 import Math3D from '../../Core/Math3D.js';
 const { perspective } = Math3D;
 import RendererRegistry from '../../Core/Renderer/RendererRegistry.js';
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    merge,
+    merge
+} = OH;
+import U from '../../Shared/Utilities.js';
+const {
     pick
 } = U;
 

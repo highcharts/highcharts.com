@@ -25,15 +25,17 @@ import type SVGAttributes from '../Renderer/SVG/SVGAttributes';
 import type SVGElement from '../Renderer/SVG/SVGElement';
 
 import Fx from './Fx.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject } = TC;
 const {
-    defined,
-    getStyle,
-    isArray,
-    isNumber,
-    isObject,
     merge,
-    objectEach,
+    defined,
+    objectEach
+} = OH;
+const {
+    getStyle,
     pick
 } = U;
 

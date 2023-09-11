@@ -27,11 +27,8 @@ import MultipleLinesComposition from '../MultipleLinesComposition.js';
 import Palettes from '../../../Core/Color/Palettes.js';
 import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const { sma: SMAIndicator } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
-const {
-    merge,
-    extend
-} = U;
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /* *
  *

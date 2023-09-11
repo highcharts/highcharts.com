@@ -25,11 +25,11 @@ import F from '../Core/Templating.js';
 const { format } = F;
 import H from '../Core/Globals.js';
 const { win } = H;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import error from '../Shared/Helpers/Error.js';
+const { extend, merge } = OH;
 const {
-    error,
-    extend,
-    merge,
     wrap
 } = U;
 

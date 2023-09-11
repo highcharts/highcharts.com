@@ -30,7 +30,9 @@ import type DataTable from './DataTable.js';
 
 import DataConnector from './Connectors/DataConnector.js';
 import DataPoolDefaults from './DataPoolDefaults.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+const { addEvent, fireEvent } = EH;
 
 
 /* *
@@ -117,7 +119,7 @@ class DataPool implements DataEvent.Emitter {
      * Event object with event information.
      */
     public emit<E extends DataEvent>(e: E): void {
-        U.fireEvent(this, e.type, e);
+        fireEvent(this, e.type, e);
     }
 
 
@@ -305,7 +307,7 @@ class DataPool implements DataEvent.Emitter {
         type: E['type'],
         callback: DataEvent.Callback<this, E>
     ): Function {
-        return U.addEvent(this, type, callback);
+        return addEvent(this, type, callback);
     }
 
 

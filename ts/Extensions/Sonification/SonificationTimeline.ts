@@ -20,12 +20,13 @@ import SonificationInstrument from './SonificationInstrument.js';
 import toMIDI from './MIDI.js';
 import DU from '../DownloadURL.js';
 const { downloadURL } = DU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    find,
-    merge
-} = U;
+    find
+} = AH;
+const { defined, merge } = OH;
 
 declare global {
     namespace Sonification {

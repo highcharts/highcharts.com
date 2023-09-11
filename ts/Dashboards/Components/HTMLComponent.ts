@@ -26,12 +26,9 @@ import type Cell from '../Layout/Cell.js';
 
 import AST from '../../Core/Renderer/HTML/AST.js';
 import Component from './Component.js';
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { diffObjects, merge } = OH;
 
-const {
-    merge,
-    diffObjects
-} = U;
 
 // TODO: This may affect the AST parsing in Highcharts
 // should look into adding these as options if possible

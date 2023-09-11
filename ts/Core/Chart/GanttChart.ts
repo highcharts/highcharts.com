@@ -28,14 +28,18 @@ import type Options from '../Options';
 import Chart from './Chart.js';
 import D from '../Defaults.js';
 const { getOptions } = D;
-import U from '../Utilities.js';
-const {
-    isArray,
-    merge,
-    splat
-} = U;
 
 import '../../Series/Gantt/GanttSeries.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    splat
+} = AH;
+const { isArray } = TC;
+const {
+    merge
+} = OH;
 
 /* *
  *

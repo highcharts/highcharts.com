@@ -25,12 +25,16 @@ import Controllable from './Controllable.js';
 import ControllableDefaults from './ControllableDefaults.js';
 const { defaultMarkers } = ControllableDefaults;
 import H from '../../../Core/Globals.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    extend,
-    merge,
+    pushUnique
+} = AH;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
+const {
     uniqueKey
 } = U;
 
@@ -213,11 +217,11 @@ class ControllablePath extends Controllable {
         SVGRendererClass: typeof SVGRenderer
     ): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'afterGetContainer', onChartAfterGetContainer);
         }
 
-        if (U.pushUnique(composedMembers, SVGRendererClass)) {
+        if (pushUnique(composedMembers, SVGRendererClass)) {
             const svgRendererProto = SVGRendererClass.prototype;
 
             svgRendererProto.addMarker = svgRendererAddMarker;

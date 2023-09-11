@@ -23,12 +23,10 @@
 import type Globals from '../Globals';
 
 import Serializable from '../Serializable.js';
-import U from '../../Core/Utilities.js';
-const {
-    addEvent,
-    fireEvent,
-    merge
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { addEvent, fireEvent } = EH;
 
 /* *
  *

@@ -21,10 +21,12 @@ import type SeriesOptions from '../Core/Series/SeriesOptions';
 import H from '../Core/Globals.js';
 const { deg2rad } = H;
 import Series from '../Core/Series/Series.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { fireEvent } = EH;
 const {
-    fireEvent,
-    isNumber,
     pick,
     relativeLength
 } = U;

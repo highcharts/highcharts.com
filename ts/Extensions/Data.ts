@@ -33,17 +33,19 @@ const { ajax } = HU;
 import Point from '../Core/Series/Point.js';
 import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    extend,
-    fireEvent,
-    isNumber,
-    merge,
-    objectEach,
-    pick,
     splat
+} = AH;
+const { isNumber } = TC;
+const { extend, defined, merge, objectEach } = OH;
+const { addEvent, fireEvent } = EH;
+const {
+    pick
 } = U;
 
 /* *
@@ -971,6 +973,7 @@ class Data {
                     !(options.dateFormats || self.dateFormats)[calculatedFormat]
                 ) {
                     // This should emit an event instead
+                    // TODO: Will it event fire the event?
                     (fireEvent as any)('deduceDateFailed');
                     return format;
                 }

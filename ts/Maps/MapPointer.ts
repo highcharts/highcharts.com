@@ -15,10 +15,10 @@ import type MapPoint from '../Series/Map/MapPoint';
 import type PointerEvent from '../Core/PointerEvent';
 
 import Pointer from '../Core/Pointer.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { defined, extend } = OH;
 const {
-    defined,
-    extend,
     pick,
     wrap
 } = U;

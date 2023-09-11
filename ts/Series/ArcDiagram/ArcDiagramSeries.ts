@@ -27,7 +27,9 @@ import SankeyColumnComposition from '../Sankey/SankeyColumnComposition.js';
 import Series from '../../Core/Series/Series.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 import SVGRenderer from '../../Core/Renderer/SVG/SVGRenderer.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 const { prototype: { symbols } } = SVGRenderer;
 const {
@@ -37,8 +39,6 @@ const {
     }
 } = SeriesRegistry;
 const {
-    extend,
-    merge,
     pick,
     relativeLength
 } = U;

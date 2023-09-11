@@ -33,11 +33,10 @@ import type SVGPath from './SVGPath';
 import Color from '../../Color/Color.js';
 const { parse: color } = Color;
 import SVGElement from './SVGElement.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { defined, merge, objectEach } = OH;
 const {
-    defined,
-    merge,
-    objectEach,
     pick
 } = U;
 

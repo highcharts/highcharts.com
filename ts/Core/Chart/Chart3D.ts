@@ -37,11 +37,16 @@ const {
     shapeArea3D
 } = Math3D;
 import Series from '../Series/Series.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
 const {
-    addEvent,
-    isArray,
-    merge,
+    merge
+} = OH;
+const { addEvent } = EH;
+const {
     pick,
     wrap
 } = U;

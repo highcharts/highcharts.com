@@ -28,16 +28,21 @@ const {
     }
 } = Point;
 
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
     arrayMax,
     arrayMin,
+    pushUnique
+} = AH;
+const { isArray, isNumber, isString } = TC;
+const { defined } = OH;
+const { addEvent } = EH;
+const {
     correctFloat,
-    defined,
-    isArray,
-    isNumber,
-    isString,
     pick
 } = U;
 
@@ -171,7 +176,7 @@ namespace DataModifyComposition {
         PointClass: typeof Point
     ): (typeof SeriesComposition&T) {
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype as SeriesComposition;
 
             seriesProto.setCompare = seriesSetCompare;
@@ -182,7 +187,7 @@ namespace DataModifyComposition {
             addEvent(SeriesClass, 'afterProcessData', afterProcessData);
         }
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             const axisProto = AxisClass.prototype as AxisComposition;
 
             axisProto.setCompare = axisSetCompare;
@@ -190,7 +195,7 @@ namespace DataModifyComposition {
             axisProto.setCumulative = axisSetCumulative;
         }
 
-        if (U.pushUnique(composedMembers, PointClass)) {
+        if (pushUnique(composedMembers, PointClass)) {
             const pointProto = PointClass.prototype as PointComposition;
 
             pointProto.tooltipFormatter = tooltipFormatter;

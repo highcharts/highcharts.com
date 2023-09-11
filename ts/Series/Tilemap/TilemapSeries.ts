@@ -33,12 +33,9 @@ const {
 } = SeriesRegistry;
 import TilemapPoint from './TilemapPoint.js';
 import TilemapShapes from './TilemapShapes.js';
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    merge
-} = U;
 import './TilemapComposition.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /* *
  *

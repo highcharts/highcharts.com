@@ -26,12 +26,17 @@ import DataGroupingDefaults from './DataGroupingDefaults.js';
 import DataGroupingSeriesComposition from './DataGroupingSeriesComposition.js';
 import F from '../../Core/Templating.js';
 const { format } = F;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    extend,
-    isNumber
-} = U;
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { extend } = OH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -60,7 +65,7 @@ function compose(
 
     if (
         TooltipClass &&
-        U.pushUnique(composedMembers, TooltipClass)
+        pushUnique(composedMembers, TooltipClass)
     ) {
         addEvent(TooltipClass, 'headerFormatter', onTooltipHeaderFormatter);
     }

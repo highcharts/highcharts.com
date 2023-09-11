@@ -22,8 +22,8 @@ import type PyramidPoint from './PyramidPoint';
 import type PyramidSeriesOptions from './PyramidSeriesOptions';
 import FunnelSeries from '../Funnel/FunnelSeries.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
-const { merge } = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 /* *
  *

@@ -37,18 +37,21 @@ import F from '../Templating.js';
 const { format } = F;
 import { Palette } from '../Color/Palettes.js';
 import R from '../Renderer/RendererUtilities.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    extend,
-    fireEvent,
-    isArray,
-    isString,
-    merge,
-    objectEach,
+    splat,
+    pushUnique
+} = AH;
+const { isArray, isString } = TC;
+const { defined, extend, merge, objectEach } = OH;
+const { fireEvent } = EH;
+const {
     pick,
-    pInt,
-    splat
+    pInt
 } = U;
 
 /* *
@@ -493,7 +496,7 @@ namespace DataLabel {
      */
     export function compose(SeriesClass: typeof Series): void {
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype;
 
             seriesProto.initDataLabelsGroup = initDataLabelsGroup;

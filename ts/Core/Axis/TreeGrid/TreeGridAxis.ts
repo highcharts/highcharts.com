@@ -41,15 +41,21 @@ import Tree from '../../../Gantt/Tree.js';
 import TreeGridTick from './TreeGridTick.js';
 import TU from '../../../Series/TreeUtilities.js';
 const { getLevelOptions } = TU;
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
     find,
-    fireEvent,
-    isArray,
-    isObject,
-    isString,
-    merge,
+    pushUnique
+} = AH;
+const { isArray, isObject, isString } = TC;
+const {
+    merge
+} = OH;
+const { addEvent, fireEvent } = EH;
+const {
     pick,
     wrap
 } = U;
@@ -848,7 +854,7 @@ class TreeGridAxisAdditions {
         TickClass: typeof Tick
     ): (T&typeof TreeGridAxisComposition) {
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             if (AxisClass.keepProps.indexOf('treeGrid') === -1) {
                 AxisClass.keepProps.push('treeGrid');
             }
@@ -866,7 +872,7 @@ class TreeGridAxisAdditions {
 
         }
 
-        if (U.pushUnique(composedMembers, TickClass)) {
+        if (pushUnique(composedMembers, TickClass)) {
             if (!TickConstructor) {
                 TickConstructor = TickClass;
             }

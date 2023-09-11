@@ -28,9 +28,8 @@ import type Types from '../../Shared/Types';
 
 import CSVConverter from '../Converters/CSVConverter.js';
 import DataConnector from './DataConnector.js';
-import U from '../../Core/Utilities.js';
-const { merge } = U;
-
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 /* *
  *
  *  Class

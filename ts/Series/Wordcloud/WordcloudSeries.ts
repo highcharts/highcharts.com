@@ -40,16 +40,12 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    isArray,
-    isNumber,
-    isObject,
-    merge
-} = U;
 import WordcloudPoint from './WordcloudPoint.js';
 import WordcloudUtils from './WordcloudUtils.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject } = TC;
+const { extend, merge } = OH;
 const {
     archimedeanSpiral,
     extendPlayingField,

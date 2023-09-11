@@ -63,14 +63,19 @@ const {
         treemap: TreemapSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    extend,
     find,
-    fireEvent,
-    isNumber,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { defined, extend } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     pick
 } = U;
 
@@ -1088,7 +1093,7 @@ function compose(
     ChartClass: typeof Chart
 ): void {
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         // Add an event listener to handle the showTable option
         addEvent(ChartClass, 'afterViewData', onChartAfterViewData);
         addEvent(ChartClass, 'render', onChartRenderer);
@@ -1106,7 +1111,7 @@ function compose(
         chartProto.viewData = chartViewData;
     }
 
-    if (U.pushUnique(composedMembers, setOptions)) {
+    if (pushUnique(composedMembers, setOptions)) {
         const exportingOptions = getOptions().exporting;
 
         // Add "Download CSV" to the exporting menu.
@@ -1150,29 +1155,29 @@ function compose(
         setOptions(ExportDataDefaults);
     }
 
-    if (AreaRangeSeries && U.pushUnique(composedMembers, AreaRangeSeries)) {
+    if (AreaRangeSeries && pushUnique(composedMembers, AreaRangeSeries)) {
         AreaRangeSeries.prototype.keyToAxis = {
             low: 'y',
             high: 'y'
         };
     }
 
-    if (GanttSeries && U.pushUnique(composedMembers, GanttSeries)) {
+    if (GanttSeries && pushUnique(composedMembers, GanttSeries)) {
         GanttSeries.prototype.keyToAxis = {
             start: 'x',
             end: 'x'
         };
     }
 
-    if (MapSeries && U.pushUnique(composedMembers, MapSeries)) {
+    if (MapSeries && pushUnique(composedMembers, MapSeries)) {
         MapSeries.prototype.exportKey = 'name';
     }
 
-    if (MapBubbleSeries && U.pushUnique(composedMembers, MapBubbleSeries)) {
+    if (MapBubbleSeries && pushUnique(composedMembers, MapBubbleSeries)) {
         MapBubbleSeries.prototype.exportKey = 'name';
     }
 
-    if (TreemapSeries && U.pushUnique(composedMembers, TreemapSeries)) {
+    if (TreemapSeries && pushUnique(composedMembers, TreemapSeries)) {
         TreemapSeries.prototype.exportKey = 'name';
     }
 

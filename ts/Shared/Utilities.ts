@@ -16,20 +16,25 @@
  *
  * */
 
-import type AxisType from './Axis/AxisType';
-import type Chart from './Chart/Chart';
-import type CSSObject from './Renderer/CSSObject';
+import type AxisType from '../Core/Axis/AxisType';
+import type Chart from '../Core/Chart/Chart';
+import type CSSObject from '../Core/Renderer/CSSObject';
 import type {
     DOMElementType,
     HTMLDOMElement
-} from './Renderer/DOMElementType';
-import type EventCallback from './EventCallback';
-import type HTMLAttributes from './Renderer/HTML/HTMLAttributes';
-import type Series from './Series/Series';
-import type SVGAttributes from './Renderer/SVG/SVGAttributes';
-import type Time from './Time';
+} from '../Core/Renderer/DOMElementType';
+import type EventCallback from '../Core/EventCallback';
+import type HTMLAttributes from '../Core/Renderer/HTML/HTMLAttributes';
+import type Series from '../Core/Series/Series';
+import type SVGAttributes from '../Core/Renderer/SVG/SVGAttributes';
+import type Time from '../Core/Time';
 
-import H from './Globals.js';
+import H from '../Core/Globals.js';
+import OH from './Helpers/ObjectHelper.js';
+const { defined, extend, objectEach } = OH;
+import TC from './Helpers/TypeChecker.js';
+import error from './Helpers/Error.js';
+const { isString, isNumber, isObject } = TC;
 const {
     charts,
     doc,
@@ -42,8 +47,6 @@ const {
  *
  * */
 
-type NonArray<T> = T extends Array<unknown> ? never : T;
-type NonFunction<T> = T extends Function ? never : T;
 type NullType = (null|undefined);
 
 /* *
@@ -51,208 +54,6 @@ type NullType = (null|undefined);
  *  Functions
  *
  * */
-
-/**
- * Provide error messages for debugging, with links to online explanation. This
- * function can be overridden to provide custom error handling.
- *
- * @sample highcharts/chart/highcharts-error/
- *         Custom error handler
- *
- * @function Highcharts.error
- *
- * @param {number|string} code
- *        The error code. See
- *        [errors.xml](https://github.com/highcharts/highcharts/blob/master/errors/errors.xml)
- *        for available codes. If it is a string, the error message is printed
- *        directly in the console.
- *
- * @param {boolean} [stop=false]
- *        Whether to throw an error or just log a warning in the console.
- *
- * @param {Highcharts.Chart} [chart]
- *        Reference to the chart that causes the error. Used in 'debugger'
- *        module to display errors directly on the chart.
- *        Important note: This argument is undefined for errors that lack
- *        access to the Chart instance. In such case, the error will be
- *        displayed on the last created chart.
- *
- * @param {Highcharts.Dictionary<string>} [params]
- *        Additional parameters for the generated message.
- *
- * @return {void}
- */
-function error(
-    code: (number|string),
-    stop?: boolean,
-    chart?: Chart,
-    params?: Record<string, string>
-): void {
-    const severity = stop ? 'Highcharts error' : 'Highcharts warning';
-    if (code === 32) {
-        code = `${severity}: Deprecated member`;
-    }
-
-    const isCode = isNumber(code);
-    let message = isCode ?
-        `${severity} #${code}: www.highcharts.com/errors/${code}/` :
-        code.toString();
-    const defaultHandler = function (): void {
-        if (stop) {
-            throw new Error(message);
-        }
-        // else ...
-        if (
-            win.console &&
-            error.messages.indexOf(message) === -1 // prevent console flooting
-        ) {
-            console.warn(message); // eslint-disable-line no-console
-        }
-    };
-
-    if (typeof params !== 'undefined') {
-        let additionalMessages = '';
-        if (isCode) {
-            message += '?';
-        }
-        objectEach(params, function (value, key): void {
-            additionalMessages += `\n - ${key}: ${value}`;
-            if (isCode) {
-                message += encodeURI(key) + '=' + encodeURI(value);
-            }
-        });
-        message += additionalMessages;
-    }
-
-    fireEvent(
-        H,
-        'displayError',
-        { chart, code, message, params },
-        defaultHandler
-    );
-
-    error.messages.push(message);
-}
-namespace error {
-    export const messages: Array<string> = [];
-}
-
-function merge<T = object>(
-    extend: true,
-    a?: T,
-    ...n: Array<DeepPartial<T>|undefined>
-): (T);
-function merge<
-    T1 extends object = object,
-    T2 = unknown,
-    T3 = unknown,
-    T4 = unknown,
-    T5 = unknown,
-    T6 = unknown,
-    T7 = unknown,
-    T8 = unknown,
-    T9 = unknown
->(
-    a?: T1,
-    b?: T2,
-    c?: T3,
-    d?: T4,
-    e?: T5,
-    f?: T6,
-    g?: T7,
-    h?: T8,
-    i?: T9,
-): (T1&T2&T3&T4&T5&T6&T7&T8&T9);
-
-/* eslint-disable valid-jsdoc */
-/**
- * Utility function to deep merge two or more objects and return a third object.
- * If the first argument is true, the contents of the second object is copied
- * into the first object. The merge function can also be used with a single
- * object argument to create a deep copy of an object.
- *
- * @function Highcharts.merge<T>
- *
- * @param {boolean} extend
- *        Whether to extend the left-side object (a) or return a whole new
- *        object.
- *
- * @param {T|undefined} a
- *        The first object to extend. When only this is given, the function
- *        returns a deep copy.
- *
- * @param {...Array<object|undefined>} [n]
- *        An object to merge into the previous one.
- *
- * @return {T}
- *         The merged object. If the first argument is true, the return is the
- *         same as the second argument.
- *//**
- * Utility function to deep merge two or more objects and return a third object.
- * The merge function can also be used with a single object argument to create a
- * deep copy of an object.
- *
- * @function Highcharts.merge<T>
- *
- * @param {T|undefined} a
- *        The first object to extend. When only this is given, the function
- *        returns a deep copy.
- *
- * @param {...Array<object|undefined>} [n]
- *        An object to merge into the previous one.
- *
- * @return {T}
- *         The merged object. If the first argument is true, the return is the
- *         same as the second argument.
- */
-function merge<T>(): T {
-    /* eslint-enable valid-jsdoc */
-    let i,
-        args = arguments,
-        ret = {} as T;
-    const doCopy = function (copy: any, original: any): any {
-        // An object is replacing a primitive
-        if (typeof copy !== 'object') {
-            copy = {};
-        }
-
-        objectEach(original, function (value, key): void {
-
-            // Prototype pollution (#14883)
-            if (key === '__proto__' || key === 'constructor') {
-                return;
-            }
-
-            // Copy the contents of objects, but not arrays or DOM nodes
-            if (isObject(value, true) &&
-                !isClass(value) &&
-                !isDOMElement(value)
-            ) {
-                copy[key] = doCopy(copy[key] || {}, value);
-
-            // Primitives and arrays are copied over directly
-            } else {
-                copy[key] = original[key];
-            }
-        });
-        return copy;
-    };
-
-    // If first argument is true, copy into the existing object. Used in
-    // setOptions.
-    if (args[0] === true) {
-        ret = args[1];
-        args = Array.prototype.slice.call(args, 2) as any;
-    }
-
-    // For each argument, extend the return
-    const len = args.length;
-    for (i = 0; i < len; i++) {
-        ret = doCopy(ret, args[i]);
-    }
-
-    return ret;
-}
 
 /**
  * Constrain a value to within a lower and upper threshold.
@@ -266,105 +67,6 @@ function merge<T>(): T {
 function clamp(value: number, min: number, max: number): number {
     return value > min ? value < max ? value : max : min;
 }
-
-// eslint-disable-next-line valid-jsdoc
-/**
- * Return the deep difference between two objects. It can either return the new
- * properties, or optionally return the old values of new properties.
- * @private
- */
-function diffObjects(
-    newer: AnyRecord,
-    older: AnyRecord,
-    keepOlder?: boolean,
-    collectionsWithUpdate?: string[]
-): AnyRecord {
-    const ret = {};
-
-    /**
-     * Recurse over a set of options and its current values, and store the
-     * current values in the ret object.
-     */
-    function diff(
-        newer: AnyRecord,
-        older: AnyRecord,
-        ret: AnyRecord,
-        depth: number
-    ): void {
-        const keeper = keepOlder ? older : newer;
-
-        objectEach(newer, function (newerVal, key): void {
-            if (
-                !depth &&
-                collectionsWithUpdate &&
-                collectionsWithUpdate.indexOf(key) > -1 &&
-                older[key]
-            ) {
-                newerVal = splat(newerVal);
-
-                ret[key] = [];
-
-                // Iterate over collections like series, xAxis or yAxis and map
-                // the items by index.
-                for (
-                    let i = 0;
-                    i < Math.max(newerVal.length, older[key].length);
-                    i++
-                ) {
-
-                    // Item exists in current data (#6347)
-                    if (older[key][i]) {
-                        // If the item is missing from the new data, we need to
-                        // save the whole config structure. Like when
-                        // responsively updating from a dual axis layout to a
-                        // single axis and back (#13544).
-                        if (newerVal[i] === void 0) {
-                            ret[key][i] = older[key][i];
-
-                        // Otherwise, proceed
-                        } else {
-                            ret[key][i] = {};
-                            diff(
-                                newerVal[i],
-                                older[key][i],
-                                ret[key][i],
-                                depth + 1
-                            );
-                        }
-                    }
-                }
-            } else if (
-                isObject(newerVal, true) &&
-                !newerVal.nodeType // #10044
-            ) {
-                ret[key] = isArray(newerVal) ? [] : {};
-                diff(newerVal, older[key] || {}, ret[key], depth + 1);
-                // Delete empty nested objects
-                if (
-                    Object.keys(ret[key]).length === 0 &&
-                    // Except colorAxis which is a special case where the empty
-                    // object means it is enabled. Which is unfortunate and we
-                    // should try to find a better way.
-                    !(key === 'colorAxis' && depth === 0)
-                ) {
-                    delete ret[key];
-                }
-
-            } else if (
-                newer[key] !== older[key] ||
-                // If the newer key is explicitly undefined, keep it (#10525)
-                (key in newer && !(key in older))
-            ) {
-                ret[key] = keeper[key];
-            }
-        });
-    }
-
-    diff(newer, older, ret, 0);
-
-    return ret;
-}
-
 
 /**
  * Shortcut for parseInt
@@ -383,141 +85,6 @@ function diffObjects(
  */
 function pInt(s: any, mag?: number): number {
     return parseInt(s, mag || 10);
-}
-
-/**
- * Utility function to check for string type.
- *
- * @function Highcharts.isString
- *
- * @param {*} s
- *        The item to check.
- *
- * @return {boolean}
- *         True if the argument is a string.
- */
-function isString(s: unknown): s is string {
-    return typeof s === 'string';
-}
-
-/**
- * Utility function to check if an item is an array.
- *
- * @function Highcharts.isArray
- *
- * @param {*} obj
- *        The item to check.
- *
- * @return {boolean}
- *         True if the argument is an array.
- */
-function isArray(obj: unknown): obj is Array<unknown> {
-    const str = Object.prototype.toString.call(obj);
-
-    return str === '[object Array]' || str === '[object Array Iterator]';
-}
-
-function isObject<T>(obj: T, strict: true): obj is object & NonArray<NonFunction<NonNullable<T>>>;
-function isObject<T>(obj: T, strict?: false): obj is object & NonFunction<NonNullable<T>>;
-/**
- * Utility function to check if an item is of type object.
- *
- * @function Highcharts.isObject
- *
- * @param {*} obj
- *        The item to check.
- *
- * @param {boolean} [strict=false]
- *        Also checks that the object is not an array.
- *
- * @return {boolean}
- *         True if the argument is an object.
- */
-function isObject<T>(
-    obj: T,
-    strict?: boolean
-): obj is object & NonFunction<NonNullable<T>> {
-    return (
-        !!obj &&
-        typeof obj === 'object' &&
-        (!strict || !isArray(obj))
-    ) as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
-
-/**
- * Utility function to check if an Object is a HTML Element.
- *
- * @function Highcharts.isDOMElement
- *
- * @param {*} obj
- *        The item to check.
- *
- * @return {boolean}
- *         True if the argument is a HTML Element.
- */
-function isDOMElement(obj: unknown): obj is HTMLDOMElement {
-    return isObject(obj) && typeof (obj as any).nodeType === 'number';
-}
-
-/**
- * Utility function to check if an Object is a class.
- *
- * @function Highcharts.isClass
- *
- * @param {object|undefined} obj
- *        The item to check.
- *
- * @return {boolean}
- *         True if the argument is a class.
- */
-function isClass<T>(obj: (object|undefined)): obj is Class<T> {
-    const c: (Function|undefined) = obj && obj.constructor;
-
-    return !!(
-        isObject(obj, true) &&
-        !isDOMElement(obj) &&
-        (c && (c as any).name && (c as any).name !== 'Object')
-    );
-}
-
-/**
- * Utility function to check if an item is a number and it is finite (not NaN,
- * Infinity or -Infinity).
- *
- * @function Highcharts.isNumber
- *
- * @param {*} n
- *        The item to check.
- *
- * @return {boolean}
- *         True if the item is a finite number
- */
-function isNumber(n: unknown): n is number {
-    return typeof n === 'number' && !isNaN(n) && n < Infinity && n > -Infinity;
-}
-
-/**
- * Remove the last occurence of an item from an array.
- *
- * @function Highcharts.erase
- *
- * @param {Array<*>} arr
- *        The array.
- *
- * @param {*} item
- *        The item to remove.
- *
- * @return {void}
- */
-function erase(arr: Array<unknown>, item: unknown): void {
-    let i = arr.length;
-
-    while (i--) {
-        if (arr[i] === item) {
-            arr.splice(i, 1);
-            break;
-        }
-    }
 }
 
 /**
@@ -571,42 +138,6 @@ function insertItem(
         }
     }
     return i;
-}
-
-/**
- * Adds an item to an array, if it is not present in the array.
- *
- * @function Highcharts.pushUnique
- *
- * @param {Array<unknown>} array
- * The array to add the item to.
- *
- * @param {unknown} item
- * The item to add.
- *
- * @return {boolean}
- * Returns true, if the item was not present and has been added.
- */
-function pushUnique(
-    array: Array<unknown>,
-    item: unknown
-): boolean {
-    return array.indexOf(item) < 0 && !!array.push(item);
-}
-
-/**
- * Check if an object is null or undefined.
- *
- * @function Highcharts.defined
- *
- * @param {*} obj
- *        The object to check.
- *
- * @return {boolean}
- *         False if the object is null or undefined, otherwise true.
- */
-function defined<T>(obj: T): obj is NonNullable<T> {
-    return typeof obj !== 'undefined' && obj !== null;
 }
 
 function attr(
@@ -692,21 +223,6 @@ function attr(
 }
 
 /**
- * Check if an element is an array, and if not, make it into an array.
- *
- * @function Highcharts.splat
- *
- * @param {*} obj
- *        The object to splat.
- *
- * @return {Array}
- *         The produced or original array.
- */
-function splat(obj: any): Array<any> {
-    return isArray(obj) ? obj : [obj];
-}
-
-/**
  * Set a timeout if the delay is given, otherwise perform the function
  * synchronously.
  *
@@ -751,34 +267,6 @@ function internalClearTimeout(id: (number|undefined)): void {
     if (defined(id)) {
         clearTimeout(id);
     }
-}
-
-/* eslint-disable valid-jsdoc */
-/**
- * Utility function to extend an object with the members of another.
- *
- * @function Highcharts.extend<T>
- *
- * @param {T|undefined} a
- *        The object to be extended.
- *
- * @param {Partial<T>} b
- *        The object to add to the first one.
- *
- * @return {T}
- *         Object a, the original object.
- */
-function extend<T extends object>(a: (T|undefined), b: Partial<T>): T {
-    /* eslint-enable valid-jsdoc */
-    let n;
-
-    if (!a) {
-        a = {} as T;
-    }
-    for (n in b) { // eslint-disable-line guard-for-in
-        (a as any)[n] = (b as any)[n];
-    }
-    return a;
 }
 
 function pick<T1, T2, T3, T4, T5>(...args: [T1, T2, T3, T4, T5]):
@@ -914,7 +402,7 @@ function createElement(
  * @return {Highcharts.Class<T>}
  *         A new prototype.
  */
-function extendClass <T, TReturn = T>(
+function extendClass<T, TReturn = T>(
     parent: Class<T>,
     members: any
 ): Class<TReturn> {
@@ -1136,124 +624,6 @@ function normalizeTickInterval(
     return retInterval;
 }
 
-
-/**
- * Sort an object array and keep the order of equal items. The ECMAScript
- * standard does not specify the behaviour when items are equal.
- *
- * @function Highcharts.stableSort
- *
- * @param {Array<*>} arr
- *        The array to sort.
- *
- * @param {Function} sortFunction
- *        The function to sort it with, like with regular Array.prototype.sort.
- */
-function stableSort<T>(
-    arr: Array<T>,
-    sortFunction: (a: T, b: T) => number
-): void {
-
-    // @todo It seems like Chrome since v70 sorts in a stable way internally,
-    // plus all other browsers do it, so over time we may be able to remove this
-    // function
-    const length = arr.length;
-    let sortValue,
-        i;
-
-    // Add index to each item
-    for (i = 0; i < length; i++) {
-        (arr[i] as any).safeI = i; // stable sort index
-    }
-
-    arr.sort(function (a: any, b: any): number {
-        sortValue = sortFunction(a, b);
-        return sortValue === 0 ? a.safeI - b.safeI : sortValue;
-    });
-
-    // Remove index from items
-    for (i = 0; i < length; i++) {
-        delete (arr[i] as any).safeI; // stable sort index
-    }
-}
-
-/**
- * Non-recursive method to find the lowest member of an array. `Math.min` raises
- * a maximum call stack size exceeded error in Chrome when trying to apply more
- * than 150.000 points. This method is slightly slower, but safe.
- *
- * @function Highcharts.arrayMin
- *
- * @param {Array<*>} data
- *        An array of numbers.
- *
- * @return {number}
- *         The lowest number.
- */
-function arrayMin(data: Array<any>): number {
-    let i = data.length,
-        min = data[0];
-
-    while (i--) {
-        if (data[i] < min) {
-            min = data[i];
-        }
-    }
-    return min;
-}
-
-/**
- * Non-recursive method to find the lowest member of an array. `Math.max` raises
- * a maximum call stack size exceeded error in Chrome when trying to apply more
- * than 150.000 points. This method is slightly slower, but safe.
- *
- * @function Highcharts.arrayMax
- *
- * @param {Array<*>} data
- *        An array of numbers.
- *
- * @return {number}
- *         The highest number.
- */
-function arrayMax(data: Array<any>): number {
-    let i = data.length,
-        max = data[0];
-
-    while (i--) {
-        if (data[i] > max) {
-            max = data[i];
-        }
-    }
-    return max;
-}
-
-/**
- * Utility method that destroys any SVGElement instances that are properties on
- * the given object. It loops all properties and invokes destroy if there is a
- * destroy method. The property is then delete.
- *
- * @function Highcharts.destroyObjectProperties
- *
- * @param {*} obj
- *        The object to destroy properties on.
- *
- * @param {*} [except]
- *        Exception, do not destroy this property, only delete it.
- */
-function destroyObjectProperties(obj: any, except?: any): void {
-    objectEach(obj, function (val, n): void {
-        // If the object is non-null and destroy is defined
-        if (val && val !== except && val.destroy) {
-            // Invoke the destroy
-            val.destroy();
-        }
-
-        // Delete the property from the object.
-        delete obj[n];
-    });
-}
-
-
 /**
  * Discard a HTML element
  *
@@ -1324,47 +694,6 @@ Math.easeInOutSine = function (pos: number): number {
     return -0.5 * (Math.cos(Math.PI * pos) - 1);
 };
 
-/**
- * Find the closest distance between two values of a two-dimensional array
- * @private
- * @function Highcharts.getClosestDistance
- *
- * @param {Array<Array<number>>} arrays
- *          An array of arrays of numbers
- *
- * @return {number | undefined}
- *          The closest distance between values
- */
-function getClosestDistance(
-    arrays: number[][],
-    onError?: Function
-): (number|undefined) {
-    const allowNegative = !onError;
-    let closest: number | undefined,
-        loopLength: number,
-        distance: number,
-        i: number;
-
-    arrays.forEach((xData): void => {
-        if (xData.length > 1) {
-            loopLength = xData.length - 1;
-            for (i = loopLength; i > 0; i--) {
-                distance = xData[i] - xData[i - 1];
-                if (distance < 0 && !allowNegative) {
-                    onError?.();
-                    // Only one call
-                    onError = void 0;
-                } else if (distance && (
-                    typeof closest === 'undefined' || distance < closest
-                )) {
-                    closest = distance;
-                }
-            }
-        }
-    });
-
-    return closest;
-}
 
 /**
  * Returns the value of a property path on a given object.
@@ -1513,68 +842,6 @@ function getStyle(
 }
 
 /**
- * Search for an item in an array.
- *
- * @function Highcharts.inArray
- *
- * @deprecated
- *
- * @param {*} item
- *        The item to search for.
- *
- * @param {Array<*>} arr
- *        The array or node collection to search in.
- *
- * @param {number} [fromIndex=0]
- *        The index to start searching from.
- *
- * @return {number}
- *         The index within the array, or -1 if not found.
- */
-function inArray(item: any, arr: Array<any>, fromIndex?: number): number {
-    error(32, false, void 0, { 'Highcharts.inArray': 'use Array.indexOf' });
-    return arr.indexOf(item, fromIndex);
-}
-
-/**
- * Return the value of the first element in the array that satisfies the
- * provided testing function.
- *
- * @function Highcharts.find<T>
- *
- * @param {Array<T>} arr
- *        The array to test.
- *
- * @param {Function} callback
- *        The callback function. The function receives the item as the first
- *        argument. Return `true` if this item satisfies the condition.
- *
- * @return {T|undefined}
- *         The value of the element.
- */
-const find = (Array.prototype as any).find ?
-    function<T> (
-        arr: Array<T>,
-        callback: Utilities.FindCallback<T>
-    ): (T|undefined) {
-        return (arr as any).find(callback as any);
-    } :
-    // Legacy implementation. PhantomJS, IE <= 11 etc. #7223.
-    function<T> (
-        arr: Array<T>,
-        callback: Utilities.FindCallback<T>
-    ): (T|undefined) {
-        let i;
-        const length = arr.length;
-
-        for (i = 0; i < length; i++) {
-            if (callback(arr[i], i)) { // eslint-disable-line node/callback-return
-                return arr[i];
-            }
-        }
-    };
-
-/**
  * Returns an array of a given object's own properties.
  *
  * @function Highcharts.keys
@@ -1618,38 +885,6 @@ function offset(el: Element): Utilities.OffsetObject {
         height: box.height
     };
 }
-
-/* eslint-disable valid-jsdoc */
-/**
- * Iterate over object key pairs in an object.
- *
- * @function Highcharts.objectEach<T>
- *
- * @param {*} obj
- *        The object to iterate over.
- *
- * @param {Highcharts.ObjectEachCallbackFunction<T>} fn
- *        The iterator callback. It passes three arguments:
- *        * value - The property value.
- *        * key - The property key.
- *        * obj - The object that objectEach is being applied to.
- *
- * @param {T} [ctx]
- *        The context.
- */
-function objectEach<TObject, TContext>(
-    obj: TObject,
-    fn: Utilities.ObjectEachCallback<TObject, TContext>,
-    ctx?: TContext
-): void {
-    /* eslint-enable valid-jsdoc */
-    for (const key in obj) {
-        if (Object.hasOwnProperty.call(obj, key)) {
-            fn.call(ctx || obj[key] as unknown as TContext, obj[key], key, obj);
-        }
-    }
-}
-
 /**
  * Iterate over an array.
  *
@@ -1671,6 +906,7 @@ function objectEach<TObject, TContext>(
  * @return {void}
  */
 
+
 /**
  * Filter an array by a callback.
  *
@@ -1688,6 +924,7 @@ function objectEach<TObject, TContext>(
  *         A new, filtered array.
  */
 
+
 /**
  * Map an array by a callback.
  *
@@ -1703,6 +940,7 @@ function objectEach<TObject, TContext>(
  * @return {Array<*>}
  *         A new array item with modified items.
  */
+
 
 /**
  * Reduce an array to a single value.
@@ -1724,6 +962,7 @@ function objectEach<TObject, TContext>(
  * @return {*}
  *         The reduced value.
  */
+
 
 /**
  * Test whether at least one element in the array passes the test implemented by
@@ -1759,315 +998,6 @@ objectEach({
         );
     };
 });
-
-/* eslint-disable valid-jsdoc */
-/**
- * Add an event listener.
- *
- * @function Highcharts.addEvent<T>
- *
- * @param {Highcharts.Class<T>|T} el
- *        The element or object to add a listener to. It can be a
- *        {@link HTMLDOMElement}, an {@link SVGElement} or any other object.
- *
- * @param {string} type
- *        The event type.
- *
- * @param {Highcharts.EventCallbackFunction<T>|Function} fn
- *        The function callback to execute when the event is fired.
- *
- * @param {Highcharts.EventOptionsObject} [options]
- *        Options for adding the event.
- *
- * @return {Function}
- *         A callback function to remove the added event.
- */
-function addEvent<T>(
-    el: (Class<T>|T),
-    type: string,
-    fn: (EventCallback<T>|Function),
-    options: Utilities.EventOptions = {}
-): Function {
-    /* eslint-enable valid-jsdoc */
-
-    // Add hcEvents to either the prototype (in case we're running addEvent on a
-    // class) or the instance. If hasOwnProperty('hcEvents') is false, it is
-    // inherited down the prototype chain, in which case we need to set the
-    // property on this instance (which may itself be a prototype).
-    const owner = typeof el === 'function' && el.prototype || el;
-    if (!Object.hasOwnProperty.call(owner, 'hcEvents')) {
-        owner.hcEvents = {};
-    }
-    const events: Record<string, Array<any>> = owner.hcEvents;
-
-
-    // Allow click events added to points, otherwise they will be prevented by
-    // the TouchPointer.pinch function after a pinch zoom operation (#7091).
-    if ((H as any).Point && // without H a dependency loop occurs
-        el instanceof (H as any).Point &&
-        (el as any).series &&
-        (el as any).series.chart
-    ) {
-        (el as any).series.chart.runTrackerClick = true;
-    }
-
-    // Handle DOM events
-    // If the browser supports passive events, add it to improve performance
-    // on touch events (#11353).
-    const addEventListener = (el as any).addEventListener;
-    if (addEventListener) {
-        addEventListener.call(
-            el,
-            type,
-            fn,
-            H.supportsPassiveEvents ? {
-                passive: options.passive === void 0 ?
-                    type.indexOf('touch') !== -1 : options.passive,
-                capture: false
-            } : false
-        );
-    }
-
-    if (!events[type]) {
-        events[type] = [];
-    }
-
-    const eventObject = {
-        fn,
-        order: typeof options.order === 'number' ? options.order : Infinity
-    };
-    events[type].push(eventObject);
-
-    // Order the calls
-    events[type].sort((
-        a: Utilities.EventWrapperObject<T>,
-        b: Utilities.EventWrapperObject<T>
-    ): number => a.order - b.order);
-
-    // Return a function that can be called to remove this event.
-    return function (): void {
-        removeEvent(el, type, fn);
-    };
-}
-
-/* eslint-disable valid-jsdoc */
-/**
- * Remove an event that was added with {@link Highcharts#addEvent}.
- *
- * @function Highcharts.removeEvent<T>
- *
- * @param {Highcharts.Class<T>|T} el
- *        The element to remove events on.
- *
- * @param {string} [type]
- *        The type of events to remove. If undefined, all events are removed
- *        from the element.
- *
- * @param {Highcharts.EventCallbackFunction<T>} [fn]
- *        The specific callback to remove. If undefined, all events that match
- *        the element and optionally the type are removed.
- *
- * @return {void}
- */
-function removeEvent<T>(
-    el: (Class<T>|T),
-    type?: string,
-    fn?: (EventCallback<T>|Function)
-): void {
-    /* eslint-enable valid-jsdoc */
-
-    /**
-     * @private
-     */
-    function removeOneEvent(
-        type: string,
-        fn: (EventCallback<T>|Function)
-    ): void {
-        const removeEventListener = (el as any).removeEventListener;
-
-        if (removeEventListener) {
-            removeEventListener.call(el, type, fn, false);
-        }
-    }
-
-    /**
-     * @private
-     */
-    function removeAllEvents(eventCollection: any): void {
-        let types: Record<string, boolean>,
-            len;
-
-        if (!(el as any).nodeName) {
-            return; // break on non-DOM events
-        }
-
-        if (type) {
-            types = {};
-            types[type] = true;
-        } else {
-            types = eventCollection;
-        }
-
-        objectEach(types, function (_val, n): void {
-            if (eventCollection[n]) {
-                len = eventCollection[n].length;
-                while (len--) {
-                    removeOneEvent(n as any, eventCollection[n][len].fn);
-                }
-            }
-        });
-    }
-
-    const owner = typeof el === 'function' && el.prototype || el;
-    if (Object.hasOwnProperty.call(owner, 'hcEvents')) {
-        const events = owner.hcEvents;
-        if (type) {
-            const typeEvents = (
-                events[type] || []
-            ) as Utilities.EventWrapperObject<T>[];
-
-            if (fn) {
-                events[type] = typeEvents.filter(
-                    function (obj): boolean {
-                        return fn !== obj.fn;
-                    }
-                );
-                removeOneEvent(type, fn);
-
-            } else {
-                removeAllEvents(events);
-                events[type] = [];
-            }
-        } else {
-            removeAllEvents(events);
-            delete owner.hcEvents;
-        }
-    }
-}
-
-/* eslint-disable valid-jsdoc */
-/**
- * Fire an event that was registered with {@link Highcharts#addEvent}.
- *
- * @function Highcharts.fireEvent<T>
- *
- * @param {T} el
- *        The object to fire the event on. It can be a {@link HTMLDOMElement},
- *        an {@link SVGElement} or any other object.
- *
- * @param {string} type
- *        The type of event.
- *
- * @param {Highcharts.Dictionary<*>|Event} [eventArguments]
- *        Custom event arguments that are passed on as an argument to the event
- *        handler.
- *
- * @param {Highcharts.EventCallbackFunction<T>|Function} [defaultFunction]
- *        The default function to execute if the other listeners haven't
- *        returned false.
- *
- * @return {void}
- */
-function fireEvent<T>(
-    el: T,
-    type: string,
-    eventArguments?: (AnyRecord|Event),
-    defaultFunction?: (EventCallback<T>|Function)
-): void {
-    /* eslint-enable valid-jsdoc */
-    let e,
-        i;
-
-    eventArguments = eventArguments || {};
-
-    if (doc.createEvent &&
-        (
-            (el as any).dispatchEvent ||
-            (
-                (el as any).fireEvent &&
-                // Enable firing events on Highcharts instance.
-                (el as any) !== H
-            )
-        )
-    ) {
-        e = doc.createEvent('Events');
-        e.initEvent(type, true, true);
-
-        eventArguments = extend(e, eventArguments);
-
-        if ((el as any).dispatchEvent) {
-            (el as any).dispatchEvent(eventArguments);
-        } else {
-            (el as any).fireEvent(type, eventArguments);
-        }
-
-    } else if ((el as any).hcEvents) {
-
-        if (!(eventArguments as any).target) {
-            // We're running a custom event
-
-            extend(eventArguments as any, {
-                // Attach a simple preventDefault function to skip
-                // default handler if called. The built-in
-                // defaultPrevented property is not overwritable (#5112)
-                preventDefault: function (): void {
-                    (eventArguments as any).defaultPrevented = true;
-                },
-                // Setting target to native events fails with clicking
-                // the zoom-out button in Chrome.
-                target: el,
-                // If the type is not set, we're running a custom event
-                // (#2297). If it is set, we're running a browser event.
-                type: type
-            });
-        }
-
-        const events: Array<Utilities.EventWrapperObject<any>> = [];
-        let object: any = el;
-        let multilevel = false;
-
-        // Recurse up the inheritance chain and collect hcEvents set as own
-        // objects on the prototypes.
-        while (object.hcEvents) {
-            if (
-                Object.hasOwnProperty.call(object, 'hcEvents') &&
-                object.hcEvents[type]
-            ) {
-                if (events.length) {
-                    multilevel = true;
-                }
-                events.unshift.apply(events, object.hcEvents[type]);
-            }
-            object = Object.getPrototypeOf(object);
-        }
-
-        // For performance reasons, only sort the event handlers in case we are
-        // dealing with multiple levels in the prototype chain. Otherwise, the
-        // events are already sorted in the addEvent function.
-        if (multilevel) {
-            // Order the calls
-            events.sort((
-                a: Utilities.EventWrapperObject<T>,
-                b: Utilities.EventWrapperObject<T>
-            ): number => a.order - b.order);
-        }
-
-        // Call the collected event handlers
-        events.forEach((obj): void => {
-            // If the event handler returns false, prevent the default handler
-            // from executing
-            if (obj.fn.call(el, eventArguments as any) === false) {
-                (eventArguments as any).preventDefault();
-            }
-        });
-
-    }
-
-    // Run the default if not prevented
-    if (defaultFunction && !eventArguments.defaultPrevented) {
-        (defaultFunction as Function).call(el, eventArguments);
-    }
-}
 
 let serialMode: (boolean|undefined);
 /**
@@ -2120,10 +1050,6 @@ const uniqueKey = (function (): () => string {
  */
 function useSerialIds(mode?: boolean): (boolean|undefined) {
     return (serialMode = pick(mode, serialMode));
-}
-
-function isFunction(obj: unknown): obj is Function { // eslint-disable-line
-    return typeof obj === 'function';
 }
 
 // Register Highcharts as a plugin in jQuery
@@ -2207,20 +1133,6 @@ namespace Utilities {
         fn: EventCallback<T>;
         order: number;
     }
-    export interface FindCallback<T> {
-        (
-            value: T,
-            index: number
-        ): unknown;
-    }
-    export interface ObjectEachCallback<TObject, TContext> {
-        (
-            this: TContext,
-            value: TObject[keyof TObject],
-            key: keyof TObject,
-            obj: TObject
-        ): void;
-    }
     export interface OffsetObject {
         height: number;
         left: number;
@@ -2240,51 +1152,25 @@ namespace Utilities {
 
 // TODO use named exports when supported.
 const Utilities = {
-    addEvent,
-    arrayMax,
-    arrayMin,
     attr,
     clamp,
     clearTimeout: internalClearTimeout,
     correctFloat,
     createElement,
     css,
-    defined,
-    destroyObjectProperties,
-    diffObjects,
     discardElement,
-    erase,
-    error,
-    extend,
     extendClass,
-    find,
-    fireEvent,
-    getClosestDistance,
     getMagnitude,
     getNestedProperty,
     getStyle,
-    inArray,
     insertItem,
-    isArray,
-    isClass,
-    isDOMElement,
-    isFunction,
-    isNumber,
-    isObject,
-    isString,
     keys,
-    merge,
     normalizeTickInterval,
-    objectEach,
     offset,
     pad,
     pick,
     pInt,
-    pushUnique,
     relativeLength,
-    removeEvent,
-    splat,
-    stableSort,
     syncTimeout,
     timeUnits,
     uniqueKey,

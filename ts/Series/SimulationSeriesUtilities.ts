@@ -15,7 +15,7 @@ import type NetworkgraphSeries from './Networkgraph/NetworkgraphSeries';
 import type PackedBubbleSeries from './PackedBubble/PackedBubbleSeries';
 import type SVGElement from '../Core/Renderer/SVG/SVGElement';
 
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const { syncTimeout } = U;
 
 import A from '../Core/Animation/AnimationUtilities.js';

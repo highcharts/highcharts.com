@@ -28,11 +28,12 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
     extend,
     merge
-} = U;
+} = OH;
+
 import './CylinderComposition.js';
 
 /* *

@@ -35,10 +35,16 @@ import type {
 import Axis from '../Core/Axis/Axis.js';
 import { Palette } from '../Core/Color/Palettes.js';
 import PlotLineOrBand from '../Core/Axis/PlotLineOrBand/PlotLineOrBand.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    merge,
+    pushUnique
+} = AH;
+const { merge } = OH;
+const { addEvent } = EH;
+const {
     wrap
 } = U;
 
@@ -157,11 +163,11 @@ function compose(
     PlotLineOrBandClass: typeof PlotLineOrBand
 ): void {
 
-    if (U.pushUnique(composedMembers, AxisClass)) {
+    if (pushUnique(composedMembers, AxisClass)) {
         addEvent(AxisClass, 'afterSetOptions', onAxisAfterSetOptions);
     }
 
-    if (U.pushUnique(composedMembers, PlotLineOrBandClass)) {
+    if (pushUnique(composedMembers, PlotLineOrBandClass)) {
         addEvent(PlotLineOrBandClass, 'render', onPlotLineOrBandRender);
 
         wrap(

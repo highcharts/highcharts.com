@@ -39,7 +39,7 @@ const SOURCE_GLOBS = [
     'js/Core/Pointer.js',
     'js/Core/Time.js',
     'js/Core/Tooltip.js',
-    'js/Core/Utilities.js',
+    'js/Shared/Utilities.js',
     'js/Extensions/Annotations/Controllables/Controllable.js',
     'js/Extensions/Annotations/Annotation.js',
     'js/Extensions/Annotations/AnnotationChart.js',

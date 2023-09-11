@@ -32,10 +32,13 @@ import type SVGAttributes from '../../Core/Renderer/SVG/SVGAttributes';
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 import ColumnSeries from '../Column/ColumnSeries.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
     extend,
-    merge,
+    merge
+} = OH;
+import U from '../../Shared/Utilities.js';
+const {
     pick
 } = U;
 

@@ -52,19 +52,18 @@ const {
     setTreeValues,
     updateRootId
 } = TU;
-import U from '../../Core/Utilities.js';
 import SunburstNode from './SunburstNode.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    defined,
-    error,
-    extend,
-    fireEvent,
-    isNumber,
-    isObject,
-    isString,
-    merge,
     splat
-} = U;
+} = AH;
+const { isNumber, isObject, isString } = TC;
+const { defined, extend, merge } = OH;
+const { fireEvent } = EH;
 
 /* *
  *

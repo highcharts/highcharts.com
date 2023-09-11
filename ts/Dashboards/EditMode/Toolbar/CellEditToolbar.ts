@@ -15,20 +15,15 @@
  * */
 
 import EditMode from '../EditMode.js';
-import U from '../../../Core/Utilities.js';
 import Cell from '../../Layout/Cell.js';
 import EditGlobals from '../EditGlobals.js';
-import Menu from '../Menu/Menu.js';
 import MenuItem from '../Menu/MenuItem.js';
 import EditToolbar from './EditToolbar.js';
 import GUIElement from '../../Layout/GUIElement.js';
-
-const {
-    merge,
-    fireEvent,
-    objectEach
-} = U;
-
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { merge, objectEach } = OH;
+const { fireEvent } = EH;
 
 /**
  * @internal

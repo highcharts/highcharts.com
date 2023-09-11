@@ -36,11 +36,12 @@ const {
     }
 } = SeriesRegistry;
 import TreegraphSeries from './TreegraphSeries';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
-    fireEvent,
-    merge,
     pick
 } = U;
 

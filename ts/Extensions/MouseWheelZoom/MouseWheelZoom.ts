@@ -23,13 +23,15 @@ import type MouseWheelZoomOptions from './MouseWheelZoomOptions';
 import type BBoxObject from '../../Core/Renderer/BBoxObject';
 import type { YAxisOptions } from '../../Core/Axis/AxisOptions';
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isObject } = TC;
+const { defined, merge } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    isObject,
-    pick,
-    defined,
-    merge
+    pick
 } = U;
 
 /* *

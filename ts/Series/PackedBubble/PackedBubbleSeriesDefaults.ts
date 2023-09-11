@@ -10,9 +10,8 @@ import type {
 import type PackedBubblePoint from './PackedBubblePoint';
 import type PackedBubbleSeriesOptions from './PackedBubbleSeriesOptions';
 import type Point from '../../Core/Series/Point';
-
-import U from '../../Core/Utilities.js';
-const { isNumber } = U;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
 
 /* *
  *

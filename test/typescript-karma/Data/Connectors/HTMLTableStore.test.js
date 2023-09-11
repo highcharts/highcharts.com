@@ -1,6 +1,6 @@
 import HTMLTableConnector from '/base/code/es-modules/Data/Connectors/HTMLTableConnector.js'
 import HTMLTableConverter from '/base/code/es-modules/Data/Converters/HTMLTableConverter.js'
-import U from '/base/code/es-modules/Core/Utilities.js';
+import U from '/base/code/es-modules/Shared/Utilities.js';
 import { registerConnectorEvents, testExportedDataTable } from './utils.js'
 import CSVConnector from '/base/code/es-modules/Data/Connectors/CSVConnector.js';
 const { test, only } = QUnit;

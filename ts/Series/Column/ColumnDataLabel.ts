@@ -26,9 +26,14 @@ import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 import DataLabel from '../../Core/Series/DataLabel.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const { series: Series } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    merge,
+    pushUnique
+} = AH;
+const { merge } = OH;
+const {
     pick
 } = U;
 
@@ -159,7 +164,7 @@ namespace ColumnDataLabel {
 
         DataLabel.compose(Series);
 
-        if (U.pushUnique(composedMembers, ColumnSeriesClass)) {
+        if (pushUnique(composedMembers, ColumnSeriesClass)) {
             ColumnSeriesClass.prototype.alignDataLabel = alignDataLabel;
         }
 

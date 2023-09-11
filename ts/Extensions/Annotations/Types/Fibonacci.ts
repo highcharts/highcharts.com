@@ -22,8 +22,8 @@ import CrookedLine from './CrookedLine';
 import MockPoint from '../MockPoint.js';
 import { Palette } from '../../../Core/Color/Palettes.js';
 import Tunnel from './Tunnel.js';
-import U from '../../../Core/Utilities.js';
-const { merge } = U;
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 /* *
  *

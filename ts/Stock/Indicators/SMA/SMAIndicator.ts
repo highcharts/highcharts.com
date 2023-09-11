@@ -28,16 +28,20 @@ import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const {
     line: LineSeries
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+import error from '../../../Shared/Helpers/Error.js';
 const {
-    addEvent,
-    fireEvent,
-    error,
-    extend,
-    isArray,
-    merge,
-    pick,
     splat
+} = AH;
+const { isArray } = TC;
+const { extend, merge } = OH;
+const { addEvent, fireEvent } = EH;
+const {
+    pick
 } = U;
 
 /* *

@@ -35,23 +35,30 @@ import H from '../../Core/Globals.js';
 import { Palette } from '../../Core/Color/Palettes.js';
 import RangeSelectorComposition from './RangeSelectorComposition.js';
 import SVGElement from '../../Core/Renderer/SVG/SVGElement.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    createElement,
-    css,
+    splat
+} = AH;
+const { isNumber } = TC;
+const {
     defined,
     destroyObjectProperties,
-    discardElement,
     extend,
-    fireEvent,
-    isNumber,
     merge,
-    objectEach,
+    objectEach
+} = OH;
+const { addEvent, fireEvent } = EH;
+const {
+    createElement,
+    css,
+    discardElement,
     pad,
     pick,
-    pInt,
-    splat
+    pInt
 } = U;
 
 /* *

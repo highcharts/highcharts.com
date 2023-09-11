@@ -41,14 +41,19 @@ import H from '../../Core/Globals.js';
 const { noop } = H;
 import Legend from '../../Core/Legend/Legend.js';
 import Series from '../../Core/Series/Series.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
     arrayMax,
     arrayMin,
-    isNumber,
-    merge,
-    pick,
     stableSort
+} = AH;
+const { isNumber } = TC;
+const { merge } = OH;
+const {
+    pick
 } = U;
 
 /* *

@@ -29,17 +29,18 @@ import H from '../Core/Globals.js';
 const {
     doc
 } = H;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
-    addEvent,
-    extend,
-    isNumber,
-    merge,
-    objectEach,
     pick
 } = U;
 import './MapNavigationDefaults.js';
 import ButtonThemeObject, { ButtonThemeStatesObject } from '../Core/Renderer/SVG/ButtonThemeObject';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { extend, merge, objectEach } = OH;
+const { addEvent } = EH;
 
 /* *
  *

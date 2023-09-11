@@ -21,16 +21,17 @@ import type Serializable from '../Serializable';
 
 import DU from '../Utilities.js';
 const { uniqueKey } = DU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    pick,
-    defined
+    pick
 } = U;
 
 import Cell from './Cell.js';
 import Row from './Row.js';
 import GUIElement from './GUIElement.js';
 import Globals from '../Globals.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined } = OH;
 
 /**
  * @internal

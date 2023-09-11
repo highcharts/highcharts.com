@@ -53,18 +53,25 @@ const {
     noop,
     win
 } = H;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    addEvent,
-    error,
-    extend,
-    fireEvent,
-    isArray,
-    isNumber,
     pick,
     wrap
 } = U;
 import WGLRenderer from './WGLRenderer.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const {
+    extend
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
+const {
+    pushUnique
+} = AH;
+const { isArray, isNumber } = TC;
+const { addEvent, fireEvent } = EH;
 
 /* *
  *
@@ -204,7 +211,7 @@ function compose<T extends typeof Series>(
     wglMode?: boolean
 ): (T&typeof BoostSeriesComposition) {
 
-    if (U.pushUnique(composedMembers, SeriesClass)) {
+    if (pushUnique(composedMembers, SeriesClass)) {
         addEvent(SeriesClass, 'destroy', onSeriesDestroy);
         addEvent(SeriesClass, 'hide', onSeriesHide);
 
@@ -237,7 +244,7 @@ function compose<T extends typeof Series>(
         );
     }
 
-    if (U.pushUnique(composedMembers, getOptions)) {
+    if (pushUnique(composedMembers, getOptions)) {
         const plotOptions =
             getOptions().plotOptions as SeriesTypePlotOptions;
 
@@ -265,7 +272,7 @@ function compose<T extends typeof Series>(
 
         if (
             AreaSeries &&
-            U.pushUnique(composedMembers, AreaSeries)
+            pushUnique(composedMembers, AreaSeries)
         ) {
             extend(AreaSeries.prototype, {
                 fill: true,
@@ -276,7 +283,7 @@ function compose<T extends typeof Series>(
 
         if (
             AreaSplineSeries &&
-            U.pushUnique(composedMembers, AreaSplineSeries)
+            pushUnique(composedMembers, AreaSplineSeries)
         ) {
             extend(AreaSplineSeries.prototype, {
                 fill: true,
@@ -287,7 +294,7 @@ function compose<T extends typeof Series>(
 
         if (
             BubbleSeries &&
-            U.pushUnique(composedMembers, BubbleSeries)
+            pushUnique(composedMembers, BubbleSeries)
         ) {
             const bubbleProto = BubbleSeries.prototype;
 
@@ -314,7 +321,7 @@ function compose<T extends typeof Series>(
 
         if (
             ColumnSeries &&
-            U.pushUnique(composedMembers, ColumnSeries)
+            pushUnique(composedMembers, ColumnSeries)
         ) {
             extend(ColumnSeries.prototype, {
                 fill: true,
@@ -324,7 +331,7 @@ function compose<T extends typeof Series>(
 
         if (
             ScatterSeries &&
-            U.pushUnique(composedMembers, ScatterSeries)
+            pushUnique(composedMembers, ScatterSeries)
         ) {
             ScatterSeries.prototype.fill = true;
         }
@@ -333,7 +340,7 @@ function compose<T extends typeof Series>(
         // size/color calculations in the shader easily.
         // @todo This likely needs future optimization.
         [HeatmapSeries, TreemapSeries].forEach((SC): void => {
-            if (SC && U.pushUnique(composedMembers, SC)) {
+            if (SC && pushUnique(composedMembers, SC)) {
                 wrap(SC.prototype, 'drawPoints', wrapSeriesDrawPoints);
             }
         });

@@ -53,12 +53,12 @@ const {
     initDataLabelsDefer
 } = D;
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, merge, extend } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    defined,
-    extend,
-    merge,
     pick
 } = U;
 

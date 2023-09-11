@@ -44,9 +44,9 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { extend } = U;
 import XRangeSeries from './XRangeSeries.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
 
 /* *
  *

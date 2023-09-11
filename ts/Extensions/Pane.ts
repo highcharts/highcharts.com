@@ -20,15 +20,18 @@ import CU from '../Series/CenteredUtilities.js';
 import H from '../Core/Globals.js';
 import { Palette } from '../Core/Color/Palettes.js';
 import Pointer from '../Core/Pointer.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    correctFloat,
-    defined,
-    extend,
-    merge,
-    pick,
     splat
+} = AH;
+const { defined, merge, extend } = OH;
+const { addEvent } = EH;
+const {
+    correctFloat,
+    pick
 } = U;
 
 declare module '../Core/Axis/AxisLike' {

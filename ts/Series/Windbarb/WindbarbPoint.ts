@@ -16,10 +16,10 @@
   *
   * */
 import type WindbarbPointOptions from './WindbarbPointOptions';
-import U from '../../Core/Utilities.js';
-const { isNumber } = U;
 import WindbarbSeries from './WindbarbSeries.js';
 import ColumnSeries from '../Column/ColumnSeries.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
 
 /* *
  *

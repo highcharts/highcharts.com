@@ -16,11 +16,14 @@
  *
  * */
 
-import U from '../Utilities.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    stableSort
+} = AH;
+import U from '../../Shared/Utilities.js';
 const {
     clamp,
-    pick,
-    stableSort
+    pick
 } = U;
 
 /* *

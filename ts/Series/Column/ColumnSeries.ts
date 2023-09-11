@@ -41,18 +41,16 @@ const {
 } = H;
 import Series from '../../Core/Series/Series.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge, extend, defined, objectEach } = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber } = TC;
+const { fireEvent } = EH;
 const {
     clamp,
-    defined,
-    extend,
-    fireEvent,
-    isArray,
-    isNumber,
-    merge,
-    pick,
-    objectEach,
-    relativeLength
+    pick
 } = U;
 
 /* *

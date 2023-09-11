@@ -28,13 +28,14 @@ const {
     ema: EMAIndicator,
     sma: SMAIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import error from '../../../Shared/Helpers/Error.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+const { extend, merge } = OH;
 const {
-    correctFloat,
-    error,
-    extend,
-    isArray,
-    merge
+    correctFloat
 } = U;
 
 /* *

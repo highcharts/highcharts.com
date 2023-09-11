@@ -21,10 +21,8 @@
 import type Scatter3DPointOptions from './Scatter3DPointOptions';
 import type Scatter3DSeries from './Scatter3DSeries';
 import ScatterSeries from '../Scatter/ScatterSeries.js';
-import U from '../../Core/Utilities.js';
-const {
-    defined
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined } = OH;
 
 /* *
  *

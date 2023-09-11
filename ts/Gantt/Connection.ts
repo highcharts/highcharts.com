@@ -21,14 +21,17 @@ import Chart from '../Core/Chart/Chart.js';
 import D from '../Core/Defaults.js';
 const { defaultOptions } = D;
 import H from '../Core/Globals.js';
-import Point from '../Core/Series/Point.js';
-import U from '../Core/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import error from '../Shared/Helpers/Error.js';
 const {
-    defined,
-    error,
     extend,
     merge,
     objectEach,
+    defined
+} = OH;
+import Point from '../Core/Series/Point.js';
+import U from '../Shared/Utilities.js';
+const {
     pick
 } = U;
 

@@ -45,20 +45,25 @@ const {
 import Point from '../Series/Point.js';
 import R from '../Renderer/RendererUtilities.js';
 const { distribute } = R;
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    find,
+    stableSort,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { defined, merge } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     createElement,
     css,
-    defined,
     discardElement,
-    find,
-    fireEvent,
-    isNumber,
-    merge,
     pick,
     relativeLength,
-    stableSort,
     syncTimeout
 } = U;
 
@@ -1763,7 +1768,7 @@ namespace Legend {
      */
     export function compose(ChartClass: typeof Chart): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'beforeMargins', function (): void {
                 /**
                  * The legend contains an interactive overview over chart items,

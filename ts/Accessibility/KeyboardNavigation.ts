@@ -32,14 +32,16 @@ const {
     win
 } = H;
 import MenuComponent from './Components/MenuComponent.js';
-import U from '../Core/Utilities.js';
-const {
-    addEvent,
-    fireEvent
-} = U;
+import U from '../Shared/Utilities.js';
 
 import EventProvider from './Utils/EventProvider.js';
 import HTMLUtilities from './Utils/HTMLUtilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent, fireEvent } = EH;
 const { getElement, simulatedEventTarget } = HTMLUtilities;
 
 /* *
@@ -583,13 +585,13 @@ namespace KeyboardNavigation {
     ): (T&typeof ChartComposition) {
         MenuComponent.compose(ChartClass);
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as ChartComposition;
 
             chartProto.dismissPopupContent = chartDismissPopupContent;
         }
 
-        if (U.pushUnique(composedMembers, doc)) {
+        if (pushUnique(composedMembers, doc)) {
             addEvent(doc, 'keydown', documentOnKeydown);
         }
 

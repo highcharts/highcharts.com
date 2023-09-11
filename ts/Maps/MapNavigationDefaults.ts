@@ -19,8 +19,8 @@
 import type MapNavigationOptions from './MapNavigationOptions';
 import D from '../Core/Defaults.js';
 import { Palette } from '../Core/Color/Palettes.js';
-import U from '../Core/Utilities.js';
-const { extend } = U;
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
 
 /* *
  *

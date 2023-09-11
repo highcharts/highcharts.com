@@ -25,10 +25,16 @@ import type AxisResizerOptions from './AxisResizerOptions';
 import type Pointer from '../../Core/Pointer';
 
 import AxisResizer from './AxisResizer.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    merge,
+    pushUnique
+} = AH;
+const { merge } = OH;
+const { addEvent } = EH;
+const {
     wrap
 } = U;
 
@@ -78,7 +84,7 @@ function compose(
     PointerClass: typeof Pointer
 ): void {
 
-    if (U.pushUnique(composedMembers, AxisClass)) {
+    if (pushUnique(composedMembers, AxisClass)) {
         merge(true, AxisClass.defaultOptions, AxisResizer.resizerOptions);
 
         // Keep resizer reference on axis update
@@ -88,7 +94,7 @@ function compose(
         addEvent(AxisClass, 'destroy', onAxisDestroy);
     }
 
-    if (U.pushUnique(composedMembers, PointerClass)) {
+    if (pushUnique(composedMembers, PointerClass)) {
         wrap(
             PointerClass.prototype,
             'runPointActions',

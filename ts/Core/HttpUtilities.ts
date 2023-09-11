@@ -21,12 +21,15 @@ import type JSON from './JSON';
 
 import G from '../Core/Globals.js';
 const { doc } = G;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const {
+    objectEach,
+    merge
+} = OH;
 const {
     createElement,
-    discardElement,
-    merge,
-    objectEach
+    discardElement
 } = U;
 
 /* *

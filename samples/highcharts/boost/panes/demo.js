@@ -52,28 +52,28 @@ Highcharts.chart('container', {
         height: '20%',
         min: 0,
         max: 3,
-        offset: 0,
+        offset: 0
     },
     {
         height: '20%',
         top: '25%',
         min: 0,
         max: 3,
-        offset: 0,
+        offset: 0
     },
     {
         height: '20%',
         top: '55%',
         min: 0,
         max: 3,
-        offset: 0,
+        offset: 0
     },
     {
         height: '20%',
         top: '80%',
         min: 0,
         max: 3,
-        offset: 0,
+        offset: 0
     }]
 
 });

@@ -42,12 +42,13 @@ import Axis from '../Core/Axis/Axis.js';
 import Chart from '../Core/Chart/Chart.js';
 import Series from '../Core/Series/Series.js';
 import RendererRegistry from '../Core/Renderer/RendererRegistry.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { defined, merge } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
     createElement,
-    defined,
-    merge,
     pick
 } = U;
 

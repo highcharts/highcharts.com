@@ -25,7 +25,11 @@ import Chart from '../Core/Chart/Chart.js';
 import F from '../Core/Templating.js';
 const { format } = F;
 
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
 const {
     getNestedProperty,
     pick
@@ -100,7 +104,7 @@ namespace A11yI18nComposition {
         ChartClass: T
     ): (T&ChartComposition) {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as ChartComposition;
 
             chartProto.langFormat = langFormat;

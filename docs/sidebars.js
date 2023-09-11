@@ -98,6 +98,7 @@ module.exports = {
             'dashboards/data-modifiers',
             'dashboards/custom-component',
             'dashboards/installation-with-es-modules',
+            'dashboards/style-by-css',
             'dashboards/synchronize-components',
             'dashboards/frequently-asked-questions',
         ],

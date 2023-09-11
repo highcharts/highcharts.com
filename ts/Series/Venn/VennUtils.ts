@@ -38,14 +38,10 @@ const {
 } = CU;
 import GU from '../../Core/Geometry/GeometryUtilities.js';
 const { getDistanceBetweenPoints } = GU;
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    isArray,
-    isNumber,
-    isObject,
-    isString
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject, isString } = TC;
+const { extend } = OH;
 
 /* *
  *

@@ -28,9 +28,14 @@ import type NavigationBindings from '../NavigationBindings';
 import type Pointer from '../../../Core/Pointer';
 
 import Popup from './Popup.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     wrap
 } = U;
 
@@ -69,7 +74,7 @@ function compose(
     PointerClass: typeof Pointer
 ): void {
 
-    if (U.pushUnique(composedMembers, NagivationBindingsClass)) {
+    if (pushUnique(composedMembers, NagivationBindingsClass)) {
         addEvent(
             NagivationBindingsClass,
             'closePopup',
@@ -82,7 +87,7 @@ function compose(
         );
     }
 
-    if (U.pushUnique(composedMembers, PointerClass)) {
+    if (pushUnique(composedMembers, PointerClass)) {
         wrap(
             PointerClass.prototype,
             'onContainerMouseDown',

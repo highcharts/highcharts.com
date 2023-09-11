@@ -31,12 +31,13 @@ const { getOptions } = D;
 import PopupAnnotations from './PopupAnnotations.js';
 import PopupIndicators from './PopupIndicators.js';
 import PopupTabs from './PopupTabs.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
     createElement,
-    extend,
-    fireEvent,
     pick
 } = U;
 

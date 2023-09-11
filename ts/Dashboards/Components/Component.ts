@@ -42,18 +42,11 @@ import DataTable from '../../Data/DataTable.js';
 import EditableOptions from './EditableOptions.js';
 import Globals from '../Globals.js';
 const { classNamePrefix } = Globals;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
     createElement,
-    isArray,
-    merge,
-    fireEvent,
-    addEvent,
-    objectEach,
-    isFunction,
     getStyle,
-    relativeLength,
-    diffObjects
+    relativeLength
 } = U;
 
 import CU from './ComponentUtilities.js';
@@ -65,6 +58,12 @@ import ComponentGroup from './ComponentGroup.js';
 import DU from '../Utilities.js';
 const { uniqueKey } = DU;
 import Sync from './Sync/Sync.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isFunction } = TC;
+const { diffObjects, merge, objectEach } = OH;
+const { addEvent, fireEvent } = EH;
 
 /* *
  *

@@ -27,12 +27,10 @@ import type SVGPath from '../../Core/Renderer/SVG/SVGPath';
 import { Palette } from '../../Core/Color/Palettes.js';
 import Series from '../../Core/Series/Series.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
-const {
-    defined,
-    merge,
-    isObject
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isObject } = TC;
+const { defined, merge } = OH;
 
 /* *
  *

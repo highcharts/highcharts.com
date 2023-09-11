@@ -20,8 +20,10 @@
 import type SVGPath from '../Core/Renderer/SVG/SVGPath';
 import type SVGRenderer from '../Core/Renderer/SVG/SVGRenderer';
 
-import U from '../Core/Utilities.js';
-
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
 /* *
  *
  *  Declarations
@@ -145,7 +147,7 @@ function arrowHalf(
  */
 function compose(SVGRendererClass: typeof SVGRenderer): void {
 
-    if (U.pushUnique(composedMembers, SVGRendererClass)) {
+    if (pushUnique(composedMembers, SVGRendererClass)) {
         const symbols = SVGRendererClass.prototype.symbols;
 
         symbols.arrow = arrow;

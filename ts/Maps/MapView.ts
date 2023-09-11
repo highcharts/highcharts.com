@@ -47,16 +47,15 @@ const {
 } = MU;
 
 import Projection from './Projection.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject, isString } = TC;
+const { merge } = OH;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
     clamp,
-    fireEvent,
-    isArray,
-    isNumber,
-    isObject,
-    isString,
-    merge,
     pick,
     relativeLength
 } = U;

@@ -31,11 +31,8 @@ const { animObject } = A;
 import H from '../../Core/Globals.js';
 const { doc } = H;
 import Legend from '../../Core/Legend/Legend.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    addEvent,
-    fireEvent,
-    isNumber,
     pick,
     syncTimeout
 } = U;
@@ -46,6 +43,14 @@ import KeyboardNavigationHandler from '../KeyboardNavigationHandler.js';
 import CU from '../Utils/ChartUtilities.js';
 const { getChartTitle } = CU;
 import HU from '../Utils/HTMLUtilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { addEvent, fireEvent } = EH;
 const {
     stripHTMLTagsFromString: stripHTMLTags,
     addClass,
@@ -706,13 +711,13 @@ namespace LegendComponent {
         LegendClass: typeof Legend
     ): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as ChartComposition;
 
             chartProto.highlightLegendItem = chartHighlightLegendItem;
         }
 
-        if (U.pushUnique(composedMembers, LegendClass)) {
+        if (pushUnique(composedMembers, LegendClass)) {
             addEvent(
                 LegendClass as typeof LegendComposition,
                 'afterColorizeItem',

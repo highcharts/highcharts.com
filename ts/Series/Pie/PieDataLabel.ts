@@ -30,14 +30,19 @@ import R from '../../Core/Renderer/RendererUtilities.js';
 const { distribute } = R;
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const { series: Series } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
     arrayMax,
+    splat,
+    pushUnique
+} = AH;
+const { defined } = OH;
+const {
     clamp,
-    defined,
     pick,
-    relativeLength,
-    splat
+    relativeLength
 } = U;
 
 /* *
@@ -166,7 +171,7 @@ namespace ColumnDataLabel {
 
         DataLabel.compose(Series);
 
-        if (U.pushUnique(composedMembers, PieSeriesClass)) {
+        if (pushUnique(composedMembers, PieSeriesClass)) {
             const pieProto = PieSeriesClass.prototype;
 
             pieProto.dataLabelPositioners = dataLabelPositioners;

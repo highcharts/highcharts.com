@@ -32,10 +32,14 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    find,
+    find
+} = AH;
+const { defined } = OH;
+const {
     pick
 } = U;
 

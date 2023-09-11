@@ -26,17 +26,23 @@ import type Chart from '../../../Core/Chart/Chart';
 import type Series from '../../../Core/Series/Series';
 
 import H from '../../../Core/Globals.js';
-import U from '../../../Core/Utilities.js';
-const {
-    addEvent,
-    defined
-} = U;
+import U from '../../../Shared/Utilities.js';
 
 import Announcer from '../../Utils/Announcer.js';
 import ChartUtilities from '../../Utils/ChartUtilities.js';
 const { getChartTitle } = ChartUtilities;
 import EventProvider from '../../Utils/EventProvider.js';
 import SeriesDescriber from './SeriesDescriber.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const {
+    defined
+} = OH;
+const { addEvent } = EH;
 const {
     defaultPointDescriptionFormatter,
     defaultSeriesDescriptionFormatter
@@ -436,7 +442,7 @@ namespace NewDataAnnouncer {
         SeriesClass: typeof Series
     ): void {
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             addEvent(
                 SeriesClass as typeof Accessibility.SeriesComposition,
                 'addPoint',

@@ -10,6 +10,17 @@
 
 'use strict';
 
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    find,
+    pushUnique
+} = AH;
+const {
+    extend,
+    merge,
+    diffObjects
+} = OH;
 /* *
  *
  *  Imports
@@ -19,17 +30,9 @@
 import type Chart from './Chart/Chart.js';
 import type GlobalOptions from './Options';
 
-import U from './Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
-    diffObjects,
-    extend,
-    find,
-    isArray,
-    isObject,
-    merge,
-    objectEach,
     pick,
-    splat,
     uniqueKey
 } = U;
 
@@ -132,7 +135,7 @@ namespace Responsive {
         ChartClass: T
     ): (T&typeof Composition) {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             extend(
                 ChartClass.prototype as Composition,
                 {

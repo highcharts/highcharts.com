@@ -22,7 +22,7 @@ import type PositionObject from './Renderer/PositionObject';
 
 import H from './Globals.js';
 const { deg2rad } = H;
-import U from './Utilities.js';
+import U from '../Shared/Utilities.js';
 const { pick } = U;
 
 /* *

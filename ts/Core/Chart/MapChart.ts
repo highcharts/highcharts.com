@@ -25,12 +25,15 @@ import Chart from './Chart.js';
 import D from '../Defaults.js';
 const { getOptions } = D;
 import SVGRenderer from '../Renderer/SVG/SVGRenderer.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
-    merge,
     pick
 } = U;
 import '../../Maps/MapSymbols.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const {
+    merge
+} = OH;
 
 declare module './ChartLike'{
     interface ChartLike {

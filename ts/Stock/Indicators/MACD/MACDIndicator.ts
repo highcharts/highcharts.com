@@ -36,12 +36,11 @@ const {
     column: ColumnSeries,
     sma: SMAIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { defined, extend, merge } = OH;
 const {
-    extend,
-    correctFloat,
-    defined,
-    merge
+    correctFloat
 } = U;
 
 /* *

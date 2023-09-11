@@ -20,10 +20,18 @@ import type Axis from './Axis';
 import type Scrollbar from '../../Stock/Scrollbar/Scrollbar';
 import type ScrollbarOptions from '../../Stock/Scrollbar/ScrollbarOptions';
 
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
-    defined,
+    defined
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     pick
 } = U;
 
@@ -85,7 +93,7 @@ class ScrollbarAxis {
      * Scrollbar class to use.
      */
     public static compose<T extends typeof Axis>(AxisClass: T, ScrollbarClass: typeof Scrollbar): (T&ScrollbarAxis) {
-        if (!U.pushUnique(composedMembers, AxisClass)) {
+        if (!pushUnique(composedMembers, AxisClass)) {
             return AxisClass as (T&ScrollbarAxis);
         }
 

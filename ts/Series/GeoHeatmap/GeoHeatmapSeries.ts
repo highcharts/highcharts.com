@@ -48,13 +48,14 @@ const {
         map: MapSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber, isObject } = TC;
+const { extend, merge } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    extend,
-    isNumber,
-    isObject,
-    merge,
     pick
 } = U;
 

@@ -32,11 +32,14 @@ const {
         scatter: ScatterSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    arrayMax,
-    extend,
-    merge,
+    arrayMax
+} = AH;
+const { extend, merge } = OH;
+const {
     pick
 } = U;
 

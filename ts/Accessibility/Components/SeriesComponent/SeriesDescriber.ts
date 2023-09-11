@@ -47,13 +47,17 @@ const {
     reverseChildNodes,
     stripHTMLTagsFromString: stripHTMLTags
 } = HTMLUtilities;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const { find } = AH;
+const { isNumber, isString } = TC;
 const {
-    find,
-    isNumber,
-    isString,
-    pick,
     defined
+} = OH;
+const {
+    pick
 } = U;
 
 

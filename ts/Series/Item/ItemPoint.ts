@@ -22,14 +22,14 @@ import type ItemPointOptions from './ItemPointOptions';
 import type ItemSeries from './ItemSeries';
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
 const {
     series: Series,
     seriesTypes: {
         pie: PieSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { extend } = U;
 
 /* *
  *

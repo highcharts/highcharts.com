@@ -50,20 +50,23 @@ const {
 } = G;
 import HU from '../../Core/HttpUtilities.js';
 import { Palette } from '../../Core/Color/Palettes.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    find,
+    pushUnique
+} = AH;
+const { isObject } = TC;
+const { extend, merge, objectEach } = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
+const {
     css,
     createElement,
     discardElement,
-    extend,
-    find,
-    fireEvent,
-    isObject,
-    merge,
-    objectEach,
     pick,
-    removeEvent,
     uniqueKey
 } = U;
 
@@ -647,7 +650,7 @@ namespace Exporting {
         ExportingSymbols.compose(SVGRendererClass);
         Fullscreen.compose(ChartClass);
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as ChartComposition;
 
             chartProto.afterPrint = afterPrint;
@@ -692,7 +695,7 @@ namespace Exporting {
             }
         }
 
-        if (U.pushUnique(composedMembers, setOptions)) {
+        if (pushUnique(composedMembers, setOptions)) {
             defaultOptions.exporting = merge(
                 ExportingDefaults.exporting,
                 defaultOptions.exporting

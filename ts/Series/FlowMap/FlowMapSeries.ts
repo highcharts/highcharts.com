@@ -37,15 +37,19 @@ const {
 } = SeriesRegistry;
 import { StatesOptionsKey } from '../../Core/Series/StatesOptions';
 import SVGAttributes from '../../Core/Renderer/SVG/SVGAttributes';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    arrayMax,
     arrayMin,
-    defined,
-    extend,
-    isArray,
-    merge,
+    arrayMax
+} = AH;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
+const {
     pick,
     relativeLength
 } = U;

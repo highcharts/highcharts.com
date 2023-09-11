@@ -76,31 +76,29 @@ import SeriesDefaults from './SeriesDefaults.js';
 import SeriesRegistry from './SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import SVGElement from '../Renderer/SVG/SVGElement.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    addEvent,
     arrayMax,
     arrayMin,
+    erase,
+    find,
+    getClosestDistance,
+    splat
+} = AH;
+const { isArray, isNumber, isString } = TC;
+const { defined, diffObjects, extend, merge, objectEach } = OH;
+const { fireEvent, removeEvent } = EH;
+const {
     clamp,
     correctFloat,
-    defined,
-    diffObjects,
-    erase,
-    error,
-    extend,
-    find,
-    fireEvent,
-    getClosestDistance,
     getNestedProperty,
     insertItem,
-    isArray,
-    isNumber,
-    isString,
-    merge,
-    objectEach,
     pick,
-    removeEvent,
-    splat,
     syncTimeout
 } = U;
 

@@ -35,19 +35,23 @@ import H from '../Core/Globals.js';
 import D from '../Core/Defaults.js';
 const { setOptions } = D;
 import Series from '../Core/Series/Series.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
     arrayMax,
     arrayMin,
-    defined,
     erase,
-    extend,
+    splat
+} = AH;
+const { isNumber } = TC;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
+const {
     insertItem,
-    isNumber,
-    merge,
     pick,
-    splat,
     wrap
 } = U;
 

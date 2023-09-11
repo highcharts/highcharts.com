@@ -35,12 +35,13 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, extend } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
     css,
-    defined,
-    extend,
     pick
 } = U;
 

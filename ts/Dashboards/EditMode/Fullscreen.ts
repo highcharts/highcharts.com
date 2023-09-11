@@ -15,10 +15,10 @@
  * */
 
 import Board from '../Board.js';
-import U from '../../Core/Utilities.js';
 import Globals from '../Globals.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+const { addEvent } = EH;
 
-const { addEvent } = U;
 
 class Fullscreen {
 

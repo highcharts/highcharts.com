@@ -30,15 +30,18 @@ import Chart from '../../Core/Chart/Chart.js';
 import D from '../../Core/Defaults.js';
 import F from '../../Core/Templating.js';
 const { format } = F;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    extend,
-    fireEvent,
-    isString,
-    merge,
-    objectEach,
+    pushUnique
+} = AH;
+const { isString } = TC;
+const { defined, extend, merge, objectEach } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     pick
 } = U;
 
@@ -215,7 +218,7 @@ class Breadcrumbs {
         highchartsDefaultOptions: typeof D.defaultOptions
     ): void {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(Chart, 'destroy', onChartDestroy);
             addEvent(Chart, 'afterShowResetZoom', onChartAfterShowResetZoom);
             addEvent(Chart, 'getMargins', onChartGetMargins);
@@ -223,7 +226,7 @@ class Breadcrumbs {
             addEvent(Chart, 'selection', onChartSelection);
         }
 
-        if (U.pushUnique(composedMembers, highchartsDefaultOptions)) {
+        if (pushUnique(composedMembers, highchartsDefaultOptions)) {
             // Add language support.
             extend(
                 highchartsDefaultOptions.lang,

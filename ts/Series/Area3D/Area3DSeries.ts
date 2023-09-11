@@ -24,8 +24,14 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { wrap } = U;
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+import U from '../../Shared/Utilities.js';
+const {
+    wrap
+} = U;
 
 /* *
  *
@@ -45,7 +51,7 @@ function compose(
     AreaSeriesClass: typeof AreaSeries
 ): void {
 
-    if (U.pushUnique(composedMembers, AreaSeriesClass)) {
+    if (pushUnique(composedMembers, AreaSeriesClass)) {
         wrap(
             AreaSeriesClass.prototype,
             'getGraphPath',

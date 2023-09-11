@@ -21,11 +21,8 @@ import type BarSeriesOptions from './BarSeriesOptions';
 
 import ColumnSeries from '../Column/ColumnSeries.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    merge
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend, merge } = OH;
 
 /* *
  *

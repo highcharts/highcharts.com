@@ -28,17 +28,17 @@ import H from '../../Core/Globals.js';
 const { deg2rad } = H;
 import SankeyColumnComposition from '../Sankey/SankeyColumnComposition.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const {
+    extend,
+    merge
+} = OH;
 const {
     seriesTypes: {
         pie: PieSeries,
         sankey: SankeySeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    merge
-} = U;
 
 /* *
  *

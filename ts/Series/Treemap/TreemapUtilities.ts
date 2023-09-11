@@ -12,14 +12,14 @@
 
 'use strict';
 
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { objectEach } = OH;
+
 /* *
  *
  *  Imports
  *
  * */
-
-import U from '../../Core/Utilities.js';
-const { objectEach } = U;
 
 /* *
  *
@@ -50,7 +50,7 @@ namespace TreemapUtilities {
     export function eachObject(
         this: any,
         list: any,
-        func: U.ObjectEachCallback<any, unknown>,
+        func: OH.ObjectEachCallback<any, unknown>,
         context?: unknown
     ): void {
         context = context || this;

@@ -25,11 +25,9 @@ import type Sync from '../Components/Sync/Sync';
 
 import ComponentType from '../Components/ComponentType';
 import DataGridComponent from './DataGridComponent.js';
-import U from '../../Core/Utilities.js';
 import DataCursor from '../../Data/DataCursor';
-const {
-    addEvent
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+const { addEvent } = EH;
 
 /* *
  *

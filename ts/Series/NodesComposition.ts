@@ -30,12 +30,15 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    extend,
     find,
-    merge,
+    pushUnique
+} = AH;
+const { defined, extend, merge } = OH;
+const {
     pick
 } = U;
 
@@ -149,7 +152,7 @@ namespace NodesComposition {
         SeriesClass: T
     ): (T&typeof SeriesComposition) {
 
-        if (U.pushUnique(composedMembers, PointClass)) {
+        if (pushUnique(composedMembers, PointClass)) {
             const pointProto = PointClass.prototype as PointComposition;
 
             pointProto.setNodeState = setNodeState;
@@ -157,7 +160,7 @@ namespace NodesComposition {
             pointProto.update = updateNode;
         }
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype as SeriesComposition;
 
             seriesProto.destroy = destroy;

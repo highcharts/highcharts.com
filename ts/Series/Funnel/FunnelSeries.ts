@@ -39,16 +39,18 @@ const {
         pie: PieSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const { splat } = AH;
+const { extend, merge } = OH;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
-    extend,
-    fireEvent,
-    isArray,
-    merge,
     pick,
-    relativeLength,
-    splat
+    relativeLength
 } = U;
 
 /* *

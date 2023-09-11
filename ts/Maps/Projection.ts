@@ -28,8 +28,12 @@ import type SVGPath from '../Core/Renderer/SVG/SVGPath';
 import PC from '../Core/Geometry/PolygonClip.js';
 const { clipLineString, clipPolygon } = PC;
 import registry from './Projections/ProjectionRegistry.js';
-import U from '../Core/Utilities.js';
-const { clamp, erase } = U;
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    erase
+} = AH;
+import U from '../Shared/Utilities.js';
+const { clamp } = U;
 
 
 const deg2rad = Math.PI * 2 / 360;

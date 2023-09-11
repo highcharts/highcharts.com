@@ -59,30 +59,35 @@ import H from '../Globals.js';
 const { deg2rad } = H;
 import { Palette } from '../Color/Palettes.js';
 import Tick from './Tick.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const {
+    defined,
+    merge,
+    objectEach,
+    extend,
+    destroyObjectProperties
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
     arrayMax,
     arrayMin,
+    erase,
+    getClosestDistance,
+    splat
+} = AH;
+const { isArray, isNumber, isString } = TC;
+const { fireEvent, removeEvent } = EH;
+const {
     clamp,
     correctFloat,
-    defined,
-    destroyObjectProperties,
-    erase,
-    error,
-    extend,
-    fireEvent,
-    getClosestDistance,
     insertItem,
-    isArray,
-    isNumber,
-    isString,
-    merge,
     normalizeTickInterval,
-    objectEach,
     pick,
     relativeLength,
-    removeEvent,
-    splat,
     syncTimeout
 } = U;
 

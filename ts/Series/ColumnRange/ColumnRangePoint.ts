@@ -36,11 +36,10 @@ const {
         }
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const {
-    extend,
-    isNumber
-} = U;
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
 
 /* *
  *

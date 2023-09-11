@@ -24,17 +24,16 @@ import type Serializable from '../Serializable';
 import Globals from '../Globals.js';
 import Cell from './Cell.js';
 import GUIElement from './GUIElement.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+const {
+    pick
+} = U;
 import EditGlobals from '../EditMode/EditGlobals.js';
 import { HTMLDOMElement } from '../../Core/Renderer/DOMElementType';
-
-const {
-    pick,
-    defined,
-    merge,
-    objectEach,
-    fireEvent
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, merge, objectEach } = OH;
+const { fireEvent } = EH;
 
 /**
  * @internal

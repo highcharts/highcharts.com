@@ -27,15 +27,17 @@ import type {
     StockToolsOptions
 } from './StockToolsOptions';
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
     createElement,
     css,
-    fireEvent,
     getStyle,
-    isArray,
-    merge,
     pick
 } = U;
 

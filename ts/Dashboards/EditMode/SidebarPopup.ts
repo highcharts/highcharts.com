@@ -33,12 +33,12 @@ import EditGlobals from './EditGlobals.js';
 import EditRenderer from './EditRenderer.js';
 import GUIElement from '../Layout/GUIElement.js';
 import Layout from '../Layout/Layout.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 
 const {
-    addEvent,
-    createElement,
-    merge
+    createElement
 } = U;
 
 /* *

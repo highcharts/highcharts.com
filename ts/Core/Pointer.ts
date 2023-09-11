@@ -37,23 +37,26 @@ const {
     noop
 } = H;
 import { Palette } from '../Core/Color/Palettes.js';
-import U from './Utilities.js';
+import U from '../Shared/Utilities.js';
 import SVGAttributes from './Renderer/SVG/SVGAttributes';
 import BBoxObject from './Renderer/BBoxObject';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { objectEach, defined, extend } = OH;
+import EH from '../Shared/Helpers/EventHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    find,
+    splat,
+    pushUnique
+} = AH;
+const { isNumber, isObject } = TC;
+const { addEvent, fireEvent } = EH;
+const {
     attr,
     css,
-    defined,
-    extend,
-    find,
-    fireEvent,
-    isNumber,
-    isObject,
-    objectEach,
     offset,
-    pick,
-    splat
+    pick
 } = U;
 
 /* *
@@ -2204,7 +2207,7 @@ namespace Pointer {
      * @private
      */
     export function compose(ChartClass: typeof Chart): void {
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'beforeRender', function (): void {
                 /**
                  * The Pointer that keeps track of mouse and touch

@@ -22,13 +22,13 @@
 import type Pyramid3DPoint from './Pyramid3DPoint';
 import type Pyramid3DSeriesOptions from './Pyramid3DSeriesOptions';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
 const {
     seriesTypes: {
         funnel3d: Funnel3DSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { merge } = U;
 
 /* *
  *

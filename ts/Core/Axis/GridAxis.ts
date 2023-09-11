@@ -38,15 +38,23 @@ import Chart from '../Chart/Chart.js';
 import H from '../Globals.js';
 const { dateFormats } = H;
 import Tick from './Tick.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
-    defined,
+    merge,
+    defined
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
     erase,
     find,
-    isArray,
-    isNumber,
-    merge,
+    pushUnique
+} = AH;
+const { isArray, isNumber } = TC;
+const { addEvent } = EH;
+const {
     pick,
     timeUnits,
     wrap
@@ -164,7 +172,7 @@ function argsToArray(args: IArguments): Array<any> {
  */
 function isObject(x: unknown): x is object {
     // Always use strict mode
-    return U.isObject(x, true);
+    return TC.isObject(x, true);
 }
 
 /**
@@ -208,7 +216,7 @@ function compose<T extends typeof Axis>(
     TickClass: typeof Tick
 ): (T&typeof GridAxis) {
 
-    if (U.pushUnique(composedMembers, AxisClass)) {
+    if (pushUnique(composedMembers, AxisClass)) {
         AxisClass.keepProps.push('grid');
 
         AxisClass.prototype.getMaxLabelDimensions = getMaxLabelDimensions;
@@ -238,11 +246,11 @@ function compose<T extends typeof Axis>(
         addEvent(AxisClass, 'destroy', onDestroy);
     }
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         addEvent(ChartClass, 'afterSetChartSize', onChartAfterSetChartSize);
     }
 
-    if (U.pushUnique(composedMembers, TickClass)) {
+    if (pushUnique(composedMembers, TickClass)) {
         addEvent(
             TickClass,
             'afterGetLabelPosition',

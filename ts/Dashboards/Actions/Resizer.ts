@@ -22,18 +22,18 @@ import type Serializable from '../Serializable';
 import EditGlobals from '../EditMode/EditGlobals.js';
 import GUIElement from '../Layout/GUIElement.js';
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 
 const {
-    merge,
-    addEvent,
     createElement,
-    fireEvent,
-    removeEvent,
     pick
 } = U;
 
 import EditMode from '../EditMode/EditMode';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
 
 /**
  * Class providing a resizing functionality.

@@ -18,10 +18,12 @@
 
 import type Pointer from '../../Core/Pointer';
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined } = OH;
 const {
-    defined,
-    isNumber,
     pick
 } = U;
 

@@ -14,7 +14,7 @@
  *
  * */
 
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 import { HTMLDOMElement } from '../../Core/Renderer/DOMElementType.js';
 import BaseForm from '../../Shared/BaseForm.js';
 import EditGlobals from './EditGlobals.js';

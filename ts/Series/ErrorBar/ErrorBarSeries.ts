@@ -27,12 +27,13 @@ import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const {
     arearange: AreaRangeSeries
 } = SeriesRegistry.seriesTypes;
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
-    merge,
-    extend
-} = U;
+    extend,
+    merge
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+const { addEvent } = EH;
 
 /* *
  *

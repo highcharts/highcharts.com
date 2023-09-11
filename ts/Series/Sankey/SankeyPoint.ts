@@ -29,9 +29,11 @@ const {
         column: ColumnSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
-const { defined } = U;
 
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const {
+    defined
+} = OH;
 /* *
  *
  *  Class

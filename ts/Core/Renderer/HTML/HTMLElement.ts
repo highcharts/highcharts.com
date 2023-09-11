@@ -33,11 +33,15 @@ const {
     win
 } = H;
 import SVGElement from '../SVG/SVGElement.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { defined, extend } = OH;
 const {
     css,
-    defined,
-    extend,
     pick,
     pInt
 } = U;
@@ -122,7 +126,7 @@ class HTMLElement extends SVGElement {
         SVGElementClass: T
     ): (T&typeof HTMLElement) {
 
-        if (U.pushUnique(composedMembers, SVGElementClass)) {
+        if (pushUnique(composedMembers, SVGElementClass)) {
             const htmlElementProto = HTMLElement.prototype,
                 svgElementProto = SVGElementClass.prototype;
 

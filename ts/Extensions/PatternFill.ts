@@ -37,14 +37,19 @@ const { getOptions } = D;
 import Point from '../Core/Series/Point.js';
 import Series from '../Core/Series/Series.js';
 import SVGRenderer from '../Core/Renderer/SVG/SVGRenderer.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    erase,
-    merge,
+    erase
+} = AH;
+const { isObject } = TC;
+const { defined, merge } = OH;
+const { addEvent, removeEvent } = EH;
+const {
     pick,
-    removeEvent,
     wrap
 } = U;
 
@@ -370,7 +375,7 @@ SVGRenderer.prototype.addPattern = function (
 
     // Use an SVG path for the pattern
     if (options.path) {
-        path = U.isObject(options.path) ?
+        path = isObject(options.path) ?
             options.path :
             { d: options.path };
 

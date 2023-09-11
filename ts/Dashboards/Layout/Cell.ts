@@ -35,11 +35,10 @@ const { componentFromJSON } = Bindings;
 import EditGlobals from '../EditMode/EditGlobals.js';
 import Globals from '../Globals.js';
 import GUIElement from './GUIElement.js';
-import U from '../../Core/Utilities.js';
-const {
-    merge,
-    fireEvent
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { merge } = OH;
+const { fireEvent } = EH;
 
 /* *
  *

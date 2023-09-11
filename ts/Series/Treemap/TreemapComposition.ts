@@ -21,11 +21,10 @@
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const { series: Series } = SeriesRegistry;
 import TreemapUtilities from './TreemapUtilities.js';
-import U from '../../Core/Utilities.js';
-const {
-    addEvent,
-    extend
-} = U;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { extend } = OH;
+const { addEvent } = EH;
 
 /* *
  *

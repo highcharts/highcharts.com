@@ -45,14 +45,15 @@ const {
     ajax
 } = HU;
 import OfflineExportingDefaults from './OfflineExportingDefaults.js';
-import U from '../../Core/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    addEvent,
-    error,
-    extend,
-    fireEvent,
-    merge
-} = U;
+    pushUnique
+} = AH;
+const { extend, merge } = OH;
+const { addEvent, fireEvent } = EH;
 
 AST.allowedAttributes.push(
     'data-z-index',
@@ -165,7 +166,7 @@ namespace OfflineExporting {
         ChartClass: T
     ): (typeof Composition&T) {
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype as Composition;
 
             chartProto.getSVGForLocalExport = getSVGForLocalExport;

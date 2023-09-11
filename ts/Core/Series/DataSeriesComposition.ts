@@ -27,12 +27,18 @@ import type {
 import type Series from './Series';
 
 import DataTable from '../../Data/DataTable.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    fireEvent,
-    isNumber,
-    merge,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { merge } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     wrap
 } = U;
 
@@ -189,7 +195,7 @@ class DataSeriesAdditions {
         SeriesClass: typeof Series
     ): void {
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             addEvent(SeriesClass, 'init', function (): void {
                 this.datas = new DataSeriesAdditions(
                     this as DataSeriesComposition

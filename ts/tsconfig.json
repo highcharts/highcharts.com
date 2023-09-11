@@ -135,7 +135,8 @@
     "exclude": [
         "./Dashboards/**/*.ts",
         "./masters-dashboards/**/*.ts",
-        "./masters-es5/**/*.ts"
+        "./masters-es5/**/*.ts",
+         "node_modules/jquery/*"
     ],
     "include": [
         "./**/*.ts"

@@ -25,10 +25,13 @@ import type ReingoldFruchtermanLayout from './Networkgraph/ReingoldFruchtermanLa
 import type Series from '../Core/Series/Series';
 import type SeriesOptions from '../Core/Series/SeriesOptions';
 
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent
-} = U;
+    pushUnique
+} = AH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -101,7 +104,7 @@ function compose(
     ChartClass: typeof Chart
 ): void {
 
-    if (U.pushUnique(composedMembers, ChartClass)) {
+    if (pushUnique(composedMembers, ChartClass)) {
         addEvent(ChartClass, 'load', onChartLoad);
     }
 

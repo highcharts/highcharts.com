@@ -35,16 +35,15 @@ import Color from '../../../Core/Color/Color.js';
 const { parse: color } = Color;
 import SeriesRegistry from '../../../Core/Series/SeriesRegistry.js';
 const { sma: SMAIndicator } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    extend,
-    isArray,
-    isNumber,
-    getClosestDistance,
-    merge,
-    objectEach
-} = U;
+    getClosestDistance
+} = AH;
+const { isArray, isNumber } = TC;
+const { defined, merge, objectEach, extend } = OH;
 
 /* *
  *

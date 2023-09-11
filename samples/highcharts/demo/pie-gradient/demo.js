@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 // Data retrieved from https://www.ssb.no/en/transport-og-reiseliv/landtransport/statistikk/bilparken
 // Radialize the colors
 Highcharts.setOptions({

@@ -36,20 +36,26 @@ import { Palette } from './Color/Palettes.js';
 import R from './Renderer/RendererUtilities.js';
 const { distribute } = R;
 import RendererRegistry from './Renderer/RendererRegistry.js';
-import U from './Utilities.js';
+import U from '../Shared/Utilities.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
+    extend,
+    merge
+} = OH;
+import EH from '../Shared/Helpers/EventHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
+const {
+    splat,
+    pushUnique
+} = AH;
+const { isArray, isNumber, isString } = TC;
+const { addEvent, fireEvent } = EH;
+const {
     clamp,
     css,
     discardElement,
-    extend,
-    fireEvent,
-    isArray,
-    isNumber,
-    isString,
-    merge,
     pick,
-    splat,
     syncTimeout
 } = U;
 
@@ -1911,7 +1917,7 @@ namespace Tooltip {
         PointerClass: typeof Pointer
     ): void {
 
-        if (U.pushUnique(composedMembers, PointerClass)) {
+        if (pushUnique(composedMembers, PointerClass)) {
             addEvent(PointerClass, 'afterInit', function (): void {
                 const chart = this.chart;
 

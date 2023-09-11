@@ -57,20 +57,17 @@ import SVGElement from './SVGElement.js';
 import SVGLabel from './SVGLabel.js';
 import Symbols from './Symbols.js';
 import TextBuilder from './TextBuilder.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber, isObject, isString } = TC;
+const { defined, destroyObjectProperties, extend, merge } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
     attr,
     createElement,
     css,
-    defined,
-    destroyObjectProperties,
-    extend,
-    isArray,
-    isNumber,
-    isObject,
-    isString,
-    merge,
     pick,
     pInt,
     uniqueKey

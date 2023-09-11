@@ -40,12 +40,12 @@ const {
     }
 } = SeriesRegistry;
 import SVGElement from '../../Core/Renderer/SVG/SVGElement.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined, merge, objectEach } = OH;
 const {
-    defined,
-    isNumber,
-    merge,
-    objectEach,
     pick
 } = U;
 

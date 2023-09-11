@@ -31,12 +31,18 @@ import H from '../../Core/Globals.js';
 const { doc } = H;
 import HU from './HTMLUtilities.js';
 const { stripHTMLTagsFromString: stripHTMLTags } = HU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    defined,
-    find,
-    fireEvent
-} = U;
+    find
+} = AH;
+
+const {
+    defined
+} = OH;
+const { fireEvent } = EH;
 
 /* *
  *

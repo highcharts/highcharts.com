@@ -43,23 +43,21 @@ import D from '../Defaults.js';
 const { defaultOptions } = D;
 import F from '../Templating.js';
 const { format } = F;
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined,
-    erase,
-    extend,
-    fireEvent,
+    erase
+} = AH;
+const { isArray, isFunction, isNumber, isObject } = TC;
+const { extend, merge, objectEach, defined } = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
+const {
     getNestedProperty,
-    isArray,
-    isFunction,
-    isNumber,
-    isObject,
-    merge,
-    objectEach,
     pick,
     syncTimeout,
-    removeEvent,
     uniqueKey
 } = U;
 

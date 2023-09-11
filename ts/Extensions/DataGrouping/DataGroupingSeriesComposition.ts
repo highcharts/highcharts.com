@@ -42,14 +42,19 @@ const {
         prototype: seriesProto
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+import error from '../../Shared/Helpers/Error.js';
 const {
-    addEvent,
-    defined,
-    error,
-    extend,
-    isNumber,
-    merge,
+    pushUnique
+} = AH;
+const { isNumber } = TC;
+const { extend, defined, merge } = OH;
+const { addEvent } = EH;
+const {
     pick
 } = U;
 
@@ -466,7 +471,7 @@ function compose(
 ): void {
     const PointClass = SeriesClass.prototype.pointClass;
 
-    if (U.pushUnique(composedMembers, PointClass)) {
+    if (pushUnique(composedMembers, PointClass)) {
         // Override point prototype to throw a warning when trying to update
         // grouped points.
         addEvent(PointClass, 'update', function (): (boolean|undefined) {
@@ -477,7 +482,7 @@ function compose(
         });
     }
 
-    if (U.pushUnique(composedMembers, SeriesClass)) {
+    if (pushUnique(composedMembers, SeriesClass)) {
         addEvent(SeriesClass, 'afterSetOptions', onAfterSetOptions);
         addEvent(SeriesClass, 'destroy', destroyGroupedData);
 

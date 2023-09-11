@@ -26,16 +26,20 @@ const {
         pie: PieSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    arrayMax,
     arrayMin,
-    clamp,
-    extend,
-    fireEvent,
-    merge,
-    pick,
+    arrayMax,
     splat
+} = AH;
+const { extend, merge } = OH;
+const { fireEvent } = EH;
+const {
+    clamp,
+    pick
 } = U;
 
 declare module '../../Core/Series/SeriesLike' {

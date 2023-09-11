@@ -36,10 +36,18 @@ const {
     shapeArea
 } = Math3D;
 import Tick3D from './Tick3DComposition.js';
-import U from '../Utilities.js';
+import U from '../../Shared/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    addEvent,
-    merge,
+    merge
+} = OH;
+import EH from '../../Shared/Helpers/EventHelper.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
+const {
+    pushUnique
+} = AH;
+const { addEvent } = EH;
+const {
     pick,
     wrap
 } = U;
@@ -446,7 +454,7 @@ class Axis3DAdditions {
     ): void {
         Tick3D.compose(TickClass);
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             merge(true, AxisClass.defaultOptions, Axis3DDefaults);
 
             AxisClass.keepProps.push('axis3D');

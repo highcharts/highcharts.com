@@ -42,22 +42,23 @@ const {
 import NavigatorAxisAdditions from '../../Core/Axis/NavigatorAxisComposition.js';
 import NavigatorComposition from './NavigatorComposition.js';
 import Scrollbar from '../Scrollbar/Scrollbar.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    find,
+    splat,
+    erase
+} = AH;
+const { isArray, isNumber } = TC;
+const { defined, destroyObjectProperties, extend, merge } = OH;
+const { addEvent, removeEvent } = EH;
+const {
     clamp,
     correctFloat,
-    defined,
-    destroyObjectProperties,
-    erase,
-    extend,
-    find,
-    isArray,
-    isNumber,
-    merge,
-    pick,
-    removeEvent,
-    splat
+    pick
 } = U;
 
 /* *

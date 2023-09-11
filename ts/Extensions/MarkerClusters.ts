@@ -48,17 +48,8 @@ import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import SVGRenderer from '../Core/Renderer/SVG/SVGRenderer.js';
 const { prototype: { symbols } } = SVGRenderer;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 const {
-    addEvent,
-    defined,
-    error,
-    isArray,
-    isFunction,
-    isObject,
-    isNumber,
-    merge,
-    objectEach,
     relativeLength,
     syncTimeout
 } = U;
@@ -305,6 +296,13 @@ declare global {
 /* eslint-disable no-invalid-this */
 
 import Axis from '../Core/Axis/Axis.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+import error from '../Shared/Helpers/Error.js';
+const { isArray, isFunction, isNumber, isObject } = TC;
+const { defined, merge, objectEach } = OH;
+const { addEvent } = EH;
 
 const Scatter = seriesTypes.scatter,
     baseGeneratePoints = Series.prototype.generatePoints;

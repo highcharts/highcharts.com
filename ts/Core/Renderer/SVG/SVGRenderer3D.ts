@@ -47,11 +47,10 @@ const {
 import SVGElement from './SVGElement.js';
 import SVGElement3D from './SVGElement3D.js';
 import SVGRenderer from './SVGRenderer.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+const { defined, extend, merge } = OH;
 const {
-    defined,
-    extend,
-    merge,
     pick
 } = U;
 

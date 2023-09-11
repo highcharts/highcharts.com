@@ -56,22 +56,18 @@ import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import SVGRenderer from '../Core/Renderer/SVG/SVGRenderer.js';
 import Tick from '../Core/Axis/Tick.js';
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
 import '../Series/Column/ColumnSeries.js';
 import type MapPointType from '../Series/Map/MapPoint.js';
 import type MapSeriesType from '../Series/Map/MapSeries.js';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+const { defined, diffObjects, extend, merge, objectEach } = OH;
+const { addEvent, fireEvent, removeEvent } = EH;
 
 const {
-    addEvent,
-    defined,
-    diffObjects,
-    extend,
-    fireEvent,
-    merge,
-    objectEach,
     pick,
-    removeEvent,
     syncTimeout
 } = U;
 

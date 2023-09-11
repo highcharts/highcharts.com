@@ -18,11 +18,14 @@ import type CoreSeriesOptions from '../Core/Series/SeriesOptions';
 import H from '../Core/Globals.js';
 const { noop } = H;
 import Series from '../Core/Series/Series.js';
-import U from '../Core/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import AH from '../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    defined
-} = U;
+    pushUnique
+} = AH;
+const { defined } = OH;
+const { addEvent } = EH;
 
 /* *
  *
@@ -107,7 +110,7 @@ namespace DerivedComposition {
         SeriesClass: T
     ): (T&typeof SeriesComposition) {
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype as SeriesComposition;
 
             seriesProto.addBaseSeriesEvents = addBaseSeriesEvents;

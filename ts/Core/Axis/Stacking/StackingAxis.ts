@@ -28,16 +28,23 @@ import Axis from '../Axis.js';
 import SeriesRegistry from '../../Series/SeriesRegistry.js';
 const { series: { prototype: seriesProto } } = SeriesRegistry;
 import StackItem from './StackItem.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
-    correctFloat,
-    defined,
-    destroyObjectProperties,
-    fireEvent,
-    isArray,
-    isNumber,
+    pushUnique
+} = AH;
+const { isArray, isNumber } = TC;
+const {
     objectEach,
+    destroyObjectProperties,
+    defined
+} = OH;
+const { addEvent, fireEvent } = EH;
+const {
+    correctFloat,
     pick
 } = U;
 
@@ -711,18 +718,18 @@ namespace StackingAxis {
         SeriesClass: typeof Series
     ): void {
 
-        if (U.pushUnique(composedMembers, AxisClass)) {
+        if (pushUnique(composedMembers, AxisClass)) {
             addEvent(AxisClass, 'init', onAxisInit);
             addEvent(AxisClass, 'destroy', onAxisDestroy);
         }
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             const chartProto = ChartClass.prototype;
 
             chartProto.getStacks = chartGetStacks;
         }
 
-        if (U.pushUnique(composedMembers, SeriesClass)) {
+        if (pushUnique(composedMembers, SeriesClass)) {
             const seriesProto = SeriesClass.prototype;
 
             seriesProto.getStackIndicator = seriesGetStackIndicator;

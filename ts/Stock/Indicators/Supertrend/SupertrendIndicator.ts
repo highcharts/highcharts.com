@@ -35,15 +35,16 @@ const {
     atr: ATRIndicator,
     sma: SMAIndicator
 } = SeriesRegistry.seriesTypes;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
 import StockChart from '../../../Core/Chart/StockChart.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isArray } = TC;
+const { extend, merge, objectEach } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    correctFloat,
-    isArray,
-    extend,
-    merge,
-    objectEach
+    correctFloat
 } = U;
 
 /* *

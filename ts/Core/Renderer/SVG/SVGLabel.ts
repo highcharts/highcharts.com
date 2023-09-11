@@ -24,14 +24,15 @@ import type SVGRenderer from './SVGRenderer';
 import type { SymbolKey } from './SymbolType';
 
 import SVGElement from './SVGElement.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined, extend, merge } = OH;
+const { removeEvent } = EH;
 const {
-    defined,
-    extend,
-    isNumber,
-    merge,
-    pick,
-    removeEvent
+    pick
 } = U;
 
 /* *

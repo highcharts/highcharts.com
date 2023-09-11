@@ -37,15 +37,15 @@ const {
         prototype: columnProto
     }
 } = SeriesRegistry.seriesTypes;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isArray, isNumber } = TC;
+const { defined, extend, merge } = OH;
+const { addEvent } = EH;
 const {
-    addEvent,
-    defined,
-    extend,
-    isArray,
-    isNumber,
-    pick,
-    merge
+    pick
 } = U;
 
 /* *

@@ -32,16 +32,23 @@ import type SVGPath from '../../Renderer/SVG/SVGPath';
 import Axis from '../Axis.js';
 import { Palette } from '../../Color/Palettes.js';
 import PlotLineOrBandAxis from './PlotLineOrBandAxis.js';
-import U from '../../Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import EH from '../../../Shared/Helpers/EventHelper.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
 const {
     arrayMax,
     arrayMin,
+    erase
+} = AH;
+const {
     defined,
-    destroyObjectProperties,
-    erase,
-    fireEvent,
-    merge,
     objectEach,
+    destroyObjectProperties,
+    merge
+} = OH;
+const { fireEvent } = EH;
+const {
     pick
 } = U;
 

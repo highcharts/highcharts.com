@@ -24,7 +24,7 @@ import type Options from '../../Core/Options';
 
 import D from '../../Core/Defaults.js';
 const { setOptions } = D;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const { createElement } = U;
 
 /* *

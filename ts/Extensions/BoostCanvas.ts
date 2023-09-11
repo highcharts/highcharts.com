@@ -48,13 +48,14 @@ import { Palette } from '../Core/Color/Palettes.js';
 import Series from '../Core/Series/Series.js';
 import SeriesRegistry from '../Core/Series/SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
-import U from '../Core/Utilities.js';
+import U from '../Shared/Utilities.js';
+import EH from '../Shared/Helpers/EventHelper.js';
+import OH from '../Shared/Helpers/ObjectHelper.js';
+import TC from '../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { extend, merge } = OH;
+const { addEvent, fireEvent } = EH;
 const {
-    addEvent,
-    extend,
-    fireEvent,
-    isNumber,
-    merge,
     pick,
     wrap
 } = U;

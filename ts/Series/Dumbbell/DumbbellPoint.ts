@@ -21,9 +21,12 @@ import type DumbbellPointOptions from './DumbbellPointOptions';
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 
 import AreaRangePoint from '../AreaRange/AreaRangePoint.js';
-import U from '../../Core/Utilities.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
 const {
-    extend,
+    extend
+} = OH;
+import U from '../../Shared/Utilities.js';
+const {
     pick
 } = U;
 

@@ -19,16 +19,15 @@ import type TimelineChannel from './TimelineChannel';
 import SonificationTimeline from './SonificationTimeline.js';
 import SonificationInstrument from './SonificationInstrument.js';
 import SonificationSpeaker from './SonificationSpeaker.js';
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const {
     clamp,
-    defined,
-    extend,
     getNestedProperty,
-    merge,
     pick
 } = U;
 import T from '../../Core/Templating.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+const { defined, extend, merge } = OH;
 const {
     format
 } = T;

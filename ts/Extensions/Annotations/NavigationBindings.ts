@@ -43,18 +43,19 @@ const {
 import NavigationBindingDefaults from './NavigationBindingsDefaults.js';
 import NBU from './NavigationBindingsUtilities.js';
 const { getFieldType } = NBU;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+import AH from '../../Shared/Helpers/ArrayHelper.js';
 const {
-    addEvent,
+    pushUnique
+} = AH;
+const { isArray, isFunction, isNumber, isObject } = TC;
+const { defined, merge, objectEach } = OH;
+const { addEvent, fireEvent } = EH;
+const {
     attr,
-    defined,
-    fireEvent,
-    isArray,
-    isFunction,
-    isNumber,
-    isObject,
-    merge,
-    objectEach,
     pick
 } = U;
 
@@ -429,7 +430,7 @@ class NavigationBindings {
         ChartClass: typeof Chart
     ): void {
 
-        if (U.pushUnique(composedMembers, AnnotationClass)) {
+        if (pushUnique(composedMembers, AnnotationClass)) {
             addEvent(AnnotationClass, 'remove', onAnnotationRemove);
 
             // Basic shapes:
@@ -443,13 +444,13 @@ class NavigationBindings {
             });
         }
 
-        if (U.pushUnique(composedMembers, ChartClass)) {
+        if (pushUnique(composedMembers, ChartClass)) {
             addEvent(ChartClass, 'destroy', onChartDestroy);
             addEvent(ChartClass, 'load', onChartLoad);
             addEvent(ChartClass, 'render', onChartRender);
         }
 
-        if (U.pushUnique(composedMembers, NavigationBindings)) {
+        if (pushUnique(composedMembers, NavigationBindings)) {
             addEvent(
                 NavigationBindings,
                 'closePopup',
@@ -462,7 +463,7 @@ class NavigationBindings {
             );
         }
 
-        if (U.pushUnique(composedMembers, setOptions)) {
+        if (pushUnique(composedMembers, setOptions)) {
             setOptions(NavigationBindingDefaults);
         }
 

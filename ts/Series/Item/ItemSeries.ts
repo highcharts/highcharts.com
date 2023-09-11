@@ -35,14 +35,14 @@ const {
         pie: PieSeries
     }
 } = SeriesRegistry;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
+import EH from '../../Shared/Helpers/EventHelper.js';
+import OH from '../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../Shared/Helpers/TypeChecker.js';
+const { isNumber } = TC;
+const { defined, extend, merge } = OH;
+const { fireEvent } = EH;
 const {
-    defined,
-    extend,
-    fireEvent,
-    isNumber,
-    merge,
-    objectEach,
     pick
 } = U;
 

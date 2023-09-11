@@ -28,7 +28,7 @@ const {
     doc,
     win
 } = H;
-import U from '../../Core/Utilities.js';
+import U from '../../Shared/Utilities.js';
 const { css } = U;
 
 

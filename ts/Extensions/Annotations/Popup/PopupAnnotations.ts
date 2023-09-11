@@ -28,14 +28,18 @@ const {
     doc,
     isFirefox
 } = H;
-import U from '../../../Core/Utilities.js';
+import U from '../../../Shared/Utilities.js';
+import OH from '../../../Shared/Helpers/ObjectHelper.js';
+import TC from '../../../Shared/Helpers/TypeChecker.js';
+import AH from '../../../Shared/Helpers/ArrayHelper.js';
+const {
+    stableSort
+} = AH;
+const { isArray, isObject } = TC;
+const { objectEach } = OH;
 const {
     createElement,
-    isArray,
-    isObject,
-    objectEach,
-    pick,
-    stableSort
+    pick
 } = U;
 
 /* *
