@@ -60,7 +60,7 @@ Highcharts.chart('container', {
                 'Johan,Jóhan,Julian,Kristian,Leon,Levi,Magnus,Martin,Mattias,Mikkjal,Nóa,Óli,Pauli,Petur,Rói,Sveinur,Teitur',
                 arr = [];
 
-            Highcharts.each(names.split(','), function (name) {
+            names.split(',').forEach(function (name) {
                 arr.push({
                     name: name,
                     y: Math.round(Math.random() * 100)

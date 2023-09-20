@@ -15,7 +15,7 @@
  * */
 
 import Board from '../Board.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import Globals from '../Globals.js';
 
 const { addEvent } = U;

@@ -20,8 +20,6 @@ import type { Options } from './Options';
 import type Legend from './Legend/Legend';
 
 import ChartDefaults from './Chart/ChartDefaults.js';
-import Color from './Color/Color.js';
-const { parse: color } = Color;
 import H from './Globals.js';
 const {
     isTouchDevice,

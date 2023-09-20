@@ -25,7 +25,6 @@ export function testGlobalUtilities() {
         'getMagnitude',
         'getOptions',
         'getStyle',
-        'inArray',
         'isArray',
         'isClass',
         'isDOMElement',

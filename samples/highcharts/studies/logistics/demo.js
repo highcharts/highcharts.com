@@ -738,7 +738,6 @@ const newPointsColliding = function (newPoints, chart) {
         collidePoint;
 
     const pick = Highcharts.pick,
-        inArray = Highcharts.inArray,
         groupedPoints = chart.dragDropData && chart.dragDropData.groupedPoints,
         minX = Object.keys(newPoints).reduce((acc, id) => {
             y = pick(newPoints[id].newValues.y, newPoints[id].point.y);
@@ -766,7 +765,7 @@ const newPointsColliding = function (newPoints, chart) {
         while (i--) {
             collidePoint = newSeries.points[i];
             if (
-                inArray(collidePoint, groupedPoints) < 0 &&
+                groupedPoints.indexOf(collidePoint) < 0 &&
                 pointOverlaps(collidePoint)
             ) {
                 return true;

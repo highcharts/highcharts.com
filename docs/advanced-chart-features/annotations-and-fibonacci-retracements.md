@@ -39,7 +39,7 @@ Let’s create the Fibonacci retracements chart with seven labels, seven horizon
     
         const lines = [];
     
-        Highcharts.each(levels, function (level, i) {
+        levels.forEach(function (level, i) {
             const retracement = y2 - diff * level,
                 p1 = point(x1, retracement),
                 p2 = point(x2, retracement);
@@ -59,7 +59,7 @@ Let’s create the Fibonacci retracements chart with seven labels, seven horizon
     
         const labels = [];
     
-        Highcharts.each(levels, function (level, i) {
+        levels.forEach(function (level, i) {
             const retracement = y2 - diff * level,
                 p1 = point(x1, retracement),
                 p2 = point(x2, retracement);
@@ -96,7 +96,7 @@ Let’s create the Fibonacci retracements chart with seven labels, seven horizon
             'rgba(169, 255, 101, 0.4)'
         ];
     
-        Highcharts.each(levels, function (level, i) {
+        levels.forEach(function (level, i) {
             const retracement = y2 - diff * level,
                 p1 = point(x1, retracement),
                 p2 = point(x2, retracement);

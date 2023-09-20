@@ -43,8 +43,8 @@ QUnit.test('Accessible data table', function (assert) {
     assert.ok(head, 'Data table has head');
     assert.strictEqual(head.children.length, 2, 'Data table head has two rows');
 
-    Highcharts.each(head.children, function (row) {
-        Highcharts.each(row.children, function (cell) {
+    for (const row of head.children) {
+        for (const cell of row.children) {
             if (cell.innerHTML) {
                 assert.strictEqual(
                     cell.getAttribute('scope'),
@@ -53,8 +53,8 @@ QUnit.test('Accessible data table', function (assert) {
                 );
                 assert.strictEqual(cell.tagName, 'TH', 'Header cell is th');
             }
-        });
-    });
+        }
+    }
 
     assert.ok(body, 'Data table has body');
     assert.strictEqual(
@@ -63,7 +63,7 @@ QUnit.test('Accessible data table', function (assert) {
         'Data table body has three rows'
     );
 
-    Highcharts.each(body.children, function (row) {
+    for (const row of body.children) {
         assert.strictEqual(
             row.firstChild.tagName,
             'TH',
@@ -74,5 +74,5 @@ QUnit.test('Accessible data table', function (assert) {
             'row',
             'First cell has scope'
         );
-    });
+    }
 });

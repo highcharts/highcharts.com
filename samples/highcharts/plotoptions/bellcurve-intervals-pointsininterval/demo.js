@@ -17,7 +17,7 @@ Highcharts.chart('container', {
         margin: [50, 0, 50, 50],
         events: {
             load: function () {
-                Highcharts.each(this.series[0].data, function (point, i) {
+                this.series[0].data.forEach(function (point, i) {
                     const labels = ['4σ', '3σ', '2σ', 'σ', 'μ', 'σ', '2σ', '3σ', '4σ'];
                     if (i % pointsInInterval === 0) {
                         point.update({

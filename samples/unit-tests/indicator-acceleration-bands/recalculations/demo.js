@@ -1,31 +1,27 @@
 QUnit.test('Test ABANDS-algorithm on data updates.', function (assert) {
     var chart = Highcharts.stockChart('container', {
-            series: [
-                {
-                    id: 'main',
-                    type: 'candlestick',
-                    data: [
-                        [0, 5, 6, 3, 4],
-                        [1, 15, 16, 13, 14],
-                        [2, 25, 26, 23, 24],
-                        [3, 35, 36, 33, 34],
-                        [4, 45, 46, 43, 44]
-                    ]
-                },
-                {
-                    type: 'abands',
-                    linkedTo: 'main',
-                    params: {
-                        period: 3
-                    }
-                }
+        series: [{
+            id: 'main',
+            type: 'candlestick',
+            data: [
+                [0, 5, 6, 3, 4],
+                [1, 15, 16, 13, 14],
+                [2, 25, 26, 23, 24],
+                [3, 35, 36, 33, 34],
+                [4, 45, 46, 43, 44]
             ]
-        }),
-        map = Highcharts.map;
+        }, {
+            type: 'abands',
+            linkedTo: 'main',
+            params: {
+                period: 3
+            }
+        }]
+    });
 
     function arrToPrecision(arr) {
-        return map(arr, function (point) {
-            return map(point, function (p) {
+        return arr.map(function (point) {
+            return point.map(function (p) {
                 // Check precission 4 decimal places.
                 return Math.round(p * 10000);
             });

@@ -24,7 +24,7 @@
         this.dataSeries = [];
         this.dataLength = 0;
         motion.options.series = H.splat(motion.options.series);
-        Highcharts.each(this.chart.series, function (series, index) {
+        this.chart.series.forEach(function (series, index) {
             if (motion.options.series.indexOf(index) >= 0) {
                 motion.dataSeries[index] = series;
                 for (var i = 0; i < series.data.length; i++) {

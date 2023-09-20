@@ -33,7 +33,7 @@ import EditGlobals from './EditGlobals.js';
 import EditRenderer from './EditRenderer.js';
 import GUIElement from '../Layout/GUIElement.js';
 import Layout from '../Layout/Layout.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 
 const {
     addEvent,

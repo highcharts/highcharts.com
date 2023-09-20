@@ -14,12 +14,11 @@
  *
  * */
 
-import type CSSJSONObject from '../../CSSJSONObject';
 import type EditMode from '../EditMode';
 
-import { HTMLDOMElement } from '../../../Core/Renderer/DOMElementType.js';
+import type { HTMLDOMElement } from '../../../Core/Renderer/DOMElementType.js';
 import EditGlobals from '../EditGlobals.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../Utilities.js';
 import MenuItem from './MenuItem.js';
 import MenuItemBindings from './MenuItemBindings.js';
 

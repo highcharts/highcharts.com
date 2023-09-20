@@ -42,7 +42,7 @@ import DataTable from '../../Data/DataTable.js';
 import EditableOptions from './EditableOptions.js';
 import Globals from '../Globals.js';
 const { classNamePrefix } = Globals;
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 const {
     createElement,
     isArray,

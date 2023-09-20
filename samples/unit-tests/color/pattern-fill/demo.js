@@ -274,7 +274,7 @@ QUnit.test('Auto IDs and no duplicate elements', function (assert) {
     );
 
     var ids = [];
-    Highcharts.each(patterns, function (pattern) {
+    for (const pattern of patterns) {
         var id = pattern.getAttribute('id');
         if (ids.indexOf(id) > -1) {
             assert.ok(
@@ -283,7 +283,7 @@ QUnit.test('Auto IDs and no duplicate elements', function (assert) {
             );
         }
         ids.push(id);
-    });
+    }
 
     assert.strictEqual(
         customPattern.getAttribute('width'),
@@ -374,7 +374,7 @@ QUnit.test('Images (dummy images, not loaded)', function (assert) {
         'Number of pattern defs should be 3 unique (defaults patterns not added unless used)'
     );
 
-    Highcharts.each(patterns, function (pattern) {
+    for (const pattern of patterns) {
         var id = pattern.getAttribute('id');
         if (id.indexOf('highcharts-pattern-') > -1) {
             customPattern = pattern;
@@ -386,7 +386,7 @@ QUnit.test('Images (dummy images, not loaded)', function (assert) {
             );
         }
         ids.push(id);
-    });
+    }
 
     assert.strictEqual(
         customPattern.getAttribute('width'),
@@ -505,9 +505,9 @@ QUnit.test('Image auto resize with aspect ratio - map', function (assert) {
     test();
 
     assert.strictEqual(
-        Highcharts.grep(chart.renderer.defIds, function (id) {
-            return id.indexOf('highcharts-pattern-') > -1;
-        }).length,
+        chart.renderer.defIds.filter(
+            id => id.indexOf('highcharts-pattern-') > -1
+        ).length,
         2,
         'Verify that old pattern IDs are free'
     );

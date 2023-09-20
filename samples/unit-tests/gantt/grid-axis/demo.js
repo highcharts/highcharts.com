@@ -1197,8 +1197,7 @@ QUnit.test('Vertical axis tick labels centered', function (assert) {
 });
 
 QUnit.module('labels alignment', function () {
-    var map = Highcharts.map,
-        categories = ['Category 1', 'Category 2', 'Category 3'],
+    var categories = ['Category 1', 'Category 2', 'Category 3'],
         optionsAxis = {
             showEmpty: true,
             type: 'category',
@@ -1288,7 +1287,7 @@ QUnit.module('labels alignment', function () {
 
         /**
          * Test label positions on the x and yAxis with a single line.
-         * NOTE: options and chart must be set again, due to tests running async.
+         * Options and chart must be set again, due to tests running async.
          */
         optionsAxis.labels.useHTML = false;
         optionsAxis.categories = categories;
@@ -1307,7 +1306,7 @@ QUnit.module('labels alignment', function () {
         /**
          * Test label positions on the x and yAxis with a second line.
          */
-        optionsAxis.categories = map(categories, function (str) {
+        optionsAxis.categories = categories.map(function (str) {
             return str + '<br/>Second Line';
         });
 
@@ -1328,9 +1327,9 @@ QUnit.module('labels alignment', function () {
 
         /**
          * Test label positions on the x and yAxis with a single line.
-         * NOTE: options and chart must be set again, due to tests running async.
+         * Options and chart must be set again, due to tests running async.
          */
-        optionsAxis.categories = map(categories, function (str) {
+        optionsAxis.categories = categories.map(function (str) {
             return '<span>' + str + '<span>';
         });
         optionsAxis.labels.useHTML = true;
@@ -1349,7 +1348,7 @@ QUnit.module('labels alignment', function () {
         /**
          * Test label positions on the x and yAxis with a second line.
          */
-        optionsAxis.categories = map(categories, function (str) {
+        optionsAxis.categories = categories.map(function (str) {
             return '<span>' + str + '</span><br/><span>Second Line</span>';
         });
 

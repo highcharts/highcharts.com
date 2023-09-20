@@ -34,7 +34,7 @@
         const labels = [];
 
         // building options for the annotation
-        Highcharts.each(levels, function (level, i) {
+        levels.forEach(function (level, i) {
             const retracement = y2 - diff * level;
             const p1 = point(x1, retracement);
             const p2 = point(x2, retracement);

@@ -39,7 +39,7 @@ import Fullscreen from './EditMode/Fullscreen.js';
 import Globals from './Globals.js';
 import Layout from './Layout/Layout.js';
 import Serializable from './Serializable.js';
-import U from '../Core/Utilities.js';
+import U from './Utilities.js';
 import HTMLComponent from './Components/HTMLComponent.js';
 import ComponentType from './Components/ComponentType';
 const {

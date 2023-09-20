@@ -15,7 +15,7 @@
  * */
 
 import EditMode from '../EditMode.js';
-import U from '../../../Core/Utilities.js';
+import U from '../../Utilities.js';
 import Row from '../../Layout/Row.js';
 import EditGlobals from '../EditGlobals.js';
 import Menu from '../Menu/Menu.js';

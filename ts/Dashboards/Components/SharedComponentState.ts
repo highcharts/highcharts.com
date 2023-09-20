@@ -23,7 +23,7 @@
 import type Globals from '../Globals';
 
 import Serializable from '../Serializable.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 const {
     addEvent,
     fireEvent,

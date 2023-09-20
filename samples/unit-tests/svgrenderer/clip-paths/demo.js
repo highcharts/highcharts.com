@@ -4,8 +4,7 @@ QUnit.test(
         // Get list of unique clip path references
         function getClipPathSet(chart) {
             var clipPathList = [];
-            Highcharts.each(
-                chart.container.querySelectorAll('[clip-path],[CLIP-PATH]'),
+            chart.container.querySelectorAll('[clip-path],[CLIP-PATH]').forEach(
                 function (clipPath) {
                     var p = clipPath.getAttribute('clip-path');
                     if (p !== 'none' && clipPathList.indexOf(p) < 0) {

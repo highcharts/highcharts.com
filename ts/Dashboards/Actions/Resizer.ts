@@ -22,7 +22,7 @@ import type Serializable from '../Serializable';
 import EditGlobals from '../EditMode/EditGlobals.js';
 import GUIElement from '../Layout/GUIElement.js';
 
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 
 const {
     merge,

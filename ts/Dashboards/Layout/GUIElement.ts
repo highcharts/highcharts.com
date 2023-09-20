@@ -21,7 +21,7 @@ import type {
     CSSObject
 } from '../../Core/Renderer/CSSObject';
 import type HTMLAttributes from '../../Core/Renderer/HTML/HTMLAttributes';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import Globals from '../Globals.js';
 import Row from './Row';
 import Cell from './Cell';

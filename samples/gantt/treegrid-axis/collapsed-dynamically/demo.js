@@ -43,7 +43,7 @@ Highcharts.chart('container', {
         ticksToCollapse = ['Node 1', 'Node 2'];
     Highcharts.objectEach(ticks, function (tick) {
         const textStr = tick.label && tick.label.textStr,
-            doCollapse = (Highcharts.inArray(textStr, ticksToCollapse) > -1);
+            doCollapse = (ticksToCollapse.indexOf(textStr) > -1);
         if (doCollapse) {
             // Pass in false to avoid a redraw.
             tick.collapse(false);

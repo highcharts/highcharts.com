@@ -25,7 +25,7 @@ import type Row from '../Layout/Row';
 import type Board from '../Board';
 import type { HTMLDOMElement } from '../../Core/Renderer/DOMElementType';
 
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import EditGlobals from './EditGlobals.js';
 import EditRenderer from './EditRenderer.js';
 import CellEditToolbar from './Toolbar/CellEditToolbar.js';

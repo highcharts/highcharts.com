@@ -30,7 +30,7 @@ import Component from '../Components/Component.js';
 import DataConnector from '../../Data/Connectors/DataConnector.js';
 import DataConverter from '../../Data/Converters/DataConverter.js';
 import DataGridSyncHandlers from './DataGridSyncHandlers.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import DataConnectorType from '../../Data/Connectors/DataConnectorType';
 
 const {

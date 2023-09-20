@@ -84,7 +84,7 @@ A starting point for the function could be the following
 
     function myFunction(parent, children) {
         childrenAreas = [];
-        Highcharts.each(children, function(child) {
+        children.forEach(function(child) {
             // Do some calculations
 
             // These return values are required for each child

@@ -26,7 +26,7 @@ import type GoogleSheetsConnectorOptions from '../../Data/Connectors/GoogleSheet
 import DataTableHelper from './DataTableHelper.js';
 import GoogleSheetsConnector from '../../Data/Connectors/GoogleSheetsConnector.js';
 import Serializable from '../Serializable.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 const { merge } = U;
 
 /* *

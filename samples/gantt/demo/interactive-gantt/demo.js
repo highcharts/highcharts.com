@@ -9,7 +9,6 @@ let today = new Date(),
 
 const day = 1000 * 60 * 60 * 24,
     each = Highcharts.each,
-    reduce = Highcharts.reduce,
     btnShowDialog = document.getElementById('btnShowDialog'),
     btnRemoveTask = document.getElementById('btnRemoveSelected'),
     btnAddTask = document.getElementById('btnAddTask'),
@@ -207,7 +206,7 @@ btnAddTask.onclick = function () {
             10
         );
     let undef,
-        maxEnd = reduce(series.points, function (acc, point) {
+        maxEnd = series.points.reduce(function (acc, point) {
             return point.y === y && point.end ? Math.max(acc, point.end) : acc;
         }, 0);
 

@@ -27,11 +27,12 @@ import type CSSObject from '../../Core/Renderer/CSSObject';
 import type EditMode from './EditMode.js';
 
 import EditGlobals from './EditGlobals.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 const {
     merge,
     createElement,
-    defined
+    defined,
+    find
 } = U;
 
 
@@ -244,7 +245,7 @@ function renderSelect(
     );
 
     const iconURL = (
-        U.find(
+        find(
             options.selectOptions,
             (item): boolean => item.name === options.value
         ) || {}

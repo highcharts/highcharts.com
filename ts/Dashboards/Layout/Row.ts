@@ -20,13 +20,13 @@ import type CSSJSONObject from '../CSSJSONObject';
 import type JSON from '../JSON';
 import type Layout from './Layout.js';
 import type Serializable from '../Serializable';
+import type { HTMLDOMElement } from '../../Core/Renderer/DOMElementType';
 
 import Globals from '../Globals.js';
 import Cell from './Cell.js';
 import GUIElement from './GUIElement.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import EditGlobals from '../EditMode/EditGlobals.js';
-import { HTMLDOMElement } from '../../Core/Renderer/DOMElementType';
 
 const {
     pick,

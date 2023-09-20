@@ -109,7 +109,7 @@ Highcharts.chart('container', {
 }, // Add some life
 function (chart) {
     setInterval(function () {
-        Highcharts.each(chart.series, function (serie) {
+        chart.series.forEach(function (serie) {
             const point = serie.points[0],
                 inc = (Math.random() - 0.5) * 20;
 

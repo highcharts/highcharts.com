@@ -23,7 +23,7 @@ import JSON from '../JSON';
 
 import DataConverter from '../../Data/Converters/DataConverter.js';
 import Serializable from '../Serializable.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 const { merge } = U;
 
 /* *

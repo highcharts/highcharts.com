@@ -2,32 +2,31 @@ QUnit.test(
     'Test Price envelopes calculations on data updates.',
     function (assert) {
         var chart = Highcharts.stockChart('container', {
-                series: [
-                    {
-                        id: 'main',
-                        type: 'candlestick',
-                        data: [
-                            [0, 5, 6, 3, 4],
-                            [1, 5, 6, 3, 4],
-                            [2, 5, 6, 3, 4],
-                            [3, 5, 6, 3, 4]
-                        ]
-                    },
-                    {
-                        type: 'priceenvelopes',
-                        linkedTo: 'main',
-                        params: {
-                            period: 3,
-                            standardDeviation: 3
-                        }
+            series: [
+                {
+                    id: 'main',
+                    type: 'candlestick',
+                    data: [
+                        [0, 5, 6, 3, 4],
+                        [1, 5, 6, 3, 4],
+                        [2, 5, 6, 3, 4],
+                        [3, 5, 6, 3, 4]
+                    ]
+                },
+                {
+                    type: 'priceenvelopes',
+                    linkedTo: 'main',
+                    params: {
+                        period: 3,
+                        standardDeviation: 3
                     }
-                ]
-            }),
-            map = Highcharts.map;
+                }
+            ]
+        });
 
         function arrToPrecision(arr) {
-            return map(arr, function (point) {
-                return map(point, Math.round);
+            return arr.map(function (point) {
+                return point.map(Math.round);
             });
         }
 

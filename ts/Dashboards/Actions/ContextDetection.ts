@@ -14,7 +14,7 @@
  *
  * */
 
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 import type Cell from '../Layout/Cell.js';
 import GUIElement from '../Layout/GUIElement.js';
 

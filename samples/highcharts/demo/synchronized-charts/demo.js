@@ -59,7 +59,7 @@ function syncExtremes(e) {
     const thisChart = this.chart;
 
     if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
-        Highcharts.each(Highcharts.charts, function (chart) {
+        Highcharts.charts.forEach(function (chart) {
             if (chart !== thisChart) {
                 if (chart.xAxis[0].setExtremes) { // It is null while updating
                     chart.xAxis[0].setExtremes(
@@ -85,7 +85,7 @@ Highcharts.ajax({
         activity.datasets.forEach(function (dataset, i) {
 
             // Add X values
-            dataset.data = Highcharts.map(dataset.data, function (val, j) {
+            dataset.data = dataset.data.map(function (val, j) {
                 return [activity.xData[j], val];
             });
 

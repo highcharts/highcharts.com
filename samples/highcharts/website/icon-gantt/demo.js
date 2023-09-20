@@ -39,7 +39,6 @@ const ganttChart = function () {
 
     const day = 1000 * 60 * 60 * 24,
         each = Highcharts.each,
-        reduce = Highcharts.reduce,
         btnShowDialog = document.getElementById('btnShowDialog'),
         btnRemoveTask = document.getElementById('btnRemoveSelected'),
         btnAddTask = document.getElementById('btnAddTask'),
@@ -60,7 +59,8 @@ const ganttChart = function () {
     today.setUTCMilliseconds(0);
     today = today.getTime();
 
-    // Update disabled status of the remove button, depending on whether or not we
+    // Update disabled status of the remove button,
+    // depending on whether or not we
     // have any selected points.
     function updateRemoveButtonStatus() {
         const chart = this.series.chart;
@@ -487,7 +487,7 @@ const ganttChart = function () {
             );
 
         let undef,
-            maxEnd = reduce(series.points, function (acc, point) {
+            maxEnd = series.points.reduce(function (acc, point) {
                 return point.y === y && point.end ?
                     Math.max(acc, point.end) : acc;
             }, 0);

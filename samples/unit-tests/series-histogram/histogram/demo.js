@@ -559,7 +559,7 @@ QUnit.test('Histogram', function (assert) {
 
     assert.deepEqual(
         h4 &&
-            Highcharts.map(h4.points, function (point) {
+            h4.points.map(function (point) {
                 return point.x;
             }),
         [
@@ -589,7 +589,7 @@ QUnit.test('Histogram', function (assert) {
 
     assert.deepEqual(
         h4 &&
-            Highcharts.map(h4.points, function (point) {
+            h4.points.map(function (point) {
                 return point.y;
             }),
         [100, 160, 71, 40, 8, 8, 5, 4, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1],
@@ -653,7 +653,7 @@ QUnit.test('Histogram', function (assert) {
 
     assert.deepEqual(
         h5 &&
-            Highcharts.map(h5.points, function (point) {
+            h5.points.map(function (point) {
                 return point.y;
             }),
         [6, 2, 7, 4, 11, 7, 7],

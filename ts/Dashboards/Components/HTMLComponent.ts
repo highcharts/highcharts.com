@@ -26,7 +26,7 @@ import type Cell from '../Layout/Cell.js';
 
 import AST from '../../Core/Renderer/HTML/AST.js';
 import Component from './Component.js';
-import U from '../../Core/Utilities.js';
+import U from '../Utilities.js';
 
 const {
     merge,
