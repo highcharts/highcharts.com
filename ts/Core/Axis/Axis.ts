@@ -1320,11 +1320,19 @@ class Axis {
                 minArgs[1] = pick(options.min, max - (minRange as any));
                 min = arrayMax(minArgs);
             }
-        }
 
-        // Record modified extremes
-        axis.min = min;
-        axis.max = max;
+            // Record modified extremes
+            axis.min = min;
+            axis.max = max;
+
+            // #15975: Adjust user extremes as well to avoid re-adjusting when
+            // the range between user extremes is smaller than minRange but the
+            // extremes have already been adjusted
+            if (isNumber(axis.userMin) && isNumber(axis.userMax)) {
+                axis.userMin = min;
+                axis.userMax = max;
+            }
+        }
     }
 
     /**
