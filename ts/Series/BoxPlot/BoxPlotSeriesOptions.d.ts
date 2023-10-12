@@ -25,6 +25,7 @@ import type { SeriesStatesOptions } from '../../Core/Series/SeriesOptions';
  * */
 export interface BoxPlotSeriesOptions extends ColumnSeriesOptions {
     boxDashStyle?: BoxPlotPoint['boxDashStyle'];
+    lineDashStyle?: BoxPlotPoint['boxDashStyle'];
     fillColor?: BoxPlotPoint['fillColor'];
     medianColor?: BoxPlotPoint['medianColor'];
     medianDashStyle?: BoxPlotPoint['medianDashStyle'];
@@ -37,6 +38,14 @@ export interface BoxPlotSeriesOptions extends ColumnSeriesOptions {
     whiskerDashStyle?: BoxPlotPoint['whiskerDashStyle'];
     whiskerLength?: BoxPlotPoint['whiskerLength'];
     whiskerWidth?: BoxPlotPoint['whiskerWidth'];
+    fillUpperColor?: BoxPlotPoint['fillUpperColor'];
+    fillLowerColor?: BoxPlotPoint['fillLowerColor'];
+    upperLineColor?: BoxPlotPoint['upperLineColor'];
+    lowerLineColor?: BoxPlotPoint['lowerLineColor'];
+    upperLineWidth?: BoxPlotPoint['upperLineWidth'];
+    lowerLineWidth?: BoxPlotPoint['lowerLineWidth'];
+
+
 }
 
 /* *

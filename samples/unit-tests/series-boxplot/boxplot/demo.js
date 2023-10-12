@@ -73,16 +73,82 @@ QUnit.test('Individual fill color (#5770)', function (assert) {
     });
 
     assert.strictEqual(
-        chart.series[0].points[0].box.element.getAttribute('fill'),
+        chart.series[0].points[0].boxUpperShape.element.getAttribute('fill'),
         'red',
         'Individual fill'
     );
     assert.strictEqual(
-        chart.series[0].points[1].box.element.getAttribute('fill'),
+        chart.series[0].points[0].boxLowerShape.element.getAttribute('fill'),
+        'red',
+        'Individual fill'
+    );
+    assert.strictEqual(
+        chart.series[0].points[1].boxUpperShape.element.getAttribute('fill'),
+        'blue',
+        'Generic fill'
+    );
+    assert.strictEqual(
+        chart.series[0].points[1].boxLowerShape.element.getAttribute('fill'),
         'blue',
         'Generic fill'
     );
 });
+
+QUnit.test('Individual fill color (#6796)', function (assert) {
+    var chart = Highcharts.chart('container', {
+        chart: {
+            type: 'boxplot'
+        },
+
+        plotOptions: {
+            boxplot: {
+                fillUpperColor: 'red',
+                fillLowerColor: 'blue'
+            }
+        },
+
+        series: [
+            {
+                name: 'Observations',
+                data: [
+                    {
+                        low: 760,
+                        q1: 801,
+                        median: 848,
+                        q3: 895,
+                        high: 965,
+                        fillUpperColor: 'green',
+                        fillLowerColor: 'yellow'
+                    },
+                    [733, 853, 939, 980, 1080]
+                ]
+            }
+        ]
+    });
+
+    assert.strictEqual(
+        chart.series[0].points[0].boxUpperShape.element.getAttribute('fill'),
+        'green',
+        'Individual fill'
+    );
+    assert.strictEqual(
+        chart.series[0].points[0].boxLowerShape.element.getAttribute('fill'),
+        'yellow',
+        'Individual fill'
+    );
+    assert.strictEqual(
+        chart.series[0].points[1].boxUpperShape.element.getAttribute('fill'),
+        'red',
+        'Generic fill'
+    );
+    assert.strictEqual(
+        chart.series[0].points[1].boxLowerShape.element.getAttribute('fill'),
+        'blue',
+        'Generic fill'
+    );
+});
+
+
 
 QUnit.test('Individual options and Point.update', function (assert) {
     var chart = Highcharts.chart('container', {
@@ -114,9 +180,15 @@ QUnit.test('Individual options and Point.update', function (assert) {
         false
     );
 
-    assert.strictEqual(point.box.attr('stroke'), 'red', 'color');
+    assert.strictEqual(point.boxUpperShape.attr('stroke'), 'red', 'color');
+    assert.strictEqual(point.boxLowerShape.attr('stroke'), 'red', 'color');
     assert.strictEqual(
-        point.box.attr('fill').toUpperCase(),
+        point.boxUpperShape.attr('fill').toUpperCase(),
+        '#F0F0E0',
+        'fillColor'
+    );
+    assert.strictEqual(
+        point.boxLowerShape.attr('fill').toUpperCase(),
         '#F0F0E0',
         'fillColor'
     );
@@ -227,7 +299,7 @@ QUnit.test(
             firstPoint = series.points[0],
             secondPoint = series.points[1];
 
-        ['box', 'medianShape', 'stem', 'whiskers'].forEach(function (elem) {
+        ['boxUpperShape', 'boxLowerShape', 'medianShape', 'stem', 'whiskers'].forEach(function (elem) {
             assert.strictEqual(
                 firstPoint[elem].attr('stroke-dasharray'),
                 '1,3',
@@ -250,7 +322,12 @@ QUnit.test(
         );
 
         assert.strictEqual(
-            secondPoint.box.attr('stroke-dasharray'),
+            secondPoint.boxUpperShape.attr('stroke-dasharray'),
+            '4,3,1,3',
+            "DashDot dashStyle should be applied to the second point's box."
+        );
+        assert.strictEqual(
+            secondPoint.boxLowerShape.attr('stroke-dasharray'),
             '4,3,1,3',
             'DashDot dashStyle should be applied to the second point\'s box.'
         );
