@@ -76,16 +76,13 @@ declare module './PointLike' {
         hasImportedEvents?: boolean;
         selected?: boolean;
         selectedStaging?: boolean;
-        state?: string;
+        state: StatesOptionsKey;
         haloPath(size: number): SVGPath;
         importEvents(): void;
         onMouseOut(): void;
         onMouseOver(e?: PointerEvent): void;
         select(selected?: boolean | null, accumulate?: boolean): void;
-        setState(
-            state?: (StatesOptionsKey|''),
-            move?: boolean
-        ): void;
+        setState(state?: (StatesOptionsKey | ''), move?: boolean): void;
     }
 }
 
@@ -222,7 +219,7 @@ class Point {
 
     public startXPos?: number;
 
-    public state?: StatesOptionsKey;
+    public state: StatesOptionsKey = 'normal';
 
     /**
      * The total of values in either a stack for stacked series, or a pie in a
@@ -1361,17 +1358,13 @@ class Point {
      *
      * @emits Highcharts.Point#event:afterSetState
      */
-    public setState(
-        state?: (StatesOptionsKey|''),
-        move?: boolean
-    ): void {
+    public setState(state?: (StatesOptionsKey | ''), move?: boolean): void {
+        state = state || 'normal';
+
         const point = this,
             series = point.series,
             previousState = point.state,
-            stateOptions = (
-                (series.options.states as any)[state || 'normal'] ||
-                {}
-            ),
+            stateOptions = series.options?.states?.[state] as any || {},
             markerOptions = (
                 (defaultOptions.plotOptions as any)[
                     series.type as any
@@ -1379,15 +1372,12 @@ class Point {
                 series.options.marker
             ),
             normalDisabled = (markerOptions && markerOptions.enabled === false),
-            markerStateOptions = ((
-                markerOptions &&
-                markerOptions.states &&
-                (markerOptions.states as any)[state || 'normal']
-            ) || {}),
+            markerStateOptions = markerOptions?.states?.[state] as any || {},
             stateDisabled = (markerStateOptions as any).enabled === false,
             pointMarker = point.marker || {},
             chart = series.chart,
             hasMarkers = (markerOptions && series.markerAttribs);
+
         let halo = series.halo,
             markerAttribs,
             pointAttribs: SVGAttributes,
@@ -1395,12 +1385,7 @@ class Point {
             stateMarkerGraphic = series.stateMarkerGraphic,
             newSymbol: (SymbolKey|undefined);
 
-        state = state || ''; // empty string
-
         if (
-            // already has this state
-            (state === point.state && !move) ||
-
             // selected points don't respond to hover
             (point.selected && state !== 'select') ||
 
@@ -1429,7 +1414,7 @@ class Point {
         point.state = state;
 
         if (hasMarkers) {
-            markerAttribs = series.markerAttribs(point, state);
+            markerAttribs = series.markerAttribs(point);
         }
 
         // Apply hover styles to the existing point
@@ -1444,7 +1429,7 @@ class Point {
             }
 
             if (!chart.styledMode) {
-                pointAttribs = series.pointAttribs(point, state);
+                pointAttribs = series.pointAttribs(point);
                 pointAttribsAnimation = pick(
                     chart.options.chart.animation,
                     stateOptions.animation
@@ -1538,7 +1523,7 @@ class Point {
                 if (!chart.styledMode && stateMarkerGraphic &&
                     point.state !== 'inactive'
                 ) {
-                    stateMarkerGraphic.attr(series.pointAttribs(point, state));
+                    stateMarkerGraphic.attr(series.pointAttribs(point));
                 }
             }
 

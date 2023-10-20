@@ -187,11 +187,8 @@ class OHLCSeries extends HLCSeries {
      * Postprocess mapping between options and SVG attributes
      * @private
      */
-    public pointAttribs(
-        point: OHLCPoint,
-        state: StatesOptionsKey
-    ): SVGAttributes {
-        const attribs = super.pointAttribs.call(this, point, state),
+    public pointAttribs(point: OHLCPoint): SVGAttributes {
+        const attribs = super.pointAttribs.call(this, point),
             options = this.options;
 
         delete attribs.fill;

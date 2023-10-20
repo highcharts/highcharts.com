@@ -170,12 +170,7 @@ class HLCSeries extends ColumnSeries {
             }
 
             if (!chart.styledMode) {
-                graphic.attr(
-                    series.pointAttribs(
-                        point,
-                        (point.selected && 'select') as any
-                    )
-                ); // #3897
+                graphic.attr(series.pointAttribs(point)); // #3897
             }
 
             // crisp vector coordinates
@@ -208,15 +203,8 @@ class HLCSeries extends ColumnSeries {
      * Postprocess mapping between options and SVG attributes
      * @private
      */
-    public pointAttribs(
-        point: HLCPoint,
-        state: StatesOptionsKey
-    ): SVGAttributes {
-        const attribs = super.pointAttribs.call(
-            this,
-            point,
-            state
-        );
+    public pointAttribs(point: HLCPoint): SVGAttributes {
+        const attribs = super.pointAttribs.call(this, point);
 
         delete attribs.fill;
 

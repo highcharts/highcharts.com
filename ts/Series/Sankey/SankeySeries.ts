@@ -255,15 +255,13 @@ class SankeySeries extends ColumnSeries {
      * Return the presentational attributes.
      * @private
      */
-    public pointAttribs(
-        point?: SankeyPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point?: SankeyPoint): SVGAttributes {
         if (!point) {
             return {};
         }
         const series = this,
             level = point.isNode ? point.level : point.fromNode.level,
+            state = point.state,
             levelOptions =
                 (series.mapOptionsToLevel as any)[level || 0] || {},
             options = point.options,

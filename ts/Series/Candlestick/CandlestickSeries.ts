@@ -87,19 +87,13 @@ class CandlestickSeries extends OHLCSeries {
      * @private
      * @function Highcharts.seriesTypes.candlestick#pointAttribs
      */
-    public pointAttribs(
-        point: CandlestickPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
-        const attribs = ColumnSeries.prototype.pointAttribs.call(
-                this,
-                point,
-                state
-            ),
+    public pointAttribs(point: CandlestickPoint): SVGAttributes {
+        const attribs = ColumnSeries.prototype.pointAttribs.call(this, point),
             options = this.options,
             isUp = point.open < point.close,
             stroke = options.lineColor || this.color,
-            color = point.color || this.color; // (#14826)
+            color = point.color || this.color, // (#14826)
+            state = point.state;
 
         attribs['stroke-width'] = options.lineWidth;
 
@@ -157,10 +151,7 @@ class CandlestickSeries extends OHLCSeries {
                 if (!series.chart.styledMode) {
                     graphic
                         .attr(
-                            series.pointAttribs(
-                                point,
-                                (point.selected && 'select') as any
-                            )
+                            series.pointAttribs(point)
                         ) // #3897
                         .shadow(series.options.shadow);
                 }

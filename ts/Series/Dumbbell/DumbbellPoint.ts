@@ -85,7 +85,7 @@ class DumbbellPoint extends AreaRangePoint {
 
         this.pointSetState.apply(point, arguments);
 
-        if (!point.state) {
+        if (point.state === 'normal') {
             verb = 'animate';
             const [lowerGraphic, upperGraphic] = point.graphics || [];
             if (lowerGraphic && !chart.styledMode) {

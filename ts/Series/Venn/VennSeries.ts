@@ -587,7 +587,7 @@ class VennSeries extends ScatterSeries {
 
             // Add point attribs
             if (!chart.styledMode) {
-                extend(attribs, series.pointAttribs(point, point.state));
+                extend(attribs, series.pointAttribs(point));
             }
             // Draw the point graphic.
             DPU.draw(point, {
@@ -620,15 +620,12 @@ class VennSeries extends ScatterSeries {
      * @return {Highcharts.SVGAttributes}
      * Returns the calculated attributes.
      */
-    public pointAttribs(
-        point: VennPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point: VennPoint): SVGAttributes {
         const series = this,
             seriesOptions = series.options || {},
             pointOptions = point && point.options || {},
-            stateOptions =
-                (state && (seriesOptions.states as any)[state as any]) || {},
+            state = point.state,
+            stateOptions = seriesOptions.states?.[state] || {},
             options = merge(
                 seriesOptions,
                 { color: point && point.color },

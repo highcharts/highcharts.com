@@ -180,7 +180,7 @@
 
                     pointAttr = point.pointAttr ?
                         point.pointAttr[point.selected ? 'select' : ''] :
-                        series.pointAttribs(point, point.selected && 'select');
+                        series.pointAttribs(point);
 
                     // crisp vector coordinates
                     crispCorr = (pointAttr['stroke-width'] % 2) / 2;

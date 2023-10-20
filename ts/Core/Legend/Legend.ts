@@ -1626,7 +1626,7 @@ class Legend {
                             );
                         }
 
-                        setOtherItemsState('');
+                        setOtherItemsState('normal');
 
                         // A CSS class to dim or hide other than the hovered
                         // series.
@@ -1642,7 +1642,7 @@ class Legend {
                                 }
                                 // Reset inactive state
                                 setOtherItemsState(
-                                    item.visible ? 'inactive' : ''
+                                    item.visible ? 'inactive' : 'normal'
                                 );
                             };
 

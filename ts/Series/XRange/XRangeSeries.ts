@@ -503,12 +503,12 @@ class XRangeSeries extends ColumnSeries {
             cutOff = seriesOpts.stacking && !seriesOpts.borderRadius,
             pointState = point.state,
             stateOpts: SeriesStateHoverOptions = (
-                (seriesOpts.states as any)[pointState || 'normal'] ||
+                (seriesOpts.states as any)[pointState] ||
                 {}
             ),
             pointStateVerb = typeof pointState === 'undefined' ?
                 'attr' : verb,
-            pointAttr = this.pointAttribs(point, pointState),
+            pointAttr = this.pointAttribs(point),
             animation = pick(
                 this.chart.options.chart.animation,
                 stateOpts.animation

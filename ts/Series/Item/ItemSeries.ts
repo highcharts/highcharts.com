@@ -178,10 +178,7 @@ class ItemSeries extends PieSeries {
             point.graphics = graphics = point.graphics || [];
 
             if (!series.chart.styledMode) {
-                pointAttr = series.pointAttribs(
-                    point,
-                    (point.selected as any) && 'select'
-                );
+                pointAttr = series.pointAttribs(point);
             }
 
             if (!point.isNull && point.visible) {

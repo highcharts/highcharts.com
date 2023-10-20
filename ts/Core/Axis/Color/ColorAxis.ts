@@ -799,7 +799,7 @@ class ColorAxis extends Axis implements AxisLike {
 
                         // Override setState to set either normal or inactive
                         // state to all points in this data class
-                        setState: (state?: (StatesOptionsKey|'')): void => {
+                        setState: (state?: StatesOptionsKey): void => {
                             for (const point of getPointsInDataClass(i)) {
                                 point.setState(state);
                             }

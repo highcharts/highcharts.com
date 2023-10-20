@@ -346,11 +346,9 @@ class HeatmapSeries extends ScatterSeries {
     /**
      * @private
      */
-    public markerAttribs(
-        point: HeatmapPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
-        const shapeArgs = point.shapeArgs || {};
+    public markerAttribs(point: HeatmapPoint): SVGAttributes {
+        const shapeArgs = point.shapeArgs || {},
+            state = point.state;
 
         if (point.hasImage) {
             return {
@@ -361,7 +359,7 @@ class HeatmapSeries extends ScatterSeries {
 
         // Setting width and height attributes on image does not affect on its
         // dimensions.
-        if (state && state !== 'normal') {
+        if (state !== 'normal') {
             const pointMarkerOptions = point.options.marker || {},
                 seriesMarkerOptions = this.options.marker || {},
                 seriesStateOptions = (
@@ -409,12 +407,10 @@ class HeatmapSeries extends ScatterSeries {
     /**
      * @private
      */
-    public pointAttribs(
-        point?: HeatmapPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point: HeatmapPoint): SVGAttributes {
         const series = this,
-            attr = Series.prototype.pointAttribs.call(series, point, state),
+            attr = Series.prototype.pointAttribs.call(series, point),
+            state = point.state,
             seriesOptions = series.options || {},
             plotOptions = series.chart.options.plotOptions || {},
             seriesPlotOptions = plotOptions.series || {},

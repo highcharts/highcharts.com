@@ -173,7 +173,7 @@ class DumbbellSeries extends AreaRangeSeries {
             return {};
         }
 
-        if (point.state) {
+        if (point.state && point.state !== 'normal') {
             connectorWidth = connectorWidth + connectorWidthPlus;
         }
 
@@ -402,11 +402,9 @@ class DumbbellSeries extends AreaRangeSeries {
      * @return {Highcharts.SVGAttributes}
      *         Presentational attributes.
      */
-    public pointAttribs(
-        point: DumbbellPoint,
-        state?: string
-    ): SVGAttributes {
-        const pointAttribs = super.pointAttribs.apply(this, arguments as any);
+    public pointAttribs(point: DumbbellPoint): SVGAttributes {
+        const state = point.state,
+            pointAttribs = super.pointAttribs.call(this, point);
 
         if (state === 'hover') {
             delete pointAttribs.fill;

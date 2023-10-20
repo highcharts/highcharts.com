@@ -663,8 +663,7 @@ class SunburstSeries extends TreemapSeries {
                 attribs: extend(
                     animationInfo.from,
                     (!chart.styledMode && series.pointAttribs(
-                        point,
-                        (point.selected && 'select') as any
+                        point
                     ) as any)
                 ),
                 onComplete: onComplete,

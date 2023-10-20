@@ -281,16 +281,14 @@ class VectorSeries extends ScatterSeries {
      * Get presentational attributes.
      * @private
      */
-    public pointAttribs(
-        point: VectorPoint,
-        state?: string
-    ): SVGAttributes {
+    public pointAttribs(point: VectorPoint): SVGAttributes {
         let options = this.options,
             stroke = point.color || this.color,
-            strokeWidth = this.options.lineWidth;
+            strokeWidth = this.options.lineWidth,
+            state = point.state;
 
         if (state) {
-            stroke = (options.states as any)[state].color || stroke;
+            stroke = options?.states?.[state]?.color || stroke;
             strokeWidth =
             ((options.states as any)[state].lineWidth || strokeWidth) +
             ((options.states as any)[state].lineWidthPlus || 0);

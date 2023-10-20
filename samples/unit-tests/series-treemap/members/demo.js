@@ -319,11 +319,6 @@ QUnit.test('seriesTypes.treemap.onClickDrillToNode', function (assert) {
         '',
         'On click drill to \'\': rootNode is updated.'
     );
-    assert.strictEqual(
-        point.state,
-        '',
-        'On click drill to \'\': point.state is updated.'
-    );
 });
 
 QUnit.test('Traversing single top node', assert => {

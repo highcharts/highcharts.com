@@ -312,10 +312,7 @@ class WaterfallSeries extends ColumnSeries {
     }
 
     // Postprocess mapping between options and SVG attributes
-    public pointAttribs(
-        point: WaterfallPoint,
-        state: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point: WaterfallPoint): SVGAttributes {
 
         const upColor = this.options.upColor;
 
@@ -324,11 +321,7 @@ class WaterfallSeries extends ColumnSeries {
             point.color = point.y > 0 ? upColor : void 0;
         }
 
-        const attr = ColumnSeries.prototype.pointAttribs.call(
-            this,
-            point,
-            state
-        );
+        const attr = ColumnSeries.prototype.pointAttribs.call(this, point);
 
         // The dashStyle option in waterfall applies to the graph, not
         // the points

@@ -56,7 +56,7 @@ export interface StatesOptions {
     select?: StateSelectOptions;
 }
 
-export type StatesOptionsKey = (''|keyof StatesOptions);
+export type StatesOptionsKey = keyof StatesOptions;
 
 /* *
  *

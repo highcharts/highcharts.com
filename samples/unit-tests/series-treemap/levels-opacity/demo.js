@@ -91,11 +91,10 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
         }),
         series = chart.series[0],
         point = series.points[0],
-        pointAttribs = function (point, state) {
+        pointAttribs = function (point) {
             return Highcharts.Series.types.treemap.prototype.pointAttribs.call(
                 series,
-                point,
-                state
+                point
             );
         },
         getOpacity = function (color) {
@@ -112,12 +111,14 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
             }
         };
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
+        getOpacity(pointAttribs(point).fill),
         0.15,
         'Default opacity is expected to be 0.25'
     );
+
+    point.setState('hover');
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
+        getOpacity(pointAttribs(point).fill),
         0.75,
         'Default hover opacity is expected to be 0.75'
     );
@@ -125,25 +126,32 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
     // Check if opacity set by user is applied.
     series.update(userOptions);
     point = series.points[0];
+
+    point.setState('normal');
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
+        getOpacity(pointAttribs(point).fill),
         1,
         'userOption opacity is expected to be 1'
     );
+
+    point.setState('hover');
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
+        getOpacity(pointAttribs(point).fill),
         0.5,
         'userOption hover opacity is expected to be 0.5'
     );
+
     // Check if leafNode has opacity
     point = series.points[12]; // Susanne
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
+        getOpacity(pointAttribs(point).fill),
         1,
         'Leaf node opacity is expected to be undefined'
     );
+
+    point.setState('hover');
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
+        getOpacity(pointAttribs(point).fill),
         1,
         'Leaf node hover opacity is expected to be undefined'
     );

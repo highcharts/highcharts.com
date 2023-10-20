@@ -895,10 +895,7 @@ class PackedBubbleSeries extends BubbleSeries {
      * @return {Highcharts.SVGAttributes}
      * The presentational attributes to be set on the point.
      */
-    public pointAttribs(
-        point?: PackedBubblePoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point?: PackedBubblePoint): SVGAttributes {
         const options = this.options,
             hasParentMarker = point && point.isParentNode;
 
@@ -914,7 +911,7 @@ class PackedBubbleSeries extends BubbleSeries {
 
         const fillOpacity =
                 (markerOptions as BubblePointMarkerOptions).fillOpacity,
-            attr = seriesProto.pointAttribs.call(this, point, state);
+            attr = seriesProto.pointAttribs.call(this, point);
 
         if (fillOpacity !== 1) {
             attr['fill-opacity'] = fillOpacity;

@@ -645,12 +645,10 @@ class TreemapSeries extends ScatterSeries {
                     shouldAnimate ? animatableAttribs : attribs,
                     // Add shapeArgs to animate/attr if graphic exists
                     hasGraphic ? shapeArgs : {},
-                    // Add style attribs if !styleMode
+                    // Add style attribs if !styledMode
                     styledMode ?
                         {} :
-                        series.pointAttribs(
-                            point, point.selected ? 'select' : void 0
-                        )
+                        series.pointAttribs(point)
                 );
 
                 // In styled mode apply point.color. Use CSS, otherwise the
@@ -1026,7 +1024,7 @@ class TreemapSeries extends ScatterSeries {
 
         // If a drill id is returned, add click event and cursor.
         if (isString(drillId)) {
-            point.setState(''); // Remove hover
+            point.setState(); // Remove hover
             series.setRootNode(drillId, true, { trigger: 'click' });
         }
     }
@@ -1035,10 +1033,7 @@ class TreemapSeries extends ScatterSeries {
      * Get presentational attributes
      * @private
      */
-    public pointAttribs(
-        point?: TreemapPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point: TreemapPoint): SVGAttributes {
         const series = this,
             mapOptionsToLevel = (
                 isObject(series.mapOptionsToLevel) ?
@@ -1047,8 +1042,8 @@ class TreemapSeries extends ScatterSeries {
             ),
             level = point && mapOptionsToLevel[point.node.level] || {},
             options = this.options,
-            stateOptions =
-                state && options.states && options.states[state] || {},
+            state = point.state,
+            stateOptions = options?.states && options.states?.[state] || {},
             className = (point && point.getClassName()) || '',
             // Set attributes by precedence. Point trumps level trumps series.
             // Stroke width uses pick because it can be 0.

@@ -79,11 +79,8 @@ class MapLineSeries extends MapSeries {
      * @private
      * @function Highcharts.seriesTypes.mapline#pointAttribs
      */
-    public pointAttribs(
-        point: MapLinePoint,
-        state: StatesOptionsKey
-    ): SVGAttributes {
-        const attr = super.pointAttribs(point, state);
+    public pointAttribs(point: MapLinePoint): SVGAttributes {
+        const attr = super.pointAttribs(point);
 
         // The difference from a map series is that the stroke takes the
         // point color

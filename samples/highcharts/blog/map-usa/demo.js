@@ -70,7 +70,6 @@ Highcharts.mapChart('container', {
         text: null
     },
 
-
     mapNavigation: {
         enabled: true,
         enableButtons: false
@@ -79,6 +78,7 @@ Highcharts.mapChart('container', {
     colorAxis: {
         min: 0
     },
+
     tooltip: {
         formatter: function () {
             return this.key + '<br/>' + this.point['hc-key'];

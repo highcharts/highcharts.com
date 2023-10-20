@@ -206,7 +206,7 @@ QUnit.test(
 
         assert.strictEqual(
             chart.series[1].points[3].state,
-            '',
+            'normal',
             'Correct state for column after deselection (#10504)'
         );
     }

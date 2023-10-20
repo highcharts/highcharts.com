@@ -648,14 +648,13 @@ class ColumnSeries extends Series {
      * @private
      * @function Highcharts.seriesTypes.column#pointAttribs
      */
-    public pointAttribs(
-        point?: ColumnPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point?: ColumnPoint): SVGAttributes {
         const options = this.options,
+            state = point?.state || 'normal',
             p2o = (this as any).pointAttrToOptions || {},
             strokeOption = p2o.stroke || 'borderColor',
             strokeWidthOption = p2o['stroke-width'] || 'borderWidth';
+
         let stateOptions: SeriesStateHoverOptions,
             zone,
             brightness,
@@ -797,10 +796,7 @@ class ColumnSeries extends Series {
 
                 // Presentational
                 if (!chart.styledMode) {
-                    (graphic as any)[verb](series.pointAttribs(
-                        point,
-                        (point.selected && 'select') as any
-                    ))
+                    (graphic as any)[verb](series.pointAttribs(point))
                         .shadow(
                             point.allowShadow !== false && options.shadow
                         );

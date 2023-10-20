@@ -63,7 +63,7 @@ class GaugePoint extends Point {
      * Don't do any hover colors or anything
      * @private
      */
-    public setState(state?: StatesOptionsKey): void {
+    public setState(state: StatesOptionsKey): void {
         this.state = state;
     }
 

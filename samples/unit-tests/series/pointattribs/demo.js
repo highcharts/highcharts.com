@@ -25,6 +25,7 @@ QUnit.test('Series.pointAttribs().fill when state is hover', function (assert) {
             }
         },
         point = {
+            state: 'hover',
             color: '#000007',
             options: {
                 color: '#000005',
@@ -40,60 +41,59 @@ QUnit.test('Series.pointAttribs().fill when state is hover', function (assert) {
             zone: {
                 color: '#000006'
             }
-        },
-        state = 'hover';
+        };
 
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000001',
         'point.options.marker.states.hover.fillColor ranks as #1'
     );
 
     point.options.marker.states.hover.fillColor = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000002',
         'series.options.marker.states.hover.fillColor ranks as #2'
     );
 
     series.options.marker.states.hover.fillColor = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000003',
         'point.options.marker.fillColor ranks as #3'
     );
 
     point.options.marker.fillColor = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000004',
         'series.options.marker.fillColor ranks as #4'
     );
 
     series.options.marker.fillColor = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000005',
         'point.options.color ranks as #5'
     );
 
     point.options.color = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000006',
         'series.zones[].color ranks as #6'
     );
 
     point.zone = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000007',
         'point.color ranks as #7'
     );
 
     point.color = undefined;
     assert.strictEqual(
-        pointAttribs.call(series, point, state).fill,
+        pointAttribs.call(series, point).fill,
         '#000008',
         'series.color ranks as #8'
     );
@@ -128,6 +128,7 @@ QUnit.test(
                 }
             },
             point = {
+                state: 'hover',
                 color: '#000007',
                 options: {
                     color: '#000005',
@@ -143,60 +144,59 @@ QUnit.test(
                 zone: {
                     color: '#000006'
                 }
-            },
-            state = 'hover';
+            };
 
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000001',
             'point.options.marker.states.hover.lineColor ranks as #1'
         );
 
         point.options.marker.states.hover.lineColor = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000002',
             'series.options.marker.states.hover.lineColor ranks as #2'
         );
 
         series.options.marker.states.hover.lineColor = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000003',
             'point.options.marker.lineColor ranks as #3'
         );
 
         point.options.marker.lineColor = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000004',
             'series.options.marker.lineColor ranks as #4'
         );
 
         series.options.marker.lineColor = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000005',
             'point.options.color ranks as #5'
         );
 
         point.options.color = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000006',
             'series.zones[].color ranks as #6'
         );
 
         point.zone = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000007',
             'point.color ranks as #7'
         );
 
         point.color = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state).stroke,
+            pointAttribs.call(series, point).stroke,
             '#000008',
             'series.color ranks as #8'
         );
@@ -231,6 +231,7 @@ QUnit.test(
                 zones: []
             },
             point = {
+                state: 'hover',
                 color: '#000007',
                 options: {
                     color: '#000005',
@@ -251,42 +252,42 @@ QUnit.test(
             state = 'hover';
 
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             1,
             'point.options.marker.states.hover.lineWidth ranks as #1'
         );
 
         point.options.marker.states.hover.lineWidth = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             2,
             'series.options.marker.states.hover.lineWidth ranks as #2'
         );
 
         series.options.marker.states.hover.lineWidth = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             3,
             'strokeWidth + point.options.marker.states.hover.lineWidthPlus ranks as #3'
         );
 
         point.options.marker.states.hover.lineWidthPlus = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             4,
             'strokeWidth + series.options.marker.states.hover.lineWidthPlus ranks as #4'
         );
 
         series.options.marker.states.hover.lineWidthPlus = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             5,
             'point.options.marker.lineWidth ranks as #5'
         );
 
         point.options.marker.lineWidth = undefined;
         assert.strictEqual(
-            pointAttribs.call(series, point, state)['stroke-width'],
+            pointAttribs.call(series, point)['stroke-width'],
             6,
             'series.options.marker.lineWidth ranks as #6'
         );

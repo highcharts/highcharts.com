@@ -289,14 +289,12 @@ class HollowCandlestickSeries extends CandlestickSeries {
      * @param {StatesOptionsKey} state
      * Current point state.
      */
-    public pointAttribs(
-        point: HollowCandlestickPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
-        let attribs = super.pointAttribs.call(this, point, state),
+    public pointAttribs(point: HollowCandlestickPoint): SVGAttributes {
+        let attribs = super.pointAttribs.call(this, point),
             stateOptions;
 
         const index = point.index,
+            state = point.state,
             hollowcandleInfo = this.hollowCandlestickData[index];
 
         attribs.fill = this.getPointFill(hollowcandleInfo) || attribs.fill;

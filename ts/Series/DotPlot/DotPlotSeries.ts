@@ -125,7 +125,7 @@ class DotPlotSeries extends ColumnSeries {
                     ] ||
                     (series.pointAttr as any)['']
                 ) :
-                series.pointAttribs(point, (point.selected as any) && 'select');
+                series.pointAttribs(point);
             delete pointAttr.r;
 
             if (series.chart.styledMode) {

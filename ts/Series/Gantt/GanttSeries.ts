@@ -229,7 +229,7 @@ class GanttSeries extends XRangeSeries {
                 // Presentational
                 if (!series.chart.styledMode) {
                     (point.graphic as any)
-                        .attr(series.pointAttribs(point, state as any))
+                        .attr(series.pointAttribs(point))
                         .shadow(seriesOpts.shadow, null, cutOff);
                 }
             } else if (graphic) {

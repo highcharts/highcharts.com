@@ -312,10 +312,7 @@ class MapSeries extends ScatterSeries {
                     // In styled mode, apply point colors by CSS
                     if (chart.styledMode) {
                         graphic.css(
-                            this.pointAttribs(
-                                point,
-                                point.selected && 'select' || void 0
-                            ) as CSSObject
+                            this.pointAttribs(point) as CSSObject
                         );
                     }
 
@@ -602,22 +599,20 @@ class MapSeries extends ScatterSeries {
      * used.
      * @private
      */
-    public pointAttribs(
-        point: MapPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes {
+    public pointAttribs(point: MapPoint): SVGAttributes {
         const { mapView, styledMode } = point.series.chart;
         const attr = styledMode ?
             this.colorAttribs(point) :
             ColumnSeries.prototype.pointAttribs.call(
-                this, point as unknown as ColumnPoint, state
+                this, point as unknown as ColumnPoint
             );
+        const state = point.state;
 
         // Individual stroke width
         let pointStrokeWidth = this.getStrokeWidth(point.options);
 
         // Handle state specific border or line width
-        if (state) {
+        if (state !== 'normal') {
             const stateOptions = merge(
                     this.options.states &&
                     this.options.states[state] as MapSeriesOptions,
@@ -1001,10 +996,7 @@ interface MapSeries extends ColorMapComposition.SeriesComposition {
     drawMapDataLabels(): void;
     drawPoints(): void;
     hasData(): boolean;
-    pointAttribs(
-        point?: MapPoint,
-        state?: StatesOptionsKey
-    ): SVGAttributes;
+    pointAttribs(point?: MapPoint): SVGAttributes;
     render(): void;
 }
 extend(MapSeries.prototype, {

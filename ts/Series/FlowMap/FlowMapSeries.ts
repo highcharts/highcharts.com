@@ -483,12 +483,8 @@ class FlowMapSeries extends MapLineSeries {
      * Get point attributes.
      * @private
      */
-    public pointAttribs(
-        point: FlowMapPoint,
-        state: StatesOptionsKey
-    ): SVGAttributes {
-        const attrs =
-            MapSeries.prototype.pointAttribs.call(this, point, state);
+    public pointAttribs(point: FlowMapPoint): SVGAttributes {
+        const attrs = MapSeries.prototype.pointAttribs.call(this, point);
 
         attrs.fill = pick(
             point.options.fillColor,
