@@ -278,6 +278,7 @@ class Axis {
     public pointRange: number = void 0 as any;
     public pointRangePadding: number = void 0 as any;
     public pos: number = void 0 as any;
+    public posLateral: number = void 0 as any;
     public positiveValuesOnly: boolean = void 0 as any;
     public reserveSpaceDefault?: boolean;
     public reversed?: boolean;
@@ -2753,6 +2754,7 @@ class Axis {
      */
     public setAxisSize(): void {
         const chart = this.chart,
+            opposite = this.opposite,
             options = this.options,
             // [top, right, bottom, left]
             offsets = options.offsets || [0, 0, 0, 0],
@@ -2792,6 +2794,9 @@ class Axis {
         // Direction agnostic properties
         this.len = Math.max(horiz ? width : height, 0); // Math.max fixes #905
         this.pos = horiz ? left : top; // Distance from SVG origin
+        this.posLateral = horiz ?
+            top + (opposite ? 0 : height) :
+            left + (opposite ? width : 0);
     }
 
     /**
@@ -3658,37 +3663,63 @@ class Axis {
      * The SVG path definition in array form.
      */
     public getLinePath(lineWidth: number): SVGPath {
-        const chart = this.chart,
-            opposite = this.opposite,
-            offset = this.offset,
-            horiz = this.horiz,
-            lineLeft = this.left + (opposite ? this.width : 0) + offset,
-            lineTop = (chart.chartHeight as any) - this.bottom -
-                (opposite ? this.height : 0) + offset;
+        const {
+                chart,
+                horiz,
+                len,
+                opposite,
+                pos
+            } = this,
+            posLateral = this.posLateral + this.offset;
+
 
         if (opposite) {
             lineWidth *= -1; // crispify the other way - #1480, #1687
         }
 
+        /*
+        @todo
+            - Refactor to functions
+            - Consider including the offset in posLateral
+            - See if we can use posLateral to reduce computation in other
+              places, like the tick mark and grid line positioning.
+        if (this.coll === 'yAxis') {
+            extendStart = Math.ceil(
+                Math.max.apply(0, [
+                    ...chart.xAxis
+                        .filter((xAxis): boolean =>
+                            xAxis.posLateral === this.pos
+                        )
+                        .map((xAxis): number => xAxis.options.lineWidth),
+                    this.options.gridLineWidth || 0,
+                    this.options.tickWidth || 0
+                ]) / 2
+            );
+            extendEnd = Math.ceil(
+                Math.max.apply(0, [
+                    ...chart.xAxis
+                        .filter((xAxis): boolean =>
+                            xAxis.posLateral === this.pos + this.len
+                        )
+                        .map((xAxis): number => xAxis.options.lineWidth),
+                    this.options.gridLineWidth || 0,
+                    this.options.tickWidth || 0
+                ]) / 2
+            );
+        }
+        */
+
         return chart.renderer
             .crispLine([
                 [
                     'M',
-                    horiz ?
-                        this.left :
-                        lineLeft,
-                    horiz ?
-                        lineTop :
-                        this.top
+                    horiz ? pos : posLateral,
+                    horiz ? posLateral : pos
                 ],
                 [
                     'L',
-                    horiz ?
-                        (chart.chartWidth as any) - this.right :
-                        lineLeft,
-                    horiz ?
-                        lineTop :
-                        (chart.chartHeight as any) - this.bottom
+                    horiz ? pos + len : posLateral,
+                    horiz ? posLateral : pos + len
                 ]
             ], lineWidth);
     }
