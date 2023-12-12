@@ -17,7 +17,7 @@
  * */
 
 import type { NavigatorAxisComposition } from './NavigatorAxisComposition';
-import type ScatterSeries from '../../Series/Scatter/ScatterSeries';
+import type FlagsSeries from '../../Series/Flags/FlagsSeries';
 import type TickPositionsArray from './TickPositionsArray';
 import type Time from '../Time';
 
@@ -896,109 +896,95 @@ namespace OrdinalAxis {
                 maxIndex,
                 slope,
                 i,
-                ordinalPositions = [] as Array<number>,
                 overscrollPointsRange = Number.MAX_VALUE,
                 useOrdinal = false,
                 adjustOrdinalExtremesPoints = false,
-                isBoosted = false;
+                isBoosted = axis.series.some((series): boolean => !!series.boosted);
 
             // Apply the ordinal logic
             if (isOrdinal || hasBreaks) { // #4167 YAxis is never ordinal ?
-                let distanceBetweenPoint = 0;
+                const allPoints = axis.series.reduce(function(prev, curr) {
+                    return prev.concat(curr.processedXData);
 
-                axis.series.forEach(function (series, i): void {
-                    uniqueOrdinalPositions = [];
+                }, [] as Array<number>);
 
-                    // For an axis with multiple series, check if the distance
-                    // between points is identical throughout all series.
-                    if (
-                        i > 0 &&
-                        series.options.id !== 'highcharts-navigator-series' &&
-                        series.processedXData.length > 1
-                    ) {
-                        adjustOrdinalExtremesPoints =
-                            distanceBetweenPoint !== series.processedXData[1] -
-                                series.processedXData[0];
-                    }
-                    distanceBetweenPoint =
-                        series.processedXData[1] - series.processedXData[0];
-
-                    if (series.boosted) {
-                        isBoosted = series.boosted;
-                    }
-
-                    if (
-                        series.reserveSpace() &&
-                        (
-                            (series as ScatterSeries)
-                                .takeOrdinalPosition !== false || hasBreaks
-                        )
-                    ) {
-
-                        // concatenate the processed X data into the existing
-                        // positions, or the empty array
-                        ordinalPositions = ordinalPositions.concat(
-                            series.processedXData as any
-                        );
-
-                        len = ordinalPositions.length;
-
-                        // remove duplicates (#1588)
-                        ordinalPositions.sort(function (
-                            a: number,
-                            b: number
-                        ): number {
-                            // without a custom function it is sorted as strings
-                            return a - b;
-                        });
-
-                        overscrollPointsRange = Math.min(
-                            overscrollPointsRange,
-                            pick(
-                                // Check for a single-point series:
-                                series.closestPointRange,
-                                overscrollPointsRange
-                            )
-                        );
-
-                        if (len) {
-
-                            i = 0;
-                            while (i < len - 1) {
-                                if (
-                                    ordinalPositions[i] !==
-                                    ordinalPositions[i + 1]
-                                ) {
-                                    uniqueOrdinalPositions.push(
-                                        ordinalPositions[i + 1]
-                                    );
-                                }
-                                i++;
-                            }
-
-                            // Check first item:
-                            if (
-                                uniqueOrdinalPositions[0] !==
-                                ordinalPositions[0]
-                            ) {
-                                uniqueOrdinalPositions.unshift(
-                                    ordinalPositions[0]
-                                );
-                            }
-
-                            ordinalPositions = uniqueOrdinalPositions;
-                        }
-                    }
-                });
-
-                // If the distance between points is not identical throughout
-                // all series, remove the first and last ordinal position to
-                // avoid enabling ordinal logic when it is not needed, #17405.
-                // Only for boosted series because changes are negligible.
-                if (adjustOrdinalExtremesPoints && isBoosted) {
-                    ordinalPositions.pop();
-                    ordinalPositions.shift();
-                }
+                let ordinalPositions = Array.from(new Set(allPoints)).sort((a,b) => a - b);
+                // axis.series.forEach(function (series, i): void {
+                //     uniqueOrdinalPositions = [];
+                //
+                //
+                //     if (
+                //         series.reserveSpace() &&
+                //         (
+                //             (series as FlagsSeries)
+                //                 .takeOrdinalPosition !== false || hasBreaks
+                //         )
+                //     ) {
+                //
+                //         // concatenate the processed X data into the existing
+                //         // positions, or the empty array
+                //         ordinalPositions = ordinalPositions.concat(
+                //             series.processedXData as any
+                //         );
+                //
+                //         len = ordinalPositions.length;
+                //
+                //         // remove duplicates (#1588)
+                //         ordinalPositions.sort(function (
+                //             a: number,
+                //             b: number
+                //         ): number {
+                //             // without a custom function it is sorted as strings
+                //             return a - b;
+                //         });
+                //
+                //         overscrollPointsRange = Math.min(
+                //             overscrollPointsRange,
+                //             pick(
+                //                 // Check for a single-point series:
+                //                 series.closestPointRange,
+                //                 overscrollPointsRange
+                //             )
+                //         );
+                //
+                //         if (len) {
+                //
+                //             i = 0;
+                //             while (i < len - 1) {
+                //                 if (
+                //                     ordinalPositions[i] !==
+                //                     ordinalPositions[i + 1]
+                //                 ) {
+                //                     uniqueOrdinalPositions.push(
+                //                         ordinalPositions[i + 1]
+                //                     );
+                //                 }
+                //                 i++;
+                //             }
+                //
+                //             // Check first item:
+                //             if (
+                //                 uniqueOrdinalPositions[0] !==
+                //                 ordinalPositions[0]
+                //             ) {
+                //                 uniqueOrdinalPositions.unshift(
+                //                     ordinalPositions[0]
+                //                 );
+                //             }
+                //
+                //             ordinalPositions = uniqueOrdinalPositions;
+                //         }
+                //     }
+                // });
+                //
+                // // If the distance between points is not identical throughout
+                // // all series, remove the first and last ordinal position to
+                // // avoid enabling ordinal logic when it is not needed, #17405.
+                // // Only for boosted series because changes are negligible.
+                // if (adjustOrdinalExtremesPoints && isBoosted) {
+                //     ordinalPositions.shift();
+                //     ordinalPositions.pop();
+                // }
 
                 // cache the length
                 len = ordinalPositions.length;
