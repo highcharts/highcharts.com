@@ -1,6 +1,6 @@
 QUnit.module('MapView', () => {
 
-    const MapView = Highcharts._modules['Maps/MapView.js']; // eslint-disable-line no-underscore-dangle
+    const MapView = Highcharts.MapView;
 
     [
         {},

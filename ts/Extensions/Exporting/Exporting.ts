@@ -20,6 +20,7 @@
 
 import type AnimationOptions from '../../Core/Animation/AnimationOptions';
 import type Axis from '../../Core/Axis/Axis';
+import type Chart from '../../Core/Chart/Chart';
 import type CSSObject from '../../Core/Renderer/CSSObject';
 import type EventCallback from '../../Core/EventCallback';
 import type {
@@ -35,7 +36,6 @@ import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
 import type SVGRenderer from '../../Core/Renderer/SVG/SVGRenderer';
 
 import AST from '../../Core/Renderer/HTML/AST.js';
-import Chart from '../../Core/Chart/Chart.js';
 import ChartNavigationComposition from '../../Core/Chart/ChartNavigationComposition.js';
 import D from '../../Core/Defaults.js';
 const { defaultOptions, setOptions } = D;

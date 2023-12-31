@@ -3,4 +3,5 @@
  authors:
    - Rafal Sebestjanski
  js_wrap: b
+ requiresManualTesting: true
 ...

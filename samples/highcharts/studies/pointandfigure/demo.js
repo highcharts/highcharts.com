@@ -177,7 +177,7 @@
     });
 
     // eslint-disable-next-line no-underscore-dangle
-    Highcharts.wrap(Highcharts._modules['Core/Series/Series.js'].prototype, 'groupData', function (proceed) {
+    Highcharts.wrap(Highcharts.Series.prototype, 'groupData', function (proceed) {
         if (this.is && this.is('pointandfigure')) {
             return generatePnfData.apply(
                 this, Array.prototype.slice.call(arguments, 1

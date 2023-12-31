@@ -48,7 +48,7 @@ const getBBox = geometry => {
     ];
 
     /* eslint-disable-next-line no-underscore-dangle */
-    const topo2geo = Highcharts._modules['Maps/GeoJSONComposition.js'].topo2geo;
+    const topo2geo = Highcharts.topo2geo;
 
 
     // Remove minor parts of some countries

@@ -3,7 +3,8 @@ import { strictEqual } from 'assert';
 
 export function testDOMDependencies() {
     describe('Testing DOM dependencies...');
-    const {win} = setupDOM(
+    const Highcharts = require('../../../code/highcharts.src.js');
+    const { doc, win } = setupDOM(
         `<!doctype html>
         <html>
             <body>
@@ -11,8 +12,8 @@ export function testDOMDependencies() {
             </body>
         </html>`
     );
-
-    const Highcharts = require('../../../code/highcharts.src.js')(win);
+    Highcharts.doc = doc;
+    Highcharts.win = win;
     Highcharts.chart('container', {
         series: [{
             data: [1, 2, 3],

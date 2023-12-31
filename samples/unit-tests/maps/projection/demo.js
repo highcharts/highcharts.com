@@ -1,6 +1,6 @@
 QUnit.module('Projection', function () {
 
-    const Projection = Highcharts._modules['Maps/Projection.js']; // eslint-disable-line no-underscore-dangle
+    const Projection = Highcharts.Projection;
 
     const testPoints = (assert, projection) => {
         [

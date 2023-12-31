@@ -24,8 +24,10 @@ export default async function benchmarkTest(
         data
     }: BenchmarkContext
 ): Promise<BenchmarkResult> {
-  const { win, el } = setupDOM();
-  const hc = require(join(CODE_PATH, '/highstock.src.js'))(win);
+  const { doc, el, win } = setupDOM();
+  const hc = require(join(CODE_PATH, '/highstock.src.js'));
+  hc.doc = doc;
+  hc.win = win;
 
   performance.mark('Start');
   hc.stockChart(el, {

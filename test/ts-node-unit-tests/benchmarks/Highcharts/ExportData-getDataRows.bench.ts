@@ -24,9 +24,11 @@ export default async function benchmarkTest(
     }: BenchmarkContext
 ): Promise<BenchmarkResult> {
 
-  const { win,  el } = setupDOM();
+  const { doc, el, win } = setupDOM();
 
-  const hc = require(join(CODE_PATH, '/highcharts.src.js'))(win);
+  const hc = require(join(CODE_PATH, '/highcharts.src.js'));
+  hc.doc = doc;
+  hc.win = win;
   global.window = win;
   require(join(CODE_PATH, '/modules/export-data.src.js'))(hc);
 

@@ -103,6 +103,7 @@
     "pretty": "^2.0.0",
     "qunit": "^2.19.4",
     "request": "^2.88.2",
+    "rollup": "^4.3.0",
     "semver": "^7.3.8",
     "stylelint": "^14.16.1",
     "stylelint-config-standard": "^29.0.0",

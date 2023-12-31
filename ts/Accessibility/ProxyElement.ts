@@ -215,7 +215,7 @@ class ProxyElement {
             s.indexOf('highcharts-no-tooltip') > -1
         );
         const legend = this.chart.legend;
-        const groupDiv = legend.group && legend.group.div;
+        const groupDiv = legend && legend.group && legend.group.div;
         const noTooltipOnGroup = stringHasNoTooltip(
             groupDiv && groupDiv.className || ''
         );

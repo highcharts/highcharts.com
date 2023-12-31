@@ -19,7 +19,7 @@ require('./lint-dts');
 require('./scripts-clean');
 require('./scripts-compile');
 require('./scripts-css');
-require('./scripts-js');
+require('./scripts-rollup');
 
 Gulp.task(
     'dist',
@@ -28,7 +28,7 @@ Gulp.task(
         'scripts-clean',
         'scripts-css',
         'scripts-ts',
-        'scripts-js',
+        'scripts-rollup',
         'scripts-code',
         'scripts-es5',
         'scripts-compile',

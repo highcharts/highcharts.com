@@ -64,8 +64,10 @@ export function setupDOM( customBody = '' ){
 }
 
 export function loadHCWithModules(hc = 'highcharts', modules: string[] = []){
-    const { win } = setupDOM();
-    const Highcharts = require(`../../code/${hc}.src.js`)(win);
+    const { doc, win } = setupDOM();
+    const Highcharts = require(`../../code/${hc}.src.js`);
+    Highcharts.doc = doc;
+    Highcharts.win = win;
 
     if(modules.length){
         global.window = win; // needed to load modules as of Node 20+

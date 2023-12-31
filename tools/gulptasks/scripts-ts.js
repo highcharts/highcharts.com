@@ -11,6 +11,8 @@
  * */
 
 const gulp = require('gulp');
+const path = require('path');
+
 /* *
  *
  *  Tasks
@@ -30,18 +32,20 @@ async function scriptsTS() {
     try {
         processLib.isRunning('scripts-ts', true);
 
-        fsLib.deleteDirectory('js/', true);
+        const target = path.join('code', 'es-modules');
+
+        fsLib.deleteDirectory(target, true);
 
         fsLib.copyAllFiles(
-            'ts', 'js', true,
+            'ts', target, true,
             sourcePath => sourcePath.endsWith('.d.ts')
         );
 
         await processLib.exec('npx tsc --build ts');
 
         // Remove Dashboards
-        fsLib.deleteDirectory('js/Dashboards/', true);
-        fsLib.deleteDirectory('js/DataGrid/', true);
+        fsLib.deleteDirectory(path.join(target, 'Dashboards'), true);
+        fsLib.deleteDirectory(path.join(target, 'DataGrid'), true);
 
         processLib.isRunning('scripts-ts', false);
     } finally {

@@ -27,9 +27,7 @@
     QUnit.test('diffObjects', assert => {
 
         // eslint-disable-next-line no-underscore-dangle
-        const diffObjects = Highcharts._modules[
-            'Core/Utilities.js'
-        ].diffObjects;
+        const diffObjects = Highcharts.diffObjects;
 
         let result;
 

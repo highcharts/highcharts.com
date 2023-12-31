@@ -3,6 +3,7 @@
  */
 
 const gulp = require('gulp');
+const path = require('path');
 
 /* *
  *
@@ -11,7 +12,7 @@ const gulp = require('gulp');
  * */
 
 const WATCH_GLOBS = [
-    'js/**/*.js',
+    'code/es-modules/**/*.js',
     'css/**/*.css'
 ];
 
@@ -22,7 +23,7 @@ const WATCH_GLOBS = [
  * */
 
 /**
- * Continuesly watching sources to restart the `scripts-js` task.
+ * Continuesly watching sources to restart `scripts-ts`-related task.
  *
  * @return {Promise<void>}
  *         Promise to keep
@@ -49,11 +50,11 @@ async function task() {
         .watch(WATCH_GLOBS, { queue: true }, done => {
 
             const buildTasks = [];
-            const newJsHash = fsLib.getDirectoryHash('js', true);
+            const newJsHash = fsLib.getDirectoryHash(path.join('code', 'es-modules'), true);
 
             if (newJsHash !== jsHash || argv.force || argv.dts) {
                 jsHash = newJsHash;
-                buildTasks.push('scripts-js');
+                buildTasks.push('scripts-rollup');
                 if (argv.dts) {
                     buildTasks.task('jsdoc-dts')();
                 }
@@ -93,10 +94,10 @@ async function task() {
 }
 
 require('./scripts-css.js');
-require('./scripts-js.js');
+require('./scripts-rollup.js');
 require('./scripts-ts.js');
 
 gulp.task(
     'scripts-watch',
-    gulp.series('scripts-ts', 'scripts-css', 'scripts-js', task)
+    gulp.series('scripts-ts', 'scripts-css', 'scripts-rollup', task)
 );

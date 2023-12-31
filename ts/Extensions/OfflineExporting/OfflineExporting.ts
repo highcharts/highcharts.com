@@ -20,6 +20,7 @@
  *
  * */
 
+import type Chart from '../../Core/Chart/Chart';
 import type {
     DOMElementType,
     HTMLDOMElement,
@@ -29,7 +30,6 @@ import type ExportingOptions from '../Exporting/ExportingOptions';
 import type Options from '../../Core/Options';
 
 import AST from '../../Core/Renderer/HTML/AST.js';
-import Chart from '../../Core/Chart/Chart.js';
 import D from '../../Core/Defaults.js';
 const { defaultOptions } = D;
 import DownloadURL from '../DownloadURL.js';

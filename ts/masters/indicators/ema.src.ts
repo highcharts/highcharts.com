@@ -6,3 +6,4 @@
  * It's no longer necessary to load this file.
  */
 'use strict';
+import '../../Stock/Indicators/EMA/EMAIndicator.js';
