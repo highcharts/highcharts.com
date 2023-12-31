@@ -30,6 +30,7 @@ import type Time from '../../Core/Time';
 import Axis from '../../Core/Axis/Axis.js';
 import Chart from '../../Core/Chart/Chart.js';
 import D from '../../Core/Defaults.js';
+
 const { defaultOptions } = D;
 import H from '../../Core/Globals.js';
 import { Palette } from '../../Core/Color/Palettes.js';
@@ -1057,8 +1058,10 @@ class RangeSelector {
             // Update extremes and blur input when clicking date input calendar
             if (!keyDown) {
                 updateExtremes();
-                rangeSelector.hideInput(name);
-                input.blur();
+                if (!H.isFirefox) { // #19289
+                    rangeSelector.hideInput(name);
+                    input.blur();
+                }
             }
         };
 
