@@ -21,8 +21,7 @@ const {
     syncTimeout
 } = U;
 
-import A from '../Core/Animation/AnimationUtilities.js';
-const { animObject } = A;
+import { animObject } from '../Core/Animation/AnimationUtilities.js';
 
 type SimulationSeries = (NetworkgraphSeries | PackedBubbleSeries);
 

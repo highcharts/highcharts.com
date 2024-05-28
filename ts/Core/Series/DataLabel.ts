@@ -31,8 +31,7 @@ import type SVGLabel from '../Renderer/SVG/SVGLabel';
 import type SVGPath from '../../Core/Renderer/SVG/SVGPath';
 import type AnimationOptions from '../Animation/AnimationOptions';
 
-import A from '../Animation/AnimationUtilities.js';
-const { getDeferredAnimation } = A;
+import { getDeferredAnimation } from '../Animation/AnimationUtilities.js';
 import F from '../Templating.js';
 const { format } = F;
 import { Palette } from '../Color/Palettes.js';

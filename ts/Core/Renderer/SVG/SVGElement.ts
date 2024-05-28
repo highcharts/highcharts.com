@@ -36,12 +36,11 @@ import type SVGElementLike from './SVGElementLike';
 import type SVGPath from './SVGPath';
 import type SVGRenderer from './SVGRenderer';
 
-import A from '../../Animation/AnimationUtilities.js';
-const {
+import {
     animate,
     animObject,
     stop
-} = A;
+} from '../../Animation/AnimationUtilities.js';
 import Color from '../../Color/Color.js';
 import H from '../../Globals.js';
 const {

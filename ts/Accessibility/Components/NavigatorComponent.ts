@@ -23,10 +23,9 @@ import AccessibilityComponent from '../AccessibilityComponent.js';
 import Announcer from '../Utils/Announcer.js';
 import KeyboardNavigationHandler from '../KeyboardNavigationHandler.js';
 import Navigator from '../../Stock/Navigator/Navigator.js';
-import A from '../../Core/Animation/AnimationUtilities.js';
-const {
+import {
     animObject
-} = A;
+} from '../../Core/Animation/AnimationUtilities.js';
 import T from '../../Core/Templating.js';
 const {
     format

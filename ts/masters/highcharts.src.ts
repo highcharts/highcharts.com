@@ -11,7 +11,13 @@ import Highcharts from '../Core/Globals.js';
 import Utilities from '../Core/Utilities.js';
 import Defaults from '../Core/Defaults.js';
 import Fx from '../Core/Animation/Fx.js';
-import Animation from '../Core/Animation/AnimationUtilities.js';
+import {
+    animate,
+    animObject,
+    getDeferredAnimation,
+    setAnimation,
+    stop
+} from '../Core/Animation/AnimationUtilities.js';
 import AST from '../Core/Renderer/HTML/AST.js';
 import Templating from '../Core/Templating.js';
 import RendererRegistry from '../Core/Renderer/RendererRegistry.js';
@@ -77,21 +83,21 @@ G.Tick = Tick;
 G.Time = Time;
 G.Tooltip = Tooltip;
 // Utilities
-G.animate = Animation.animate;
-G.animObject = Animation.animObject;
+G.animate = animate;
+G.animObject = animObject;
 G.chart = Chart.chart;
 G.color = Color.parse;
 G.dateFormat = Templating.dateFormat;
 G.defaultOptions = Defaults.defaultOptions;
 G.distribute = RendererUtilities.distribute;
 G.format = Templating.format;
-G.getDeferredAnimation = Animation.getDeferredAnimation;
+G.getDeferredAnimation = getDeferredAnimation;
 G.getOptions = Defaults.getOptions;
 G.numberFormat = Templating.numberFormat;
 G.seriesType = SeriesRegistry.seriesType;
-G.setAnimation = Animation.setAnimation;
+G.setAnimation = setAnimation;
 G.setOptions = Defaults.setOptions;
-G.stop = Animation.stop;
+G.stop = stop;
 G.time = Defaults.defaultTime;
 G.timers = Fx.timers;
 // Compositions

@@ -24,7 +24,9 @@ import type ColumnSeriesType from '../Column/ColumnSeries';
 import type DataExtremesObject from '../../Core/Series/DataExtremesObject';
 import type PictorialSeriesOptions from './PictorialSeriesOptions';
 
-import A from '../../Core/Animation/AnimationUtilities.js';
+import {
+    animObject
+} from '../../Core/Animation/AnimationUtilities.js';
 import Chart from '../../Core/Chart/Chart.js';
 import PictorialPoint from './PictorialPoint.js';
 import PictorialUtilities from './PictorialUtilities.js';
@@ -39,9 +41,6 @@ import { PictorialPathOptions } from './PictorialSeriesOptions';
 const ColumnSeries: typeof ColumnSeriesType = SeriesRegistry.seriesTypes.column;
 
 PatternFill.compose(Chart, Series, SVGRenderer);
-const {
-    animObject
-} = A;
 
 const {
     getStackMetrics,

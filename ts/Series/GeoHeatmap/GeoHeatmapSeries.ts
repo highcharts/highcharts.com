@@ -25,11 +25,10 @@ import type GeoHeatmapSeriesOptions from './GeoHeatmapSeriesOptions.js';
 import type { InterpolationObject } from './GeoHeatmapSeriesOptions.js';
 import type MapView from '../../Maps/MapView.js';
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
-import A from '../../Core/Animation/AnimationUtilities.js';
-const {
+import {
     animObject,
     stop
-} = A;
+} from '../../Core/Animation/AnimationUtilities.js';
 import GeoHeatmapPoint from './GeoHeatmapPoint.js';
 import H from '../../Core/Globals.js';
 const {
