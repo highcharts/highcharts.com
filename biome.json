@@ -1,0 +1,75 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.6.1/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+        "rules": {
+            "suspicious": {
+                "noRedundantUseStrict": "off",
+                "noUnsafeDeclarationMerging": "off",
+                "noGlobalIsNan": "off",
+                "noImplicitAnyLet": "off",
+                "noExplicitAny": "off",
+                "noDoubleEquals": "off",
+                "noEmptyInterface": "off",
+                "useIsArray": "off",
+                "noShadowRestrictedNames": "off",
+                "noConfusingVoidType": "off",
+                "useDefaultSwitchClauseLast": "off",
+                "noRedeclare": "off",
+                "noConstEnum": "off",
+                "noGlobalIsFinite": "off",
+                "noControlCharactersInRegex": "off",
+                "noAssignInExpressions": "off"
+            },
+            "performance": {
+                "noDelete": "off"
+            },
+            "style": {
+                "useSingleVarDeclarator": "off",
+                "useShorthandFunctionType": "off",
+                "useNumberNamespace": "off",
+                "useConst": "off",
+                "noCommaOperator": "off",
+                "useDefaultParameterLast": "off",
+                "noParameterAssign": "off",
+                "useEnumInitializers": "off",
+                "useAsConstAssertion": "off",
+                "useExponentiationOperator": "off",
+                "noArguments": "off",
+                "useImportType": "off",
+                "noInferrableTypes": "off",
+                "noUselessElse": "off",
+                "useTemplate": "off"
+            },
+            "correctness": {
+                "noVoidTypeReturn": "off",
+                "noConstructorReturn": "off"
+            },
+            "complexity": {
+                "noThisInStatic": "off",
+                "noStaticOnlyClass": "off",
+                "useOptionalChain": "off",
+                "useLiteralKeys": "off",
+                "useSimpleNumberKeys": "off",
+                "noUselessThisAlias": "off",
+                "noBannedTypes": "off",
+                "noForEach": "off",
+                "useArrowFunction": "off"
+            }
+        }
+	},
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "trailingComma": "none"
+        }
+    }
+}
