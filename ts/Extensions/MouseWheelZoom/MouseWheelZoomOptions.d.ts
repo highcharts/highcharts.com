@@ -38,7 +38,8 @@ declare module '../../Core/Chart/ChartOptions'{
 export interface MouseWheelZoomOptions {
     enabled?: boolean;
     sensitivity?: number;
-    type?: ChartZoomingOptions['type']
+    type?: ChartZoomingOptions['type'],
+    showResetZoomButton?: boolean
 }
 
 export default MouseWheelZoomOptions;

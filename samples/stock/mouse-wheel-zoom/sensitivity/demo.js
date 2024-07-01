@@ -3,7 +3,8 @@ Highcharts.stockChart('container', {
     chart: {
         zooming: {
             mouseWheel: {
-                sensitivity: 1.01 // Set the scroll zoom sensitivity
+                sensitivity: 1.01, // Set the scroll zoom sensitivity
+                showResetZoomButton: true
             }
         }
     },

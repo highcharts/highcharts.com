@@ -44,7 +44,8 @@ const { getAssignedAxis } = NBU;
 const composedClasses: Array<(Function|GlobalsLike)> = [],
     defaultOptions: MouseWheelZoomOptions = {
         enabled: true,
-        sensitivity: 1.1
+        sensitivity: 1.1,
+        showResetZoomButton: false
     };
 
 let wheelTimer: number;
@@ -110,6 +111,7 @@ const zoomBy = function (
             width: 10,
             height: 10
         },
+        showResetZoomButton: options.showResetZoomButton,
         from: {
             x: mouseX - 5 * howMuch,
             y: mouseY - 5 * howMuch,
@@ -249,6 +251,20 @@ export default MouseWheelZoomComposition;
  * @since 11.1.0
  * @requires  modules/mouse-wheel-zoom
  * @apioption chart.zooming.mouseWheel.enabled
+ */
+
+/**
+ * Whether the reset zoom button should appear after zooming with mouse wheel.
+ *
+ * @type      {boolean}
+ * @default   false
+ * @since {next}
+ * @requires  modules/mouse-wheel-zoom
+ * @sample    {highcharts} highcharts/mouse-wheel-zoom/sensitivity
+ *            Enable reset zoom button
+ * @sample    {highstock} stock/mouse-wheel-zoom/sensitivity
+ *            Enable reset zoom button
+ * @apioption chart.zooming.mouseWheel.showResetZoomButton
  */
 
 /**

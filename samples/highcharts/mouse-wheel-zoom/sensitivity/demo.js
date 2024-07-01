@@ -4,7 +4,8 @@ Highcharts.chart('container', {
         zooming: {
             mouseWheel: {
                 type: 'y',
-                sensitivity: 1.03
+                sensitivity: 1.03,
+                showResetZoomButton: true
             }
         }
     },

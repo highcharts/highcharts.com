@@ -3636,12 +3636,13 @@ class Chart {
                 reset,
                 selection,
                 to = {},
-                trigger
+                trigger,
+                showResetZoomButton
             } = params,
             { inverted } = this;
 
         let hasZoomed = false,
-            displayButton: boolean|undefined;
+            shouldTriggerResetButton: boolean|undefined;
 
         // Remove active points for shared tooltip
         this.hoverPoints?.forEach((point): void => point.setState());
@@ -3832,10 +3833,9 @@ class Chart {
 
                         if (
                             !reset &&
-                            (newMin > floor || newMax < ceiling) &&
-                            trigger !== 'mousewheel'
+                            (newMin > floor || newMax < ceiling)
                         ) {
-                            displayButton = true;
+                            shouldTriggerResetButton = true;
                         }
                     }
 
@@ -3866,9 +3866,16 @@ class Chart {
             } else {
 
                 // Show or hide the Reset zoom button
-                if (displayButton && !this.resetZoomButton) {
+                if (defined(showResetZoomButton)) {
+                    shouldTriggerResetButton =
+                        shouldTriggerResetButton && showResetZoomButton;
+                }
+                if (shouldTriggerResetButton && !this.resetZoomButton) {
                     this.showResetZoom();
-                } else if (!displayButton && this.resetZoomButton) {
+                } else if (
+                    !shouldTriggerResetButton &&
+                    this.resetZoomButton
+                ) {
                     this.resetZoomButton = this.resetZoomButton.destroy();
                 }
 
@@ -4021,6 +4028,7 @@ namespace Chart {
         selection?: Pointer.SelectEventObject;
         from?: Partial<BBoxObject>;
         trigger?: string;
+        showResetZoomButton?: boolean
     }
 
     export interface CreateAxisOptionsObject {
