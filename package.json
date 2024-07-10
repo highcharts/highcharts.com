@@ -117,6 +117,7 @@
     "stylelint-config-standard": "^29.0.0",
     "svg2pdf.js": "2.2.3",
     "topojson-client": "^3.1.0",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.13",
     "typedoc-plugin-rename-defaults": "^0.7.0",
