@@ -7,6 +7,7 @@
  */
 
 :root,
+:host,
 .highcharts-light {
     /* Colors for data series and points */
     --highcharts-color-0: #2caffe;
@@ -89,7 +90,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root,
+    :host {
         /* UI colors */
         --highcharts-background-color: rgb(48, 48, 48);
 

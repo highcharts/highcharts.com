@@ -2,7 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Dosis:400,600");
 @import url("../highcharts.css");
 
-:root {
+:root,
+:host {
     /* Colors for data series and points. */
     --highcharts-color-0: #7cb5ec;
     --highcharts-color-1: #f7a35c;

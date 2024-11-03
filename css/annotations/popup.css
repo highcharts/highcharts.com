@@ -1,5 +1,6 @@
 /* Colors, using same names and values as in highcharts.css */
-:root {
+:root,
+:host {
     --highcharts-background-color: #ffffff;
     --highcharts-neutral-color-100: #000000;
     --highcharts-neutral-color-80: #333333;
