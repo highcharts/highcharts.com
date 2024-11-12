@@ -5,8 +5,7 @@ authors:
 requiresManualTesting: true
 js_wrap: b
 alt_text: >-
-  Highcharts basic line chart presents a custom entrance animation with United
-  States of America's Inflation-related statistics.
+  Highcharts basic line chart illustrating the performance of FANG stocks.
 tags:
   - Highcharts demo
 categories:

@@ -1,112 +1,86 @@
-// Retrieved from https://www.ssb.no/jord-skog-jakt-og-fiskeri/jakt
-Highcharts.chart('container', {
-    chart: {
-        type: 'areaspline'
-    },
-    title: {
-        text: 'Moose and deer hunting in Norway, 2000 - 2024',
-        align: 'left'
-    },
-    subtitle: {
-        text: 'Source: <a href="https://www.ssb.no/jord-skog-jakt-og-fiskeri/jakt" target="_blank">SSB</a>',
-        align: 'left'
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 120,
-        y: 70,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
-    },
-    xAxis: {
-        // Highlight the last years where moose hunting quickly deminishes
-        plotBands: [{
-            from: 2020,
-            to: 2023,
-            color: 'rgba(68, 170, 213, .2)'
-        }]
-    },
-    yAxis: {
-        title: {
-            text: 'Quantity'
+const commonOptions = {
+    api: {
+        url: 'https://demo-live-data.highcharts.com',
+        access: {
+            url: 'https://demo-live-data.highcharts.com/token/oauth',
+            username: 'username',
+            password: 'password'
         }
+    }
+};
+
+// eslint-disable-next-line no-undef
+const connector = new Connectors.Morningstar.TimeSeriesConnector({
+    ...commonOptions,
+    series: {
+        type: 'Price'
     },
-    tooltip: {
-        shared: true,
-        headerFormat: '<b>Hunting season starting autumn {point.x}</b><br>'
-    },
-    credits: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            pointStart: 2000
+    securities: [
+        {
+            id: 'US64110L1061',
+            idType: 'ISIN'
+        }
+    ],
+    currencyId: 'EUR'
+});
+
+Promise.all([
+    connector.load()
+]).then(() => {
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'areaspline',
+            zoomType: 'x'
         },
-        areaspline: {
-            fillOpacity: 0.5
-        }
-    },
-    series: [{
-        name: 'Moose',
-        data:
-            [
-                38000,
-                37300,
-                37892,
-                38564,
-                36770,
-                36026,
-                34978,
-                35657,
-                35620,
-                35971,
-                36409,
-                36435,
-                34643,
-                34956,
-                33199,
-                31136,
-                30835,
-                31611,
-                30666,
-                30319,
-                31766,
-                29278,
-                27487,
-                26007
-            ]
-    }, {
-        name: 'Deer',
-        data:
-            [
-                22534,
-                23599,
-                24533,
-                25195,
-                25896,
-                27635,
-                29173,
-                32646,
-                35686,
-                37709,
-                39143,
-                36829,
-                35031,
-                36202,
-                35140,
-                33718,
-                37773,
-                42556,
-                43820,
-                46445,
-                50048,
-                52804,
-                49317,
-                52490
-            ]
-    }]
+        title: {
+            text: 'Netflix, Inc.',
+            align: 'left'
+        },
+        subtitle: {
+            text: 'Source: <a href="https://www.morningstar.com/stocks/xnas/nflx/quote" target="_blank">Morningstar</a>',
+            align: 'left'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 120,
+            y: 70,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor ||
+                    '#FFFFFF'
+        },
+        xAxis: {
+            type: 'datetime',
+            plotBands: [{
+                from: new Date('2020-07-05').valueOf(),
+                to: new Date('2020-07-22').valueOf(),
+                color: 'rgba(68, 170, 213, .4)'
+            }]
+        },
+        yAxis: {
+            title: {
+                text: 'EUR'
+            }
+        },
+        tooltip: {
+            valueDecimals: 2,
+            valuePrefix: '€'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'NFLX',
+            data: connector.table.getRows(0, undefined)
+        }]
+    });
 });
