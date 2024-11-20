@@ -34,6 +34,7 @@ const {
 import U from '../../Utilities.js';
 const {
     attr,
+    css,
     extend,
     fireEvent,
     isString,
@@ -264,12 +265,10 @@ class TextBuilder {
                         void 0,
                         0,
                         // Target width
-                        Math.max(
-                            0,
-                            // Subtract the font face to make room for the
-                            // ellipsis itself
-                            width - 0.8 * dy
-                        ),
+                        width,
+                        // Substract the font face to make room for the ellipsis
+                        // itself
+                        dy,
                         // Build the text to test for
                         (text: string, currentIndex: number): string =>
                             text.substring(0, currentIndex) + '\u2026'
@@ -307,6 +306,7 @@ class TextBuilder {
                         words,
                         lineNo === 0 ? (startAt || 0) : 0,
                         width,
+                        0,
                         // Build the text to test for
                         (t: string, currentIndex: number): string =>
                             words
@@ -482,40 +482,44 @@ class TextBuilder {
         words: (Array<string>|undefined),
         startAt: number,
         width: number,
+        lineHeight: number,
         getString: Function
     ): void {
-        const svgElement = this.svgElement;
-        const { rotation } = svgElement;
-        // Cache the lengths to avoid checking the same twice
-        const lengths = [] as Array<number>;
+        const svgElement = this.svgElement,
+            { rotation } = svgElement,
+            // Cache the lengths to avoid checking the same twice
+            lengths: Array<number> = [],
+            innerWidth = Math.max(0, width - lineHeight * 0.8),
+            parentElement = textNode
+                .parentElement as unknown as SVGTextElement|null;
 
         // Word wrap cannot be truncated to shorter than one word, ellipsis
         // text can be completely blank.
-        let minIndex = words ? 1 : 0;
-        let maxIndex = (text || words || '').length;
-        let currentIndex = maxIndex;
-        let str;
-        let actualWidth: number;
+        let minIndex = words ? 1 : 0,
+            maxIndex = (text || words || '').length,
+            currentIndex = maxIndex,
+            str,
+            actualWidth: number,
+            clipWidth: number|undefined;
 
-        const getSubStringLength = function (
+        const getSubStringLength = (
             charEnd: number,
             concatenatedEnd?: number
-        ): number {
-            // `charEnd` is used when finding the character-by-character
+        ): number => {
+            // The `charEnd` is used when finding the character-by-character
             // break for ellipsis, concatenatedEnd is used for word-by-word
             // break for word wrapping.
             const end = concatenatedEnd || charEnd;
-            const parentNode = textNode.parentNode;
 
-            if (parentNode && typeof lengths[end] === 'undefined') {
+            if (parentElement && typeof lengths[end] === 'undefined') {
                 // Modern browsers
-                if ((parentNode as any).getSubStringLength) {
+                if (parentElement.getSubStringLength) {
                     // Fails with DOM exception on unit-tests/legend/members
                     // of unknown reason. Desired width is 0, text content
                     // is "5" and end is 1.
                     try {
                         lengths[end] = startAt +
-                            (parentNode as any).getSubStringLength(
+                            parentElement.getSubStringLength(
                                 0,
                                 words ? end + 1 : end
                             );
@@ -531,7 +535,7 @@ class TextBuilder {
         svgElement.rotation = 0; // Discard rotation when computing box
         actualWidth = getSubStringLength((textNode.textContent as any).length);
 
-        if (startAt + actualWidth > width) {
+        if (startAt + actualWidth > innerWidth) {
 
             // Do a binary search for the index where to truncate the text
             while (minIndex <= maxIndex) {
@@ -551,7 +555,7 @@ class TextBuilder {
                 if (minIndex === maxIndex) {
                     // Complete
                     minIndex = maxIndex + 1;
-                } else if (actualWidth > width) {
+                } else if (actualWidth > innerWidth) {
                     // Too large. Set max index to current.
                     maxIndex = currentIndex - 1;
                 } else {
@@ -559,11 +563,9 @@ class TextBuilder {
                     minIndex = currentIndex;
                 }
             }
-            // If max index was 0 it means the shortest possible text was also
-            // too large. For ellipsis that means only the ellipsis, while for
-            // word wrap it means the whole first word.
-            if (maxIndex === 0) {
-                // Remove ellipsis
+
+            // Shorter than a single character - remove it
+            if (width < lineHeight / 2) {
                 textNode.textContent = '';
 
             // If the new text length is one less than the original, we don't
@@ -571,9 +573,23 @@ class TextBuilder {
             } else if (!(text && maxIndex === text.length - 1)) {
                 textNode.textContent = str || getString(
                     text || words,
-                    currentIndex
+                    Math.max(1, currentIndex)
                 );
+                // If the maxIndex is 0 or 1, we're only left with the first
+                // letter or nothing at all. In this case, mimic HTML/CSS and
+                // clip to the first letter + an ellipsis. #20192.
+                if (currentIndex < 2) {
+                    clipWidth = width;
+                }
             }
+        }
+
+        if (text && parentElement) {
+            css(parentElement, {
+                clipPath: clipWidth ?
+                    `polygon(0 0,${width}px 0,${width}px 100%,0 100%)` :
+                    'none'
+            });
         }
 
         // When doing line wrapping, prepare for the next line by removing the
@@ -582,8 +598,11 @@ class TextBuilder {
             words.splice(0, currentIndex);
         }
 
-        svgElement.actualWidth = actualWidth;
-        svgElement.rotation = rotation; // Apply rotation again.
+        extend(svgElement, {
+            actualWidth,
+            clipWidth,
+            rotation // Apply rotation again
+        });
     }
 
     /*

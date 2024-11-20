@@ -157,6 +157,7 @@ class SVGElement implements SVGElementLike {
     public alignTo?: BBoxObject|string;
     public alignValue?: ('left'|'center'|'right');
     public clipPath?: SVGElement;
+    public clipWidth?: number;
     // @todo public d?: number;
     public div?: HTMLDOMElement;
     public doTransform?: boolean;
@@ -1384,10 +1385,12 @@ class SVGElement implements SVGElementLike {
         const wrapper = this,
             {
                 alignValue,
+                clipWidth,
                 element,
                 renderer,
                 styles,
-                textStr
+                textStr,
+                textWidth
             } = wrapper,
             {
                 cache,
@@ -1426,7 +1429,7 @@ class SVGElement implements SVGElementLike {
                 renderer.rootFontSize,
                 fontSize,
                 rotation,
-                wrapper.textWidth, // #7874, also useHTML
+                textWidth, // #7874, also useHTML
                 alignValue,
                 styles.textOverflow, // #5968
                 styles.fontWeight // #12163
@@ -1465,15 +1468,19 @@ class SVGElement implements SVGElementLike {
                         toggleTextShadowShim('none');
                     }
 
-                    bBox = (element as any).getBBox ?
+                    bBox = (element as SVGTextElement).getBBox ?
+
                         // SVG: use extend because IE9 is not allowed to change
                         // width and height in case of rotation (below)
-                        extend({} as any, (element as any).getBBox()) : {
+                        extend(
+                            {},
+                            (element as SVGTextElement).getBBox()
+                        ) as BBoxObject :
 
-                            // HTML elements with `exporting.allowHTML` and
-                            // legacy IE in export mode
-                            width: (element as any).offsetWidth,
-                            height: (element as any).offsetHeight,
+                        // HTML elements with `exporting.allowHTML`
+                        {
+                            width: (element as HTMLDOMElement).offsetWidth,
+                            height: (element as HTMLDOMElement).offsetHeight,
                             x: 0,
                             y: 0
                         };
@@ -1481,6 +1488,11 @@ class SVGElement implements SVGElementLike {
                     // #3842
                     if (isFunction(toggleTextShadowShim)) {
                         toggleTextShadowShim('');
+                    }
+
+                    // Adapt to clipped polygon when using ellipsis (#20192)
+                    if (clipWidth) {
+                        bBox.width = Math.min(bBox.width, clipWidth);
                     }
                 } catch (e) {
                     '';

@@ -352,7 +352,7 @@ QUnit.test('textOverflow: ellipsis.', function (assert) {
     assert.strictEqual(
         getTextContent(text1),
         '',
-        'Width was too small for ellipsis.'
+        'With 1px box width and ellipsis, it should be truncated.'
     );
 
     /**
