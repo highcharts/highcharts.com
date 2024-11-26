@@ -151,6 +151,10 @@ class Table {
      */
     public focusCursor?: [number, number];
 
+    /**
+     * The init container height
+     */
+    private initContainerHeight: number;
 
     /* *
     *
@@ -179,6 +183,11 @@ class Table {
 
         this.columnDistribution =
             dgOptions?.rendering?.columns?.distribution as ColumnDistribution;
+        this.initContainerHeight = getStyle(
+            this.dataGrid.container as HTMLElement,
+            'height',
+            true
+        ) || 0;
 
         this.renderCaption();
 
@@ -275,11 +284,17 @@ class Table {
         ) : 0;
 
         this.tbodyElement.style.height = this.tbodyElement.style.minHeight = `${
-            (this.dataGrid.container?.clientHeight || 0) -
-            (this.theadElement?.offsetHeight || 0) -
-            (this.captionElement?.offsetHeight || 0) -
-            (this.dataGrid.credits?.getHeight() || 0) -
-            borderWidth
+            (
+                // Height is not defined in styles
+                !this.initContainerHeight &&
+                (this.rows.length * this.rowsVirtualizer.defaultRowHeight)
+            ) || (
+                (this.dataGrid.container?.clientHeight || 0) -
+                (this.theadElement?.offsetHeight || 0) -
+                (this.captionElement?.offsetHeight || 0) -
+                (this.dataGrid.credits?.getHeight() || 0) -
+                borderWidth
+            )
         }px`;
 
         // Get the width of the rows.
