@@ -123,17 +123,20 @@ QUnit.test('Pareto', function (assert) {
 });
 
 QUnit.test(
-    'Pareto wasnt working with baseSeries set to 0 - #10471',
+    'Pareto with baseSeries set to 0 (#10471) and with dataSorting (#19046)',
     function (assert) {
         var chart = Highcharts.chart('container', {
             series: [
                 {
                     type: 'column',
-                    data: [155, 55, 231, 22, 72, 51, 36, 10]
+                    data: [155, 55, 231, 22, 72, 51, 36, 10],
+                    dataSorting: {
+                        enabled: true
+                    }
                 },
                 {
                     type: 'column',
-                    data: [755, 222, 151, 86, 72, 51, 36, 10]
+                    data: [1, 2, 3, 4, 5]
                 },
                 {
                     type: 'pareto',
@@ -147,6 +150,21 @@ QUnit.test(
             chart.series[0].points.length,
             'Number of points in pareto series should be equal amount of ' +
             'point in assigned series'
+        );
+
+        assert.deepEqual(
+            chart.series[2].yData,
+            [
+                36.550632911392,
+                61.075949367089,
+                72.46835443038,
+                81.170886075949,
+                89.240506329114,
+                94.936708860759,
+                98.417721518987,
+                100
+            ],
+            'Pareto series should work if the base series has dataSorting enabled, #19046'
         );
     }
 );
