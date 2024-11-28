@@ -105,9 +105,17 @@ jobs:
         run: npx gulp scripts
 
       - run: npx karma start test/karma-conf.js --tests highcharts/*/* --reference --browsercount 2 --no-fail-on-empty-test-suite
+        id: visual_reference_hc
+        continue-on-error: true
       - run: npx karma start test/karma-conf.js --tests maps/*/* --reference --browsercount 2 --no-fail-on-empty-test-suite
+        id: visual_reference_maps
+        continue-on-error: true
       - run: npx karma start test/karma-conf.js --tests stock/*/* --reference --browsercount 2 --no-fail-on-empty-test-suite
+        id: visual_reference_stock
+        continue-on-error: true
       - run: npx karma start test/karma-conf.js --tests gantt/*/* --reference --browsercount 2 --no-fail-on-empty-test-suite
+        id: visual_reference_gantt
+        continue-on-error: true
 
       - name: Checkout current branch
         uses: actions/checkout@v4
@@ -127,10 +135,14 @@ jobs:
       - name: Build Highcharts
         run: npx gulp scripts
 
-      - run: npx karma start test/karma-conf.js --tests highcharts/*/* --single-run --browsercount 2 --visualcompare || true
-      - run: npx karma start test/karma-conf.js --tests stock/*/* --single-run --browsercount 2 --visualcompare || true
-      - run: npx karma start test/karma-conf.js --tests maps/*/* --single-run --browsercount 2 --visualcompare || true
-      - run: npx karma start test/karma-conf.js --tests gantt/*/* --single-run --browsercount 2 --visualcompare || true
+      - run: npx karma start test/karma-conf.js --tests highcharts/*/* --single-run --browsercount 2 --visualcompare
+        if: steps.visual_reference_hc.outcome == 'success'
+      - run: npx karma start test/karma-conf.js --tests stock/*/* --single-run --browsercount 2 --visualcompare
+        if: steps.visual_reference_stock.outcome == 'success'
+      - run: npx karma start test/karma-conf.js --tests maps/*/* --single-run --browsercount 2 --visualcompare
+        if: steps.visual_reference_maps.outcome == 'success'
+      - run: npx karma start test/karma-conf.js --tests gantt/*/* --single-run --browsercount 2 --visualcompare
+        if: steps.visual_reference_gantt.outcome == 'success'
 
       - name: Save test results where both an reference.svg and candidate.svg exists
         run: |
@@ -139,10 +151,8 @@ jobs:
         if: ${{ always() }}
 
       - name: Comment on PR and upload visual test images if any produced
-        run: |
-          npx gulp update-pr-testresults \
-          --fail-silently \
-          --pr ${{github.event.pull_request.number}}
+        run:
+          npx gulp update-pr-testresults --pr ${{github.event.pull_request.number}}
         if: ${{ always() }}
         env:
           GITHUB_TOKEN: ${{secrets.PR_COMMENT_TOKEN}}
