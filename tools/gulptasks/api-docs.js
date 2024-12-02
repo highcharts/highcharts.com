@@ -120,6 +120,4 @@ function createApiDocumentation() {
  *
  * */
 
-require('./api-tree');
-
 Gulp.task('api-docs', apiDocs);

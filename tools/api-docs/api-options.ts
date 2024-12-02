@@ -244,7 +244,7 @@ function addTreeNode(
 
                         case 'Array':
                             _infoDoclet.tags.default
-                                .push(`[${_value.values.join(',')}]`);
+                                .push(`[${_value.value.join(',')}]`);
                             break;
 
                         case 'Object':
@@ -530,8 +530,6 @@ async function main() {
     if (products) {
         TSLib.PRODUCTS.push(...products.split(','));
     }
-
-    TSLib.sourceRoot = source;
 
     let timer: number;
 

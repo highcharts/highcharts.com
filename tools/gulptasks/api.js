@@ -26,7 +26,7 @@ const WATCH_GLOBS = [
  * @return {Promise<void>}
  *         Promise to keep
  */
-function jsDocWatch() {
+function apiDocWatch() {
 
     const Log = require('../libs/log');
 
@@ -55,7 +55,13 @@ function jsDocWatch() {
     });
 }
 
+async function apiTree() {
+    const ProcessLib = require('../libs/process');
+
+    ProcessLib.exec('npm run gulp-ts -- apiTree');
+}
+
 require('./api-docs');
 require('./api-server');
 
-Gulp.task('api', Gulp.series('api-tree', 'api-docs', jsDocWatch));
+Gulp.task('api', Gulp.series(apiTree, 'api-docs', apiDocWatch));
