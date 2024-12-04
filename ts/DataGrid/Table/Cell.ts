@@ -29,6 +29,8 @@ import AST from '../../Core/Renderer/HTML/AST.js';
 import Column from './Column';
 import Row from './Row';
 import Templating from '../../Core/Templating.js';
+import Utils from '../../Core/Utilities.js';
+const { getStyle } = Utils;
 
 
 /* *
@@ -225,10 +227,8 @@ abstract class Cell {
     public reflow(): void {
         const column = this.column;
         const elementStyle = this.htmlElement.style;
-
         elementStyle.width = elementStyle.maxWidth = column.getWidth() + 'px';
     }
-
     /**
      * Returns the formatted string where the templating context is the cell.
      *
