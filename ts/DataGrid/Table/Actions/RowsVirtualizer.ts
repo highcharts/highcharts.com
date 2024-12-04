@@ -29,8 +29,11 @@ import Table from '../Table.js';
 import DGUtils from '../../Utils.js';
 import Globals from '../../Globals.js';
 import TableRow from '../Content/TableRow.js';
+import Utils from '../../../Core/Utilities.js';
 
 const { makeHTMLElement, getTranslateY } = DGUtils;
+
+const { getStyle } = Utils;
 
 
 /* *
@@ -54,6 +57,11 @@ class RowsVirtualizer {
      * The default height of a row.
      */
     public readonly defaultRowHeight: number;
+
+    /**
+     * The default border
+     */
+    public defaultBorderWidth: number;
 
     /**
      * The index of the first visible row.
@@ -111,6 +119,7 @@ class RowsVirtualizer {
             viewport.dataGrid.options?.rendering?.rows as RowsSettings;
 
         this.viewport = viewport;
+        this.defaultBorderWidth = 0;
         this.strictRowHeights = this.rowSettings.strictHeights as boolean;
         this.buffer = Math.max(this.rowSettings.bufferSize as number, 0);
         this.defaultRowHeight = this.getDefaultRowHeight();
@@ -239,11 +248,13 @@ class RowsVirtualizer {
         for (let i = rowsLn - 2; i >= 0; i--) {
             const row = rows[i];
 
-            newHeight = row.cells[0].htmlElement.offsetHeight;
+            newHeight =
+                row.cells[0].htmlElement.offsetHeight + this.defaultBorderWidth;
             rowTop -= newHeight;
 
             row.htmlElement.style.height = newHeight + 'px';
-            row.htmlElement.style.transform = `translateY(${rowTop}px)`;
+            row.htmlElement.style.transform =
+                `translateY(${rowTop + this.defaultBorderWidth}px)`;
             for (let j = 0, jEnd = row.cells.length; j < jEnd; ++j) {
                 row.cells[j].htmlElement.style.transform = '';
             }
@@ -390,11 +401,13 @@ class RowsVirtualizer {
 
             // Rows above the first visible row
             if (row.index < cursor) {
-                row.htmlElement.style.height = defaultH + 'px';
+                row.htmlElement.style.height =
+                    defaultH + this.defaultBorderWidth + 'px';
                 continue;
             }
 
-            const cellHeight = row.cells[0].htmlElement.offsetHeight;
+            const cellHeight =
+                row.cells[0].htmlElement.offsetHeight + this.defaultBorderWidth;
             row.htmlElement.style.height = cellHeight + 'px';
 
             // Rows below the first visible row
@@ -410,7 +423,7 @@ class RowsVirtualizer {
                     )
                 );
 
-                row.htmlElement.style.height = newHeight + 'px';
+                row.htmlElement.style.height = (newHeight) + 'px';
 
                 for (let j = 0, jEnd = row.cells.length; j < jEnd; ++j) {
                     const cell = row.cells[j];
@@ -466,7 +479,21 @@ class RowsVirtualizer {
             className: Globals.classNames.rowElement
         }, this.viewport.tbodyElement);
 
-        const defaultRowHeight = mockRow.offsetHeight;
+        const mockCell = makeHTMLElement('td', {
+            innerText: 'mock',
+            className: 'outline'
+        }, mockRow);
+
+        // HC.getStyle does not work when using zoom in / out in browser.
+        const mockStyles = getComputedStyle(mockCell);
+
+        this.defaultBorderWidth =
+            Math.round(
+                parseFloat(mockStyles.getPropertyValue('border-top-width')) +
+                parseFloat(mockStyles.getPropertyValue('border-bottom-width'))
+            );
+            
+        const defaultRowHeight = mockRow.offsetHeight + this.defaultBorderWidth;
         mockRow.remove();
 
         return defaultRowHeight;

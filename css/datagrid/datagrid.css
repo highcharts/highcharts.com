@@ -239,15 +239,21 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
 .highcharts-datagrid-table tbody tr {
     overflow: hidden;
     width: 100%;
-    height: 36px;
+
+    /* height: 36px; */
 }
 
 .highcharts-datagrid-table.highcharts-datagrid-virtualization tbody tr {
     position: absolute;
 }
 
+.highcharts-datagrid-table.highcharts-datagrid-virtualization tbody td {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
 .highcharts-datagrid-table tbody td {
-    height: inherit;
+    /* height: inherit; */
     overflow: hidden;
 }
 
@@ -327,7 +333,7 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
 .highcharts-datagrid-table td:first-child,
 .highcharts-datagrid-table thead th.highcharts-datagrid-column-first,
 .highcharts-datagrid-table thead tr:first-child th:first-child {
-    border-left: none;
+    border-left: 1px solid transparent;
 }
 
 /* Table body */
