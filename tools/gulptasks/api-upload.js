@@ -132,6 +132,55 @@ function updateFileContent(filePath, fileContent) {
 }
 
 
+async function uploadSourceItems(sourceItems) {
+    const uploadS3 = require('./lib/uploadS3');
+    const fsLib = require('../libs/fs');
+    const {
+        bucket,
+        dryrun,
+        profile,
+        region,
+        sync
+    } = require('yargs').argv;
+
+    const session = await uploadS3.startS3Session(
+        bucket,
+        profile,
+        region,
+        dryrun
+    );
+
+    for (const sourceItem of sourceItems) {
+        if (fsLib.isFile(sourceItem)) {
+            await uploadS3.uploadFile(
+                sourceItem,
+                path.relative(SOURCE_ROOT, sourceItem),
+                session,
+                updateFileContent
+            );
+        } else if (
+            sync &&
+                !sourceItem.endsWith('zips')
+        ) {
+            await uploadS3.synchronizeDirectory(
+                sourceItem,
+                path.relative(SOURCE_ROOT, sourceItem),
+                session,
+                updateFileContent
+            );
+        } else {
+            await uploadS3.uploadDirectory(
+                sourceItem,
+                path.relative(SOURCE_ROOT, sourceItem),
+                session,
+                updateFileContent
+            );
+        }
+    }
+
+
+}
+
 /* *
  *
  *  Task
@@ -146,7 +195,6 @@ function updateFileContent(filePath, fileContent) {
  * Promise to keep.
  */
 async function apiUpload() {
-    const uploadS3 = require('./lib/uploadS3');
     const fsLib = require('../libs/fs');
     const log = require('../libs/log');
     const {
@@ -154,8 +202,6 @@ async function apiUpload() {
         docs,
         dryrun,
         helpme,
-        profile,
-        region,
         speak,
         sync
     } = require('yargs').argv;
@@ -184,40 +230,7 @@ async function apiUpload() {
     );
 
     try {
-        const session = await uploadS3.startS3Session(
-            bucket,
-            profile,
-            region,
-            dryrun
-        );
-
-        for (const sourceItem of sourceItems) {
-            if (fsLib.isFile(sourceItem)) {
-                await uploadS3.uploadFile(
-                    sourceItem,
-                    path.relative(SOURCE_ROOT, sourceItem),
-                    session,
-                    updateFileContent
-                );
-            } else if (
-                sync &&
-                !sourceItem.endsWith('zips')
-            ) {
-                await uploadS3.synchronizeDirectory(
-                    sourceItem,
-                    path.relative(SOURCE_ROOT, sourceItem),
-                    session,
-                    updateFileContent
-                );
-            } else {
-                await uploadS3.uploadDirectory(
-                    sourceItem,
-                    path.relative(SOURCE_ROOT, sourceItem),
-                    session,
-                    updateFileContent
-                );
-            }
-        }
+        await uploadSourceItems(sourceItems);
 
         log.success('Done.');
 
@@ -245,3 +258,10 @@ async function apiUpload() {
 
 
 gulp.task('api-upload', apiUpload);
+
+gulp.task('api-upload-zips', async () => {
+    const glob = require('glob');
+    const zips = glob.sync(`${SOURCE_ROOT}/zips/**/*.zip`);
+
+    await uploadSourceItems(zips);
+});
