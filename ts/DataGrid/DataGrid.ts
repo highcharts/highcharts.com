@@ -39,7 +39,7 @@ import QueryingController from './Querying/QueryingController.js';
 
 const { makeHTMLElement } = DataGridUtils;
 const { win } = Globals;
-const { merge } = U;
+const { merge, getStyle } = U;
 
 
 /* *
@@ -149,6 +149,11 @@ class DataGrid {
     public container?: HTMLElement;
 
     /**
+     * The init container height
+     */
+    public initContainerHeight: number;
+
+    /**
      * The content container of the data grid.
      */
     public contentWrapper?: HTMLElement;
@@ -242,7 +247,7 @@ class DataGrid {
         this.loadUserOptions(options);
 
         this.querying = new QueryingController(this);
-
+        this.initContainerHeight = 0;
         this.initContainers(renderTo);
         this.initAccessibility();
         this.loadDataTable(this.options?.dataTable);
@@ -295,6 +300,11 @@ class DataGrid {
             `);
             return;
         }
+        this.initContainerHeight = getStyle(
+            container,
+            'height',
+            true
+        ) || 0;
 
         this.container = container;
         this.container.innerHTML = AST.emptyHTML;

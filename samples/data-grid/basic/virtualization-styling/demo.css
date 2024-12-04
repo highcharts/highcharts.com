@@ -19,6 +19,23 @@
     border: 1px solid red;
 }
 
-#container {
+#container,
+#dashboard-col-0,
+#dashboard-col-1 {
     height: 500px;
+}
+
+:root {
+    /* Fiddle around with these (and hit Run!) to see changes */
+    --table-border: 1px;
+    --column-border: 1px;
+    --row-border: 1px;
+    --inset: 1px; /* We recommend inset for hightlight borders to avoid content shifting. */
+    --padding: 8px;
+    --border-spacing: 0; /* This is the big one, allowing for more "decorative" tables. */
+    --cell-border-radius: 0; /* Best suited if border-spacing > 0. We need for <table> as well. */
+}
+
+.highcharts-datagrid-table tbody td:hover {
+    box-shadow: inset 0 0 0 var(--inset, 0) green !important;
 }

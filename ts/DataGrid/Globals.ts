@@ -80,6 +80,7 @@ namespace Globals {
         editedCell: classNamePrefix + 'edited-cell',
         rowsContentNowrap: classNamePrefix + 'rows-content-nowrap',
         virtualization: classNamePrefix + 'virtualization',
+        scrollableContent: classNamePrefix + 'scrollable-content',
         headerCell: classNamePrefix + 'header-cell',
         headerCellContent: classNamePrefix + 'header-cell-content',
         headerRow: classNamePrefix + 'head-row-content',

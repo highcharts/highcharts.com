@@ -146,7 +146,11 @@ class TableHeader {
         }
 
         // Adjust cell's width when scrollbar is enabled.
-        if (header && bordersWidth > 0) {
+        if (
+            header &&
+            bordersWidth > 0 &&
+            this.viewport.columnDistribution === 'full'
+        ) {
             const cells = header.rows[header.rows.length - 1].cells;
             const cellHtmlElement = cells[cells.length - 1].htmlElement;
 

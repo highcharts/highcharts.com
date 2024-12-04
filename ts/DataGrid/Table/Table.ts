@@ -34,11 +34,9 @@ import DataGrid from '../DataGrid.js';
 import RowsVirtualizer from './Actions/RowsVirtualizer.js';
 import ColumnsResizer from './Actions/ColumnsResizer.js';
 import Globals from '../Globals.js';
-import Utils from '../../Core/Utilities.js';
 import CellEditing from './Actions/CellEditing.js';
 
 const { makeHTMLElement } = DGUtils;
-const { getStyle } = Utils;
 
 /* *
  *
@@ -151,7 +149,6 @@ class Table {
      */
     public focusCursor?: [number, number];
 
-
     /* *
     *
     *  Constructor
@@ -176,6 +173,9 @@ class Table {
 
         const dgOptions = dataGrid.options;
         const customClassName = dgOptions?.rendering?.table?.className;
+        const isVirtualization = dgOptions?.rendering?.rows?.virtualization;
+        const isScrollable =
+            this.dataGrid.initContainerHeight || isVirtualization;
 
         this.columnDistribution =
             dgOptions?.rendering?.columns?.distribution as ColumnDistribution;
@@ -205,9 +205,13 @@ class Table {
         this.resizeObserver = new ResizeObserver(this.onResize);
         this.resizeObserver.observe(tableElement);
 
-        if (dgOptions?.rendering?.rows?.virtualization) {
+        if (isVirtualization) {
             this.tbodyElement.addEventListener('scroll', this.onScroll);
             tableElement.classList.add(Globals.classNames.virtualization);
+        }
+
+        if (isScrollable) {
+            tableElement.classList.add(Globals.classNames.scrollableContent);
         }
 
         this.tbodyElement.addEventListener('focus', this.onTBodyFocus);
@@ -271,33 +275,10 @@ class Table {
 
     /**
      * Reflows the table's content dimensions.
-     *
-     * @param reflowColumns
-     * Force reflow columns and recalculate widths.
-     *
      */
-    public reflow(reflowColumns: boolean = false): void {
-        const tableEl = this.dataGrid.tableElement;
+    public reflow(): void {
         const isVirtualization =
             this.dataGrid.options?.rendering?.rows?.virtualization;
-        const borderWidth = tableEl ? (
-            parseFloat(
-                '' + (getStyle(tableEl, 'border-top-width', false) || 0)
-            ) +
-            parseFloat(
-                '' + (getStyle(tableEl, 'border-bottom-width', false) || 0)
-            )
-        ) : 0;
-
-        if (isVirtualization) {
-            this.tbodyElement.style.height = this.tbodyElement.style.minHeight = `${
-                (this.dataGrid.container?.clientHeight || 0) -
-                (this.theadElement?.offsetHeight || 0) -
-                (this.captionElement?.offsetHeight || 0) -
-                (this.dataGrid.credits?.getHeight() || 0) -
-                borderWidth
-            }px`;
-        }
 
         // Get the width of the rows.
         if (this.columnDistribution === 'fixed') {
@@ -308,7 +289,11 @@ class Table {
             this.rowsWidth = rowsWidth;
         }
 
-        if (isVirtualization || reflowColumns) {
+        if (
+            isVirtualization ||
+            this.dataGrid.initContainerHeight ||
+            this.columnsResizer?.resizedColumns
+        ) {
             // Reflow the head
             this.header?.reflow();
 
@@ -334,7 +319,7 @@ class Table {
      * Handles the resize event.
      */
     private onResize = (): void => {
-        this.reflow(true);
+        this.reflow();
     };
 
     /**

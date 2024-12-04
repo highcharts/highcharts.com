@@ -14,6 +14,10 @@
     stroke-width: 2px;
 }
 
+#dashboard-col-3 {
+    height: 250px;
+}
+
 .highcharts-subtitle {
     fill: var(--highcharts-neutral-color-60);
     font-size: 0.9em;

@@ -1,2 +1,6 @@
 @import url("https://code.highcharts.com/dashboards/css/dashboards.css");
 @import url("https://code.highcharts.com/dashboards/css/datagrid.css");
+
+#dashboard-col-2 {
+    height: 160px;
+}

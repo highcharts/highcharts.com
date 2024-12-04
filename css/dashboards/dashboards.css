@@ -9,16 +9,16 @@
 :root,
 .highcharts-light {
     /* Neutral colors */
-    --highcharts-neutral-color-100: #000000;
-    --highcharts-neutral-color-80: #333333;
-    --highcharts-neutral-color-60: #666666;
-    --highcharts-neutral-color-20: #cccccc;
+    --highcharts-neutral-color-100: #000;
+    --highcharts-neutral-color-80: #333;
+    --highcharts-neutral-color-60: #666;
+    --highcharts-neutral-color-20: #ccc;
     --highcharts-neutral-color-5: #f2f2f2;
     --highcharts-neutral-color-3: #f7f7f7;
-    --highcharts-neutral-color-0: #ffffff;
+    --highcharts-neutral-color-0: #fff;
 
     /* Highlight colors */
-    --highcharts-highlight-color-100: #0022ff;
+    --highcharts-highlight-color-100: #02f;
     --highcharts-highlight-color-80: #334eff;
     --highcharts-highlight-color-60: #667aff;
     --highcharts-highlight-color-20: #ccd3ff;
@@ -29,11 +29,11 @@
     --highcharts-dashboards-overlay-color: #dae3ec90;
     --highcharts-dashboards-pointer-selected-color: #4a4a53;
     --highcharts-dashboards-danger-color: rgb(153, 0, 51);
-    --highcharts-dashboards-content-background-color: #ffffff;
-    --highcharts-dashboards-content-hover-color: #cccccc;
+    --highcharts-dashboards-content-background-color: #fff;
+    --highcharts-dashboards-content-hover-color: #ccc;
 
     /* General */
-    --highcharts-background-color: #ffffff;
+    --highcharts-background-color: #fff;
     --highcharts-dashboards-shadow-color: 4, 9, 20;
 
     /* Edit row */
@@ -48,7 +48,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         /* UI colors */
-        --highcharts-background-color: #333333;
+        --highcharts-background-color: #333;
 
         /*
              Neutral color variations
@@ -97,7 +97,7 @@
 
 .highcharts-dark {
     /* UI colors */
-    --highcharts-background-color: #333333;
+    --highcharts-background-color: #333;
 
     /*
          Neutral color variations
@@ -186,7 +186,17 @@
     min-height: 300px;
     transition: 0.5s;
     overflow-x: hidden;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        sans-serif;
     font-size: 1rem;
 }
 

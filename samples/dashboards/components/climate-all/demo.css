@@ -41,6 +41,8 @@
     --color-hover-background: #5352be;
     --color-hover-border: #e7e7ec;
     --color-hover-text: #e7e7ec;
+
+    min-height: 250px;
 }
 
 #container.highcharts-dark #selection-grid {

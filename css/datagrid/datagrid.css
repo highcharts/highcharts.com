@@ -8,32 +8,41 @@
 
 :root,
 .highcharts-light {
-    --highcharts-background-color: #ffffff;
+    --highcharts-background-color: #fff;
 
     /* Neutral colors */
-    --highcharts-neutral-color-100: #000000;
-    --highcharts-neutral-color-80: #333333;
-    --highcharts-neutral-color-60: #666666;
-    --highcharts-neutral-color-40: #999999;
-    --highcharts-neutral-color-20: #cccccc;
+    --highcharts-neutral-color-100: #000;
+    --highcharts-neutral-color-80: #333;
+    --highcharts-neutral-color-60: #666;
+    --highcharts-neutral-color-40: #999;
+    --highcharts-neutral-color-20: #cccc;
     --highcharts-neutral-color-10: #e6e6e6;
     --highcharts-neutral-color-5: #f2f2f2;
     --highcharts-neutral-color-3: #f7f7f7;
-    --highcharts-neutral-color-0: #ffffff;
+    --highcharts-neutral-color-0: #fff;
 
     /* Highlight colors */
-    --highcharts-highlight-color-100: #0022ff;
+    --highcharts-highlight-color-100: #02f;
     --highcharts-highlight-color-80: #334eff;
     --highcharts-highlight-color-60: #667aff;
     --highcharts-highlight-color-20: #ccd3ff;
     --highcharts-highlight-color-10: #e6e9ff;
     --highcharts-highlight-color-7: #0000ff07;
+
+    /* Experimental variables */
+    --table-border: 1px;
+    --column-border: 1px;
+    --row-border: 1px;
+    --inset: 1px; /* We recommend inset for hightlight borders to avoid content shifting. */
+    --padding: 8px;
+    --border-spacing: 0; /* This is the big one, allowing for more "decorative" tables. */
+    --cell-border-radius: 0; /* Best suited if border-spacing > 0. We need for <table> as well. */
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         /* UI colors */
-        --highcharts-background-color: #333333;
+        --highcharts-background-color: #333;
 
         /*
             Neutral color variations
@@ -60,7 +69,7 @@
 
 .highcharts-dark {
     /* UI colors */
-    --highcharts-background-color: #333333;
+    --highcharts-background-color: #333;
 
     /*
         Neutral color variations
@@ -88,11 +97,23 @@
 /* ==== DataGrid Core ==== */
 .highcharts-datagrid-container * {
     box-sizing: border-box;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        sans-serif;
 }
 
 .highcharts-datagrid-container {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -105,29 +126,24 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: var(--border-spacing);
+    flex: 1;
 }
 
 /* Table Header */
-.highcharts-datagrid-table.highcharts-datagrid-virtualization thead {
-    display: block;
-}
-
 .highcharts-datagrid-table thead tr {
     height: 32px;
 }
 
 .highcharts-datagrid-table thead th {
     position: relative;
-    border-bottom: 1px solid var(--highcharts-neutral-color-20);
 }
 
 .highcharts-datagrid-table thead th .highcharts-datagrid-header-cell-content {
-    width: calc(100% - 15px); /* 12px width of sorting icon, 3px padding */
+    width: 100%;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-left: 3px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
@@ -140,6 +156,7 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 1em;
+    margin: 0;
 }
 
 .highcharts-datagrid-table thead th button.highcharts-datagrid-header-cell-content:hover {
@@ -152,15 +169,46 @@
     text-overflow: ellipsis;
 }
 
+.highcharts-datagrid-table thead th,
+.highcharts-datagrid-table tbody td {
+    padding: var(--padding);
+    border-radius: var(--cell-border-radius);
+    border-bottom: var(--row-border, var(--table-border)) solid var(--highcharts-neutral-color-20);
+    border-right: var(--column-border, var(--table-border)) solid var(--highcharts-neutral-color-20);
+    border-left: clamp(
+        0px,
+        var(--border-spacing, 0px),
+        var(--column-border, var(--table-border))
+        )
+        solid var(--highcharts-neutral-color-20);
+    border-top: clamp(
+        0px,
+        var(--border-spacing, 0px),
+        var(--row-border, var(--table-border))
+        )
+        solid var(--highcharts-neutral-color-20);
+}
+
+.highcharts-datagrid-table tr th:last-of-type,
+.highcharts-datagrid-table tr td:last-of-type {
+    border-right-width: clamp(
+        0px,
+        var(--border-spacing, 0px),
+        var(--column-border, var(--table-border))
+    );
+}
+
 .highcharts-datagrid-resizer-content thead,
 .highcharts-datagrid-resizer-content tbody {
     display: block;
-    overflow: hidden;
-    width: 100%;
+    margin-left: calc(var(--border-spacing) * -1);
 }
 
 .highcharts-datagrid-resizer-content tr {
     width: 100%;
+    display: table;
+    table-layout: fixed;
+    margin-top: calc(var(--border-spacing) * -1);
 }
 
 .highcharts-datagrid-table thead th .highcharts-datagrid-column-resizer {
@@ -220,30 +268,48 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
 }
 
 .highcharts-datagrid-container:has(.highcharts-datagrid-no-data) {
-    display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    text-align: center;
+    padding: 16px;
     height: 100%;
 }
 
 /* Table body */
+.highcharts-datagrid-table.highcharts-datagrid-scrollable-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.highcharts-datagrid-table.highcharts-datagrid-scrollable-content tbody,
+.highcharts-datagrid-table.highcharts-datagrid-scrollable-content thead {
+    display: block;
+    position: relative;
+}
+
+.highcharts-datagrid-table.highcharts-datagrid-scrollable-content tbody {
+    overflow-y: auto;
+}
+
 .highcharts-datagrid-table.highcharts-datagrid-virtualization tbody {
     overflow: auto;
-    height: 100%;
-    min-height: 100%;
+    min-height: 20px;
     display: block;
+    flex: 1;
     position: relative;
 }
 
 .highcharts-datagrid-table tbody tr {
     overflow: hidden;
     width: 100%;
-    height: 36px;
+    /* height: 36px; */
 }
 
 .highcharts-datagrid-table.highcharts-datagrid-virtualization tbody tr {
     position: absolute;
+    left: var(--border-spacing);
+    gap: var(--border-spacing);
 }
 
 .highcharts-datagrid-table tbody td {
@@ -313,7 +379,7 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
 }
 
 .highcharts-datagrid-table thead th {
-    border-left: 1px solid var(--highcharts-neutral-color-20);
+    border-right: 1px solid var(--highcharts-neutral-color-20);
 }
 
 .highcharts-datagrid-table thead th.highcharts-datagrid-hovered-column {
@@ -339,11 +405,6 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
     background-color: var(--highcharts-neutral-color-3);
 }
 
-.highcharts-datagrid-table tbody td {
-    border-left: 1px solid var(--highcharts-neutral-color-20);
-    padding: 0 4px;
-}
-
 .highcharts-datagrid-table tbody tr.highcharts-datagrid-hovered-row,
 .highcharts-datagrid-table tbody tr.highcharts-datagrid-row.highcharts-datagrid-row-even.highcharts-datagrid-hovered-row {
     background-color: var(--highcharts-highlight-color-10);
@@ -361,7 +422,7 @@ th.highcharts-datagrid-column-sortable > .highcharts-datagrid-column-sortable-ic
 .highcharts-datagrid-table tbody td.highcharts-datagrid-edited-cell input,
 .highcharts-datagrid-table tbody td.highcharts-datagrid-edited-cell input:focus {
     box-shadow: inset 0 0 0 1px #0000ed;
-    padding: 0 4px;
+    padding: var(--padding);
     background-color: #b7d4ff;
 }
 
