@@ -24,10 +24,10 @@ jobs:
         with:
           ref: master
 
-      - name: Use Node.js lts/iron
+      - name: Use Node.js lts/*
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/iron'
+          node-version: 'lts/*'
           cache: 'npm'
 
       - name: Install dependencies
@@ -51,10 +51,10 @@ jobs:
           clean: false
           fetch-depth: 0
 
-      - name: Use Node.js lts/iron
+      - name: Use Node.js lts/*
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/iron'
+          node-version: 'lts/*'
           cache: 'npm'
 
       - name: Install dependencies
@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [lts/iron]
+        node-version: [lts/*]
     steps:
       - uses: actions/checkout@v4
         with:
