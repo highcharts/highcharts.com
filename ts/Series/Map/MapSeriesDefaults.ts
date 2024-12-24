@@ -381,11 +381,11 @@ const MapSeriesDefaults: MapSeriesOptions = {
  *    ```js
  *        data: [{
  *            value: 6,
- *            name: "Point2",
+ *            "hc-key": "in-mh",
  *            color: "#00FF00"
  *        }, {
  *            value: 6,
- *            name: "Point1",
+ *            "hc-key": "in-ka",
  *            color: "#FF00FF"
  *        }]
  *    ```
