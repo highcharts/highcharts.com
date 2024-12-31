@@ -796,15 +796,19 @@ class Chart {
             const chartY = options.paneCoordinates ?
                 yAxis.pos + y : plotTop + y;
 
+            const calculatedBottom = Math[
+                options.paneCoordinates ? 'max' : 'min'
+            ](
+                scrollTop + plotTop + box.height,
+                yAxis.pos + yAxis.len
+            );
+
             if (!(
                 chartY >= Math.max(
                     scrollTop + plotTop,
                     yAxis.pos
                 ) &&
-                chartY <= Math.min(
-                    scrollTop + plotTop + box.height,
-                    yAxis.pos + yAxis.len
-                )
+                chartY <= calculatedBottom
             )) {
                 e.isInsidePlot = false;
             }

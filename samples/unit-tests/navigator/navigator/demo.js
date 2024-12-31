@@ -1300,7 +1300,7 @@ QUnit.test(
     }
 );
 
-QUnit.test('Navigator dafault dataLabels enabled, #13847.', function (assert) {
+QUnit.test('Navigator default dataLabels enabled, #13847.', function (assert) {
     const chart = Highcharts.stockChart('container', {
         series: [{
             data: [1, 2, 3],
@@ -1332,6 +1332,19 @@ QUnit.test('Navigator dafault dataLabels enabled, #13847.', function (assert) {
         chart.navigator.series[0].options.dataLabels[0].enabled,
         true,
         'DataLabels in Navigator should be enabled, if specified in options.'
+    );
+
+    assert.notEqual(
+        chart.navigator.series[0].data[0].dataLabel.visibility,
+        'hidden',
+        'Navigator dataLabels should render if specified (#21285).'
+    );
+
+    assert.close(
+        chart.navigator.series[0].data[0].plotY,
+        chart.navigator.series[0].data[0].dataLabel.y,
+        25,
+        'DataLabel should be within 25px of a point in navigator (#21285).'
     );
 
     chart.update({

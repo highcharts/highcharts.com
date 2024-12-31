@@ -49,6 +49,7 @@ import ScrollbarDefaults from '../../Stock/Scrollbar/ScrollbarDefaults.js';
 import StockUtilities from '../../Stock/Utilities/StockUtilities.js';
 const { setFixedRange } = StockUtilities;
 import U from '../Utilities.js';
+import DataLabelOptions from '../Series/DataLabelOptions';
 const {
     addEvent,
     clamp,
@@ -408,6 +409,11 @@ namespace StockChart {
             seriesProto.forceCropping = seriesForceCropping;
 
             addEvent(SeriesClass, 'setOptions', onSeriesSetOptions);
+            addEvent(
+                SeriesClass,
+                'getJustifiedOptions',
+                onSeriesGetJustifiedOptions
+            );
 
             SVGRendererClass.prototype.crispPolyLine = svgRendererCrispPolyLine;
         }
@@ -609,6 +615,36 @@ namespace StockChart {
                 (axis.opposite ? chart.chartHeight : 0) :
                 posy + crossBox.height / 2
         });
+    }
+
+    /**
+     * Extend plotArea to correctly justify the navigator dataLabel. (#21285)
+     * @private
+     */
+    function onSeriesGetJustifiedOptions(
+        this: Series,
+        e: (Event&{
+            y: number;
+            off: number;
+            options: DataLabelOptions;
+            plotHeight: number;
+            justified: boolean;
+            triggered: boolean;
+            dataLabel: SVGElement;
+        })
+    ): void {
+        const series = this;
+        const chart = series.chart;
+        const plotHeight = chart.inverted ? chart.plotHeight :
+            (
+                chart.navigator ?
+                    series.yAxis.top + series.yAxis.height :
+                    chart.plotHeight
+            );
+
+        if (e.off <= plotHeight && e.justified === true) {
+            e.options.y = e.y -= chart.plotHeight - e.off;
+        }
     }
 
     /**
