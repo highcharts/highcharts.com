@@ -385,7 +385,6 @@ namespace A11yI18nComposition {
         context: AnyRecord
     ): string {
         const keys = langKey.split('.');
-
         let formatString: string = this.options.lang as any,
             i = 0;
 

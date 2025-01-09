@@ -102,6 +102,20 @@ QUnit.test('Stocktools GUI', function (assert) {
         textLabel,
         'Periods', 'APO should have Periods text-label.'
     );
+
+    // Check that all buttons have aria-labels
+    const buttonsWithoutAriaLabel = Array.from(
+        chart.stockTools.toolbar.querySelectorAll('button')
+    ).filter(button =>
+        button.getAttribute('aria-label') === null
+    );
+
+    assert.strictEqual(
+        buttonsWithoutAriaLabel.length,
+        0,
+        'All stock toolbar buttons should have aria-labels'
+    );
+
 });
 
 QUnit.test(

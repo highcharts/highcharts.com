@@ -32,7 +32,14 @@ export interface LangOptions {
 }
 
 export interface LangStockToolsOptions {
-    gui?: Record<string, string>;
+    toolChanged: string;
+    toolSelected: string;
+    toolAriaLabel: string;
+    descriptions: Record<string, {
+        mainButton?: string;
+        submenuToggleButton?: string;
+    }>;
+    gui: Record<string, string>;
 }
 
 export interface StockToolsGuiDefinitionsButtonOptions {

@@ -63,6 +63,8 @@ declare module '../../Core/Options'{
     }
 }
 
+export type StockToolsButtonEventType = Record<string, HTMLDOMElement>;
+
 /* *
  *
  *  Functions
@@ -83,9 +85,13 @@ function chartSetStockTools(
             chartOptions.stockTools && chartOptions.stockTools.gui,
             options && options.gui
         ),
-        langOptions = lang && lang.stockTools && lang.stockTools.gui;
+        langOptions = lang && lang.stockTools && lang.stockTools;
 
-    this.stockTools = new Toolbar(guiOptions, langOptions, this);
+    this.stockTools = new Toolbar(
+        guiOptions,
+        langOptions ?? StockToolsDefaults.lang.stockTools,
+        this
+    );
 
     if (this.stockTools.guiEnabled) {
         this.isDirtyBox = true;
@@ -255,7 +261,7 @@ function onChartRender(
  */
 function onNavigationBindingsDeselectButton(
     this: NavigationBindings,
-    event: Record<string, HTMLDOMElement>
+    event: StockToolsButtonEventType
 ): void {
     const className = 'highcharts-submenu-wrapper',
         gui = this.chart.stockTools;
@@ -269,6 +275,11 @@ function onNavigationBindingsDeselectButton(
         }
 
         button.classList.remove('highcharts-active');
+
+        const selectedButton = event.button.querySelector('button');
+        if (selectedButton) {
+            gui.setAriaLabelForParentButton(selectedButton);
+        }
     }
 }
 
@@ -278,7 +289,7 @@ function onNavigationBindingsDeselectButton(
  */
 function onNavigationBindingsSelectButton(
     this: NavigationBindings,
-    event: Record<string, HTMLDOMElement>
+    event: StockToolsButtonEventType
 ): void {
     const className = 'highcharts-submenu-wrapper',
         gui = this.chart.stockTools;
@@ -286,15 +297,24 @@ function onNavigationBindingsSelectButton(
     if (gui && gui.guiEnabled) {
         let button = event.button;
 
-        // Unselect other active buttons
-        gui.unselectAllButtons(event.button);
-
         // If clicked on a submenu, select state for it's parent
         if (button.parentNode.className.indexOf(className) >= 0) {
             button = button.parentNode.parentNode;
         }
+
+        // Unselect other active buttons
+        gui.unselectAllButtons(button);
+
         // Set active class on the current button
-        gui.toggleButtonActiveClass(button);
+        if (!button.classList.contains('highcharts-active')) {
+            gui.toggleButtonActiveClass(button);
+        }
+
+        const selectedButton = event.button.querySelector('button');
+
+        if (selectedButton) {
+            gui.setAriaLabelForParentButton(selectedButton);
+        }
     }
 }
 

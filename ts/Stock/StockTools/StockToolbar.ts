@@ -21,11 +21,14 @@
 import type Chart from '../../Core/Chart/Chart';
 import type { HTMLDOMElement } from '../../Core/Renderer/DOMElementType';
 import type {
+    LangStockToolsOptions,
     StockToolsGuiDefinitionsButtonsOptions,
     StockToolsGuiDefinitionsOptions,
     StockToolsGuiOptions,
     StockToolsOptions
 } from './StockToolsOptions';
+
+import StockToolsA11YComponent from '../../Accessibility/Components/StockTools.js';
 
 import U from '../../Core/Utilities.js';
 import AST from '../../Core/Renderer/HTML/AST.js';
@@ -76,7 +79,7 @@ class Toolbar {
 
     public constructor(
         options: StockToolsGuiOptions,
-        langOptions: (Record<string, string>|undefined),
+        langOptions: LangStockToolsOptions,
         chart: Chart
     ) {
         this.chart = chart;
@@ -101,6 +104,22 @@ class Toolbar {
             this.showHideNavigation();
         }
 
+        addEvent(chart, 'beforeA11yUpdate', (e): void => {
+            if (
+                chart.options.accessibility?.enabled &&
+                chart.options.accessibility.keyboardNavigation.order
+                    .includes('stockTools') &&
+                !e.target.accessibility.components['stockTools']
+            ) {
+                const component =
+                    e.target.accessibility.components['stockTools'] =
+                        new StockToolsA11YComponent();
+
+                component.initBase(e.target, null as any);
+                component.init();
+            }
+        });
+
         fireEvent(this, 'afterInit');
     }
 
@@ -117,7 +136,7 @@ class Toolbar {
     public eventsToUnbind: Array<Function>;
     public guiEnabled: (boolean|undefined);
     public iconsURL: string;
-    public lang: (Record<string, string>|undefined);
+    public lang: LangStockToolsOptions;
     public listWrapper!: HTMLDOMElement;
     public options: StockToolsGuiOptions;
     public prevOffsetWidth: (number|undefined);
@@ -155,7 +174,6 @@ class Toolbar {
 
         // Create buttons
         buttons.forEach((btnName: string): void => {
-
             const button = this.addButton(toolbar, defs, btnName, lang);
 
             this.eventsToUnbind.push(
@@ -163,7 +181,7 @@ class Toolbar {
                     (button as any).buttonWrapper,
                     'click',
                     (): void => this.eraseActiveButtons(
-                        allButtons as any,
+                        allButtons,
                         button.buttonWrapper
                     )
                 )
@@ -174,6 +192,122 @@ class Toolbar {
                 this.addSubmenu(button, (defs as any)[btnName]);
             }
         });
+    }
+
+    /**
+    * Show a given submenu
+    * @private
+    */
+    public showSubmenu(
+        submenuWrapper: HTMLElement,
+        buttonWrapper: HTMLElement
+    ): void {
+        const buttonWidth: number = getStyle(buttonWrapper, 'width') as any;
+        const menuWrapper = this.listWrapper;
+
+        // Show menu
+        // to calculate height of element
+        submenuWrapper.style.display = 'block';
+        submenuWrapper.dataset.open = 'true';
+
+        const toggleButton = buttonWrapper
+            .querySelector('.highcharts-submenu-item-arrow');
+        toggleButton?.setAttribute('aria-expanded', 'true');
+
+        let topMargin = submenuWrapper.offsetHeight -
+                            buttonWrapper.offsetHeight - 3;
+
+        // Calculate position of submenu in the box
+        // if submenu is inside, reset top margin
+        if (
+            // Cut on the bottom
+            !(submenuWrapper.offsetHeight +
+                            buttonWrapper.offsetTop >
+                        this.wrapper.offsetHeight &&
+                        // Cut on the top
+                        buttonWrapper.offsetTop > topMargin)
+        ) {
+            topMargin = 0;
+        }
+
+        // Apply calculated styles
+        css((submenuWrapper as any), {
+            top: -topMargin + 'px',
+            left: buttonWidth + 3 + 'px'
+        });
+
+        buttonWrapper.className += ' highcharts-current';
+        (menuWrapper as any).startWidth = this.wrapper.offsetWidth;
+        menuWrapper.style.width = (menuWrapper as any).startWidth +
+                        getStyle(menuWrapper, 'padding-left') +
+                        submenuWrapper.offsetWidth + 3 + 'px';
+
+        if (buttonWrapper.classList.contains('highcharts-active')) {
+            const mainButton = buttonWrapper.querySelector('button');
+
+            if (mainButton && mainButton.dataset.selectedTool) {
+                const selectedSubmenuButton =
+                    submenuWrapper
+                        .querySelector(
+                            `button[data-btn-name=${mainButton.dataset.selectedTool}]`
+                        );
+
+                selectedSubmenuButton?.parentElement?.classList
+                    .add('highcharts-active');
+            }
+
+        }
+    }
+
+    /**
+     * Hide the submenu
+     * @private
+     */
+    public hideSubmenu(
+        submenuWrapper: HTMLElement,
+        buttonWrapper: HTMLElement
+    ): void {
+        const menuWrapper = this.listWrapper;
+
+        menuWrapper.style.width =
+            (menuWrapper as any).startWidth + 'px';
+        buttonWrapper.classList.remove('highcharts-current');
+
+        const toggleButton = buttonWrapper
+            .querySelector('.highcharts-submenu-item-arrow');
+        toggleButton?.setAttribute('aria-expanded', 'false');
+
+        submenuWrapper.style.display = 'none';
+        submenuWrapper.dataset.open = 'false';
+
+        submenuWrapper.querySelector(
+            '.highcharts-active'
+        )?.classList.remove('highcharts-active');
+    }
+
+    /**
+     * Toggle a given submenu
+     * @private
+     */
+    public toggleSubmenu(
+        buttonWrapper: HTMLElement,
+        submenuWrapper: HTMLElement
+    ): void {
+        // Hide menu
+        if (
+            buttonWrapper.className
+                .indexOf('highcharts-current') >= 0
+        ) {
+            this.hideSubmenu(
+                submenuWrapper,
+                buttonWrapper
+            );
+        } else {
+            this.showSubmenu(
+                submenuWrapper,
+                buttonWrapper
+            );
+        }
     }
 
     /**
@@ -194,14 +328,19 @@ class Toolbar {
     ): void {
         const submenuArrow = parentBtn.submenuArrow,
             buttonWrapper = parentBtn.buttonWrapper,
-            buttonWidth: number = getStyle(buttonWrapper, 'width') as any,
-            wrapper = this.wrapper,
-            menuWrapper = this.listWrapper,
             allButtons = this.toolbar.childNodes,
             // Create submenu container
             submenuWrapper = this.submenu = createElement('ul', {
                 className: 'highcharts-submenu-wrapper'
             }, void 0, buttonWrapper);
+
+        submenuWrapper.setAttribute('role', 'menu');
+        submenuWrapper.id = 'highcharts-submenu-wrapper-' +
+            parentBtn.mainButton.dataset.btnName;
+
+        parentBtn.submenuArrow.setAttribute('aria-controls', submenuWrapper.id);
+        parentBtn.submenuArrow.setAttribute('aria-haspopup', 'true');
+        parentBtn.submenuArrow.setAttribute('aria-expanded', 'false');
 
         // Create submenu buttons and select the first one
         this.addSubmenuItems(buttonWrapper, button);
@@ -214,50 +353,67 @@ class Toolbar {
                 // Erase active class on all other buttons
                 this.eraseActiveButtons(allButtons, buttonWrapper);
 
-                // Hide menu
-                if (
-                    buttonWrapper.className
-                        .indexOf('highcharts-current') >= 0
-                ) {
-                    menuWrapper.style.width =
-                        (menuWrapper as any).startWidth + 'px';
-                    buttonWrapper.classList.remove('highcharts-current');
-                    (submenuWrapper as any).style.display = 'none';
-                } else {
-                    // Show menu
-                    // to calculate height of element
-                    (submenuWrapper as any).style.display = 'block';
+                this.toggleSubmenu(
+                    buttonWrapper,
+                    submenuWrapper
+                );
 
-                    let topMargin = (submenuWrapper as any).offsetHeight -
-                            buttonWrapper.offsetHeight - 3;
-
-                    // Calculate position of submenu in the box
-                    // if submenu is inside, reset top margin
-                    if (
-                        // Cut on the bottom
-                        !((submenuWrapper as any).offsetHeight +
-                            buttonWrapper.offsetTop >
-                        wrapper.offsetHeight &&
-                        // Cut on the top
-                        buttonWrapper.offsetTop > topMargin)
-                    ) {
-                        topMargin = 0;
-                    }
-
-                    // Apply calculated styles
-                    css((submenuWrapper as any), {
-                        top: -topMargin + 'px',
-                        left: buttonWidth + 3 + 'px'
-                    });
-
-                    buttonWrapper.className += ' highcharts-current';
-                    (menuWrapper as any).startWidth = wrapper.offsetWidth;
-                    menuWrapper.style.width = (menuWrapper as any).startWidth +
-                        getStyle(menuWrapper, 'padding-left') +
-                        (submenuWrapper as any).offsetWidth + 3 + 'px';
-                }
             })
         );
+    }
+
+    public setAriaLabel(element: HTMLElement, context: {
+        selected: boolean;
+        toolLabel: string;
+    }): void {
+        if (
+            typeof this.chart.options === 'object' &&
+            'lang' in this.chart.options &&
+            this.chart.langFormat // Might not be defined
+        ) {
+            const ariaLabel = this.chart.langFormat(
+                'stockTools.toolAriaLabel',
+                context
+            );
+
+            element.setAttribute(
+                'aria-label',
+                ariaLabel
+            );
+        }
+    }
+
+    public setAriaLabelForParentButton(
+        button: HTMLElement,
+        initial = false
+    ): void {
+        const selectedLabel = button.dataset.label;
+        const submenu = button.closest('.highcharts-submenu-wrapper');
+        const mainButton = submenu?.parentElement?.querySelector<HTMLElement>(
+            '.highcharts-menu-item-btn'
+        ) ?? button;
+
+        const setLabel = (): void => {
+            if (selectedLabel) {
+                const isActive = mainButton.parentElement
+                    ?.classList.contains('highcharts-active');
+
+                if (button.dataset.btnName !== mainButton.dataset.btnName) {
+                    mainButton.dataset.selectedTool = button.dataset.btnName;
+                }
+
+                this.setAriaLabel(
+                    mainButton,
+                    {
+                        selected: isActive ?? false,
+                        toolLabel: selectedLabel
+                    }
+                );
+            }
+        };
+
+        // Use setTimeout to ensure active class is set
+        initial ? setLabel() : setTimeout(setLabel);
     }
 
     /**
@@ -313,6 +469,9 @@ class Toolbar {
 
         // Replace current symbol, in main button, with submenu's button style
         this.switchSymbol(firstSubmenuItem, false);
+
+        this.setAriaLabelForParentButton(firstSubmenuItem, true);
+
     }
 
     /**
@@ -367,7 +526,7 @@ class Toolbar {
             StockToolsGuiDefinitionsOptions
         ),
         btnName: string,
-        lang: Record<string, string> = {}
+        lang: LangStockToolsOptions
     ): Record<string, HTMLDOMElement> {
         const btnOptions: StockToolsGuiDefinitionsButtonsOptions =
                 options[btnName] as any,
@@ -377,15 +536,56 @@ class Toolbar {
 
         // Main button wrapper
         const buttonWrapper = createElement('li', {
-            className: pick(classMapping[btnName], '') + ' ' + userClassName,
-            title: lang[btnName] || btnName
+            className: pick(classMapping[btnName], ''),
+            title: lang.gui[btnName] ?? btnName
         }, void 0, target);
+
+        if (userClassName) {
+            buttonWrapper.classList.add(userClassName as string);
+        }
 
         // Single button
         const elementType = (btnOptions.elementType || 'button') as string;
         const mainButton = createElement(elementType, {
             className: 'highcharts-menu-item-btn'
         }, void 0, buttonWrapper);
+
+        const descriptions = lang.descriptions[btnName];
+
+        if (btnName === 'separator') {
+            mainButton.setAttribute('role', 'separator');
+        } else {
+            mainButton.setAttribute('role', 'menuitem');
+        }
+
+        buttonWrapper.setAttribute('role', 'presentation');
+
+        // Set the default aria label
+        if (
+            descriptions?.mainButton &&
+            !items &&
+            this.chart.langFormat
+        ) {
+            mainButton.setAttribute(
+                'aria-label',
+                this.chart.langFormat(
+                    `stockTools.descriptions.${btnName}.mainButton`,
+                    {
+                        selected: mainButton.dataset.selected ??
+                            lang.gui[btnName]
+                    }
+                )
+            );
+        }
+
+        // Save these for use when updating the aria-label on submenu selection
+        if (!('label' in mainButton.dataset)) {
+            if (btnName !== 'separator') {
+                mainButton.dataset.label = lang.gui[btnName]?.toLowerCase()
+                    .replace(' ', '-');
+                mainButton.dataset.btnName = btnName;
+            }
+        }
 
         // Submenu
         if (items && items.length) {
@@ -395,6 +595,15 @@ class Toolbar {
                 className: 'highcharts-submenu-item-arrow ' +
                     'highcharts-arrow-right'
             }, void 0, buttonWrapper);
+
+            submenuArrow.setAttribute('role', 'menuitem');
+
+            if (descriptions?.submenuToggleButton) {
+                submenuArrow.setAttribute(
+                    'aria-label',
+                    descriptions.submenuToggleButton
+                );
+            }
 
             submenuArrow.style.backgroundImage = 'url(' +
                 this.iconsURL + 'arrow-bottom.svg)';
@@ -539,6 +748,10 @@ class Toolbar {
                     guiOptions.toolbarClassName
         });
 
+        this.toolbar.setAttribute('role', 'menubar');
+        this.toolbar.setAttribute('aria-orientation', 'vertical');
+        this.toolbar.setAttribute('aria-label', 'Stock tools');
+
         // Add container for list of buttons
         this.listWrapper = listWrapper = createElement('div', {
             className: 'highcharts-menu-wrapper'
@@ -624,27 +837,33 @@ class Toolbar {
         const buttonWrapper = button.parentNode,
             buttonWrapperClass = buttonWrapper.className,
             // Main button in first level og GUI
-            mainNavButton = buttonWrapper.parentNode.parentNode;
+            mainNavItem = buttonWrapper.parentNode.parentNode;
 
         // If the button is disabled, don't do anything
         if (buttonWrapperClass.indexOf('highcharts-disabled-btn') > -1) {
             return;
         }
+
+        const isActive = mainNavItem.classList.contains('highcharts-active');
+
         // Set class
-        mainNavButton.className = '';
-        if (buttonWrapperClass) {
-            mainNavButton.classList.add(buttonWrapperClass.trim());
-        }
+        mainNavItem.className = '';
+
+        buttonWrapper.classList.forEach((className): void => {
+            if (className !== 'highcharts-active') {
+                mainNavItem.classList.add(className);
+            }
+        });
 
         // Set icon
-        mainNavButton
+        mainNavItem
             .querySelectorAll<HTMLElement>('.highcharts-menu-item-btn')[0]
             .style.backgroundImage =
             button.style.backgroundImage;
 
         // Set active class
-        if (redraw) {
-            this.toggleButtonActiveClass(mainNavButton);
+        if (redraw || isActive) {
+            this.toggleButtonActiveClass(mainNavItem);
         }
     }
 
@@ -655,13 +874,7 @@ class Toolbar {
     public toggleButtonActiveClass(
         button: HTMLDOMElement
     ): void {
-        const classList = button.classList;
-
-        if (classList.contains('highcharts-active')) {
-            classList.remove('highcharts-active');
-        } else {
-            classList.add('highcharts-active');
-        }
+        button.classList.toggle('highcharts-active');
     }
 
     /**

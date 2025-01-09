@@ -41,6 +41,176 @@ const lang: LangOptions = {
      * @since   7.0.0
      */
     stockTools: {
+        toolChanged:
+            'Changed {toolType} tool to {toolLabel}',
+        toolSelected:
+            'Selected {toolLabel} tool.',
+        toolAriaLabel:
+            'Select {toolLabel} tool',
+        descriptions: {
+            indicators: {
+                mainButton: 'Open indicators menu'
+            },
+            simpleShapes: {
+                submenuToggleButton: 'Open labels submenu'
+            },
+            lines: {
+                submenuToggleButton: 'Open lines submenu'
+            },
+            crookedLines: {
+                submenuToggleButton: 'Open crooked lines submenu'
+            },
+            measure: {
+                submenuToggleButton: 'Open measure submenu'
+            },
+            advanced: {
+                submenuToggleButton: 'Open advanced shapes submenu'
+            },
+            toggleAnnotations: {
+                mainButton: 'Toggle annotations'
+            },
+            verticalLabels: {
+                submenuToggleButton: 'Open vertical labels submenu'
+            },
+            flags: {
+                submenuToggleButton: 'Open flags submenu'
+            },
+            zoomChange: {
+                submenuToggleButton: 'Open zoom change submenu'
+            },
+            fullScreen: {
+                mainButton: 'Fullscreen'
+            },
+            typeChange: {
+                submenuToggleButton: 'Open chart type submenu'
+            },
+            saveChart: {
+                mainButton: 'Save chart'
+            },
+            currentPriceIndicator: {
+                mainButton: 'Toggle current price indicator'
+            },
+            label: {
+                mainButton: 'Set simple shape to "label"'
+            },
+            circle: {
+                mainButton: 'Set simple shape to "circle"'
+            },
+            ellipse: {
+                mainButton: 'Set simple shape to "ellipse"'
+            },
+            rectangle: {
+                mainButton: 'Set simple shape to "rectangle"'
+            },
+            flagCirclepin: {
+                mainButton: 'Set flag to "circlepin"'
+            },
+            flagDiamondpin: {
+                mainButton: 'Set flag to "diamondpin"'
+            },
+            flagSquarepin: {
+                mainButton: 'Set flag to "squarepin"'
+            },
+            flagSimplepin: {
+                mainButton: 'Set flag to "simplepin"'
+            },
+            segment: {
+                mainButton: 'Select "segment" line type'
+            },
+            arrowSegment: {
+                mainButton: 'Select "arrow segment" line type'
+            },
+            ray: {
+                mainButton: 'Select "ray" line type'
+            },
+            arrowRay: {
+                mainButton: 'Select "arrow ray" line type'
+            },
+            line: {
+                mainButton: 'Select "line" line type'
+            },
+            arrowInfinityLine: {
+                mainButton: 'Select "arrow line" line type'
+            },
+            horizontalLine: {
+                mainButton: 'Select "horizontal line" line type'
+            },
+            verticalLine: {
+                mainButton: 'Select "vertical line" line type'
+            },
+            elliott3: {
+                mainButton: 'Select "elliott3" crooked line type'
+            },
+            elliott5: {
+                mainButton: 'Select "elliott5" crooked line type'
+            },
+            crooked3: {
+                mainButton: 'Select "crooked3" crooked line type'
+            },
+            crooked5: {
+                mainButton: 'Select "crooked5" crooked line type'
+            },
+            measureX: {
+                mainButton: 'Select "measure x" measure type'
+            },
+            measureY: {
+                mainButton: 'Select "measure y" measure type'
+            },
+            measureXY: {
+                mainButton: 'Select "measure xy" measure type'
+            },
+            fibonacci: {
+                mainButton: 'Select "fibonacci" indicator type'
+            },
+            fibonacciTimeZones: {
+                mainButton: 'Select "fibonacci time zones" indicator type'
+            },
+            pitchfork: {
+                mainButton: 'Select "pitchfork" indicator type'
+            },
+            parallelChannel: {
+                mainButton: 'Select "parallel channel" indicator type'
+            },
+            timeCycles: {
+                mainButton: 'Select "time cycles" indicator type'
+            },
+            verticalCounter: {
+                mainButton: 'Select "vertical counter" label type'
+            },
+            verticalLabel: {
+                mainButton: 'Select "vertical label" label type'
+            },
+            verticalArrow: {
+                mainButton: 'Select "vertical arrow" label type'
+            },
+            zoomX: {
+                mainButton: 'Select "zoom x" zoom type'
+            },
+            zoomY: {
+                mainButton: 'Select "zoom y" zoom type'
+            },
+            zoomXY: {
+                mainButton: 'Select "zoom xy" zoom type'
+            },
+            typeHLC: {
+                mainButton: 'Select "hlc" chart type'
+            },
+            typeOHLC: {
+                mainButton: 'Select "ohlc" chart type'
+            },
+            typeLine: {
+                mainButton: 'Select "line" chart type'
+            },
+            typeCandlestick: {
+                mainButton: 'Select "candlestick" chart type'
+            },
+            typeHollowCandlestick: {
+                mainButton: 'Select "hollow candlestick" chart type'
+            },
+            typeHeikinAshi: {
+                mainButton: 'Select "heikinashi" chart type'
+            }
+        },
         gui: {
             // Main buttons:
             simpleShapes: 'Simple shapes',
