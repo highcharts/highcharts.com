@@ -36,6 +36,7 @@ import RowsVirtualizer from './Actions/RowsVirtualizer.js';
 import ColumnsResizer from './Actions/ColumnsResizer.js';
 import Globals from '../Globals.js';
 import CellEditing from './Actions/CellEditing.js';
+import Validator from './ColumnTypes/Validator.js';
 
 const { makeHTMLElement } = DGUtils;
 const { getStyle, defined } = Utils;
@@ -156,6 +157,11 @@ class Table {
      */
     public scrollable: boolean;
 
+    /**
+     * The validator object.
+     */
+    public validator: Validator;
+
 
     /* *
     *
@@ -209,6 +215,8 @@ class Table {
         }
 
         this.init();
+
+        this.validator = new Validator(this);
 
         // Add event listeners
         this.resizeObserver = new ResizeObserver(this.onResize);
@@ -427,6 +435,7 @@ class Table {
         }
         this.resizeObserver.disconnect();
         this.columnsResizer?.removeEventListeners();
+        this.validator.destroy();
 
         for (let i = 0, iEnd = this.rows.length; i < iEnd; ++i) {
             this.rows[i].destroy();

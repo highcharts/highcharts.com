@@ -8,7 +8,7 @@
  *
  *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
  *
-*  Authors:
+ *  Authors:
  *  - Dawid Dragula
  *  - Sebastian Bochan
  *

@@ -71,12 +71,13 @@ class CellEditing {
      * The cell that is to be edited.
      */
     public startEditing(cell: TableCell): void {
-        if (this.editedCell === cell) {
+        if (
+            this.editedCell === cell || (
+                // If value is invalid, do not start new editing
+                this.editedCell && !this.stopEditing()
+            )
+        ) {
             return;
-        }
-
-        if (this.editedCell) {
-            this.stopEditing();
         }
 
         this.editedCell = cell;
@@ -94,23 +95,40 @@ class CellEditing {
      *
      * @param submit
      * Whether to save the value of the input to the cell. Defaults to true.
+     *
+     * @return
+     * Returns `true` if the cell was successfully stopped editing.
      */
-    public stopEditing(submit = true): void {
+    public stopEditing(submit = true): boolean {
         const cell = this.editedCell;
         const input = this.inputElement;
 
         if (!cell || !input) {
-            return;
+            return false;
         }
 
-        const dataGrid = cell.column.viewport.dataGrid;
+        const { column } = cell;
+        const vp = column.viewport;
+        const dataGrid = vp.dataGrid;
         let newValue: string | number = input.value;
+
+        if (submit) {
+            const validationErrors: string[] = [];
+            if (!vp.validator.validate(cell, newValue, validationErrors)) {
+                vp.validator.initErrorBox(cell, validationErrors);
+                return false;
+            } else {
+                vp.validator.hide();
+                vp.validator.errorCell = void 0;
+            }
+        }
 
         this.destroyInput();
         cell.htmlElement.classList.remove(Globals.classNames.editedCell);
 
         cell.htmlElement.focus();
 
+        // TODO: Adjust it or delete after implementing the dataType.
         // Convert to number if possible
         if (!isNaN(+newValue)) {
             newValue = +newValue;
@@ -127,13 +145,17 @@ class CellEditing {
         );
 
         delete this.editedCell;
+
+        return true;
     }
 
     /**
      * Handles the blur event on the input field.
      */
     private onInputBlur = (): void => {
-        this.stopEditing();
+        if (!this.stopEditing()) {
+            this.inputElement?.focus();
+        }
     };
 
     /**

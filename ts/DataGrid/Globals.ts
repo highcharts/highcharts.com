@@ -20,7 +20,6 @@
  *
  * */
 
-
 /* *
  *
  *  Namespace
@@ -66,6 +65,7 @@ namespace Globals {
 
     export const classNames = {
         container: classNamePrefix + 'container',
+        errorsContainer: classNamePrefix + 'errors-container',
         tableElement: classNamePrefix + 'table',
         captionElement: classNamePrefix + 'caption',
         descriptionElement: classNamePrefix + 'description',
@@ -82,6 +82,7 @@ namespace Globals {
         syncedCell: classNamePrefix + 'synced-cell',
         syncedColumn: classNamePrefix + 'synced-column',
         editedCell: classNamePrefix + 'edited-cell',
+        editedCellError: classNamePrefix + 'edited-cell-error',
         mockedCell: classNamePrefix + 'mocked-cell',
         rowsContentNowrap: classNamePrefix + 'rows-content-nowrap',
         virtualization: classNamePrefix + 'virtualization',
@@ -108,7 +109,6 @@ namespace Globals {
     export const userAgent = (win.navigator && win.navigator.userAgent) || '';
     export const isChrome = userAgent.indexOf('Chrome') !== -1;
     export const isSafari = !isChrome && userAgent.indexOf('Safari') !== -1;
-
 }
 
 /* *
