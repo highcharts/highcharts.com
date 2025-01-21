@@ -180,6 +180,8 @@ const TimelineSeriesDefaults: TimelineSeriesOptions = {
             return format;
         },
 
+        padding: 5,
+
         style: {
             /** @internal */
             textOutline: 'none',

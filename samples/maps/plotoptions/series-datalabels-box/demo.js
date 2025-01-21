@@ -51,12 +51,11 @@
             joinBy: 'hasc',
             dataLabels: {
                 enabled: true,
-                backgroundColor: 'rgba(0,0,0,0.3)',
-                borderRadius: 7,
-                padding: 4,
-                color: '#FFFFFF',
+                backgroundColor: 'contrast',
+                borderRadius: 2,
                 format: '{point.code}',
                 style: {
+                    textOutline: 'none',
                     textTransform: 'uppercase'
                 }
             },

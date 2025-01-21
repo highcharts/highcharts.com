@@ -71,7 +71,7 @@ const MapSeriesDefaults: MapSeriesOptions = {
         },
         inside: true, // For the color
         overflow: false as any,
-        padding: 0,
+        padding: [0, 2],
         verticalAlign: 'middle'
     },
 

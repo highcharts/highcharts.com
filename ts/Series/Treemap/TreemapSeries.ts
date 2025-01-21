@@ -692,7 +692,9 @@ class TreemapSeries extends ScatterSeries {
                 const css = {
                     width: (
                         (point.shapeArgs.width || 0) -
-                        2 * (options.padding || padding || 0)
+                        2 * (
+                            splat(options.padding)[0] || splat(padding)[0] || 0
+                        )
                     ) + 'px',
                     lineClamp: Math.floor((point.shapeArgs.height || 0) / 16)
                 };

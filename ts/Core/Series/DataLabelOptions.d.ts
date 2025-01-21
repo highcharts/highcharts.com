@@ -75,7 +75,7 @@ export interface DataLabelOptions {
     labelrank?: number;
     nullFormat?: (boolean|string);
     overflow?: DataLabelOverflowValue;
-    padding?: number;
+    padding?: number|Array<number>;
     rotation?: number;
     shadow?: (boolean|Partial<ShadowOptionsObject>);
     shape?: keyof SymbolTypeRegistry;

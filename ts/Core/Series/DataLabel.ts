@@ -33,6 +33,7 @@ import type AnimationOptions from '../Animation/AnimationOptions';
 
 import A from '../Animation/AnimationUtilities.js';
 const { getDeferredAnimation } = A;
+import Color from '../Color/Color.js';
 import F from '../Templating.js';
 const { format } = F;
 import { Palette } from '../Color/Palettes.js';
@@ -44,6 +45,7 @@ const {
     fireEvent,
     getAlignFactor,
     isArray,
+    isNumber,
     isString,
     merge,
     objectEach,
@@ -248,7 +250,9 @@ namespace DataLabel {
             inverted = this.isCartesian && chart.inverted,
             plotX = point.plotX,
             plotY = point.plotY,
-            rotation = options.rotation || 0,
+            { distance, rotation = 0 } = options,
+            alignFactor = getAlignFactor(options.align),
+            verticalAlignFactor = getAlignFactor(options.verticalAlign),
             isInsidePlot = defined(plotX) &&
                 defined(plotY) &&
                 chart.isInsidePlot(
@@ -335,18 +339,27 @@ namespace DataLabel {
 
             setStartPos(alignTo); // Data sorting
 
+            // Apply the distance
+            let { x = 0, y = 0 } = options;
+            if (isNumber(distance) && this.isCartesian) {
+                x += distance * (1 - 2 * alignFactor);
+                y += distance * (1 - 2 * verticalAlignFactor);
+            }
+
             // Align the label to the adjusted box with for unrotated bBox due
             // to rotationOrigin, which is based on unrotated label
             dataLabel.align(merge(
                 options, {
+                    x,
+                    y,
                     width: unrotatedbBox.width,
                     height: unrotatedbBox.height
                 }
             ), false, alignTo, false);
 
-            dataLabel.alignAttr.x += getAlignFactor(options.align) *
+            dataLabel.alignAttr.x += alignFactor *
                 (unrotatedbBox.width - bBox.width);
-            dataLabel.alignAttr.y += getAlignFactor(options.verticalAlign) *
+            dataLabel.alignAttr.y += verticalAlignFactor *
                 (unrotatedbBox.height - bBox.height);
 
             dataLabel[dataLabel.placed ? 'animate' : 'attr']({
@@ -383,7 +396,7 @@ namespace DataLabel {
             if (justify && alignTo.height >= 0) { // #8830
                 this.justifyDataLabel(
                     dataLabel,
-                    options,
+                    dataLabel.alignOptions || {},
                     dataLabel.alignAttr,
                     bBox,
                     alignTo,
@@ -597,7 +610,10 @@ namespace DataLabel {
                             borderColor,
                             distance,
                             style = {}
-                        } = labelOptions;
+                        } = labelOptions,
+                        padding: Array<number> = splat(
+                            labelOptions.padding || 0
+                        );
 
                     let formatString,
                         labelText,
@@ -644,12 +660,19 @@ namespace DataLabel {
                                 }
 
                                 point.contrastColor = renderer.getContrast(
-                                    labelBgColor !== 'auto' && labelBgColor ||
+                                    (
+                                        labelBgColor !== 'auto' &&
+                                        labelBgColor !== 'contrast' &&
+                                        labelBgColor
+                                    ) ||
                                     (point.color || series.color) as any
                                 );
 
                                 style.color = (
-                                    labelBgColor || // #20007
+                                    (
+                                        labelBgColor &&
+                                        labelBgColor !== 'contrast'
+                                    ) || // #20007
                                     (
                                         !defined(distance) &&
                                         labelOptions.inside
@@ -668,16 +691,25 @@ namespace DataLabel {
                         }
 
                         attr = {
-                            r: labelOptions.borderRadius || 0,
+                            r: labelOptions.borderRadius ?? 3,
                             rotation,
-                            padding: labelOptions.padding,
+                            padding: padding[0],
+                            paddingLeft: padding[3 % padding.length],
+                            paddingRight: padding[1 % padding.length],
                             zIndex: 1
                         };
 
                         if (!chart.styledMode) {
                             attr.fill = backgroundColor === 'auto' ?
                                 point.color :
-                                backgroundColor;
+                                (
+                                    backgroundColor === 'contrast' &&
+                                    isString(style.color)
+                                ) ?
+                                    new Color(
+                                        renderer.getContrast(style.color)
+                                    ).setOpacity(0.65).get() :
+                                    backgroundColor;
                             attr.stroke = borderColor === 'auto' ?
                                 point.color :
                                 borderColor;

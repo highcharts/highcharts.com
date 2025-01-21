@@ -146,6 +146,9 @@ function getDlOptions(
         options = merge<SunburstDataLabelOptions>({
             style: {}
         }, optionsLevel, optionsPoint),
+        padding: Array<number> = splat(options.padding || 0),
+        paddingLeft = padding[3 % padding.length],
+        paddingRight = padding[1 % padding.length],
         { innerArcLength = 0, outerArcLength = 0 } = point;
 
     let rotationRad: (number|undefined),
@@ -248,7 +251,7 @@ function getDlOptions(
 
         // Apply padding (#8515)
         (options.style as any).width = Math.max(
-            (options.style as any).width - 2 * (options.padding || 0),
+            (options.style as any).width - paddingLeft - paddingRight,
             1
         );
 
@@ -278,8 +281,8 @@ function getDlOptions(
             options.textPath.enabled = false;
             // Setting width and padding
             (options.style as any).width = Math.max(
-                (point.shapeExisting.r * 2) -
-                2 * (options.padding || 0), 1
+                (point.shapeExisting.r * 2) - paddingLeft - paddingRight,
+                1
             );
         } else if (
             point.dlOptions &&
@@ -296,8 +299,9 @@ function getDlOptions(
             // Setting width and padding
             (options.style as any).width = Math.max(
                 ((point.outerArcLength as any) +
-                (point.innerArcLength as any)) / 2 -
-                2 * (options.padding || 0), 1
+                    (point.innerArcLength as any)) / 2 -
+                    paddingLeft - paddingRight,
+                1
             );
             (options.style as any).whiteSpace = 'nowrap';
         }

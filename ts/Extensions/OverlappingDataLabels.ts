@@ -351,7 +351,10 @@ function onChartRender(
 
                                 // Pie labels outside have a separate placement
                                 // logic, skip the overlap logic
-                                Number(options.distance) > 0
+                                (
+                                    series.is('pie') &&
+                                    Number(options.distance) > 0
+                                )
                             ) {
                                 label.oldOpacity = label.opacity;
                                 label.newOpacity = 1;

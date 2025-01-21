@@ -266,7 +266,10 @@ class PieSeries extends Series {
             (Math.cos(angle) * (radius + distance)) +
             (
                 distance > 0 ?
-                    (left ? -1 : 1) * (dataLabel.padding || 0) :
+                    // 5 is the horizontal part pointing out of the label. It
+                    // used to be the `padding` setting, but that doesn't make
+                    // sense
+                    (left ? -5 : 5) :
                     0
             );
         return x;
