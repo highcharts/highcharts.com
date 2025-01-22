@@ -117,6 +117,12 @@ module.exports = {
             'datagrid/header',
             'datagrid/events',
             'datagrid/performance',
+            {
+                'CSS theming': [
+                    'datagrid/theming-intro',
+                    'datagrid/theming-variables'
+                ]
+            },
             'datagrid/style-by-css',
             'datagrid/accessibility',
             'datagrid/datagrid-v2-migration',
