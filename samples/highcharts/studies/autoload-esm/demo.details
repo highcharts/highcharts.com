@@ -1,0 +1,6 @@
+---
+ name: Autoload ESM
+ authors:
+   - Torstein Hønsi
+ js_wrap: b
+...

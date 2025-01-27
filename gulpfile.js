@@ -45,6 +45,7 @@ Gulp.registry(new GulpForwardReference());
     'dashboards/test',
     'dashboards/lint',
     'default',
+    'dependency-mapping',
     'dist',
     'dist-clean',
     'dist-compress',

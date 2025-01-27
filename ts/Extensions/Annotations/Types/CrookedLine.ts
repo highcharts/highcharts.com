@@ -137,6 +137,7 @@ CrookedLine.prototype.defaultOptions = merge(
      *         Crooked line
      *
      * @product      highstock
+     * @requires     modules/annotations-advanced
      * @optionparent annotations.crookedLine
      */
     {

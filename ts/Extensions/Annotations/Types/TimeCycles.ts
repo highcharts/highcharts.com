@@ -258,6 +258,7 @@ TimeCycles.prototype.defaultOptions = merge(
      *
      * @extends      annotations.crookedLine
      * @product      highstock
+     * @requires     modules/annotations-advanced
      * @exclude      labelOptions
      * @optionparent annotations.timeCycles
      */

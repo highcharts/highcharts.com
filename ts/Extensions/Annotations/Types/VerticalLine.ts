@@ -172,6 +172,7 @@ VerticalLine.prototype.defaultOptions = merge(
      * @extends      annotations.crookedLine
      * @excluding    labels, shapes, controlPointOptions
      * @product      highstock
+     * @requires     modules/annotations-advanced
      * @optionparent annotations.verticalLine
      */
     {

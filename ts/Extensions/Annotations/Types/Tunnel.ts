@@ -218,6 +218,7 @@ Tunnel.prototype.defaultOptions = merge(
      * @sample highcharts/annotations-advanced/tunnel/
      *         Tunnel
      * @product highstock
+     * @requires     modules/annotations-advanced
      * @optionparent annotations.tunnel
      */
     {

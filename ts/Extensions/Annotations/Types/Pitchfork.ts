@@ -228,6 +228,7 @@ Pitchfork.prototype.defaultOptions = merge(
      *
      * @extends      annotations.infinityLine
      * @product      highstock
+     * @requires     modules/annotations-advanced
      * @optionparent annotations.pitchfork
      */
     {

@@ -260,6 +260,7 @@ export default InfinityLine;
  *
  * @extends   annotations.crookedLine
  * @product   highstock
+ * @requires     modules/annotations-advanced
  * @apioption annotations.infinityLine
  */
 

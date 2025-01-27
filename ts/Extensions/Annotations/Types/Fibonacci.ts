@@ -247,6 +247,7 @@ Fibonacci.prototype.defaultOptions = merge(
      *         Fibonacci
      *
      * @extends      annotations.crookedLine
+     * @requires     modules/annotations-advanced
      * @product      highstock
      * @optionparent annotations.fibonacci
      */

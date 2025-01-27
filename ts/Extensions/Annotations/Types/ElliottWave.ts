@@ -75,6 +75,7 @@ ElliottWave.prototype.defaultOptions = merge(
      *
      * @extends      annotations.crookedLine
      * @product      highstock
+     * @requires     modules/annotations-advanced
      * @optionparent annotations.elliottWave
      */
     {

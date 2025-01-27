@@ -31,7 +31,7 @@ G.OrdinalAxis = G.OrdinalAxis || OrdinalAxis;
 G.RangeSelector = G.RangeSelector || RangeSelector;
 G.Scrollbar = G.Scrollbar || Scrollbar;
 // Functions
-G.stockChart = G.stockChart || StockChart.stockChart;
+G.stockChart = StockChart.stockChart;
 G.StockChart = G.StockChart || G.stockChart;
 G.extend(G.StockChart, StockChart);
 // Compositions

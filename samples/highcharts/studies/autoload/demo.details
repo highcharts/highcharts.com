@@ -1,0 +1,6 @@
+---
+ name: Autoload
+ authors:
+   - Torstein Hønsi
+ js_wrap: b
+...
