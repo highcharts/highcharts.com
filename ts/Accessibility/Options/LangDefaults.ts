@@ -27,7 +27,6 @@ import type LangOptions from './LangOptions';
  * */
 
 const langOptions: DeepPartial<LangOptions> = {
-
     /**
      * Configure the accessibility strings in the chart. Requires the
      * [accessibility module](https://code.highcharts.com/modules/accessibility.js)

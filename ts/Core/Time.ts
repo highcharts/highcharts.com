@@ -587,6 +587,7 @@ class Time {
      * | `%d` | Two digit day of the month, 01 to 31         |       |
      * | `%e` | Day of the month, 1 through 31               |       |
      * | `%w` | Day of the week, 0 through 6                 | N/A   |
+     * | `%v` | The prefix "week from", read from `lang.weekFrom` | N/A   |
      * | `%b` | Short month, like 'Jan'                      |       |
      * | `%B` | Long month, like 'January'                   |       |
      * | `%m` | Two digit month number, 01 through 12        |       |
@@ -730,8 +731,9 @@ class Time {
                         // Day of the week, 0 through 6
                         w: weekday,
 
-                        // Week (none implemented)
-                        // 'W': weekNumber(),
+                        // Week
+                        // 'W': weekNumber(), // Only implemented for Gantt
+                        v: lang?.weekFrom ?? '',
 
                         // Month
                         // Short month, like 'Jan'

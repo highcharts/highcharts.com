@@ -1,0 +1,504 @@
+{
+    "locale": "en-US",
+    "chartTitle": "Chart title",
+    "pieSliceName": "Slice",
+    "seriesName": "Series {add index 1}",
+    "yAxisTitle": "Values",
+    "rangeSelector": {
+        "allText": "All",
+        "allTitle": "View all",
+        "monthText": "{count}m",
+        "monthTitle": "View {count} {#eq count 1}month{else}months{/eq}",
+        "yearText": "{count}y",
+        "yearTitle": "View {count} {#eq count 1}year{else}years{/eq}",
+        "ytdText": "YTD",
+        "ytdTitle": "View year to date"
+    },
+    "weekFrom": "week from",
+    "stockOpen": "Open",
+    "stockHigh": "High",
+    "stockLow": "Low",
+    "stockClose": "Close",
+    "viewFullscreen": "View in full screen",
+    "exitFullscreen": "Exit from full screen",
+    "printChart": "Print chart",
+    "downloadPNG": "Download PNG image",
+    "downloadJPEG": "Download JPEG image",
+    "downloadPDF": "Download PDF document",
+    "downloadSVG": "Download SVG vector image",
+    "contextButtonTitle": "Chart context menu",
+    "loading": "Loading...",
+    "numericSymbols": [
+        "k",
+        "M",
+        "G",
+        "T",
+        "P",
+        "E"
+    ],
+    "resetZoom": "Reset zoom",
+    "resetZoomTitle": "Reset zoom level 1:1",
+    "rangeSelectorZoom": "Zoom",
+    "rangeSelectorFrom": "",
+    "rangeSelectorTo": "→",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "downloadCSV": "Download CSV",
+    "downloadXLS": "Download XLS",
+    "exportData": {
+        "annotationHeader": "Annotations",
+        "categoryHeader": "Category",
+        "categoryDatetimeHeader": "DateTime"
+    },
+    "viewData": "View data table",
+    "hideData": "Hide data table",
+    "exportInProgress": "Exporting...",
+    "accessibility": {
+        "defaultChartTitle": "Chart",
+        "chartContainerLabel": "{title}. Highcharts interactive chart.",
+        "svgContainerLabel": "Interactive chart",
+        "drillUpButton": "{buttonText}",
+        "credits": "Chart credits: {creditsStr}",
+        "thousandsSep": ",",
+        "svgContainerTitle": "",
+        "graphicContainerLabel": "",
+        "screenReaderSection": {
+            "beforeRegionLabel": "",
+            "afterRegionLabel": "",
+            "annotations": {
+                "heading": "Chart annotations summary",
+                "descriptionSinglePoint": "{annotationText}. Related to {annotationPoint}",
+                "descriptionMultiplePoints": "{annotationText}. Related to {annotationPoint}{#each additionalAnnotationPoints}, also related to {this}{/each}",
+                "descriptionNoPoints": "{annotationText}"
+            },
+            "endOfChartMarker": "End of interactive chart."
+        },
+        "sonification": {
+            "playAsSoundButtonText": "Play as sound, {chartTitle}",
+            "playAsSoundClickAnnouncement": "Play"
+        },
+        "legend": {
+            "legendLabelNoTitle": "Toggle series visibility, {chartTitle}",
+            "legendLabel": "Chart legend: {legendTitle}",
+            "legendItem": "Show {itemName}"
+        },
+        "zoom": {
+            "mapZoomIn": "Zoom chart",
+            "mapZoomOut": "Zoom out chart",
+            "resetZoomButton": "Reset zoom"
+        },
+        "rangeSelector": {
+            "dropdownLabel": "{rangeTitle}",
+            "minInputLabel": "Select start date.",
+            "maxInputLabel": "Select end date.",
+            "clickButtonAnnouncement": "Viewing {axisRangeDescription}"
+        },
+        "navigator": {
+            "handleLabel": "{#eq handleIx 0}Start, percent{else}End, percent{/eq}",
+            "groupLabel": "Axis zoom",
+            "changeAnnouncement": "{axisRangeDescription}"
+        },
+        "table": {
+            "viewAsDataTableButtonText": "View as data table, {chartTitle}",
+            "tableSummary": "Table representation of chart."
+        },
+        "announceNewData": {
+            "newDataAnnounce": "Updated data for chart {chartTitle}",
+            "newSeriesAnnounceSingle": "New data series: {seriesDesc}",
+            "newPointAnnounceSingle": "New data point: {pointDesc}",
+            "newSeriesAnnounceMultiple": "New data series in chart {chartTitle}: {seriesDesc}",
+            "newPointAnnounceMultiple": "New data point in chart {chartTitle}: {pointDesc}"
+        },
+        "seriesTypeDescriptions": {
+            "boxplot": "Box plot charts are typically used to display groups of statistical data. Each data point in the chart can have up to 5 values: minimum, lower quartile, median, upper quartile, and maximum.",
+            "arearange": "Arearange charts are line charts displaying a range between a lower and higher value for each point.",
+            "areasplinerange": "These charts are line charts displaying a range between a lower and higher value for each point.",
+            "bubble": "Bubble charts are scatter charts where each data point also has a size value.",
+            "columnrange": "Columnrange charts are column charts displaying a range between a lower and higher value for each point.",
+            "errorbar": "Errorbar series are used to display the variability of the data.",
+            "funnel": "Funnel charts are used to display reduction of data in stages.",
+            "pyramid": "Pyramid charts consist of a single pyramid with item heights corresponding to each point value.",
+            "waterfall": "A waterfall chart is a column chart where each column contributes towards a total end value."
+        },
+        "chartTypes": {
+            "emptyChart": "Empty chart",
+            "mapTypeDescription": "Map of {mapTitle} with {numSeries} data series.",
+            "unknownMap": "Map of unspecified region with {numSeries} data series.",
+            "combinationChart": "Combination chart with {numSeries} data series.",
+            "defaultSingle": "Chart with {numPoints} data {#eq numPoints 1}point{else}points{/eq}.",
+            "defaultMultiple": "Chart with {numSeries} data series.",
+            "splineSingle": "Line chart with {numPoints} data {#eq numPoints 1}point{else}points{/eq}.",
+            "splineMultiple": "Line chart with {numSeries} lines.",
+            "lineSingle": "Line chart with {numPoints} data {#eq numPoints 1}point{else}points{/eq}.",
+            "lineMultiple": "Line chart with {numSeries} lines.",
+            "columnSingle": "Bar chart with {numPoints} {#eq numPoints 1}bar{else}bars{/eq}.",
+            "columnMultiple": "Bar chart with {numSeries} data series.",
+            "barSingle": "Bar chart with {numPoints} {#eq numPoints 1}bar{else}bars{/eq}.",
+            "barMultiple": "Bar chart with {numSeries} data series.",
+            "pieSingle": "Pie chart with {numPoints} {#eq numPoints 1}slice{else}slices{/eq}.",
+            "pieMultiple": "Pie chart with {numSeries} pies.",
+            "scatterSingle": "Scatter chart with {numPoints} {#eq numPoints 1}point{else}points{/eq}.",
+            "scatterMultiple": "Scatter chart with {numSeries} data series.",
+            "boxplotSingle": "Boxplot with {numPoints} {#eq numPoints 1}box{else}boxes{/eq}.",
+            "boxplotMultiple": "Boxplot with {numSeries} data series.",
+            "bubbleSingle": "Bubble chart with {numPoints} {#eq numPoints 1}bubbles{else}bubble{/eq}.",
+            "bubbleMultiple": "Bubble chart with {numSeries} data series."
+        },
+        "axis": {
+            "xAxisDescriptionSingular": "The chart has 1 X axis displaying {names[0]}. {ranges[0]}",
+            "xAxisDescriptionPlural": "The chart has {numAxes} X axes displaying {#each names}{#unless @first},{/unless}{#if @last} and{/if} {this}{/each}.",
+            "yAxisDescriptionSingular": "The chart has 1 Y axis displaying {names[0]}. {ranges[0]}",
+            "yAxisDescriptionPlural": "The chart has {numAxes} Y axes displaying {#each names}{#unless @first},{/unless}{#if @last} and{/if} {this}{/each}.",
+            "timeRangeDays": "Data range: {range} days.",
+            "timeRangeHours": "Data range: {range} hours.",
+            "timeRangeMinutes": "Data range: {range} minutes.",
+            "timeRangeSeconds": "Data range: {range} seconds.",
+            "rangeFromTo": "Data ranges from {rangeFrom} to {rangeTo}.",
+            "rangeCategories": "Data range: {numCategories} categories."
+        },
+        "exporting": {
+            "chartMenuLabel": "Chart menu",
+            "menuButtonLabel": "View chart menu, {chartTitle}"
+        },
+        "series": {
+            "summary": {
+                "default": "{series.name}, series {seriesNumber} of {chart.series.length} with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "defaultCombination": "{series.name}, series {seriesNumber} of {chart.series.length} with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "line": "{series.name}, line {seriesNumber} of {chart.series.length} with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "lineCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Line with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "spline": "{series.name}, line {seriesNumber} of {chart.series.length} with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "splineCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Line with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "column": "{series.name}, bar series {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}bar{else}bars{/eq}.",
+                "columnCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Bar series with {series.points.length} {#eq series.points.length 1}bar{else}bars{/eq}.",
+                "bar": "{series.name}, bar series {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}bar{else}bars{/eq}.",
+                "barCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Bar series with {series.points.length} {#eq series.points.length 1}bar{else}bars{/eq}.",
+                "pie": "{series.name}, pie {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}slice{else}slices{/eq}.",
+                "pieCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Pie with {series.points.length} {#eq series.points.length 1}slice{else}slices{/eq}.",
+                "scatter": "{series.name}, scatter plot {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}point{else}points{/eq}.",
+                "scatterCombination": "{series.name}, series {seriesNumber} of {chart.series.length}, scatter plot with {series.points.length} {#eq series.points.length 1}point{else}points{/eq}.",
+                "boxplot": "{series.name}, boxplot {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}box{else}boxes{/eq}.",
+                "boxplotCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Boxplot with {series.points.length} {#eq series.points.length 1}box{else}boxes{/eq}.",
+                "bubble": "{series.name}, bubble series {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}bubble{else}bubbles{/eq}.",
+                "bubbleCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Bubble series with {series.points.length} {#eq series.points.length 1}bubble{else}bubbles{/eq}.",
+                "map": "{series.name}, map {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}area{else}areas{/eq}.",
+                "mapCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Map with {series.points.length} {#eq series.points.length 1}area{else}areas{/eq}.",
+                "mapline": "{series.name}, line {seriesNumber} of {chart.series.length} with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "maplineCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Line with {series.points.length} data {#eq series.points.length 1}point{else}points{/eq}.",
+                "mapbubble": "{series.name}, bubble series {seriesNumber} of {chart.series.length} with {series.points.length} {#eq series.points.length 1}bubble{else}bubbles{/eq}.",
+                "mapbubbleCombination": "{series.name}, series {seriesNumber} of {chart.series.length}. Bubble series with {series.points.length} {#eq series.points.length 1}bubble{else}bubbles{/eq}."
+            },
+            "description": "{description}",
+            "xAxisDescription": "X axis, {name}",
+            "yAxisDescription": "Y axis, {name}",
+            "nullPointValue": "No value",
+            "pointAnnotationsDescription": "{#each annotations}Annotation: {this}{/each}"
+        }
+    },
+    "navigation": {
+        "popup": {
+            "simpleShapes": "Simple shapes",
+            "lines": "Lines",
+            "circle": "Circle",
+            "ellipse": "Ellipse",
+            "rectangle": "Rectangle",
+            "label": "Label",
+            "shapeOptions": "Shape options",
+            "typeOptions": "Details",
+            "fill": "Fill",
+            "format": "Text",
+            "strokeWidth": "Line width",
+            "stroke": "Line color",
+            "title": "Title",
+            "name": "Name",
+            "labelOptions": "Label options",
+            "labels": "Labels",
+            "backgroundColor": "Background color",
+            "backgroundColors": "Background colors",
+            "borderColor": "Border color",
+            "borderRadius": "Border radius",
+            "borderWidth": "Border width",
+            "style": "Style",
+            "padding": "Padding",
+            "fontSize": "Font size",
+            "color": "Color",
+            "height": "Height",
+            "shapes": "Shape options",
+            "segment": "Segment",
+            "arrowSegment": "Arrow segment",
+            "ray": "Ray",
+            "arrowRay": "Arrow ray",
+            "line": "Line",
+            "arrowInfinityLine": "Arrow line",
+            "horizontalLine": "Horizontal line",
+            "verticalLine": "Vertical line",
+            "crooked3": "Crooked 3 line",
+            "crooked5": "Crooked 5 line",
+            "elliott3": "Elliott 3 line",
+            "elliott5": "Elliott 5 line",
+            "verticalCounter": "Vertical counter",
+            "verticalLabel": "Vertical label",
+            "verticalArrow": "Vertical arrow",
+            "fibonacci": "Fibonacci",
+            "fibonacciTimeZones": "Fibonacci Time Zones",
+            "pitchfork": "Pitchfork",
+            "parallelChannel": "Parallel channel",
+            "infinityLine": "Infinity line",
+            "measure": "Measure",
+            "measureXY": "Measure XY",
+            "measureX": "Measure X",
+            "measureY": "Measure Y",
+            "timeCycles": "Time Cycles",
+            "flags": "Flags",
+            "addButton": "Add",
+            "saveButton": "Save",
+            "editButton": "Edit",
+            "removeButton": "Remove",
+            "series": "Series",
+            "volume": "Volume",
+            "connector": "Connector",
+            "innerBackground": "Inner background",
+            "outerBackground": "Outer background",
+            "crosshairX": "Crosshair X",
+            "crosshairY": "Crosshair Y",
+            "tunnel": "Tunnel",
+            "background": "Background",
+            "noFilterMatch": "No match",
+            "searchIndicators": "Search Indicators",
+            "clearFilter": "✕ clear filter",
+            "index": "Index",
+            "period": "Period",
+            "periods": "Periods",
+            "standardDeviation": "Standard deviation",
+            "periodTenkan": "Tenkan period",
+            "periodSenkouSpanB": "Senkou Span B period",
+            "periodATR": "ATR period",
+            "multiplierATR": "ATR multiplier",
+            "shortPeriod": "Short period",
+            "longPeriod": "Long period",
+            "signalPeriod": "Signal period",
+            "decimals": "Decimals",
+            "algorithm": "Algorithm",
+            "topBand": "Top band",
+            "bottomBand": "Bottom band",
+            "initialAccelerationFactor": "Initial acceleration factor",
+            "maxAccelerationFactor": "Max acceleration factor",
+            "increment": "Increment",
+            "multiplier": "Multiplier",
+            "ranges": "Ranges",
+            "highIndex": "High index",
+            "lowIndex": "Low index",
+            "deviation": "Deviation",
+            "xAxisUnit": "x-axis unit",
+            "factor": "Factor",
+            "fastAvgPeriod": "Fast average period",
+            "slowAvgPeriod": "Slow average period",
+            "average": "Average",
+            "indicatorAliases": {
+                "abands": [
+                    "Acceleration Bands"
+                ],
+                "bb": [
+                    "Bollinger Bands"
+                ],
+                "dema": [
+                    "Double Exponential Moving Average"
+                ],
+                "ema": [
+                    "Exponential Moving Average"
+                ],
+                "ikh": [
+                    "Ichimoku Kinko Hyo"
+                ],
+                "keltnerchannels": [
+                    "Keltner Channels"
+                ],
+                "linearRegression": [
+                    "Linear Regression"
+                ],
+                "pivotpoints": [
+                    "Pivot Points"
+                ],
+                "pc": [
+                    "Price Channel"
+                ],
+                "priceenvelopes": [
+                    "Price Envelopes"
+                ],
+                "psar": [
+                    "Parabolic SAR"
+                ],
+                "sma": [
+                    "Simple Moving Average"
+                ],
+                "supertrend": [
+                    "Super Trend"
+                ],
+                "tema": [
+                    "Triple Exponential Moving Average"
+                ],
+                "vbp": [
+                    "Volume by Price"
+                ],
+                "vwap": [
+                    "Volume Weighted Moving Average"
+                ],
+                "wma": [
+                    "Weighted Moving Average"
+                ],
+                "zigzag": [
+                    "Zig Zag"
+                ],
+                "apo": [
+                    "Absolute price indicator"
+                ],
+                "ad": [
+                    "Accumulation/Distribution"
+                ],
+                "aroon": [
+                    "Aroon"
+                ],
+                "aroonoscillator": [
+                    "Aroon oscillator"
+                ],
+                "atr": [
+                    "Average True Range"
+                ],
+                "ao": [
+                    "Awesome oscillator"
+                ],
+                "cci": [
+                    "Commodity Channel Index"
+                ],
+                "chaikin": [
+                    "Chaikin"
+                ],
+                "cmf": [
+                    "Chaikin Money Flow"
+                ],
+                "cmo": [
+                    "Chande Momentum Oscillator"
+                ],
+                "disparityindex": [
+                    "Disparity Index"
+                ],
+                "dmi": [
+                    "Directional Movement Index"
+                ],
+                "dpo": [
+                    "Detrended price oscillator"
+                ],
+                "klinger": [
+                    "Klinger Oscillator"
+                ],
+                "linearRegressionAngle": [
+                    "Linear Regression Angle"
+                ],
+                "linearRegressionIntercept": [
+                    "Linear Regression Intercept"
+                ],
+                "linearRegressionSlope": [
+                    "Linear Regression Slope"
+                ],
+                "macd": [
+                    "Moving Average Convergence Divergence"
+                ],
+                "mfi": [
+                    "Money Flow Index"
+                ],
+                "momentum": [
+                    "Momentum"
+                ],
+                "natr": [
+                    "Normalized Average True Range"
+                ],
+                "obv": [
+                    "On-Balance Volume"
+                ],
+                "ppo": [
+                    "Percentage Price oscillator"
+                ],
+                "roc": [
+                    "Rate of Change"
+                ],
+                "rsi": [
+                    "Relative Strength Index"
+                ],
+                "slowstochastic": [
+                    "Slow Stochastic"
+                ],
+                "stochastic": [
+                    "Stochastic"
+                ],
+                "trix": [
+                    "TRIX"
+                ],
+                "williamsr": [
+                    "Williams %R"
+                ]
+            }
+        }
+    },
+    "mainBreadcrumb": "Main",
+    "downloadMIDI": "Download MIDI",
+    "playAsSound": "Play as sound",
+    "stockTools": {
+        "gui": {
+            "simpleShapes": "Simple shapes",
+            "lines": "Lines",
+            "crookedLines": "Crooked lines",
+            "measure": "Measure",
+            "advanced": "Advanced",
+            "toggleAnnotations": "Toggle annotations",
+            "verticalLabels": "Vertical labels",
+            "flags": "Flags",
+            "zoomChange": "Zoom change",
+            "typeChange": "Type change",
+            "saveChart": "Save chart",
+            "indicators": "Indicators",
+            "currentPriceIndicator": "Current Price Indicators",
+            "zoomX": "Zoom X",
+            "zoomY": "Zoom Y",
+            "zoomXY": "Zooom XY",
+            "fullScreen": "Fullscreen",
+            "typeOHLC": "OHLC",
+            "typeLine": "Line",
+            "typeCandlestick": "Candlestick",
+            "typeHLC": "HLC",
+            "typeHollowCandlestick": "Hollow Candlestick",
+            "typeHeikinAshi": "Heikin Ashi",
+            "circle": "Circle",
+            "ellipse": "Ellipse",
+            "label": "Label",
+            "rectangle": "Rectangle",
+            "flagCirclepin": "Flag circle",
+            "flagDiamondpin": "Flag diamond",
+            "flagSquarepin": "Flag square",
+            "flagSimplepin": "Flag simple",
+            "measureXY": "Measure XY",
+            "measureX": "Measure X",
+            "measureY": "Measure Y",
+            "segment": "Segment",
+            "arrowSegment": "Arrow segment",
+            "ray": "Ray",
+            "arrowRay": "Arrow ray",
+            "line": "Line",
+            "arrowInfinityLine": "Arrow line",
+            "horizontalLine": "Horizontal line",
+            "verticalLine": "Vertical line",
+            "infinityLine": "Infinity line",
+            "crooked3": "Crooked 3 line",
+            "crooked5": "Crooked 5 line",
+            "elliott3": "Elliott 3 line",
+            "elliott5": "Elliott 5 line",
+            "verticalCounter": "Vertical counter",
+            "verticalLabel": "Vertical label",
+            "verticalArrow": "Vertical arrow",
+            "fibonacci": "Fibonacci",
+            "fibonacciTimeZones": "Fibonacci Time Zones",
+            "pitchfork": "Pitchfork",
+            "parallelChannel": "Parallel channel",
+            "timeCycles": "Time Cycles"
+        }
+    },
+    "noData": "No data to display"
+}

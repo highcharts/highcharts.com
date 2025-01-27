@@ -1,0 +1,12 @@
+---
+name: Internationalization
+authors:
+  - Gøran Slettemark
+js_wrap: b
+alt_text: >-
+  Highcharts demo with selectable language.
+tags:
+  - Highcharts demo
+categories:
+  - More chart types
+...

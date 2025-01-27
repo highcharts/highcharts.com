@@ -43,6 +43,7 @@ OPTIONS:
  * */
 
 
+// eslint-disable-next-line jsdoc/require-param
 /**
  * Creates an API tree.
  *
@@ -54,6 +55,7 @@ OPTIONS:
 async function apiTree(_, source) {
     const FSLib = require('../libs/fs');
     const TreeLib = require('../libs/tree');
+    // eslint-disable-next-line node/no-missing-require
     const TSLib = require('../libs/ts');
     const LogLib = require('../libs/log');
     const argv = require('yargs').argv;

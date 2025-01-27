@@ -131,7 +131,28 @@ function handleDefaultOptionsFunctions(save) {
 }
 handleDefaultOptionsFunctions(true);
 */
+const getUndefinedRecursive = (result, obj) => {
+    for (const [key, value] of Object.entries(obj)) {
+          if (value === void 0) {
+            result[key] = void 0;
+        }
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+            result[key] = {};
+            getUndefinedRecursive(result[key], value);
+            if (!Object.keys(result[key]).length) {
+                delete result[key];
+            }
+        }
+    }
+    return result;
+};
 Highcharts.defaultOptionsRaw = JSON.stringify(Highcharts.defaultOptions);
+// Some options are undefined by default, we need to save them because JSON
+// doesn't serialize undefined values.
+Highcharts.explicitUndefineds = getUndefinedRecursive(
+    {},
+    Highcharts.defaultOptions
+);
 Highcharts.callbacksRaw = Highcharts.Chart.prototype.callbacks.slice(0);
 Highcharts.radialDefaultOptionsRaw =
     JSON.stringify(Highcharts.RadialAxis.radialDefaultOptions);
@@ -224,7 +245,10 @@ function resetDefaultOptions(testName) {
     delete Highcharts.defaultOptions.global.getTimezoneOffset;
     delete Highcharts.defaultOptions.time.getTimezoneOffset;
 
-    Highcharts.setOptions(defaultOptionsRaw);
+    Highcharts.setOptions(Highcharts.merge(
+        defaultOptionsRaw,
+        Highcharts.explicitUndefineds
+    ));
 
     // Restore radial axis defaults
     Highcharts.RadialAxis.radialDefaultOptions =

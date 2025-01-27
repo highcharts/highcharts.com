@@ -41,7 +41,7 @@ import { Palette } from '../../Core/Color/Palettes.js';
  *
  * @optionparent lang
  */
-const lang: Record<string, string> = {
+const lang = {
 
     /**
      * The text for the label for the range selector buttons.
@@ -64,8 +64,23 @@ const lang: Record<string, string> = {
      *
      * @product highstock gantt
      */
-    rangeSelectorTo: '→'
+    rangeSelectorTo: '→',
 
+    /**
+     * The default text for the rangeselector buttons.
+     *
+     * @since next
+     */
+    rangeSelector: {
+        allText: 'All',
+        allTitle: 'View all',
+        monthText: '{count}m',
+        monthTitle: 'View {count} {#eq count 1}month{else}months{/eq}',
+        yearText: '{count}y',
+        yearTitle: 'View {count} {#eq count 1}year{else}years{/eq}',
+        ytdText: 'YTD',
+        ytdTitle: 'View year to date'
+    }
 };
 
 /**
@@ -135,32 +150,20 @@ const rangeSelector: RangeSelectorOptions = {
      */
     buttons: [{
         type: 'month',
-        count: 1,
-        text: '1m',
-        title: 'View 1 month'
+        count: 1
     }, {
         type: 'month',
-        count: 3,
-        text: '3m',
-        title: 'View 3 months'
+        count: 3
     }, {
         type: 'month',
-        count: 6,
-        text: '6m',
-        title: 'View 6 months'
+        count: 6
     }, {
-        type: 'ytd',
-        text: 'YTD',
-        title: 'View year to date'
+        type: 'ytd'
     }, {
         type: 'year',
-        count: 1,
-        text: '1y',
-        title: 'View 1 year'
+        count: 1
     }, {
-        type: 'all',
-        text: 'All',
-        title: 'View all'
+        type: 'all'
     }],
 
     /**

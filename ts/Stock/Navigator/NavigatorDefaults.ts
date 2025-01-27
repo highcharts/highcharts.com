@@ -571,7 +571,7 @@ const NavigatorDefaults: NavigatorOptions = {
         crosshair: false,
 
         title: {
-            text: null
+            text: void 0
         },
 
         tickLength: 0,

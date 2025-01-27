@@ -620,6 +620,13 @@ class Axis {
 
         this.options = merge(
             sideSpecific,
+            // Merge in the default title for y-axis, which changes with
+            // language settings
+            this.coll === 'yAxis' ? {
+                title: {
+                    text: this.chart.options.lang.yAxisTitle
+                }
+            } : {},
             defaultOptions[this.coll] as AxisOptions,
             userOptions
         );

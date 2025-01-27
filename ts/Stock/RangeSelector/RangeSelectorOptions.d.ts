@@ -36,6 +36,7 @@ declare module '../../Core/Options'{
         rangeSelectorFrom?: string;
         rangeSelectorTo?: string;
         rangeSelectorZoom?: string;
+        rangeSelector?: Partial<Record<RangeSelectorButtonLangKey, string>>;
     }
     interface Options {
         rangeSelector?: DeepPartial<RangeSelectorOptions>;
@@ -54,13 +55,18 @@ export interface RangeSelectorButtonOptions {
     offsetMax?: number;
     offsetMin?: number;
     preserveDataGrouping?: boolean;
-    text: string;
+    text?: string;
     type?: RangeSelectorButtonTypeValue;
 }
 
 export type RangeSelectorButtonTypeValue = (
     'all'|'day'|'hour'|'millisecond'|'minute'|'month'|'second'|'week'|
     'year'|'ytd'
+);
+
+export type RangeSelectorButtonLangKey = (
+    `${RangeSelectorButtonTypeValue}Text` |
+        `${RangeSelectorButtonTypeValue}Title`
 );
 
 export interface RangeSelectorClickCallbackFunction {

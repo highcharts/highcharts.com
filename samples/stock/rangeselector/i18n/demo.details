@@ -1,0 +1,6 @@
+---
+ name: Highcharts Demo
+ authors:
+   - Gøran Slettemark
+ js_wrap: b
+...

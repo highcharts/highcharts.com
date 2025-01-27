@@ -1,0 +1,505 @@
+{
+    "locale": "fr-FR",
+    "chartTitle": "Titre du graphique",
+    "pieSliceName": "Part",
+    "seriesName": "Série {add index 1}",
+    "yAxisTitle": "Valeurs",
+    "rangeSelector": {
+        "allText": "Tout",
+        "allTitle": "Voir tout",
+        "monthText": "{count}m",
+        "monthTitle": "Voir {count} mois",
+        "yearText": "{count}a",
+        "yearTitle": "Voir {count} {#eq count 1}an{else}ans{/eq}",
+        "ytdText": "ACD",
+        "ytdTitle": "Voir depuis le début de l'année"
+    },
+    "viewFullscreen": "Voir en plein écran",
+    "stockOpen": "Ouverture",
+    "stockHigh": "Haut",
+    "stockLow": "Bas",
+    "stockClose": "Clôture",
+    "weekFrom": "semaine à partir de",
+    "exitFullscreen": "Quitter le plein écran",
+    "printChart": "Imprimer le graphique",
+    "downloadPNG": "Télécharger l'image PNG",
+    "downloadJPEG": "Télécharger l'image JPEG",
+    "downloadPDF": "Télécharger le document PDF",
+    "downloadSVG": "Télécharger l'image vectorielle SVG",
+    "contextButtonTitle": "Menu contextuel du graphique",
+    "loading": "Chargement...",
+    "numericSymbols": [
+        "k",
+        "M",
+        "G",
+        "T",
+        "P",
+        "E"
+    ],
+    "resetZoom": "Réinitialiser le zoom",
+    "resetZoomTitle": "Réinitialiser le niveau de zoom 1:1",
+    "rangeSelectorZoom": "Zoom",
+    "rangeSelectorFrom": "",
+    "rangeSelectorTo": "→",
+    "zoomIn": "Zoomer",
+    "zoomOut": "Dézoomer",
+    "downloadCSV": "Télécharger CSV",
+    "downloadXLS": "Télécharger XLS",
+    "exportData": {
+        "annotationHeader": "Annotations",
+        "categoryHeader": "Catégorie",
+        "categoryDatetimeHeader": "DateTime"
+    },
+    "viewData": "Voir le tableau de données",
+    "hideData": "Cacher le tableau de données",
+    "exportInProgress": "Exportation en cours...",
+    "accessibility": {
+        "defaultChartTitle": "Graphique",
+        "chartContainerLabel": "{title}. Graphique interactif Highcharts.",
+        "svgContainerLabel": "Graphique interactif",
+        "drillUpButton": "{buttonText}",
+        "credits": "Crédits du graphique : {creditsStr}",
+        "thousandsSep": ",",
+        "svgContainerTitle": "",
+        "graphicContainerLabel": "",
+        "screenReaderSection": {
+            "beforeRegionLabel": "",
+            "afterRegionLabel": "",
+            "annotations": {
+                "heading": "Résumé des annotations du graphique",
+                "descriptionSinglePoint": "{annotationText}. En relation avec {annotationPoint}",
+                "descriptionMultiplePoints": "{annotationText}. En relation avec {annotationPoint}{#each additionalAnnotationPoints}, également lié à {this}{/each}",
+                "descriptionNoPoints": "{annotationText}"
+            },
+            "endOfChartMarker": "Fin du graphique interactif."
+        },
+        "sonification": {
+            "playAsSoundButtonText": "Jouer en tant que son, {chartTitle}",
+            "playAsSoundClickAnnouncement": "Jouer"
+        },
+        "legend": {
+            "legendLabelNoTitle": "Changer la visibilité de la série, {chartTitle}",
+            "legendLabel": "Légende du graphique : {legendTitle}",
+            "legendItem": "Montrer {itemName}"
+        },
+        "zoom": {
+            "mapZoomIn": "Zoomer sur le graphique",
+            "mapZoomOut": "Dézoomer le graphique",
+            "resetZoomButton": "Réinitialiser le zoom"
+        },
+        "rangeSelector": {
+            "dropdownLabel": "{rangeTitle}",
+            "minInputLabel": "Sélectionner la date de début.",
+            "maxInputLabel": "Sélectionner la date de fin.",
+            "clickButtonAnnouncement": "Affichage de {axisRangeDescription}"
+        },
+        "navigator": {
+            "handleLabel": "{#eq handleIx 0}Début, pourcentage{else}Fin, pourcentage{/eq}",
+            "groupLabel": "Zoom de l'axe",
+            "changeAnnouncement": "{axisRangeDescription}"
+        },
+        "table": {
+            "viewAsDataTableButtonText": "Voir en tant que tableau de données, {chartTitle}",
+            "tableSummary": "Représentation en tableau du graphique."
+        },
+        "announceNewData": {
+            "newDataAnnounce": "Données mises à jour pour le graphique {chartTitle}",
+            "newSeriesAnnounceSingle": "Nouvelle série de données : {seriesDesc}",
+            "newPointAnnounceSingle": "Nouveau point de données : {pointDesc}",
+            "newSeriesAnnounceMultiple": "Nouvelles séries de données dans le graphique {chartTitle} : {seriesDesc}",
+            "newPointAnnounceMultiple": "Nouveau point de données dans le graphique {chartTitle} : {pointDesc}"
+        },
+        "seriesTypeDescriptions": {
+            "boxplot": "Les graphiques en boîte sont typiquement utilisés pour afficher des groupes de données statistiques. Chaque point de données dans le graphique peut avoir jusqu'à 5 valeurs : minimum, premier quartile, médiane, troisième quartile et maximum.",
+            "arearange": "Les graphiques en aire montrent une plage entre une valeur inférieure et une valeur supérieure pour chaque point.",
+            "areasplinerange": "Ces graphiques sont des graphiques en ligne affichant une plage entre une valeur inférieure et une valeur supérieure pour chaque point.",
+            "bubble": "Les graphiques à bulles sont des graphiques de dispersion où chaque point de données a également une valeur de taille.",
+            "columnrange": "Les graphiques en colonnes montrent une plage entre une valeur inférieure et une valeur supérieure pour chaque point.",
+            "errorbar": "Les séries de barres d'erreur sont utilisées pour afficher la variabilité des données.",
+            "funnel": "Les graphiques en entonnoir sont utilisés pour afficher la réduction des données en étapes.",
+            "pyramid": "Les graphiques en pyramide se composent d'une seule pyramide dont les hauteurs des éléments correspondent à chaque valeur de point.",
+            "waterfall": "Un graphique en cascade est un graphique en colonnes où chaque colonne contribue à une valeur finale totale."
+        },
+        "chartTypes": {
+            "emptyChart": "Graphique vide",
+            "mapTypeDescription": "Carte de {mapTitle} avec {numSeries} séries de données.",
+            "unknownMap": "Carte de région non spécifiée avec {numSeries} séries de données.",
+            "combinationChart": "Graphique combiné avec {numSeries} séries de données.",
+            "defaultSingle": "Graphique avec {numPoints} donnée{#eq numPoints 1}{else}s{/eq}.",
+            "defaultMultiple": "Graphique avec {numSeries} séries de données.",
+            "splineSingle": "Graphique en ligne avec {numPoints} donnée{#eq numPoints 1}{else}s{/eq}.",
+            "splineMultiple": "Graphique en ligne avec {numSeries} lignes.",
+            "lineSingle": "Graphique en ligne avec {numPoints} donnée{#eq numPoints 1}{else}s{/eq}.",
+            "lineMultiple": "Graphique en ligne avec {numSeries} lignes.",
+            "columnSingle": "Graphique en barres avec {numPoints} barre{#eq numPoints 1}{else}s{/eq}.",
+            "columnMultiple": "Graphique en barres avec {numSeries} séries de données.",
+            "barSingle": "Graphique en barres avec {numPoints} barre{#eq numPoints 1}{else}s{/eq}.",
+            "barMultiple": "Graphique en barres avec {numSeries} séries de données.",
+            "pieSingle": "Graphique en camembert avec {numPoints} part{#eq numPoints 1}{else}s{/eq}.",
+            "pieMultiple": "Graphique en camembert avec {numSeries} camemberts.",
+            "scatterSingle": "Graphique de dispersion avec {numPoints} point{#eq numPoints 1}{else}s{/eq}.",
+            "scatterMultiple": "Graphique de dispersion avec {numSeries} séries de données.",
+            "boxplotSingle": "Graphique en boîte avec {numPoints} boîte{#eq numPoints 1}{else}s{/eq}.",
+            "boxplotMultiple": "Graphique en boîte avec {numSeries} séries de données.",
+            "bubbleSingle": "Graphique à bulles avec {numPoints} bulle{#eq numPoints 1}{else}s{/eq}.",
+            "bubbleMultiple": "Graphique à bulles avec {numSeries} séries de données."
+        },
+        "axis": {
+            "xAxisDescriptionSingular": "Le graphique a 1 axe X affichant {names[0]}. {ranges[0]}",
+            "xAxisDescriptionPlural": "Le graphique a {numAxes} axes X affichant {#each names}{#unless @first},{/unless}{#if @last} et{/if} {this}{/each}.",
+            "yAxisDescriptionSingular": "Le graphique a 1 axe Y affichant {names[0]}. {ranges[0]}",
+            "yAxisDescriptionPlural": "Le graphique a {numAxes} axes Y affichant {#each names}{#unless @first},{/unless}{#if @last} et{/if} {this}{/each}.",
+            "timeRangeDays": "Plage de données : {range} jours.",
+            "timeRangeHours": "Plage de données : {range} heures.",
+            "timeRangeMinutes": "Plage de données : {range} minutes.",
+            "timeRangeSeconds": "Plage de données : {range} secondes.",
+            "rangeFromTo": "Les données vont de {rangeFrom} à {rangeTo}.",
+            "rangeCategories": "Plage de données : {numCategories} catégories."
+        },
+        "exporting": {
+            "chartMenuLabel": "Menu du graphique",
+            "menuButtonLabel": "Voir le menu du graphique, {chartTitle}"
+        },
+        "series": {
+            "summary": {
+                "default": "{series.name}, série {seriesNumber} sur {chart.series.length} avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "defaultCombination": "{series.name}, série {seriesNumber} sur {chart.series.length} avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "line": "{series.name}, ligne {seriesNumber} sur {chart.series.length} avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "lineCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Ligne avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "spline": "{series.name}, ligne {seriesNumber} sur {chart.series.length} avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "splineCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Ligne avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "column": "{series.name}, série de barres {seriesNumber} sur {chart.series.length} avec {series.points.length} barre{#eq series.points.length 1}{else}s{/eq}.",
+                "columnCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Série de barres avec {series.points.length} barre{#eq series.points.length 1}{else}s{/eq}.",
+                "bar": "{series.name}, série de barres {seriesNumber} sur {chart.series.length} avec {series.points.length} barre{#eq series.points.length 1}{else}s{/eq}.",
+                "barCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Série de barres avec {series.points.length} barre{#eq series.points.length 1}{else}s{/eq}.",
+                "pie": "{series.name}, tarte {seriesNumber} sur {chart.series.length} avec {series.points.length} part{#eq series.points.length 1}{else}s{/eq}.",
+                "pieCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Tarte avec {series.points.length} part{#eq series.points.length 1}{else}s{/eq}.",
+                "scatter": "{series.name}, graphique de dispersion {seriesNumber} sur {chart.series.length} avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "scatterCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}, graphique de dispersion avec {series.points.length} point{#eq series.points.length 1}{else}s{/eq}.",
+                "boxplot": "{series.name}, graphique en boîte {seriesNumber} sur {chart.series.length} avec {series.points.length} boîte{#eq series.points.length 1}{else}s{/eq}.",
+                "boxplotCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Graphique en boîte avec {series.points.length} boîte{#eq series.points.length 1}{else}s{/eq}.",
+                "bubble": "{series.name}, série de bulles {seriesNumber} sur {chart.series.length} avec {series.points.length} bulle{#eq series.points.length 1}{else}s{/eq}.",
+                "bubbleCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Série de bulles avec {series.points.length} bulle{#eq series.points.length 1}{else}s{/eq}.",
+                "map": "{series.name}, carte {seriesNumber} sur {chart.series.length} avec {series.points.length} zone{#eq series.points.length 1}{else}s{/eq}.",
+                "mapCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Carte avec {series.points.length} zone{#eq series.points.length 1}{else}s{/eq}.",
+                "mapline": "{series.name}, ligne {seriesNumber} sur {chart.series.length} avec {series.points.length} donnée{#eq series.points.length 1}{else}s{/eq}.",
+                "maplineCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Ligne avec {series.points.length} donnée{#eq series.points.length 1}{else}s{/eq}.",
+                "mapbubble": "{series.name}, série de bulles {seriesNumber} sur {chart.series.length} avec {series.points.length} bulle{#eq series.points.length 1}{else}s{/eq}.",
+                "mapbubbleCombination": "{series.name}, série {seriesNumber} sur {chart.series.length}. Série de bulles avec {series.points.length} bulle{#eq series.points.length 1}{else}s{/eq}."
+            },
+            "description": "{description}",
+            "xAxisDescription": "Axe X, {name}",
+            "yAxisDescription": "Axe Y, {name}",
+            "nullPointValue": "Aucune valeur",
+            "pointAnnotationsDescription": "{#each annotations}Annotation : {this}{/each}"
+        }
+    },
+    "navigation": {
+        "popup": {
+            "simpleShapes": "Formes simples",
+            "lines": "Lignes",
+            "circle": "Cercle",
+            "ellipse": "Ellipse",
+            "rectangle": "Rectangle",
+            "label": "Étiquette",
+            "shapeOptions": "Options de forme",
+            "typeOptions": "Détails",
+            "fill": "Remplissage",
+            "format": "Texte",
+            "strokeWidth": "Largeur de ligne",
+            "stroke": "Couleur de ligne",
+            "title": "Titre",
+            "name": "Nom",
+            "labelOptions": "Options d'étiquette",
+            "labels": "Étiquettes",
+            "backgroundColor": "Couleur d'arrière-plan",
+            "backgroundColors": "Couleurs d'arrière-plan",
+            "borderColor": "Couleur de bordure",
+            "borderRadius": "Rayon de bordure",
+            "borderWidth": "Largeur de bordure",
+            "style": "Style",
+            "padding": "Marge",
+            "fontSize": "Taille de police",
+            "color": "Couleur",
+            "height": "Hauteur",
+            "shapes": "Options de forme",
+            "segment": "Segment",
+            "arrowSegment": "Segment fléché",
+            "ray": "Rayon",
+            "arrowRay": "Rayon fléché",
+            "line": "Ligne",
+            "arrowInfinityLine": "Ligne fléchée",
+            "horizontalLine": "Ligne horizontale",
+            "verticalLine": "Ligne verticale",
+            "crooked3": "Ligne courbée 3",
+            "crooked5": "Ligne courbée 5",
+            "elliott3": "Ligne Elliott 3",
+            "elliott5": "Ligne Elliott 5",
+            "verticalCounter": "Compteur vertical",
+            "verticalLabel": "Étiquette verticale",
+            "verticalArrow": "Flèche verticale",
+            "fibonacci": "Fibonacci",
+            "fibonacciTimeZones": "Zones temporelles Fibonacci",
+            "pitchfork": "Fourchette",
+            "parallelChannel": "Canal parallèle",
+            "infinityLine": "Ligne infinie",
+            "measure": "Mesure",
+            "measureXY": "Mesurer XY",
+            "measureX": "Mesurer X",
+            "measureY": "Mesurer Y",
+            "timeCycles": "Cycles temporels",
+            "flags": "Drapeaux",
+            "addButton": "Ajouter",
+            "saveButton": "Enregistrer",
+            "editButton": "Modifier",
+            "removeButton": "Retirer",
+            "series": "Séries",
+            "volume": "Volume",
+            "connector": "Connecteur",
+            "innerBackground": "Arrière-plan intérieur",
+            "outerBackground": "Arrière-plan extérieur",
+            "crosshairX": "Réticule X",
+            "crosshairY": "Réticule Y",
+            "tunnel": "Tunnel",
+            "background": "Arrière-plan",
+            "noFilterMatch": "Aucune correspondance",
+            "searchIndicators": "Rechercher des indicateurs",
+            "clearFilter": "✕ effacer le filtre",
+            "index": "Index",
+            "period": "Période",
+            "periods": "Périodes",
+            "standardDeviation": "Écart type",
+            "periodTenkan": "Période Tenkan",
+            "periodSenkouSpanB": "Période Senkou Span B",
+            "periodATR": "Période ATR",
+            "multiplierATR": "Multiplicateur ATR",
+            "shortPeriod": "Période courte",
+            "longPeriod": "Période longue",
+            "signalPeriod": "Période de signal",
+            "decimals": "Décimales",
+            "algorithm": "Algorithme",
+            "topBand": "Bande supérieure",
+            "bottomBand": "Bande inférieure",
+            "initialAccelerationFactor": "Facteur d'accélération initial",
+            "maxAccelerationFactor": "Facteur d'accélération maximal",
+            "increment": "Incrément",
+            "multiplier": "Multiplicateur",
+            "ranges": "Plages",
+            "highIndex": "Index élevé",
+            "lowIndex": "Index bas",
+            "deviation": "Déviation",
+            "xAxisUnit": "Unité de l'axe X",
+            "factor": "Facteur",
+            "fastAvgPeriod": "Période moyenne rapide",
+            "slowAvgPeriod": "Période moyenne lente",
+            "average": "Moyenne",
+            "indicatorAliases": {
+                "abands": [
+                    "Bandes d'accélération"
+                ],
+                "bb": [
+                    "Bandes de Bollinger"
+                ],
+                "dema": [
+                    "Moyenne mobile exponentielle double"
+                ],
+                "ema": [
+                    "Moyenne mobile exponentielle"
+                ],
+                "ikh": [
+                    "Ichimoku Kinko Hyo"
+                ],
+                "keltnerchannels": [
+                    "Canaux de Keltner"
+                ],
+                "linearRegression": [
+                    "Régression linéaire"
+                ],
+                "pivotpoints": [
+                    "Points de pivot"
+                ],
+                "pc": [
+                    "Canal de prix"
+                ],
+                "priceenvelopes": [
+                    "Enveloppes de prix"
+                ],
+                "psar": [
+                    "Parabolic SAR"
+                ],
+                "sma": [
+                    "Moyenne mobile simple"
+                ],
+                "supertrend": [
+                    "Super tendance"
+                ],
+                "tema": [
+                    "Moyenne mobile exponentielle triple"
+                ],
+                "vbp": [
+                    "Volume par prix"
+                ],
+                "vwap": [
+                    "Moyenne pondérée par le volume"
+                ],
+                "wma": [
+                    "Moyenne mobile pondérée"
+                ],
+                "zigzag": [
+                    "Zig Zag"
+                ],
+                "apo": [
+                    "Indicateur de prix absolu"
+                ],
+                "ad": [
+                    "Accumulation/Distribution"
+                ],
+                "aroon": [
+                    "Aroon"
+                ],
+                "aroonoscillator": [
+                    "Oscillateur Aroon"
+                ],
+                "atr": [
+                    "Average True Range"
+                ],
+                "ao": [
+                    "Oscillateur impressionnant"
+                ],
+                "cci": [
+                    "Indice de canal des marchandises"
+                ],
+                "chaikin": [
+                    "Chaikin"
+                ],
+                "cmf": [
+                    "Flux monétaire de Chaikin"
+                ],
+                "cmo": [
+                    "Oscillateur de momentum de Chande"
+                ],
+                "disparityindex": [
+                    "Indice de disparité"
+                ],
+                "dmi": [
+                    "Indice de mouvement directionnel"
+                ],
+                "dpo": [
+                    "Oscillateur de prix détendu"
+                ],
+                "klinger": [
+                    "Oscillateur Klinger"
+                ],
+                "linearRegressionAngle": [
+                    "Angle de régression linéaire"
+                ],
+                "linearRegressionIntercept": [
+                    "Interception de régression linéaire"
+                ],
+                "linearRegressionSlope": [
+                    "Pente de régression linéaire"
+                ],
+                "macd": [
+                    "Convergence et divergence de moyenne mobile"
+                ],
+                "mfi": [
+                    "Indice de flux monétaire"
+                ],
+                "momentum": [
+                    "Momentum"
+                ],
+                "natr": [
+                    "Average True Range normalisé"
+                ],
+                "obv": [
+                    "Volume équilibré"
+                ],
+                "ppo": [
+                    "Oscillateur de prix en pourcentage"
+                ],
+                "roc": [
+                    "Taux de changement"
+                ],
+                "rsi": [
+                    "Indice de force relative"
+                ],
+                "slowstochastic": [
+                    "Stochastique lent"
+                ],
+                "stochastic": [
+                    "Stochastique"
+                ],
+                "trix": [
+                    "TRIX"
+                ],
+                "williamsr": [
+                    "Williams %R"
+                ]
+            }
+        }
+    },
+       "mainBreadcrumb": "Principal",
+    "downloadMIDI": "Télécharger MIDI",
+    "playAsSound": "Jouer comme un son",
+    "stockTools": {
+        "gui": {
+            "simpleShapes": "Formes simples",
+            "lines": "Lignes",
+            "crookedLines": "Lignes courbées",
+            "measure": "Mesure",
+            "advanced": "Avancé",
+            "toggleAnnotations": "Basculer les annotations",
+            "verticalLabels": "Étiquettes verticales",
+            "flags": "Drapeaux",
+            "zoomChange": "Changement de zoom",
+            "typeChange": "Changement de type",
+            "saveChart": "Enregistrer le graphique",
+            "indicators": "Indicateurs",
+            "currentPriceIndicator": "Indicateurs du prix actuel",
+            "zoomX": "Zoom X",
+            "zoomY": "Zoom Y",
+            "zoomXY": "Zoom XY",
+            "fullScreen": "Plein écran",
+            "typeOHLC": "OHLC",
+            "typeLine": "Ligne",
+            "typeCandlestick": "Chandelier",
+            "typeHLC": "HLC",
+            "typeHollowCandlestick": "Chandelier creux",
+            "typeHeikinAshi": "Heikin Ashi",
+            "circle": "Cercle",
+            "ellipse": "Ellipse",
+            "label": "Étiquette",
+            "rectangle": "Rectangle",
+            "flagCirclepin": "Drapeau cercle",
+            "flagDiamondpin": "Drapeau losange",
+            "flagSquarepin": "Drapeau carré",
+            "flagSimplepin": "Drapeau simple",
+            "measureXY": "Mesurer XY",
+            "measureX": "Mesurer X",
+            "measureY": "Mesurer Y",
+            "segment": "Segment",
+            "arrowSegment": "Segment fléché",
+            "ray": "Rayon",
+            "arrowRay": "Rayon fléché",
+            "line": "Ligne",
+            "arrowInfinityLine": "Ligne fléchée",
+            "horizontalLine": "Ligne horizontale",
+            "verticalLine": "Ligne verticale",
+            "infinityLine": "Ligne infinie",
+            "crooked3": "Ligne courbée 3",
+            "crooked5": "Ligne courbée 5",
+            "elliott3": "Ligne Elliott 3",
+            "elliott5": "Ligne Elliott 5",
+            "verticalCounter": "Compteur vertical",
+            "verticalLabel": "Étiquette verticale",
+            "verticalArrow": "Flèche verticale",
+            "fibonacci": "Fibonacci",
+            "fibonacciTimeZones": "Zones temporelles Fibonacci",
+            "pitchfork": "Fourche",
+            "parallelChannel": "Canal parallèle",
+            "timeCycles": "Cycles temporels"
+        }
+    },
+    "noData": "Aucune donnée à afficher"
+}
+

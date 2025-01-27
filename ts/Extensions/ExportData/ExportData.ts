@@ -938,20 +938,16 @@ function chartGetTableAST(
         };
 
     // Add table caption
-    if ((options.exporting as any).tableCaption !== false) {
+    const { tableCaption } = options.exporting || {};
+    if (tableCaption !== false) {
         treeChildren.push({
             tagName: 'caption',
             attributes: {
                 'class': 'highcharts-table-caption'
             },
-            textContent: pick(
-                (options.exporting as any).tableCaption,
-                (
-                    (options.title as any).text ?
-                        (options.title as any).text :
-                        'Chart'
-                )
-            )
+            textContent: typeof tableCaption === 'string' ?
+                tableCaption :
+                options.title?.text || options.lang.chartTitle
         });
     }
 

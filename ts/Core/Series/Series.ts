@@ -77,6 +77,8 @@ import SeriesDefaults from './SeriesDefaults.js';
 import SeriesRegistry from './SeriesRegistry.js';
 const { seriesTypes } = SeriesRegistry;
 import SVGElement from '../Renderer/SVG/SVGElement.js';
+import T from '../Templating.js';
+const { format } = T;
 import U from '../Utilities.js';
 const {
     arrayMax,
@@ -858,10 +860,12 @@ class Series {
      */
     public getName(): string {
         // #4119
-        return pick(
-            this.options.name,
-            'Series ' + ((this.index as any) + 1)
-        );
+        return this.options.name ??
+            format(
+                this.chart.options.lang.seriesName,
+                this,
+                this.chart
+            );
     }
 
     /**
