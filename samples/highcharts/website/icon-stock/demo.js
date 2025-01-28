@@ -674,6 +674,15 @@
                             });
                             greenArrow.classList.add('hide');
                             purpleArrow.classList.add('hide');
+                            document.querySelector(
+                                '#stock .purple-line' +
+                                ' .highcharts-point:nth-of-type(3)'
+                            ).style.transition = '0s';
+                            document.querySelector(
+                                '#stock .green-line' +
+                                ' .highcharts-point:nth-of-type(3)'
+                            ).style.transition =
+                                '0s';
                             // /set the x extremes to slide to the right
                             chart.xAxis[1].setExtremes(0, 7);
                         }, 5200);

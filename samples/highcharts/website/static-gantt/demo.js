@@ -75,7 +75,7 @@ const ganttChart = function () {
     // Create the chart
     chart = Highcharts.ganttChart('gantt', {
         chart: {
-            height: 500,
+            height: '100%',
             margin: [120, 10, 20, 10],
             spacing: [30, 0, 0, 10],
             events: {
@@ -343,7 +343,7 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 250,
+                        // height: 250,
                         margin: [80, 10, 20, 10]
                     },
                     plotOptions: {
@@ -369,7 +369,7 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 300
+                        // height: 300
                     },
                     plotOptions: {
                         series: {
@@ -394,7 +394,7 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 400
+                        // height: 400
                     },
                     plotOptions: {
                         series: {
@@ -418,7 +418,7 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 500,
+                        // height: 500,
                         margin: [120, 10, 20, 10]
                     },
                     plotOptions: {

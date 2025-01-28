@@ -79,8 +79,9 @@ body {
 }
 
 #maps {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 4px;
     background-color: #2f2b38;
     border: 1px solid #46465c;
@@ -234,25 +235,4 @@ body {
     font-size: 32px;
     color: #8af2b6;
     margin-top: 17px;
-}
-
-@media screen  and (min-width: 300px) {
-    #maps {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media screen  and (min-width: 400px) {
-    #maps {
-        width: 400px;
-        height: 400px;
-    }
-}
-
-@media screen  and (min-width: 500px) {
-    #maps {
-        width: 500px;
-        height: 500px;
-    }
 }

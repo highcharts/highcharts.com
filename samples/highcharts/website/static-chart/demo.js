@@ -49,6 +49,8 @@ const iceberg = {
                     'highcharts-title'
                 )[0];
 
+                console.log(chart.chartWidth);
+
 
                 cover.style.fill =  '#30426B';
                 background.style.fill = '#f0f0f0';
@@ -161,13 +163,12 @@ const iceberg = {
             '<p style="text-align:center;margin:0px;font-weight:300;' +
             'font-size:0.8em">Newfoundland, Canada</p>',
         useHTML: true,
-        floating: true
+        y: 30
 
     },
     subtitle: {
         text: '<p class="iceberg-subtitle"></p>',
-        useHTML: true,
-        floating: true
+        useHTML: true
     },
     xAxis: [
         // 0 -
@@ -217,11 +218,12 @@ const iceberg = {
             min: -2,
             max: 18,
             gridZIndex: 20,
+            gridLineWidth: 0,
             title: {
-                text: 'Meters',
-                x: -12,
-                y: -75,
-                rotation: 0
+                text: '',
+                offset: -10,
+                rotation: 0,
+                y: -240
             },
             tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
             zIndex: 1,
@@ -242,7 +244,7 @@ const iceberg = {
                         color = '#000';
                     }
                     return `
-                <p style="color:${color}">${label}</p>
+                <p style="color:${color};white-space:nowrap;">${label} m</p>
               `;
                 }
             },
@@ -254,6 +256,7 @@ const iceberg = {
             gridZIndex: 20,
             tickPositions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
             gridLineColor: 'transparent',
+            gridLineWidth: 0,
             tickInterval: 1,
             startOnTick: false,
             endOnTick: false,
@@ -453,7 +456,7 @@ const iceberg = {
                     dataLabels: {
                         enabled: true,
                         useHTML: true,
-                        x: 30,
+                        x: 40,
                         y: 50,
                         formatter: function () {
                             const htmlString =

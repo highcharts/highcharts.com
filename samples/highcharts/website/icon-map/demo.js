@@ -21,6 +21,8 @@ Math.easeOutBounce = pos => {
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let mapLoaded = false;
+let pointRadius = 37;
+let pointCenterRadius = 14;
 
 
 const imgPath = 'https://www.highcharts.com/samples/graphics/homepage/';
@@ -52,6 +54,9 @@ const maps = {
                 const mapPointCenter = document.getElementsByClassName(
                     'map-point-center'
                 )[1];
+                const mapPointSeries = chart.series[14];
+                const mapPointCenterSeries = chart.series[15];
+                // const mapPointPointerSeries = chart.series[16];
                 const leftSide =  document.querySelector('.left');
                 const rightSide =  document.querySelector('.right');
                 const top =  document.querySelector('.top');
@@ -59,6 +64,32 @@ const maps = {
                 const background = document.getElementsByClassName(
                     'highcharts-plot-background'
                 )[0];
+
+                // if(chart.chartWidth >= 775) {
+                //     pointRadius = 58;
+                //     pointCenterRadius = 22;
+                // }
+
+                pointRadius = parseFloat(chart.chartWidth * 0.072);
+                pointCenterRadius = parseFloat(chart.chartWidth * 0.03);
+
+                mapPointSeries.update({
+                    marker: {
+                        enabled: true,
+                        symbol: 'circle',
+                        radius: pointRadius
+                    }
+                }, false);
+
+                mapPointCenterSeries.update({
+                    marker: {
+                        enabled: true,
+                        symbol: 'circle',
+                        radius: pointCenterRadius
+                    }
+                }, false);
+
+                chart.redraw();
 
                 const finalHide = function () {
                     [].forEach.call(
@@ -151,14 +182,14 @@ const maps = {
                         growEnvelope();
                     }
                     // /grow the map marker
-                    mapPointPoint.classList.add('grow');
-                    mapPointTop.classList.add('grow');
-                    mapPointCenter.classList.add('grow');
+                    // mapPointPoint.classList.add('grow');
+                    // mapPointTop.classList.add('grow');
+                    // mapPointCenter.classList.add('grow');
                 }, 1000);
 
                 setTimeout(function () {
-                    // /animation is don
-                    // /hide everything
+                    // animation is done
+                    // hide everything
                     finalHide();
                 }, 4000);
 
@@ -467,12 +498,7 @@ const maps = {
             data: [
                 {
                     x: 10,
-                    y: 8.4, // 11,
-                    marker: {
-                        enabled: true,
-                        symbol: 'circle',
-                        radius: 37
-                    }
+                    y: 8.4
                 }
             ],
             zIndex: 15,
@@ -488,12 +514,7 @@ const maps = {
             data: [
                 {
                     x: 10,
-                    y: 8.44,
-                    marker: {
-                        enabled: true,
-                        symbol: 'circle',
-                        radius: 14
-                    }
+                    y: 8.44
                 }
             ],
             zIndex: 19,

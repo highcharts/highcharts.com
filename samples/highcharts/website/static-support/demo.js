@@ -122,8 +122,7 @@ const words = {
     title: {
         text: `<div class="title-container">
                   <p>popular words from the</p>
-                    <h1>Highcharts</h1>
-                    <p>forum</p>
+                    <h1>Highcharts forum</h1>
                    
                 </div>`,
         useHTML: true,

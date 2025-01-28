@@ -5,21 +5,21 @@ body {
 }
 
 .chart-container .thick {
-    stroke-width: 1;
+    stroke-width: 0;
     stroke: white;
     color: white;
     transition: all 2s;
 }
 
 .chart-container .thin {
-    stroke-width: 1;
+    stroke-width: 0;
     stroke: white;
     color: white;
     transition: all 2s;
 }
 
 .chart-container .transparent {
-    opacity: 1;
+    opacity: 0;
     stroke-width: 1;
     stroke: white;
     color: white;
@@ -35,7 +35,7 @@ body {
 .line {
     color: #fff;
     stroke: #fff;
-    stroke-width: 1px;
+    stroke-width: 0;
 }
 
 .chart-container .highcharts-container {
@@ -46,7 +46,7 @@ body {
     z-index: 0;
     -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
     font-family: "IBM Plex Sans", sans-serif;
-    font-size: 12px;
+    font-size: 1rem;
     user-select: none;
     touch-action: manipulation;
     outline: none;
@@ -64,7 +64,7 @@ body {
 }
 
 .chart-container .highcharts-xaxis-grid .highcharts-grid-line {
-    stroke-width: 1px;
+    stroke-width: 0;
 }
 
 .chart-container .highcharts-legend-series-active g.highcharts-series:not(.highcharts-series-hover),
@@ -115,8 +115,10 @@ body {
 }
 
 #charts {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    max-width: 800px;
     border-radius: 4px;
     background-color: #2f2b38;
     border: 1px solid #46465c;
@@ -159,7 +161,7 @@ body {
 
 #charts .white-line .highcharts-graph {
     fill: transparent;
-    stroke-width: 1px;
+    stroke-width: 0;
     stroke: rgb(255 255 255 / 50%);
 }
 
@@ -193,7 +195,7 @@ body {
 
 #charts .highcharts-grid-line {
     fill: none;
-    stroke: rgb(255 255 255 / 50%);
+    stroke: rgb(255 255 255 / 0);
     z-index: 40;
 }
 
@@ -525,12 +527,14 @@ body {
     width: 100%;
     opacity: 1;
     text-transform: uppercase;
-    transform: translateY(0);
+
+    /* transform: translateY(0); */
 }
 
 #charts .highcharts-title {
     font-size: 1em;
-    transform: translateY(20px);
+
+    /* transform: translateY(20px); */
     font-weight: 700;
     opacity: 0;
     transition: opacity 1s;
@@ -538,7 +542,8 @@ body {
 
 #charts .highcharts-subtitle {
     font-size: 0.9em;
-    transform: translateY(-20px);
+
+    /* transform: translateY(-20px); */
     font-weight: 400;
     transition: opacity 300ms;
     color: #fff;
@@ -564,6 +569,7 @@ body {
     font-size: 0.9em;
     font-weight: 300;
     margin: 0;
+    text-align: left;
 }
 
 #charts .highcharts-axis-labels {
@@ -575,13 +581,13 @@ body {
 }
 
 @media screen  and (min-width: 300px) {
-    #charts {
+    /* #charts {
         width: 300px;
         height: 300px;
-    }
+    } */
 
     #charts .highcharts-axis-title {
-        transform: translateY(-10px);
+        /* transform: translateY(-10px); */
     }
 
     #charts .highcharts-subtitle {
@@ -594,10 +600,10 @@ body {
 }
 
 @media screen  and (min-width: 400px) {
-    #charts {
+    /* #charts {
         width: 400px;
         height: 400px;
-    }
+    } */
 
     #charts .particles {
         position: absolute;
@@ -609,8 +615,9 @@ body {
     }
 
     #charts .highcharts-title {
-        font-size: 1.4em;
-        transform: translateY(20px);
+        font-size: 1.2em;
+
+        /* transform: translateY(20px); */
         font-weight: 700;
         opacity: 0;
         transition: opacity 1s;
@@ -619,7 +626,8 @@ body {
     #charts .highcharts-subtitle {
         font-size: 1.1em;
         line-height: 1.5em;
-        transform: translateY(20px);
+
+        /* transform: translateY(20px); */
         font-weight: 400;
         color: #fff;
         transition: opacity 1s;
@@ -636,6 +644,7 @@ body {
 
     #charts .label-title {
         font-size: 1em;
+        text-align: left;
     }
 
     #charts .berg-tip {
@@ -649,19 +658,14 @@ body {
     #charts .highcharts-data-label-color-5 .berg-label {
         transform: translate(5px, 0);
     }
-
-    #charts .highcharts-axis-title {
-        transform: translateY(-35px);
-    }
 }
 
 @media screen  and (min-width: 500px) {
-    #charts {
-        width: 500px;
-        height: 500px;
+    #charts .label-percent {
+        font-size: 1.4em;
     }
 
-    #charts .label-percent {
+    #charts .highcharts-title {
         font-size: 1.4em;
     }
 
@@ -732,7 +736,7 @@ body {
     }
 
     #charts .highcharts-axis-title {
-        transform: translate(-10px, -70px);
+        /* transform: translate(-10px, -70px); */
         font-size: 0.8em;
     }
 }

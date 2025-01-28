@@ -79,8 +79,9 @@ body {
 }
 
 #maps {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 4px;
     background-color: #2f2b38;
     border: 1px solid #46465c;
@@ -111,33 +112,12 @@ body {
     stroke: transparent;
 }
 
-#maps .map-point-center {
-    transform: translate(63px, 60px) scale(0.5);
-    transition: all 3s;
-}
-
-#maps .map-point-center.grow {
-    transform: translate(0, -25px) scale(1);
-}
-
 #maps .map-point-point,
 #maps .map-point-top,
 #maps .map-point-top .highcharts-color-4 {
     fill: #8bf2b6;
     stroke: #8bf2b6;
     transition: all 3s;
-}
-
-#maps .map-point-point.grow {
-    transform: translate(-87px, -106px) scale(1.7);
-}
-
-#maps .map-point-top {
-    transform: translate(63px, 60px) scale(0.5);
-}
-
-#maps .map-point-top.grow {
-    transform: translate(14px, -11px) scale(0.89);
 }
 
 #maps .top {
@@ -307,31 +287,6 @@ body {
 }
 
 @media screen  and (min-width: 300px) {
-    #maps {
-        width: 300px;
-        height: 300px;
-    }
-
-    #maps .map-point-top {
-        transform: translate(70.5px, 70.5px) scale(0.53);
-    }
-
-    #maps .map-point-center {
-        transform: translate(70.5px, 70.5px) scale(0.53);
-    }
-
-    #maps .map-point-point.grow {
-        transform: translate(-105px, -124px) scale(1.7);
-    }
-
-    #maps .map-point-top.grow {
-        transform: translate(15px, -2px) scale(0.9);
-    }
-
-    #maps .map-point-center.grow {
-        transform: translate(15px, -2px) scale(0.9);
-    }
-
     #maps .particle-6 {
         transform: translate(155px, 140px);
     }
@@ -342,31 +297,6 @@ body {
 }
 
 @media screen  and (min-width: 400px) {
-    #maps {
-        width: 400px;
-        height: 400px;
-    }
-
-    #maps .map-point-top {
-        transform: translate(56px, 57px) scale(0.72);
-    }
-
-    #maps .map-point-center {
-        transform: translate(56px, 57px) scale(0.72);
-    }
-
-    #maps .map-point-point.grow {
-        transform: translate(-22px, -30px) scale(1.11);
-    }
-
-    #maps .map-point-top.grow {
-        transform: translate(16px, 4px) scale(0.92);
-    }
-
-    #maps .map-point-center.grow {
-        transform: translate(16px, 4px) scale(0.92);
-    }
-
     #maps .particle-6 {
         transform: translate(210px, 190px);
     }
@@ -385,11 +315,6 @@ body {
 }
 
 @media screen  and (min-width: 500px) {
-    #maps {
-        width: 500px;
-        height: 500px;
-    }
-
     #maps .particle {
         transform: scale(1);
     }
@@ -412,30 +337,6 @@ body {
     #maps .particle-6 {
         transform: translate(-20px, -25px);
         transform-origin: center;
-    }
-
-    #maps .map-point-point.on {
-        transform: translate(-250px, -300px) scale(2);
-    }
-
-    #maps .map-point-point.grow {
-        transform: translate(-250px, -300px) scale(2);
-    }
-
-    #maps .map-point-top {
-        transform: translate(0, 0) scale(1);
-    }
-
-    #maps .map-point-top.grow {
-        transform: translate(-250px, -300px) scale(2);
-    }
-
-    #maps .map-point-center {
-        transform: translate(0, 0) scale(1);
-    }
-
-    #maps .map-point-center.grow {
-        transform: translate(-250px, -300px) scale(2);
     }
 
     #maps .highcharts-legend-title {

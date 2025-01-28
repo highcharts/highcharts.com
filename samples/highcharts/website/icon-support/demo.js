@@ -125,7 +125,7 @@ const support = {
 
                     } else {
 
-                        head.style.transform = 'rotate(15deg) scale(1.2)';
+                        head.style.transform = 'rotate(15deg)';
                         face.style.transform = 'rotate(15deg) scale(.5)';
                         p1.style.transform = 'translate(-30px,10px) ' +
                             'rotate(360deg) scale(.5)';
@@ -147,7 +147,7 @@ const support = {
                     face.style.transition = 'all 2s';
 
                     if (!big) {
-                        head.style.transform = 'rotate(-5deg) scale(1.2)';
+                        head.style.transform = 'rotate(-5deg)';
                         face.style.transform = 'rotate(-5deg) scale(.5)';
                     }
 
@@ -162,8 +162,8 @@ const support = {
 
                         if (big) {
 
-                            head.style.transform = 'rotate(315deg)';
-                            face.style.transform = 'rotate(315deg)';
+                            head.style.transform = 'rotate(360deg)';
+                            face.style.transform = 'rotate(360deg)';
                             p1.style.transform = 'translate(-20px,4px) ' +
                                 'rotate(320deg)';
                             p6.style.transform = 'translate(40px,4px) ' +
@@ -175,8 +175,8 @@ const support = {
 
                         } else {
 
-                            head.style.transform = 'rotate(315deg) scale(1.2)';
-                            face.style.transform = 'rotate(315deg) scale(.5)';
+                            head.style.transform = 'rotate(360deg)';
+                            face.style.transform = 'rotate(360deg) scale(.5)';
                             p1.style.transform = 'translate(-20px,32px) ' +
                                 'rotate(320deg) scale(.5)';
                             p6.style.transform = 'translate(20px,26px) ' +
@@ -432,21 +432,61 @@ const support = {
             zIndex: 20,
             visible: true
         },
-        // 11 - pie head
+        // 11 - pie head bg
+        {
+            type: 'pie',
+            name: 'headbg',
+            className: 'headbg',
+            visible: true,
+            animation: false,
+            borderWidth: 0,
+            data: [
+                {
+                    y: 100
+                }
+            ],
+            startAngle: 0,
+            zIndex: 15,
+            size: '70.5%',
+            center: ['50%', '50%']
+        },
+        // 12 - pie head
         {
             type: 'pie',
             name: 'head',
             className: 'head',
-            animation: false,
-            data: [25, 25, 25, 25],
-            startAngle: 0,
-            zIndex: 15,
-            size: '70%',
             visible: true,
-            center: ['50%', '51%']
+            borderColor: 'transparent',
+            animation: false,
+            slicedOffset: 30,
+            data: [
+                {
+                    y: 25,
+                    sliced: true,
+                    selected: true
+                },
+                {
+                    sliced: true,
+                    selected: true,
+                    y: 25
+                },
+                {
+                    y: 25,
+                    sliced: true,
+                    selected: true
+                },
+                {
+                    y: 25,
+                    sliced: true,
+                    selected: true
+                }
+            ],
+            startAngle: 0,
+            zIndex: 16,
+            size: '70%',
+            center: ['50%', '50%']
         },
-
-        // 12 - pie face
+        // 13 - pie face
         {
             type: 'scatter',
             name: 'face',
@@ -458,12 +498,10 @@ const support = {
                 symbol: 'url(' + imgPath + 'face.svg)',
                 width: 75
             },
-            zIndex: 15,
+            zIndex: 17,
             visible: true
         },
-
-
-        // 13 area - foreground-water
+        // 14 area - foreground-water
         {
             type: 'arearange',
             name: 'foreground',
@@ -473,7 +511,7 @@ const support = {
             zIndex: 10,
             visible: true
         },
-        // 14 particles
+        // 15 particles
         {
             type: 'scatter',
             name: 'particles',
@@ -507,10 +545,7 @@ const support = {
             zIndex: 19,
             visible: true
         },
-
-
-        // 14 - particles
-
+        // 16 - particles
         {
             type: 'scatter',
             name: 'particles',

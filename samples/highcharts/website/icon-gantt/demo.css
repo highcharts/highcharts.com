@@ -460,8 +460,9 @@ textarea {
 }
 
 #gantt {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 4px;
     background-color: #2f2b38;
     border: 1px solid #46465c;
@@ -598,22 +599,12 @@ textarea {
 }
 
 @media screen  and (min-width: 300px) {
-    #gantt {
-        width: 300px;
-        height: 300px;
-    }
-
     #gantt .particle-3.grow {
         transform: translate(0, -50px) scale(0.6);
     }
 }
 
 @media screen  and (min-width: 400px) {
-    #gantt {
-        width: 400px;
-        height: 400px;
-    }
-
     #gantt .particle-2 {
         transform: translate(-10px, -60px) scale(0.2);
     }
@@ -648,11 +639,6 @@ textarea {
 }
 
 @media screen  and (min-width: 500px) {
-    #gantt {
-        width: 500px;
-        height: 500px;
-    }
-
     .main-container .form-control {
         width: 95%;
     }

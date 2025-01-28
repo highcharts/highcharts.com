@@ -345,7 +345,6 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 250,
                         margin: [80, 10, 20, 10]
                     },
                     plotOptions: {
@@ -370,9 +369,6 @@ const ganttChart = function () {
                     minWidth: 251
                 },
                 chartOptions: {
-                    chart: {
-                        height: 300
-                    },
                     plotOptions: {
                         series: {
                             dataLabels: {
@@ -395,9 +391,6 @@ const ganttChart = function () {
                     minWidth: 301
                 },
                 chartOptions: {
-                    chart: {
-                        height: 400
-                    },
                     plotOptions: {
                         series: {
                             dataLabels: {
@@ -420,7 +413,6 @@ const ganttChart = function () {
                 },
                 chartOptions: {
                     chart: {
-                        height: 500,
                         margin: [120, 10, 20, 10]
                     },
                     plotOptions: {

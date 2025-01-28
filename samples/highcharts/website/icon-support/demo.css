@@ -38,8 +38,9 @@
 .chart-container .highcharts-container {
     position: relative;
     overflow: hidden;
-    width: 500px;
-    height: 500px;
+
+    /* width: 500px;
+    height: 500px; */
     text-align: left;
     line-height: normal;
     z-index: 0;
@@ -118,8 +119,9 @@
 }
 
 #support {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 #support .face {
@@ -136,22 +138,38 @@
 }
 
 #support .head path {
-    stroke-width: 18px;
+    stroke-width: 0;
+}
+
+#support .headbg path {
+    stroke-width: 20px;
 }
 
 #support .head {
-    clip-path: url(#myClipSmall);
+    clip-path: circle(50%);
     fill: #8087e8;
     transform-origin: center;
     transition: all 2s;
-    transform: scale(1.2) rotate(-45deg);
+    transform: rotate(-45deg);
 }
+
+/* #support .headbg {
+    transform: scale(.9) rotate(-45deg);
+    transform-origin: center;
+} */
 
 #support .head .highcharts-color-0,
 #support .head .highcharts-color-1,
 #support .head .highcharts-color-2,
 #support .head .highcharts-color-3 {
     fill: #8087e8;
+}
+
+#support .headbg .highcharts-color-0,
+#support .headbg .highcharts-color-1,
+#support .headbg .highcharts-color-2,
+#support .headbg .highcharts-color-3 {
+    fill: #fff;
 }
 
 #support .head-cover {
@@ -206,11 +224,6 @@
 }
 
 @media screen  and (min-width: 500px) {
-    #support {
-        width: 500px;
-        height: 500px;
-    }
-
     #support .face {
         transition: all 2s;
         transform-origin: center;
@@ -221,17 +234,25 @@
         transform-origin: center;
     }
 
-    #support .head path {
+    /* #support .head path {
         stroke-width: 40px;
-    }
+    } */
 
-    #support .head {
+    /* #support .head {
         clip-path: url(#myClip);
         fill: #8087e8;
         transform-origin: center;
         transition: all 2s;
         transform: rotate(-45deg);
-    }
+    } */
+
+    /* #support .headbg {
+        clip-path: url(#myClip);
+        fill: red;
+        transform-origin: center;
+        transition: all 2s;
+        transform: rotate(-45deg);
+    } */
 
     #support .particles .particle-3 {
         transform: translate(0, 0) rotate(50deg) scale(1);

@@ -118,8 +118,9 @@ body {
 /* Styles for Stock */
 
 #stock {
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     border-radius: 4px;
     background-color: #2f2b38;
     border: 1px solid #46465c;
@@ -267,13 +268,13 @@ body {
 #stock .green-line.hide .highcharts-point,
 #stock .green-line.hide .highcharts-graph {
     opacity: 0;
-    transition: none;
+    transition: 0s !important;
 }
 
 #stock .purple-line.hide .highcharts-point,
 #stock .purple-line.hide .highcharts-graph {
     opacity: 0;
-    transition: none;
+    transition: 0s !important;
 }
 
 #stock .purple {
@@ -473,19 +474,7 @@ body {
     transform: translate(180px, 30px);
 }
 
-@media screen  and (min-width: 300px) {
-    #stock {
-        width: 300px;
-        height: 300px;
-    }
-}
-
 @media screen  and (min-width: 400px) {
-    #stock {
-        width: 400px;
-        height: 400px;
-    }
-
     #stock .highcharts-subtitle {
         font-weight: 400;
         font-size: 0.9em;
@@ -501,11 +490,6 @@ body {
 
 /* at least 500px wide */
 @media screen  and (min-width: 500px) {
-    #stock {
-        width: 500px;
-        height: 500px;
-    }
-
     #stock .purple-line .highcharts-graph {
         fill: transparent;
         stroke-width: 28px;
