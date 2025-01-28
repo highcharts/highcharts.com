@@ -1,0 +1,11 @@
+---
+name: Asset allocation
+authors:
+  - author: Kamil Musialowski
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Pie charts:
+      priority: 3
+...
