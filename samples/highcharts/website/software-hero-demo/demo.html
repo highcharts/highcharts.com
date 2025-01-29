@@ -1,0 +1,159 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/item-series.js"></script>
+<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<div aria-live="polite" aria-atomic="true" id="announce"> </div>
+
+<div id="outer-container" class="chart-container">
+    <div id="container"></div>
+
+    <div id="controls-container">
+        <div id="tabs">
+            <div class="tab" id="area" data-chart=0>
+                <a href="#">Area</a>
+            </div>
+            <div class="tab active" id="item" data-chart=1>
+                <a href="#">Item</a>
+            </div>
+            <div class="tab" id="pie" data-chart=2>
+                <a href="#">Pie</a>
+            </div>
+            <div class="tab " id="column" data-chart=3>
+                <a href="#">Column</a>
+            </div>
+           
+        </div>
+        <div class="controls" id="controls-area">
+            <div class="control">
+                <label id="alphaLabel" for="alpha">Alpha Angle</label>
+                <div class="input-display">
+                    <input type="text" id="alpha" data-control=0 />
+                    <input id="alphaSlider" aria-labelledby="alphaLabel" type="range" step="1" min="0" max="45" value="15" aria-valuetext="15 degrees" data-control=0 />
+                </div>
+                
+            </div>
+    
+            <div class="control">
+                <label id="betaLabel" for="beta">Beta Angle</label>
+                <div class="input-display">
+                    <input type="text" id="beta" data-control=1 />
+                    <input id="betaSlider" aria-labelledby="betaLabel" type="range" step="1" min="-45" max="45" value="15" aria-valuetext="30 degrees" data-control=1 />
+                </div>
+               
+    
+            </div>
+    
+            <div class="control">
+                <label id="depthLabel" for="depth">Depth</label>
+                <div class="input-display">
+                    <input type="text" id="depth" data-control=2 />
+                    <input id="depthSlider" aria-labelledby="depthLabel" type="range" step="1" min="20" max="100" value="200" aria-valuetext="200" data-control=2 />
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div class="controls active" id="controls-item">
+            <!-- <div class="control">
+                <label for="startAngle">Start Angle</label>
+                <div class="input-display">
+                    <input type="text" id="startAngle"/>
+                    <input id="startAngleSlider" type="range" min="-180" max="180" value="-100"/>
+                </div>
+            </div> -->
+            <div class="control">
+                <label id="endAngleLabel" for="endAngle">End Angle</label>
+                <div class="input-display">
+                    <input type="text" id="endAngle" data-control=0 />
+                    <input id="endAngleSlider" aria-labelledby="endAngleLabel" type="range" step="1" min="-75" max="270" value="70" aria-valuetext="270 degrees" data-control=0 />
+                   
+                </div>
+            </div>
+            <div class="control">
+                <label id="innerSizeLabel" for="innerSize">Inner Size</label>
+                <div class="input-display">
+                    <input type="text" id="innerSize" data-control=1 />
+                    <input id="innerSizeSlider" aria-labelledby="innerSizeLabel" type="range" step="1" min="0" max="95" value="70" aria-valuetext="70 percent" data-control=1 />
+                </div>
+            </div>
+            <div class="control">
+                <label id="markerRadiusLabel" for="markerRadius">Marker Radius</label>
+                <div class="input-display">
+                    <input type="text" id="markerRadius" data-control=2 />
+                    <input id="markerRadiusSlider" aria-labelledby="markerRadiusLabel" type="range" step="1" min="1" max="30" value="6" aria-valuetext="6 pixels" data-control=2 />
+                </div>
+            </div>
+    
+           
+        </div>
+        <div class="controls" id="controls-pie">
+            <div class="control">
+                <label id="borderRadiusLabel" for="borderRadius">Border Radius</label>
+                <div class="input-display">
+                    <input type="text" id="borderRadius" data-control=0 />
+                    <input id="borderRadiusSlider" type="range" aria-labelledby="borderRadiusLabel" step="1" value="10" min="0" max="100" aria-valuetext="10 pixels" data-control=0 />
+                </div>
+            </div>
+            <div class="control">
+                <label id="innerSizePieLabel" for="innerSizePie">Inner Size</label>
+                <div class="input-display">
+                    <input type="text" id="innerSizePie" data-control=1 />
+                    <input id="innerSizePieSlider" aria-labelledby="innerSizePieLabel" type="range" step="1" min="0" max="90" value="0" aria-valuetext="0 percent" data-control=1 />
+                </div>
+            </div>
+            <!-- <div class="control">
+                <label for="sizePie">Size</label>
+                <div class="input-display">
+                    <input type="text" id="sizePie"/>
+                    <input id="sizePieSlider" type="range" min="0" max="200" value="145"/>
+                </div>
+            </div> -->
+            <div class="control">
+                <label id="slicesLabel" for="slices">Slices</label>
+                <div class="input-display">
+                    <input type="text" id="slices" value="3" data-control=2 />
+                    <input id="slicesSlider" aria-labelledby="slicesLabel" type="range" step="1" value="3" min="1" max="20" aria-valuetext="3 slices" data-control=2 />
+                </div>
+            </div>
+    
+           
+        </div>
+        <div class="controls " id="controls-column">
+            <div class="control">
+                <label id="widthLabel" for="width">Column Width</label>
+                <div class="input-display">
+                    <input type="text" id="width" data-control=0/>
+                    <input id="widthSlider" aria-labelledby="widthLabel" type="range" value="90" min="1" max="200" step="1" aria-valuetext="90 pixels" data-control=0 />
+                </div>
+            </div>
+            <div class="control">
+                <label id="borderWidthLabel" for="borderWidth">Border Width</label>
+                <div class="input-display">
+                    <input type="text" id="borderWidth" data-control=1/>
+                    <input id="borderWidthSlider" aria-labelledby="borderWidthLabel" step="1" type="range" min="0" max="10" value="0" aria-valuetext="0 pixels" data-control=1 />
+                </div>
+            </div>
+            <div class="control">
+                <label id="borderRadiusColLabel" for="borderRadiusCol">Border Radius</label>
+                <div class="input-display">
+                    <input type="text" id="borderRadiusCol" data-control=2/>
+                    <input id="borderRadiusColSlider" aria-labelledby="borderRadiusColLabel" type="range" step="1" min="0" max="100" value="5" aria-valuetext="5 pixels" data-control=2 />
+                </div>
+            </div>
+            <!-- <div class="control">
+                <label for="slices">Slices</label>
+                <div class="input-display">
+                    <input type="text" id="slices" value="6"/>
+                    <input id="slicesSlider" type="range" value="6" min="0" max="20" step="1"/>
+                </div>
+            </div> -->
+    
+           
+        </div>
+    </div>
+   
+</div>

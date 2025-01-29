@@ -1,0 +1,9 @@
+body,
+#demo-content {
+    background-color: #474554;
+    box-shadow: none;
+}
+
+#container {
+    max-width: 800px;
+}

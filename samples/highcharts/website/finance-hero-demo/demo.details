@@ -1,0 +1,7 @@
+---
+ name: Highcharts Demo for Finance Page
+ authors:
+   - Nancy Dillon
+ js_wrap: b
+ skipTest: true
+...

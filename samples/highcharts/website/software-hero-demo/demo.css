@@ -1,0 +1,214 @@
+* {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        sans-serif;
+}
+
+body,
+#demo-content {
+    background-color: #000;
+    box-shadow: none;
+}
+
+#container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+#tabs {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab {
+    background-color: #2f2e38;
+    color: #e3e3e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+}
+
+.tab.active {
+    background-color: #474554;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+}
+
+.tab a {
+    color: #acabba;
+}
+
+.tab.active a {
+    color: #fff;
+}
+
+.chart-container {
+    background-color: #000;
+    min-width: 300px;
+    max-width: 700px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    gap: 20px;
+    padding: 12px;
+    height: 480px;
+}
+
+#controls-container {
+    min-width: 300px;
+    max-width: 380px;
+    position: absolute;
+    z-index: 100;
+    bottom: 10px;
+}
+
+#controls-area,
+#controls-item,
+#controls-pie,
+#controls-column {
+    visibility: hidden;
+    display: none;
+}
+
+#controls-area.active,
+#controls-item.active,
+#controls-pie.active,
+#controls-column.active {
+    visibility: visible;
+    display: flex;
+    flex-direction: row;
+}
+
+.controls {
+    background-color: rgba(71, 69, 84, 0.9);
+    color: #fff;
+    border-radius: 0 4px 4px;
+    padding: 6px;
+    gap: 8px;
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.control label {
+    font-size: 0.7rem;
+}
+
+.control .input-display {
+    color: rgba(0, 0, 0, 0.7);
+    background-color: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    flex-direction: row;
+}
+
+.control .input-display span {
+    display: flex;
+}
+
+.control .input-display input[type="text"] {
+    border: 0;
+    width: 100%;
+}
+
+.control .input-display .input-icon {
+    cursor: ew-resize;
+    user-select: none; /* Prevents text selection when dragging */
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 16px;
+}
+
+/* Track: webkit browsers */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 2px;
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+    background: #4a55c9;
+}
+
+/* Track: Mozilla Firefox */
+input[type="range"]::-moz-range-track {
+    height: 2px;
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+    background: #4a55c9;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    border: 1px solid #4a55c9;
+    margin-top: -7px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #4a55c9;
+    margin-top: 0;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    /* box-shadow: 0 0 7px 3px #4a55c9; */
+    border-width: 3px;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+    /* box-shadow: 0 0 7px 3px #4a55c9; */
+    border-width: 3px;
+}
+
+input[type="range"]:focus::-ms-thumb {
+    /* box-shadow: 0 0 7px 3px #4a55c9; */
+    border-width: 3px;
+}
+
+/* .highcharts-item-series .highcharts-point path:nth-of-type(1),
+.highcharts-item-series .highcharts-point path:nth-of-type(8) {
+    fill: #4A55C9;
+} */
