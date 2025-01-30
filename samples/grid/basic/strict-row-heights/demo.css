@@ -1,0 +1,5 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#container {
+    height: 400px;
+}

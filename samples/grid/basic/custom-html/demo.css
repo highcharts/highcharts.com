@@ -1,0 +1,10 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#container {
+    height: 250px;
+    margin: 8px;
+}
+
+.highcharts-datagrid-container tbody td {
+    height: 90px;
+}

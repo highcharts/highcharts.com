@@ -189,7 +189,7 @@ Cypress.Commands.add('dropComponent', (elementName) => {
 });
 
 Cypress.Commands.add('grid', () =>
-    cy.window().its('DataGrid.dataGrids').should('have.length.gte', 1).then(grids => {
+    cy.window().its('Grid.grids').should('have.length.gte', 1).then(grids => {
         const [grid] = grids;
         return grid;
     })

@@ -78,6 +78,10 @@ async function task() {
                 if (argv.dts) {
                     buildTasks.task('jsdoc-dts')();
                 }
+
+                if (argv.product === 'Grid') {
+                    buildTasks.push('scripts-ts', 'scripts-webpack');
+                }
             }
 
             const newCssHash = fsLib.getDirectoryHash('css', true);

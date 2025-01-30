@@ -19,6 +19,7 @@
     "exclude": [
         "../masters/**/*.ts",
         "../masters-datagrid/**/*.ts",
+        "../masters-grid/**/*.ts",
         "../masters-es5/**/*.ts"
     ],
     "include": [

@@ -1,0 +1,22 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "composite": false,
+        "declaration": true,
+        "baseUrl": "./",
+        "moduleResolution": "node",
+        "outDir": "../../code/grid/es-modules",
+        "rootDir": "../",
+    },
+    "exclude": [
+        "../Dashboards/**/*.ts",
+        "../masters/**/*.ts",
+        "../masters-dashboards/**/*.ts",
+        "../masters-datagrid/**/*.ts",
+        "../masters-es5/**/*.ts"
+    ],
+    "include": [
+        "../**/*.ts",
+        "../masters/modules/accessibility.src.ts",
+    ]
+}

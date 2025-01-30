@@ -1,0 +1,13 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#container {
+    height: 800px;
+}
+
+.highcharts-datagrid-table tbody td {
+    height: 70px;
+}
+
+.highcharts-background {
+    fill: transparent;
+}

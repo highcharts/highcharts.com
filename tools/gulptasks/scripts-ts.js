@@ -9,6 +9,7 @@
  * */
 
 const gulp = require('gulp');
+const path = require('path');
 
 /* *
  *
@@ -113,44 +114,56 @@ async function scriptsTS(argv) {
     const fsLib = require('../libs/fs');
     const logLib = require('../libs/log');
     const processLib = require('../libs/process');
-    const {
-        bundleTargetFolder,
-        typeScriptFolder,
-        typeScriptFolderDatagrid
-    } = require('./dashboards/_config.json');
+    const dashCfg = require('./dashboards/_config.json');
 
     try {
-        let library = 'Highcharts';
+        const product = argv.product || 'Highcharts';
 
-        if (argv.dashboards) {
-            library = 'Dashboards';
-        } else if (argv.datagrid) {
-            library = 'DataGrid';
-        }
-        logLib.message(`Generating files for ${library}...`);
+        logLib.message(`Generating files for ${product}...`);
 
         processLib.isRunning('scripts-ts', true);
 
         if (argv.dashboards) {
-            fsLib.deleteDirectory(bundleTargetFolder, true);
-            // fsLib.deleteDirectory(fsLib.path('code/datagrid'), true);
+            fsLib.deleteDirectory(dashCfg.bundleTargetFolder, true);
         }
 
         fsLib.deleteDirectory('js', true);
 
-        fsLib.copyAllFiles(
-            'ts',
-            argv.assembler ? 'js' : fsLib.path(['code', 'es-modules']),
-            true,
-            sourcePath => sourcePath.endsWith('.d.ts')
-        );
+        if (product === 'Grid') {
+            const bundleDtsFolder = path.join(__dirname, 'scripts-dts/');
+            const codeGridFolder = 'code/grid/';
+
+            fsLib.copyAllFiles(
+                bundleDtsFolder,
+                codeGridFolder,
+                true
+            );
+
+            fsLib.copyFile(
+                codeGridFolder + 'gridlite.src.d.ts',
+                codeGridFolder + 'gridlite.d.ts'
+            );
+
+            logLib.success('Copied stand-alone DTS for Grid');
+
+        } else {
+            fsLib.copyAllFiles(
+                'ts',
+                argv.assembler ? 'js' : fsLib.path(['code', 'es-modules']),
+                true,
+                sourcePath => sourcePath.endsWith('.d.ts')
+            );
+        }
 
         if (argv.dashboards) {
             await processLib
-                .exec(`npx tsc -p ${typeScriptFolder} --outDir js`);
+                .exec(`npx tsc -p ${dashCfg.typeScriptFolder} --outDir js`);
         } else if (argv.datagrid) {
             await processLib
-                .exec(`npx tsc -p ${typeScriptFolderDatagrid} --outDir js`);
+                .exec(`npx tsc -p ${dashCfg.typeScriptFolderDatagrid} --outDir js`);
+        } else if (product === 'Grid') {
+            await processLib
+                .exec(`npx tsc -p ${fsLib.path(['ts', 'masters-grid'])}`);
         } else if (argv.assembler) {
             await processLib
                 .exec('npx tsc -p ts --outDir js');
@@ -193,12 +206,15 @@ async function scriptsTS(argv) {
             fsLib.deleteDirectory(fsLib.path(['js', 'datagrid']), true);
             fsLib.deleteDirectory(fsLib.path(['js', 'DataGrid']), true);
 
+            // Remove Grid
+            fsLib.deleteDirectory(fsLib.path(['js', 'Grid']), true);
+
             // Fix masters
             fs.renameSync(
                 fsLib.path(['js', 'masters-dashboards']),
                 fsLib.path(['js', 'masters'])
             );
-        } else if (argv.datagrid) {
+        } else if (argv.datagrid) { // Should be completely replaced by grid
             removeHighcharts();
 
             // Fix masters
@@ -210,6 +226,9 @@ async function scriptsTS(argv) {
             // Remove Dashboards
             fsLib.deleteDirectory(fsLib.path(['js', 'Dashboards']), true);
             fsLib.deleteDirectory(fsLib.path(['js', 'DataGrid']), true);
+
+            // Remove Grid
+            fsLib.deleteDirectory(fsLib.path(['js', 'Grid']), true);
         }
 
         processLib.isRunning('scripts-ts', false);
@@ -221,7 +240,8 @@ async function scriptsTS(argv) {
 scriptsTS.description = 'Builds files of `/ts` folder into `/js` folder.';
 scriptsTS.flags = {
     '--dashboards': 'Build dashboards files only',
-    '--datagrid': 'Build datagrid files only'
+    '--datagrid': 'Build datagrid files only',
+    '--product': 'The project to build: Highcharts (default), Grid'
 };
 gulp.task(
     'scripts-ts',

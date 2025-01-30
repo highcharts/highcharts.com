@@ -1,0 +1,13 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#demo {
+    margin: 8px;
+}
+
+#container {
+    height: 250px;
+}
+
+#custom-options {
+    margin-top: 5px;
+}

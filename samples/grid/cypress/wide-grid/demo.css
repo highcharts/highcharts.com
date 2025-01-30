@@ -1,0 +1,16 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#container {
+    height: 450px;
+    width: 250px;
+}
+
+.highcharts-datagrid-table thead th .highcharts-datagrid-header-cell-content {
+    padding: 0;
+    width: 100%;
+    font-size: 0.8em;
+}
+
+.highcharts-datagrid-column:not([data-column-id="employee"]) {
+    width: 40px;
+}

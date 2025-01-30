@@ -19,8 +19,10 @@
     },
     "exclude": [
         "../Dashboards/**/*.ts",
+        "../Grid/**/*.ts",
         "../masters-dashboards/**/*.ts",
-        "../masters-datagrid/**/*.ts"
+        "../masters-datagrid/**/*.ts",
+        "../masters-grid/**/*.ts"
     ],
     "include": [
         "../**/*.ts"

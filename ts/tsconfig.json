@@ -137,8 +137,10 @@
     "exclude": [
         "./Dashboards/**/*.ts",
         "./DataGrid/**/*.ts",
+        "./Grid/**/*.ts",
         "./masters-dashboards/**/*.ts",
         "./masters-datagrid/**/*.ts",
+        "./masters-grid/**/*.ts",
         "./masters-es5/**/*.ts"
     ],
     "include": [

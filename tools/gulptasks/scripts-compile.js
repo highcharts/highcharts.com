@@ -38,6 +38,9 @@ function scriptsCompile(filePaths, config = {}, product = 'highcharts') {
     if (product === 'highcharts') {
         esModulesFolder = '/es-modules/';
         targetFolder = 'code';
+    } else if (product === 'grid') {
+        esModulesFolder = fsLib.path(['code', 'grid', 'es-modules']);
+        targetFolder = fsLib.path(['code', 'grid']);
     } else if (product === 'dashboards') {
         esModulesFolder = config.esModulesFolder;
         targetFolder = config.bundleTargetFolder;

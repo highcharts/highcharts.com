@@ -8,6 +8,7 @@
  *
  *  Authors:
  *  - Karol Kolodziej
+ *  - Dawid Dragula
  *
  * */
 

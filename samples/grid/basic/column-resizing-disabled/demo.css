@@ -1,0 +1,14 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#container {
+    height: 250px;
+    margin: 8px;
+}
+
+.highcharts-datagrid-column {
+    width: 15%;
+}
+
+.highcharts-datagrid-column[data-column-id="weight"] {
+    width: 40%;
+}

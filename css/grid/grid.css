@@ -1,0 +1,765 @@
+/**
+ * @license Highcharts Dashboards v@product.version@
+ *
+ * (c) 2009-2023 Highsoft AS
+ *
+ * License: www.highcharts.com/license
+ */
+
+:root,
+.highcharts-light {
+    --highcharts-background-color: #ffffff;
+
+    /* Neutral colors */
+    --highcharts-neutral-color-100: #000000;
+    --highcharts-neutral-color-80: #333333;
+    --highcharts-neutral-color-60: #666666;
+    --highcharts-neutral-color-40: #999999;
+    --highcharts-neutral-color-20: #cccccc;
+    --highcharts-neutral-color-10: #e6e6e6;
+    --highcharts-neutral-color-5: #f2f2f2;
+    --highcharts-neutral-color-3: #f7f7f7;
+    --highcharts-neutral-color-0: #ffffff;
+
+    /* Highlight colors */
+    --highcharts-highlight-color-100: #0022ff;
+    --highcharts-highlight-color-80: #334eff;
+    --highcharts-highlight-color-60: #667aff;
+    --highcharts-highlight-color-20: #ccd3ff;
+    --highcharts-highlight-color-10: #e6e9ff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* UI colors */
+        --highcharts-background-color: #333333;
+
+        /*
+            Neutral color variations
+            https://www.highcharts.com/samples/highcharts/css/palette-helper
+        */
+        --highcharts-neutral-color-100: rgb(255, 255, 255);
+        --highcharts-neutral-color-80: rgb(214, 214, 214);
+        --highcharts-neutral-color-60: rgb(173, 173, 173);
+        --highcharts-neutral-color-40: rgb(133, 133, 133);
+        --highcharts-neutral-color-20: rgb(92, 92, 92);
+        --highcharts-neutral-color-10: rgb(71, 71, 71);
+        --highcharts-neutral-color-5: rgb(61, 61, 61);
+        --highcharts-neutral-color-3: rgb(57, 57, 57);
+        --highcharts-neutral-color-0: rgb(0, 0, 0);
+
+        /* Highlight color variations */
+        --highcharts-highlight-color-100: rgb(122, 167, 255);
+        --highcharts-highlight-color-80: rgb(108, 144, 214);
+        --highcharts-highlight-color-60: rgb(94, 121, 173);
+        --highcharts-highlight-color-20: rgb(65, 74, 92);
+        --highcharts-highlight-color-10: rgb(58, 63, 71);
+    }
+}
+
+.highcharts-dark {
+    /* UI colors */
+    --highcharts-background-color: #333333;
+
+    /*
+        Neutral color variations
+        https://www.highcharts.com/samples/highcharts/css/palette-helper
+    */
+    --highcharts-neutral-color-100: rgb(255, 255, 255);
+    --highcharts-neutral-color-80: rgb(214, 214, 214);
+    --highcharts-neutral-color-60: rgb(173, 173, 173);
+    --highcharts-neutral-color-40: rgb(133, 133, 133);
+    --highcharts-neutral-color-20: rgb(92, 92, 92);
+    --highcharts-neutral-color-10: rgb(71, 71, 71);
+    --highcharts-neutral-color-5: rgb(61, 61, 61);
+    --highcharts-neutral-color-3: rgb(57, 57, 57);
+
+    /* Highlight color variations */
+    --highcharts-highlight-color-100: rgb(122, 167, 255);
+    --highcharts-highlight-color-80: rgb(108, 144, 214);
+    --highcharts-highlight-color-60: rgb(94, 121, 173);
+    --highcharts-highlight-color-20: rgb(65, 74, 92);
+    --highcharts-highlight-color-10: rgb(58, 63, 71);
+}
+
+/*  ==== Start DataGrid Color Scheme  ==== */
+.hcg-container {
+    --idg-default-color: #000000;
+    --idg-negative-default-border-color: hsl(0, 100%, 50%);
+    --idg-negative-default-background: hsl(0, 100%, 95%);
+    --idg-neutral-default-border-color: hsl(0, 0%, 35%);
+    --idg-neutral-default-background: hsl(0, 0%, 82%);
+    --idg-positive-default-border-color: hsl(120, 100%, 25%);
+    --idg-positive-default-background: hsl(120, 22%, 90%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .hcg-container {
+        --idg-default-color: #ffffff;
+        --idg-negative-default-border-color: hsl(0, 100%, 33%);
+        --idg-negative-default-background: hsl(0, 100%, 21%);
+        --idg-neutral-default-border-color: hsl(0, 0%, 70%);
+        --idg-neutral-default-background: hsl(0, 0%, 39%);
+        --idg-positive-default-border-color: hsl(120, 100%, 25%);
+        --idg-positive-default-background: hsl(120, 41%, 25%);
+    }
+}
+
+/*  ==== End DataGrid Color Scheme  ==== */
+
+/* stylelint-disable max-line-length */
+
+/* ==== Start DataGrid Variables ==== */
+.hcg-container {
+    --idg-table-border-radius: var(--hcdg-border-radius, 0);
+
+    /* Fonts */
+
+    /* Global fonts */
+    --idg-font-weight: var(--hcdg-font-weight, normal);
+    --idg-font-size: var(--hcdg-font-size, 1rem);
+    --idg-font-family: var(--hcdg-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif);
+    --idg-color: var(--hcdg-color, var(--idg-default-color));
+    --idg-font: var(--idg-font-weight) var(--idg-font-size) var(--idg-font-family);
+    --idg-text-align: var(--hcdg-text-align, left);
+
+    /* Header fonts */
+    --idg-header-font-weight: var(--hcdg-header-font-weight, bold);
+    --idg-header-font-size: var(--hcdg-header-font-size, var(--idg-font-size));
+    --idg-header-font-family: var(--hcdg-header-font-family, var(--idg-font-family));
+    --idg-header-color: var(--hcdg-header-color, var(--idg-color));
+    --idg-header-font: var(--idg-header-font-weight) var(--idg-header-font-size) var(--idg-header-font-family);
+    --idg-header-text-align: var(--hcdg-header-text-align, center);
+
+    /* Caption fonts */
+    --idg-caption-font-weight: var(--hcdg-caption-font-weight, var(--idg-font-weight));
+    --idg-caption-font-size: var(--hcdg-caption-font-size, var(--idg-font-size));
+    --idg-caption-font-family: var(--hcdg-caption-font-family, var(--idg-font-family));
+    --idg-caption-color: var(--hcdg-caption-color, var(--idg-color));
+    --idg-caption-font: var(--idg-caption-font-weight) var(--idg-caption-font-size) var(--idg-caption-font-family);
+    --idg-caption-text-align: var(--hcdg-caption-text-align, var(--idg-text-align));
+
+    /* Description fonts */
+    --idg-description-font-weight: var(--hcdg-description-font-weight, var(--idg-font-weight));
+    --idg-description-font-size: var(--hcdg-description-font-size, var(--idg-font-size));
+    --idg-description-font-family: var(--hcdg-description-font-family, var(--idg-font-family));
+    --idg-description-color: var(--hcdg-description-color, var(--idg-color));
+    --idg-description-font: var(--idg-description-font-weight) var(--idg-description-font-size) var(--idg-description-font-family);
+    --idg-description-text-align: var(--hcdg-description-text-align, var(--idg-text-align));
+
+    /* Credits fonts */
+    --idg-credits-font-size: var(--hcdg-credits-font-size, 0.7em);
+    --idg-credits-color: var(--hcdg-credits-color, var(--idg-color));
+    --idg-credits-text-align: var(--hcdg-credits-text-align, right);
+
+    /* Default borders */
+    --idg-table-border-width: var(--hcdg-border-width, 0);
+    --idg-table-border-style: var(--hcdg-border-style, solid);
+    --idg-table-border-color: var(--hcdg-border-color, var(--idg-color));
+    --idg-table-border: var(--idg-table-border-width) var(--idg-table-border-style) var(--idg-table-border-color);
+
+    /* Row borders */
+    --idg-row-border-width: var(--hcdg-row-border-width, var(--idg-table-border-width));
+    --idg-row-border-style: var(--hcdg-row-border-style, var(--idg-table-border-style));
+    --idg-row-border-color: var(--hcdg-row-border-color, var(--idg-table-border-color));
+    --idg-row-border: var(--idg-row-border-width) var(--idg-row-border-style) var(--idg-row-border-color);
+
+    /* Header row borders */
+    --idg-header-row-border-width: var(--hcdg-header-row-border-width, var(--idg-row-border-width));
+    --idg-header-row-border-style: var(--hcdg-header-row-border-style, var(--idg-row-border-style));
+    --idg-header-row-border-color: var(--hcdg-header-row-border-color, var(--idg-row-border-color));
+    --idg-header-row-border: var(--idg-header-row-border-width) var(--idg-header-row-border-style) var(--idg-header-row-border-color);
+
+    /* Column borders */
+    --idg-column-border-width: var(--hcdg-column-border-width, var(--idg-table-border-width));
+    --idg-column-border-style: var(--hcdg-column-border-style, var(--idg-table-border-style));
+    --idg-column-border-color: var(--hcdg-column-border-color, var(--idg-table-border-color));
+    --idg-column-border: var(--idg-column-border-width) var(--idg-column-border-style) var(--idg-column-border-color);
+
+    /* Header column borders */
+    --idg-header-column-border-width: var(--hcdg-header-column-border-width, var(--idg-column-border-width));
+    --idg-header-column-border-style: var(--hcdg-header-column-border-style, var(--idg-column-border-style));
+    --idg-header-column-border-color: var(--hcdg-header-column-border-color, var(--idg-column-border-color));
+    --idg-header-column-border: var(--idg-header-column-border-width) var(--idg-header-column-border-style) var(--idg-header-column-border-color);
+
+    /* Default padding */
+    --idg-horizontal-padding: var(--hcdg-horizontal-padding, var(--hcdg-padding, 0));
+    --idg-vertical-padding: var(--hcdg-vertical-padding, var(--hcdg-padding, 0));
+    --idg-padding: var(--idg-vertical-padding) var(--idg-horizontal-padding);
+
+    /* Header padding */
+    --idg-header-horizontal-padding: var(--hcdg-header-horizontal-padding, var(--hcdg-header-padding, var(--idg-horizontal-padding)));
+    --idg-header-vertical-padding: var(--hcdg-header-vertical-padding, var(--hcdg-header-padding, var(--idg-vertical-padding)));
+    --idg-header-padding: var(--idg-header-vertical-padding) max(var(--idg-header-horizontal-padding), 20px) var(--idg-header-vertical-padding) var(--idg-header-horizontal-padding);
+
+    /* Caption padding */
+    --idg-caption-horizontal-padding: var(--hcdg-caption-horizontal-padding, var(--hcdg-caption-padding, var(--idg-horizontal-padding)));
+    --idg-caption-vertical-padding: var(--hcdg-caption-vertical-padding, var(--hcdg-caption-padding, var(--idg-vertical-padding)));
+    --idg-caption-padding: 0 var(--idg-caption-horizontal-padding) var(--idg-caption-vertical-padding) var(--idg-caption-horizontal-padding);
+
+    /* Description padding */
+    --idg-description-horizontal-padding: var(--hcdg-description-horizontal-padding, var(--hcdg-description-padding, var(--idg-horizontal-padding)));
+    --idg-description-vertical-padding: var(--hcdg-description-vertical-padding, var(--hcdg-description-padding, var(--idg-vertical-padding)));
+    --idg-description-padding: var(--idg-description-vertical-padding) var(--idg-description-horizontal-padding) 0 var(--idg-description-horizontal-padding);
+
+    /* Credits padding */
+    --idg-credits-padding: 0 var(--idg-horizontal-padding);
+
+    /* Default backgrounds and colors */
+    --idg-table-background: var(--hcdg-background, transparent);
+    --idg-row-background: var(--hcdg-row-background, transparent);
+    --idg-row-even-background: var(--hcdg-row-even-background, var(--idg-row-background));
+    --idg-header-row-background: var(--hcdg-header-row-background, var(--idg-row-background));
+    --idg-row-even-color: var(--hcdg-row-even-color, var(--idg-color));
+
+    /* Hovered backgrounds and colors */
+    --idg-row-hovered-background: var(--hcdg-row-hovered-background, var(--idg-row-background));
+    --idg-row-hovered-color: var(--hcdg-row-hovered-color, var(--idg-color));
+    --idg-row-even-hovered-background: var(--hcdg-row-even-hovered-background, var(--hcdg-row-hovered-background, var(--idg-row-even-background)));
+    --idg-row-even-hovered-color: var(--hcdg-row-even-hovered-color, var(--hcdg-row-hovered-color, var(--idg-row-even-color)));
+
+    /* Column hovered backgrounds and colors */
+    --idg-column-hovered-background: var(--hcdg-column-hovered-background, var(--idg-row-background));
+    --idg-column-hovered-color: var(--hcdg-column-hovered-color, var(--idg-color));
+    --idg-column-even-hovered-background: var(--hcdg-column-even-hovered-background, var(--hcdg-column-hovered-background, var(--idg-row-even-background)));
+    --idg-column-even-hovered-color: var(--hcdg-column-even-hovered-color, var(--hcdg-column-hovered-color, var(--idg-row-even-color)));
+
+    /* Cell hovered backgrounds and colors */
+    --idg-cell-hovered-background: var(--hcdg-cell-hovered-background, var(--hcdg-column-hovered-background, var(--idg-row-hovered-background)));
+    --idg-cell-hovered-color: var(--hcdg-cell-hovered-color, var(--hcdg-column-hovered-color, var(--idg-row-hovered-color)));
+    --idg-cell-even-hovered-background: var(--hcdg-cell-even-hovered-background, var(--hcdg-cell-hovered-background, var(--hcdg-column-hovered-background, var(--idg-row-even-hovered-background))));
+    --idg-cell-even-hovered-color: var(--hcdg-cell-even-hovered-color, var(--hcdg-cell-hovered-color, var(--hcdg-column-hovered-color, var(--idg-row-even-hovered-color))));
+
+    /* Header hovered backgrounds and colors */
+    --idg-header-cell-hovered-background: var(--hcdg-header-cell-hovered-background, var(--idg-header-row-background));
+    --idg-header-cell-hovered-color: var(--hcdg-header-cell-hovered-color, var(--idg-header-color));
+    --idg-header-column-hovered-background: var(--hcdg-header-column-hovered-background, var(--idg-header-row-background));
+    --idg-header-column-hovered-color: var(--hcdg-header-column-hovered-color, var(--idg-header-color));
+
+    /* Synced backgrounds and colors */
+    --idg-row-synced-background: var(--hcdg-row-synced-background, var(--idg-row-hovered-background));
+    --idg-row-synced-color: var(--hcdg-row-synced-color, var(--idg-row-hovered-color));
+    --idg-row-even-synced-background: var(--idg-row-synced-background, var(--idg-row-even-hovered-background));
+    --idg-row-even-synced-color: var(--hcdg-row-even-synced-color, var(--idg-row-even-hovered-color));
+
+    /* Column synced backgrounds and colors */
+    --idg-column-synced-background: var(--hcdg-column-synced-background, var(--idg-column-hovered-background));
+    --idg-column-synced-color: var(--hcdg-column-synced-color, var(--idg-column-hovered-color));
+    --idg-column-even-synced-background: var(--hcdg-column-even-synced-background, var(--idg-column-even-hovered-background));
+    --idg-column-even-synced-color: var(--hcdg-column-even-synced-color, var(--idg-column-even-hovered-color));
+
+    /* Header synced backgrounds and colors */
+    --idg-header-column-synced-background: var(--hcdg-header-column-synced-background, var(--idg-header-column-hovered-background));
+    --idg-header-column-synced-color: var(--hcdg-header-column-synced-color, var(--idg-header-column-hovered-color));
+
+    /* CSS helpers */
+    --idg-highlight-border-size: var(--hcdg-highlight-border-size, 1px);
+
+    /* Negative colors */
+    --idg-negative-border-color: var(--hcdg-negative-border-color, var(--idg-negative-default-border-color));
+    --idg-negative-border-size: var(--hcdg-negative-border-size, var(--idg-highlight-border-size));
+    --idg-negative-background: var(--hcdg-negative-background, var(--idg-negative-default-background));
+
+    /* Neutral colors */
+    --idg-neutral-border-color: var(--hcdg-neutral-border-color, var(--idg-neutral-default-border-color));
+    --idg-neutral-border-size: var(--hcdg-neutral-border-size, var(--idg-highlight-border-size));
+    --idg-neutral-background: var(--hcdg-neutral-background, var(--idg-neutral-default-background));
+
+    /* Positive colors */
+    --idg-positive-border-color: var(--hcdg-positive-border-color, var(--idg-positive-default-border-color));
+    --idg-positive-border-size: var(--hcdg-positive-border-size, var(--idg-highlight-border-size));
+    --idg-positive-background: var(--hcdg-positive-background, var(--idg-positive-default-background));
+
+    /* Loading indicator */
+    --idg-loading-wrapper-background: var(--hcdg-loading-wrapper-background, var(--idg-neutral-default-background));
+    --idg-loading-wrapper-border-size: var(--hcdg-loading-wrapper-border-size, 4px);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* ==== End DataGrid Variables ==== */
+
+.hcg-container * {
+    box-sizing: border-box;
+    font-family: var(--idg-font-family);
+}
+
+.hcg-column {
+    width: 0;
+}
+
+/* Table */
+.hcg-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: var(--idg-table-border);
+    background: var(--idg-table-background);
+    table-layout: fixed;
+    border-radius: var(--idg-table-border-radius);
+    flex: 1;
+}
+
+.hcg-table.hcg-scrollable-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Table Header */
+.hcg-table.hcg-virtualization thead {
+    display: block;
+}
+
+.hcg-table thead th {
+    position: relative;
+    border-right: var(--idg-header-column-border);
+    border-bottom: var(--idg-header-row-border);
+    background: var(--idg-header-row-background);
+    padding: var(--idg-header-padding);
+}
+
+.hcg-table thead th .hcg-header-cell-content {
+    width: 100%;
+    font: var(--idg-header-font);
+    color: var(--idg-header-color);
+    text-align: var(--idg-header-text-align);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.hcg-table thead th .hcg-header-cell-content span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hcg-resizer-content thead,
+.hcg-resizer-content tbody {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+}
+
+.hcg-table thead tr:first-of-type th:first-child {
+    border-top-left-radius: var(--idg-table-border-radius);
+}
+
+.hcg-table thead tr:first-of-type th:last-child {
+    border-top-right-radius: var(--idg-table-border-radius);
+}
+
+.hcg-table tbody tr:last-of-type td:first-child {
+    border-bottom-left-radius: var(--idg-table-border-radius);
+}
+
+.hcg-table tbody tr:last-of-type td:last-child {
+    border-bottom-right-radius: var(--idg-table-border-radius);
+}
+
+.hcg-resizer-content tr {
+    width: 100%;
+}
+
+.hcg-table thead th .hcg-column-resizer {
+    position: absolute;
+    top: 0;
+    width: 16px;
+    right: -9px;
+    height: 100%;
+    cursor: col-resize;
+    user-select: none;
+    z-index: 10;
+}
+
+.hcg-table thead th .hcg-column-resizer::after {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 7px;
+    margin-top: -10px;
+    top: 50%;
+    left: 2px;
+}
+
+/* !!!!!!!!!!!!!!! */
+.hcg-table thead th .hcg-column-resizer:hover::after {
+    border-left: 2px solid var(--highcharts-neutral-color-20);
+    border-right: 2px solid var(--highcharts-neutral-color-20);
+}
+
+/* Sorting */
+.hcg-table thead th.hcg-column-sortable {
+    cursor: pointer;
+}
+
+th.hcg-column-sortable > .hcg-column-sortable-icon {
+    right: 10px;
+    top: calc(50% - 10px);
+    bottom: 50%;
+    position: absolute;
+    display: none;
+    width: 12px;
+    height: 12px;
+    user-select: none;
+    pointer-events: none;
+    color: var(--idg-header-color);
+}
+
+.hcg-column-sortable.hcg-column-sorted-asc .hcg-column-sortable-icon,
+.hcg-column-sortable.hcg-column-sorted-desc .hcg-column-sortable-icon {
+    display: inline-block;
+}
+
+.hcg-column-sortable.hcg-column-sorted-desc .hcg-column-sortable-icon {
+    transform: rotate(180deg);
+    top: calc(50% - 2px);
+    right: 10px;
+}
+
+.hcg-container:has(.hcg-no-data) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--idg-description-padding);
+    text-align: var(--idg-description-text-align);
+}
+
+/* Table body */
+.hcg-table.hcg-scrollable-content tbody {
+    height: 100%;
+    overflow: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+.hcg-table.hcg-virtualization tbody {
+    display: block;
+    position: relative;
+}
+
+.hcg-table tbody {
+    border-bottom-left-radius: var(--hcdg-border-radius);
+    border-bottom-right-radius: var(--hcdg-border-radius);
+}
+
+.hcg-table tbody tr {
+    overflow: hidden;
+    width: 100%;
+}
+
+.hcg-table tbody tr td,
+.hcg-table tbody tr td.hcg-mocked-cell {
+    border-right: var(--idg-column-border);
+    border-bottom: var(--idg-row-border);
+    text-align: var(--idg-text-align);
+    padding: var(--idg-padding);
+    font: var(--idg-font); /* !!!!! */
+    color: var(--idg-color);
+    overflow: hidden;
+}
+
+.hcg-table .hcg-last-header-cell-in-row,
+.hcg-table td:last-of-type {
+    border-right: none;
+}
+
+.hcg-table tr:last-of-type td {
+    border-bottom: none;
+}
+
+.hcg-table.hcg-scrollable-content tbody tr {
+    display: block;
+}
+
+.hcg-table.hcg-virtualization tbody tr {
+    position: absolute;
+}
+
+.hcg-table tbody.hcg-rows-content-nowrap td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.hcg-table tbody td.hcg-edited-cell {
+    padding: 0;
+}
+
+.hcg-table tbody td:focus,
+.hcg-table thead th:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 1px rgb(117, 124, 199);
+}
+
+/* Header hovered backgrounds */
+.hcg-table thead tr th:hover {
+    background: var(--idg-header-cell-hovered-background);
+}
+
+/* Row backgrounds */
+.hcg-table tbody tr td {
+    background: var(--idg-row-background);
+    position: relative;
+}
+
+.hcg-table tbody tr.hcg-row-even td {
+    background: var(--idg-row-even-background);
+    color: var(--idg-row-even-color);
+}
+
+/* Row hovered backgrounds */
+.hcg-table tbody tr:hover td {
+    background: var(--idg-row-hovered-background);
+    color: var(--idg-row-hovered-color);
+}
+
+.hcg-table tbody tr.hcg-row-even:hover td {
+    background: var(--idg-row-even-hovered-background);
+    color: var(--idg-row-even-hovered-color);
+}
+
+/* Cell hovered backgrounds */
+.hcg-table tbody tr:hover td:hover {
+    background: var(--idg-cell-hovered-background);
+    color: var(--idg-cell-hovered-color);
+}
+
+.hcg-table tbody tr.hcg-row-even:hover td:hover {
+    background: var(--idg-cell-even-hovered-background);
+    color: var(--idg-cell-even-hovered-color);
+}
+
+/* Column hovered backgrounds */
+.hcg-table tbody tr td.hcg-hovered-column {
+    background: var(--idg-column-hovered-background);
+    color: var(--idg-column-hovered-color);
+}
+
+.hcg-table tbody tr.hcg-row-even td.hcg-hovered-column {
+    background: var(--idg-column-even-hovered-background);
+    color: var(--idg-column-even-hovered-color);
+}
+
+/* Row synced backgrounds */
+.hcg-table tbody tr.hcg-synced-row td {
+    background: var(--idg-row-synced-background);
+    color: var(--idg-row-synced-color);
+}
+
+.hcg-table tbody tr.hcg-row-even.hcg-synced-row td {
+    background: var(--idg-row-even-synced-background);
+    color: var(--idg-row-even-synced-color);
+}
+
+/* Column synced backgrounds */
+.hcg-table tbody tr td.hcg-synced-column {
+    background: var(--idg-column-synced-background);
+    color: var(--idg-column-synced-color);
+}
+
+.hcg-table tbody tr.hcg-row-even td.hcg-synced-column {
+    background: var(--idg-column-even-synced-background);
+    color: var(--idg-column-even-synced-color);
+}
+
+.hcg-table tbody td.hcg-edited-cell input,
+.hcg-table tbody td.hcg-edited-cell input:focus {
+    border-width: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    outline: none;
+    float: left;
+    font: var(--idg-font);
+    box-shadow: inset 0 0 0 1px #0000ed;
+    padding: var(--idg-padding);
+    background: #b7d4ff;
+}
+
+/* Accessibility */
+.hcg-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip: rect(1px, 1px, 1px, 1px);
+    margin-top: -3px;
+    opacity: 0.01;
+}
+
+/* Caption */
+.hcg-caption {
+    color: var(--idg-caption-color);
+    font: var(--idg-caption-font);
+    text-align: var(--idg-caption-text-align);
+    padding: var(--idg-caption-padding);
+}
+
+/* Description */
+.hcg-description {
+    color: var(--idg-description-color);
+    font: var(--idg-description-font);
+    text-align: var(--idg-description-text-align);
+    padding: var(--idg-description-padding);
+}
+
+.hcg-table th.hcg-hovered-column {
+    background: var(--idg-header-column-hovered-background);
+}
+
+.hcg-table thead th.hcg-hovered-column .hcg-header-cell-content {
+    color: var(--idg-header-column-hovered-color);
+}
+
+.hcg-table thead th:hover .hcg-header-cell-content {
+    color: var(--idg-header-cell-hovered-color);
+}
+
+.hcg-table th.hcg-synced-column {
+    background: var(--idg-header-column-synced-background);
+}
+
+.hcg-table thead th.hcg-synced-column .hcg-header-cell-content {
+    color: var(--idg-header-column-synced-color);
+}
+
+.hcg-header-cell-content::after {
+    color: var(--highcharts-neutral-color-60); /* !!!!!!! */
+}
+
+.hcg-table td:first-child, /* !!!!!!!!!! */
+.hcg-table thead th.hcg-column-first,
+.hcg-table thead tr:first-child th:first-child {
+    border-left: none;
+}
+
+/* Credits */
+.hcg-credits {
+    color: var(--idg-credits-color);
+    font-size: var(--idg-credits-font-size);
+    text-decoration: none;
+}
+
+.hcg-credits-container {
+    text-align: var(--idg-credits-text-align);
+    padding: var(--idg-credits-padding);
+}
+
+/* Start DataGrid CSS Helpers Classes */
+.hcg-table tbody tr td.hcdg-negative,
+.hcg-table tbody tr:has(.hcdg-negative-row) td {
+    box-shadow: inset 0 0 0 var(--idg-negative-border-size) var(--idg-negative-border-color) !important;
+    background: var(--idg-negative-background) !important;
+}
+
+.hcg-table tbody tr td.hcdg-neutral,
+.hcg-table tbody tr:has(.hcdg-neutral-row) td {
+    box-shadow: inset 0 0 0 var(--idg-neutral-border-size) var(--idg-neutral-border-color) !important;
+    background: var(--idg-neutral-background) !important;
+}
+
+.hcg-table tbody tr td.hcdg-positive,
+.hcg-table tbody tr:has(.hcdg-positive-row) td {
+    box-shadow: inset 0 0 0 var(--idg-positive-border-size) var(--idg-positive-border-color) !important;
+    background: var(--idg-positive-background) !important;
+}
+
+.hcg-table thead tr th.hcdg-right,
+.hcg-table tbody tr td.hcdg-right {
+    text-align: right;
+}
+
+.hcg-table thead tr th.hcdg-center,
+.hcg-table tbody tr td.hcdg-center {
+    text-align: center;
+}
+
+.hcg-table thead tr th.hcdg-left,
+.hcg-table tbody tr td.hcdg-left {
+    text-align: left;
+}
+
+/* Loading indicator */
+.hcg-loading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--idg-loading-wrapper-background);
+    opacity: 0.5;
+    gap: 10px;
+}
+
+.hcg-loading-wrapper .hcg-loading-message {
+    color: var(--highcharts-neutral-color-100);
+}
+
+.hcg-container:has(.hcg-loading-wrapper) .hcg-no-data,
+.hcg-container:has(.hcg-loading-wrapper) .hcg-credits-container {
+    opacity: 0;
+}
+
+.hcg-loading-wrapper .hcg-spinner {
+    border: var(--idg-loading-wrapper-border-size) solid var(--highcharts-neutral-color-60);
+    border-top: var(--idg-loading-wrapper-border-size) solid var(--highcharts-neutral-color-100);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* End DataGrid CSS Helpers Classes */
+
+/* Start DataGrid Default Theme */
+.hcdg-theme-default {
+    --hcdg-border-radius: 5px;
+    --hcdg-color: var(--highcharts-neutral-color-100);
+    --hcdg-padding: 8px;
+    --hcdg-border-width: 1px;
+    --hcdg-border-color: var(--highcharts-neutral-color-20);
+    --hcdg-background: var(--highcharts-background-color);
+
+    /* Header row background color */
+    --hcdg-header-row-background: var(--highcharts-neutral-color-5);
+
+    /* Row colors */
+    --hcdg-row-even-background: var(--highcharts-neutral-color-3);
+
+    /* Hovered colors */
+    --hcdg-cell-hovered-background: var(--highcharts-highlight-color-20);
+    --hcdg-row-hovered-background: var(--highcharts-highlight-color-10);
+    --hcdg-column-hovered-background: var(--highcharts-highlight-color-10);
+    --hcdg-header-column-hovered-background: var(--highcharts-highlight-color-20);
+    --hcdg-header-cell-hovered-background: var(--highcharts-highlight-color-20);
+}
+
+/* End DataGrid Default Theme */

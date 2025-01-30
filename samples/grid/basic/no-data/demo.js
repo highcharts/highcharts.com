@@ -1,0 +1,3 @@
+Grid.grid('container', {
+    dataTable: {}
+});

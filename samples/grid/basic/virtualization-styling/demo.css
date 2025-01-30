@@ -1,0 +1,25 @@
+@import url("https://code.highcharts.com/dashboards/css/dashboards.css");
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#demo {
+    margin: 10px;
+    padding: 10px;
+}
+
+.two-cols {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+    padding: 10px;
+    min-width: 0;
+}
+
+.grid {
+    border: 1px solid red;
+}
+
+#container {
+    height: 500px;
+}

@@ -20,6 +20,7 @@
         "../Dashboards/**/*.ts",
         "../masters/**/*.ts",
         "../masters-dashboards/**/*.ts",
+        "../masters-grid/**/*.ts",
         "../masters-es5/**/*.ts"
     ],
     "include": [

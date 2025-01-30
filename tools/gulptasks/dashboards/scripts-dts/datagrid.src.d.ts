@@ -4,15 +4,15 @@
  *
  *!*/
 
-import DataGrid from "./es-modules/DataGrid/DataGrid";
-import Globals from "./es-modules/DataGrid/Globals";
-import Defaults from "./es-modules/DataGrid/Defaults";
+import DataGrid from "./es-modules/Grid/Pro/GridPro";
+import Globals from "./es-modules/Grid/Pro/GridProGlobals";
+import Defaults from "./es-modules/Grid/Core/Defaults";
 
-export { default as DataGrid } from "./es-modules/DataGrid/DataGrid";
-export { default as Column } from './es-modules/DataGrid/Table/Column';
-export { default as TableRow } from './es-modules/DataGrid/Table/Content/TableRow';
-export { default as TableCell } from './es-modules/DataGrid/Table/Content/TableCell';
-export { default as Options } from './es-modules/DataGrid/Options';
+export { default as DataGrid } from './es-modules/Grid/Pro/GridPro.js';
+export { default as Column } from './es-modules/Grid/Core/Table/Column.js';
+export { default as TableRow } from './es-modules/Grid/Core/Table/Content/TableRow.js';
+export { default as TableCell } from './es-modules/Grid/Core/Table/Content/TableCell.js';
+export { default as Options } from './es-modules/Grid/Core/Options.js';
 
 export { default as DataConnector } from "./es-modules/Data/Connectors/DataConnector";
 export { default as DataConverter } from "./es-modules/Data/Converters/DataConverter";
@@ -22,8 +22,8 @@ export { default as DataModifier } from "./es-modules/Data/Modifiers/DataModifie
 export { default as DataPool } from "./es-modules/Data/DataPool";
 export { default as DataTable } from "./es-modules/Data/DataTable";
 
-export const dataGrid: typeof DataGrid.dataGrid;
-export const dataGrids: typeof DataGrid.dataGrids;
+export const dataGrid: typeof DataGrid.grid;
+export const dataGrids: typeof DataGrid.grids;
 export const defaultOptions: typeof Defaults.defaultOptions;
 export const setOptions: typeof Defaults.setOptions;
 export const win: typeof Globals.win;

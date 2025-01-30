@@ -1,0 +1,18 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+.content {
+    padding: 8px;
+}
+
+#container {
+    height: 200px;
+}
+
+button {
+    margin-top: 20px;
+}
+
+textarea {
+    width: 500px;
+    height: 300px;
+}

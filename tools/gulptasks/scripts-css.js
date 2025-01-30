@@ -24,6 +24,7 @@ const highchartsConfig = {
     exclude: [
         'dashboards/',
         'datagrid/',
+        'grid/',
         'dashboards-icons/'
     ]
 };
@@ -42,6 +43,13 @@ const datagridConfig = {
     sources: 'css/datagrid/',
     target: TARGET_DIRECTORY + '/datagrid',
     replacePath: 'datagrid/',
+    exclude: []
+};
+
+const gridConfig = {
+    sources: 'css/grid/',
+    target: TARGET_DIRECTORY + '/grid/',
+    replacePath: 'grid/',
     exclude: []
 };
 
@@ -101,18 +109,23 @@ function copyCSS(config) {
  */
 function scriptCSS(argv) {
     const log = require('../libs/log');
+    const fsLib = require('../libs/fs');
 
     return new Promise(resolve => {
-        log.message(`Generating css for ${argv.dashboards ? 'dashboards' : 'highcharts'} ...`);
-
         if (argv.dashboards) {
+            log.message('Generating css for Dashboards...');
             copyCSS(dashboardsConfig);
             copyCSS(datagridConfig);
+            log.success('Copied dashboards CSS');
+        } else if (argv.product === 'Grid') {
+            log.message('Generating css for Grid...');
+            copyCSS(gridConfig);
+            log.success('Copied grid CSS');
         } else {
+            log.message('Generating css for Highcharts...');
             copyCSS(highchartsConfig);
+            log.success('Copied highcharts CSS');
         }
-
-        log.success(`Copied ${argv.dashboards ? 'dashboards' : 'highcharts'} CSS`);
 
         resolve();
     });
@@ -120,7 +133,9 @@ function scriptCSS(argv) {
 
 scriptCSS.description = 'Creates CSS files for given product';
 scriptCSS.flags = {
-    '--dashboards': 'Creates CSS files for dashboards'
+    '--dashboards': 'Creates CSS files for dashboards',
+    '--datagrid': 'Creates CSS files for datagrid',
+    '--product': 'Creates CSS files for product: Highcharts (default), Grid'
 };
 
 gulp.task('scripts-css', () => scriptCSS(require('yargs').argv));

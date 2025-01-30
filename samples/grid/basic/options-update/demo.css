@@ -1,0 +1,21 @@
+@import url("https://code.highcharts.com/grid/css/grid.css");
+
+#demo {
+    margin: 8px;
+}
+
+#container {
+    height: 250px;
+}
+
+#update label {
+    margin-top: 8px;
+    display: block;
+}
+
+#update textarea {
+    display: block;
+    min-height: 250px;
+    min-width: 400px;
+    margin: 4px 0;
+}

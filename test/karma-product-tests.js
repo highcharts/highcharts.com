@@ -35,5 +35,6 @@ module.exports = {
         'coloraxis'
     ],
     Dashboards: [],
+    Grid: [],
     Accessibility: [] // a11y tests already in always, but need the key to work as a "product"
 };
