@@ -159,4 +159,54 @@ QUnit.test('Packed Bubble layouts operations', function (assert) {
         'After clicking on the selected parent, all selected parents should ' +
         'be deselected.'
     );
+
+    chart.update({
+        plotOptions: {
+            packedBubble: {
+                layoutAlgorithm: {
+                    gravitationalConstant: 0.05,
+                    seriesInteraction: true,
+                    dragBetweenSeries: true,
+                    parentNodeLimit: false,
+                    splitSeries: true,
+                    enableSimulation: false
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}',
+                    style: {
+                        color: 'black',
+                        textOutline: 'none',
+                        fontWeight: 'normal'
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                data: [5, 9, 2, 7, 4],
+                layoutAlgorithm: {
+                    splitSeries: true
+                }
+            },
+            {
+                data: [3, 12, 3, 5, 7, 8],
+                layoutAlgorithm: {
+                    splitSeries: false
+                }
+            }
+        ]
+    });
+
+    assert.deepEqual(
+        chart.series[0].parentNode !== undefined,
+        true,
+        'Series should have parentNode'
+    );
+
+    assert.deepEqual(
+        chart.series[1].parentNode === undefined,
+        true,
+        'Series should lack parentNode'
+    );
 });

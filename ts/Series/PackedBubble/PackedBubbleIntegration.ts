@@ -43,7 +43,7 @@ function barycenter(this: PackedBubbleLayout): void {
         centerY: number;
 
     for (const node of nodes) {
-        if (layout.options.splitSeries && !node.isParentNode) {
+        if (this.resolveSplitSeries(node) && !node.isParentNode) {
             centerX = (node.series.parentNode as any).plotX;
             centerY = (node.series.parentNode as any).plotY;
         } else {

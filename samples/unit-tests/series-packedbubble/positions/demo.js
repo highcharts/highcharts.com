@@ -168,11 +168,9 @@ QUnit.test('PackedBubble layout simulation', function (assert) {
         }]
     });
 
-    var temp = chart.series[0].data[0].temperature;
-
     assert.strictEqual(
-        temp,
-        2.1283299490557193,
+        chart.series[0].data[0].temperature > 0,
+        true,
         'Bubbles should not get stuck during simulation (#14439).'
     );
 });

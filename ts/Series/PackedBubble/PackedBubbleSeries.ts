@@ -425,6 +425,7 @@ class PackedBubbleSeries extends BubbleSeries {
                         seriesIndex: this.index
                     } as any
                 );
+                this.chart.allParentNodes.push(parentNode);
             }
             if (this.parentNode) {
                 (parentNode as any).plotX = this.parentNode.plotX;
