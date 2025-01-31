@@ -28,6 +28,7 @@
     "dlintcss": "npx stylelint --config ./css/.stylelintrc.json 'css/datagrid/*.css' && npx stylelint --config ./css/.stylelintrc.json 'css/dashboards/*.css'",
     "dtest": "gulp dashboards/test",
     "dlint": "gulp dashboards/lint",
+    "ddocs": "documentation build ts/Grid/**/*.ts --shallow -f md -o docs/datagrid/API.md",
     "test": "npx gulp test-ts --force && npx gulp test --force --speak",
     "test-node": "tsx ./test/ts-node-unit-tests/index.ts",
     "test-node:watch": "tsx ./test/ts-node-unit-tests/index.ts --watch",
