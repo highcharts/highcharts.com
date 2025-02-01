@@ -252,6 +252,7 @@ class HTMLElement extends SVGElement {
             })
         });
 
+        this.element.style.whiteSpace = 'nowrap';
     }
 
     /**
@@ -293,6 +294,7 @@ class HTMLElement extends SVGElement {
         // Some properties require other properties to be set
         if (styles?.textOverflow === 'ellipsis') {
             styles.overflow = 'hidden';
+            styles.whiteSpace = 'nowrap';
         }
         if (styles?.lineClamp) {
             styles.display = '-webkit-box';
