@@ -2462,6 +2462,11 @@ const defaultOptions: DefaultOptions = {
          */
         padding: 8,
 
+        position: {
+            x: 0,
+            y: 1
+        },
+
         /**
          * The name of a symbol to use for the border around the tooltip. Can
          * be one of: `"callout"`, `"circle"` or `"rect"`. When
@@ -2476,8 +2481,9 @@ const defaultOptions: DefaultOptions = {
          *
          * @type  {Highcharts.TooltipShapeValue}
          * @since 4.0
+         * @default undefined
+         * @apioption tooltip.shape
          */
-        shape: 'callout',
 
         /**
          * Shows information in the tooltip for all points with the same X
@@ -2648,8 +2654,9 @@ const defaultOptions: DefaultOptions = {
          *         Fixed tooltip position, border and shadow disabled
          *
          * @type {boolean|Highcharts.ShadowOptionsObject}
+         * @default undefined
+         * @apioption tooltip.shadow
          */
-        shadow: true,
 
         /**
          * Prevents the tooltip from switching or closing when touched or

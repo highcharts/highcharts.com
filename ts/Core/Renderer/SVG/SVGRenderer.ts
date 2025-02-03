@@ -320,6 +320,8 @@ class SVGRenderer implements SVGRendererLike {
     public unSubPixelFix?: Function;
     public url: string;
     public width!: number;
+    public x = 0;
+    public y = 0;
 
     /* *
      *

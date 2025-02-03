@@ -716,6 +716,49 @@ class Chart {
     }
 
     /**
+     * Get the clipping for the series. Could be called for a series to
+     * initiate animating the clip or to set the final clip (only width
+     * and x).
+     *
+     * @private
+     * @function Highcharts.Chart#getClipBox
+     */
+    public getClipBox(series?: Series, chartCoords?: boolean): BBoxObject {
+
+        const inverted = this.inverted,
+            { xAxis, yAxis } = series || {};
+
+        // If no axes on the series, or series undefined, use global clipBox
+        let { x, y, width, height } = merge(this.clipBox);
+
+        if (series) {
+            // Otherwise, use clipBox.width which is corrected for
+            // plotBorderWidth and clipOffset
+            if (xAxis && xAxis.len !== this.plotSizeX) {
+                width = xAxis.len;
+            }
+
+            if (yAxis && yAxis.len !== this.plotSizeY) {
+                height = yAxis.len;
+            }
+
+            // If the chart is inverted and the series is not invertible, the
+            // chart clip box should be inverted, but not the series clip box
+            // (#20264)
+            if (inverted && !series.invertible) {
+                [width, height] = [height, width];
+            }
+        }
+
+        if (chartCoords) {
+            x += (inverted ? yAxis : xAxis)?.pos ?? this.plotLeft;
+            y += (inverted ? xAxis : yAxis)?.pos ?? this.plotTop;
+        }
+
+        return { x, y, width, height };
+    }
+
+    /**
      * Check whether a given point is within the plot area.
      *
      * @function Highcharts.Chart#isInsidePlot
@@ -2337,14 +2380,13 @@ class Chart {
             });
         }
 
-        plotBorder[verb](plotBorder.crisp({
-            x: plotLeft,
-            y: plotTop,
-            width: plotWidth,
-            height: plotHeight
-        }, -plotBorder.strokeWidth())); // #3282 plotBorder should be negative;
+        plotBorder[verb](plotBorder.crisp(
+            plotBox,
+            // #3282 plotBorder should be negative
+            -plotBorder.strokeWidth()
+        ));
 
-        // reset
+        // Reset
         chart.isDirtyBox = false;
 
         fireEvent(this, 'afterDrawChartBox');

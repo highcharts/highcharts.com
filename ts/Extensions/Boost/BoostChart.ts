@@ -119,9 +119,9 @@ function getBoostClipRect(
     }
 
     // Clipping of individual series (#11906, #19039).
-    if ((target as Series).getClipBox) {
+    if ((target as Series).is) {
         const { xAxis, yAxis } = target as Series;
-        clipBox = (target as Series).getClipBox();
+        clipBox = chart.getClipBox(target as Series);
         if (chart.inverted) {
             const lateral = clipBox.width;
             clipBox.width = clipBox.height;

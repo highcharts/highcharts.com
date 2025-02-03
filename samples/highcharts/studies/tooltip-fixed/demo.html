@@ -1,0 +1,30 @@
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+
+<div id="container"></div>
+
+<div class="demo-controls">
+    <input type="checkbox" id="fixed" checked>
+    <label for="fixed">Fixed tooltip</label>
+
+    <h4>Tooltip layout</h4>
+    <input type="radio" name="split-shared" id="split" checked="checked">
+    <label for="split">Split</label>
+    <input type="radio" name="split-shared" id="shared">
+    <label for="shared">Shared</label>
+    <input type="radio" name="split-shared" id="single">
+    <label for="single">Neither</label>
+
+    <h4>Options</h4>
+    <label for="relative-to">Relative to:</label>
+    <select id="relative-to">
+        <option value="pane">pane</option>
+        <option value="chart">chart</option>
+        <option value="plotBox">plotBox</option>
+        <option value="spacingBox">spacingBox</option>
+    </select>
+    <br>
+    <input type="checkbox" id="outside">
+    <label for="outside">Tooltip outside</label>
+</div>
