@@ -19,6 +19,10 @@
 import type ScatterPoint from './ScatterPoint';
 import type ScatterSeriesOptions from './ScatterSeriesOptions';
 
+// ScatterSeries depends on ColumnSeries and LineSeries, so we must ensure they are loaded
+import '../Column/ColumnSeries.js';
+import '../Line/LineSeries.js';
+
 import ScatterSeriesDefaults from './ScatterSeriesDefaults.js';
 import SeriesRegistry from '../../Core/Series/SeriesRegistry.js';
 const {
