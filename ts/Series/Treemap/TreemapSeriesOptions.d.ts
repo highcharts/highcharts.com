@@ -662,6 +662,12 @@ export interface TreemapSeriesOptions extends ScatterSeriesOptions {
     setRootNode?: Function;
 
     /**
+     * Experimental. How to set the size of child nodes when a header or padding
+     * is present.
+     */
+    sizeBy?: 'parent'|'leaf';
+
+    /**
      * Whether to display this series type or specific series item in the
      * legend.
      */

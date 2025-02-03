@@ -68,6 +68,8 @@ class TreemapPoint extends ScatterPoint {
 
     public parent?: string;
 
+    public simulatedValue?: number;
+
     public series!: TreemapSeries;
 
     public shapeType: 'arc'|'circle'|'image'|'path'|'rect'|'text' = 'rect';

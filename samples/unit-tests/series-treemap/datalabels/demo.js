@@ -977,8 +977,8 @@ QUnit.test(
             }
         });
         assert.strictEqual(
-            point.dataLabel,
-            void 0,
+            typeof point.dataLabel,
+            'undefined',
             'Eastern Mediterranean should be destroyed.'
         );
     }

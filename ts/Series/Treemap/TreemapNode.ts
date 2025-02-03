@@ -83,6 +83,7 @@ class TreemapNode {
  * */
 
 interface TreemapNode {
+    areaCorrection?: number;
     height: number;
     i: number;
     id: string;

@@ -490,7 +490,8 @@ const TreemapSeriesDefaults: TreemapSeriesOptions = {
     colorKey: 'colorValue',
 
     /**
-     * The opacity of a point in treemap. When a point has children, the
+     * The opacity of grouped points in treemap. When a point has children, the
+     * group point is covering the children, and is given this opacity. The
      * visibility of the children is determined by the opacity.
      *
      * @since 4.2.4

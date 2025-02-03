@@ -91,7 +91,6 @@
             },
             dataLabels: {
                 enabled: true,
-                useHTML: true,
                 style: {
                     textOutline: false,
                     fontWeight: 400,
