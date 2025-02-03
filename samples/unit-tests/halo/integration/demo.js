@@ -47,25 +47,31 @@ QUnit.test('visibility', assert => {
     );
 });
 
-QUnit.test('Halo with boost module, #12870', assert => {
+QUnit.test('Halo with boost module', assert => {
     const chart = Highcharts.chart('container', {
-        xAxis: {
-            min: -5,
-            max: 5
-        },
-        series: [
-            {
-                boostThreshold: 1,
-                marker: {
-                    radius: 75
-                },
-                data: [2]
-            }
-        ]
-    });
+            xAxis: {
+                min: -5,
+                max: 5
+            },
+            plotOptions: {
+                series: {
+                    boostThreshold: 2,
+                    marker: {
+                        radius: 20
+                    }
+                }
+            },
+            series: [{
+                data: [2, 3]
+            }, {
+                data: [3, 2]
+            }, {
+                data: [2.5]
+            }]
+        }),
+        series = chart.series[0],
+        controller = new TestController(chart);
 
-    const series = chart.series[0];
-    const controller = new TestController(chart);
     controller.mouseMove(
         series.points[0].plotX + chart.plotLeft,
         series.points[0].plotY + chart.plotTop
@@ -73,6 +79,18 @@ QUnit.test('Halo with boost module, #12870', assert => {
 
     assert.ok(
         !!series.halo,
-        'Should have created a halo object on Series after hover'
+        'Should have created a halo object on Series after hover (#12870)'
+    );
+
+    assert.strictEqual(
+        series.markerGroup.element.getAttribute('opacity'),
+        '1',
+        'Boosted series sharing markerGroup should not be inactive on hover'
+    );
+
+    assert.notEqual(
+        +chart.series[2].markerGroup.element.getAttribute('opacity'),
+        1,
+        'Series not sharing markerGroup should be inactive on hover'
     );
 });

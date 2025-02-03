@@ -185,13 +185,12 @@ class Pointer {
      * @param {Array<Highcharts.Point>} points
      * Currently hovered points
      */
-    public applyInactiveState(points: Array<Point>): void {
-        let activeSeries = [] as Array<Series>,
-            series: Series;
+    public applyInactiveState(points: Array<Point> = []): void {
+        let activeSeries: Array<Series> = [];
 
         // Get all active series from the hovered points
-        (points || []).forEach(function (item): void {
-            series = item.series;
+        points.forEach((item): void => {
+            const series = item.series;
 
             // Include itself
             activeSeries.push(series);
@@ -212,15 +211,24 @@ class Pointer {
             if (series.navigatorSeries) {
                 activeSeries.push(series.navigatorSeries);
             }
+
+            // Include boosed series when they share markerGroup
+            if (series.boosted && series.markerGroup) {
+                activeSeries = activeSeries.concat(
+                    this.chart.series.filter(function (otherSeries): boolean {
+                        return otherSeries.markerGroup === series.markerGroup;
+                    })
+                );
+            }
         });
         // Now loop over all series, filtering out active series
-        this.chart.series.forEach(function (inactiveSeries): void {
-            if (activeSeries.indexOf(inactiveSeries) === -1) {
+        this.chart.series.forEach(function (series): void {
+            if (activeSeries.indexOf(series) === -1) {
                 // Inactive series
-                inactiveSeries.setState('inactive', true);
-            } else if (inactiveSeries.options.inactiveOtherPoints) {
+                series.setState('inactive', true);
+            } else if (series.options.inactiveOtherPoints) {
                 // Active series, but other points should be inactivated
-                inactiveSeries.setAllPointsToState('inactive');
+                series.setAllPointsToState('inactive');
             }
         });
     }
@@ -1496,7 +1504,7 @@ class Pointer {
 
     /**
      * Reset the tracking by hiding the tooltip, the hover series state and the
-     * hover point
+     * hover point.
      *
      * @function Highcharts.Pointer#reset
      *
@@ -1505,6 +1513,7 @@ class Pointer {
      * possible.
      *
      * @param {number} [delay]
+     * The tooltip hide delay in ms.
      */
     public reset(allowMove?: boolean, delay?: number): void {
         const pointer = this,
