@@ -558,12 +558,12 @@ class SVGElement implements SVGElementLike {
      * @example
      * // Specific color
      * text.css({
-     *    textOutline: '1px black'
+     *    textOutline: '2px black'
      * });
      * // Automatic contrast
      * text.css({
      *    color: '#000000', // black text
-     *    textOutline: '1px contrast' // => white outline
+     *    textOutline: '2px contrast' // => white outline
      * });
      *
      * @private
@@ -615,6 +615,8 @@ class SVGElement implements SVGElementLike {
             attr(outline, {
                 'class': 'highcharts-text-outline',
                 fill: color,
+                // Just enough to comply to WCAG text contrast requirements
+                opacity: 0.65,
                 stroke: color,
                 'stroke-width': strokeWidth as any,
                 'stroke-linejoin': 'round'
