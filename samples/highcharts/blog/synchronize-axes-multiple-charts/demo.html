@@ -3,9 +3,27 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<div class="chart" id="container1"></div>
-<div class="flex-container">
-  <div class="chart" id="container2"></div>
-  <div class="chart" id="container3"></div>
+<button id="reset-zoom">Reset zoom</button>
+
+<div class="dashboard">
+  <div class="chart" id="container-world"></div>
+  <div class="chart" id="container-south-east-asia"></div>
+  <div class="flex-container">
+    <div class="chart" id="container-africa"></div>
+    <div class="chart" id="container-europe"></div>
+  </div>
 </div>
-<div class="chart" id="container4"></div>
+<p>
+  Demo of an experimental plugin to synchronize axes and tooltips across charts.
+  Synchronization of two or more axes is achieved by setting identical
+  <code>custom.syncGroup</code> options to each axes. Sync'ing is only allowed
+  between axes of the same type (<code>xAxis</code> or <code>yAxis</code>).
+</p>
+<p>
+  Synchronization of axes will affect both the initial view and the extremes
+  after zooming.
+</p>
+<p>
+  In this demo, the x axes of the two top charts are synced. The two bottom
+  charts are sync'ed by y axes. The <code>zoomType</code> is set up accordingly.
+</p>

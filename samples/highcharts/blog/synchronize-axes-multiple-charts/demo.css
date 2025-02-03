@@ -17,6 +17,20 @@
     flex: 1;
 }
 
+#reset-zoom {
+    float: right;
+    padding: 1em;
+    visibility: hidden;
+}
+
+#reset-zoom.visible {
+    visibility: visible;
+}
+
+.dashboard {
+    clear: both;
+}
+
 .flex-container {
     display: flex;
     justify-content: center;

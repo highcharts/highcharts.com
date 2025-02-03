@@ -1,6 +1,6 @@
 ---
- name: Synchronize the axes on multiple charts
+ name: Synchronize the axes and tooltips on multiple charts
  authors:
-   - Karol Kolodziej
+   - Karol Kolodziej, Torstein Hønsi
  js_wrap: b
 ...
