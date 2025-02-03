@@ -1,7 +1,7 @@
 const btn = document.getElementById('play-pause-button'),
     input = document.getElementById('play-range'),
     startYear = 1973,
-    endYear = 2021;
+    endYear = 2023;
 
 // General helper functions
 const arrToAssociative = arr => {
@@ -57,7 +57,7 @@ const chart = Highcharts.chart('container', {
     },
     data: {
         csv: document.getElementById('csv').innerHTML,
-        itemDelimiter: '\t',
+        itemDelimiter: ';',
         complete: function (options) {
             for (let i = 0; i < options.series.length; i++) {
                 formatRevenue[i] = arrToAssociative(options.series[i].data);
@@ -260,7 +260,7 @@ function update() {
     // If slider moved back in time
     if (yearIndex < dataLength - 1) {
         for (let i = 0; i < series.length; i++) {
-            const seriesData = series[i].data.slice(0, yearIndex);
+            const seriesData = series[i].yData.slice(0, yearIndex);
             series[i].setData(seriesData, false);
         }
     }
