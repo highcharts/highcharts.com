@@ -93,9 +93,24 @@ describe('Add components through UI', () => {
         // Act
         cy.grabComponent('chart');
         cy.dropComponent('#dashboard-col-0')
-        cy.hideSidebar(); // Hide sidebar to avoid interference with the next test.
 
         // Assert
+        cy.get('.highcharts-dashboards-edit-accordion')
+            .contains('Chart options')
+            .click();
+        // Legend toggle
+        cy.get('.highcharts-dashboards-edit-toggle-container')
+            .eq(1)
+            .find('input[type="checkbox"]')
+            .should('be.checked');
+        // Data labels toggle
+        cy.get('.highcharts-dashboards-edit-toggle-container')
+            .eq(4)
+            .find('input[type="checkbox"]')
+            .should('not.be.checked');
+
+        // Assert
+        cy.hideSidebar(); // Hide sidebar to avoid interference with the next test.
         cy.board().then((board) => {
             assert.equal(
                 board.layouts[0].rows[0].cells.length,

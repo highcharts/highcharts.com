@@ -431,12 +431,40 @@ class SidebarPopup extends BaseForm {
                             const newCell =
                                 components[i].onDrop(sidebar, dropContext);
 
-                            if (newCell) {
-                                dropContext.setHighlight();
-                                sidebar.editMode.setEditCellContext(newCell);
-                                sidebar.show(newCell);
-                                newCell.setHighlight();
-                            }
+                            const unbindLayoutChanged = addEvent(
+                                this.editMode,
+                                'layoutChanged',
+                                (e): void => {
+                                    if (newCell && e.type === 'newComponent') {
+
+                                        if (newCell.mountedComponent.chart) {
+                                            const unbind = addEvent(
+                                                newCell.mountedComponent.chart,
+                                                'render',
+                                                (): void => {
+                                                    sidebar.editMode
+                                                        .setEditCellContext(
+                                                            newCell
+                                                        );
+                                                    sidebar.show(newCell);
+                                                    newCell.setHighlight();
+
+                                                    unbind();
+                                                    unbindLayoutChanged();
+                                                }
+                                            );
+                                        } else {
+                                            sidebar.editMode.setEditCellContext(
+                                                newCell
+                                            );
+                                            sidebar.show(newCell);
+                                            newCell.setHighlight();
+                                        }
+
+                                    }
+                                }
+                            );
+
                             // Clean up event listener after drop is complete
                             document.removeEventListener(
                                 'mousemove',
