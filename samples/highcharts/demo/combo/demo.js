@@ -35,7 +35,10 @@ Highcharts.chart('container', {
         data: [58, 88, 75, 250, 176]
     }, {
         type: 'line',
-        step: 'center',
+        step: {
+            type: 'center',
+            risers: false
+        },
         name: 'Average',
         data: [47, 83.33, 70.66, 239.33, 175.66],
         marker: {

@@ -285,12 +285,15 @@ class AreaRangeSeries extends AreaSeries {
             options = this.options,
             polar = this.chart.polar,
             connectEnds = polar && options.connectEnds !== false,
-            connectNulls = options.connectNulls;
+            connectNulls = options.connectNulls,
+            stepOption = typeof options.step === 'object' ?
+                options.step :
+                { type: options.step, risers: true },
+            step = options.step;
 
         let i,
             point: AreaRangePoint,
-            pointShim: any,
-            step = options.step;
+            pointShim: any;
 
         points = points || this.points;
 
@@ -347,15 +350,16 @@ class AreaRangeSeries extends AreaSeries {
 
         // Get the paths
         const lowerPath = getGraphPath.call(this, points);
-        if (step) {
-            if ((step as any) === true) {
-                step = 'left';
+        if (stepOption.type) {
+            if (stepOption.type as any === true) {
+                stepOption.type = 'left';
             }
-            options.step = {
+            stepOption.type = {
                 left: 'right',
                 center: 'center',
                 right: 'left'
-            }[step] as any; // Swap for reading in getGraphPath
+            }[stepOption.type] as any; // Swap for reading in getGraphPath
+            options.step = stepOption;
         }
         const higherPath = getGraphPath.call(this, highPoints);
         const higherAreaPath = getGraphPath.call(this, highAreaPoints);
@@ -364,28 +368,30 @@ class AreaRangeSeries extends AreaSeries {
         // Create a line on both top and bottom of the range
         const linePath: SVGPath = ([] as SVGPath).concat(lowerPath, higherPath);
 
+        this.graphPath = linePath;
+
+        const areaPath: SVGPath = lowerPath.concat(higherAreaPath);
+
         // For the area path, we need to change the 'move' statement into
         // 'lineTo'
-        if (
-            !this.chart.polar &&
-            higherAreaPath[0] &&
-            higherAreaPath[0][0] === 'M'
-        ) {
-            // This probably doesn't work for spline
-            higherAreaPath[0] = [
-                'L',
-                higherAreaPath[0][1],
-                higherAreaPath[0][2]
-            ];
+        if (!this.chart.polar) {
+            for (let i = 1; i < areaPath.length; i++) {
+                if (areaPath[i][0] === 'M') {
+                    areaPath[i] = [
+                        'L',
+                        areaPath[i][1] || 0,
+                        areaPath[i][2] || 0
+                    ];
+                }
+            }
         }
-
-        this.graphPath = linePath;
-        this.areaPath = lowerPath.concat(higherAreaPath);
 
         // Prepare for sideways animation
         linePath.isArea = true;
         linePath.xMap = lowerPath.xMap;
-        this.areaPath.xMap = lowerPath.xMap;
+        areaPath.xMap = lowerPath.xMap;
+
+        this.areaPath = areaPath;
 
         return linePath;
     }

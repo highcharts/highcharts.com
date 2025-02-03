@@ -391,7 +391,11 @@ class Fx {
                             moveSegment[2]
                         ];
                     } else {
-                        arr[0] = ['L', moveSegment[1], moveSegment[2]];
+                        arr[0] = [
+                            otherSegment[0] === 'M' ? 'M' : 'L',
+                            moveSegment[1],
+                            moveSegment[2]
+                        ];
                     }
                 }
 

@@ -1,0 +1,13 @@
+---
+name: Step area 
+authors:
+  - Torstein Hønsi
+js_wrap: b
+alt_text: >-
+  Highcharts step area chart
+tags:
+  - Highcharts demo
+categories:
+  - Area charts:
+      priority: 4
+...

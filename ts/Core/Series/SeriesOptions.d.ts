@@ -144,7 +144,7 @@ export interface SeriesOptions {
     selected?: boolean;
     shadow?: (boolean|Partial<ShadowOptionsObject>);
     states?: SeriesStatesOptions<Series>;
-    step?: SeriesStepValue;
+    step?: SeriesStepType|SeriesStepOptionsObject;
     stickyTracking?: boolean;
     turboThreshold?: number;
     type?: string;
@@ -200,7 +200,12 @@ export interface SeriesStatesOptions<T extends { options: AnyRecord }> extends S
     select?: SeriesStateSelectOptions&StateGenericOptions<T>;
 }
 
-export type SeriesStepValue = ('center'|'left'|'right');
+export type SeriesStepType = ('center'|'left'|'right');
+
+export interface SeriesStepOptionsObject {
+    type?: SeriesStepType;
+    risers?: boolean;
+}
 
 /**
  * An array defining zones within a series. Zones can be applied to the
