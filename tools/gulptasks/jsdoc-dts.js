@@ -3,6 +3,7 @@
  */
 
 const gulp = require('gulp');
+const path = require('node:path');
 
 /* *
  *
@@ -10,7 +11,14 @@ const gulp = require('gulp');
  *
  * */
 
-const productBundles = [
+
+const ESM_FOLDERS = [
+    path.join('es-modules', 'masters'),
+    'esm'
+];
+
+
+const PRODUCT_BUNDLES = [
     'custom',
     'highcharts',
     'highcharts-gantt',
@@ -43,38 +51,42 @@ function jsDocESMDTS() {
             !file.includes('datagrid') &&
             !file.includes('es-modules')
         ));
-    const path = require('path');
+    const argv = require('yargs').argv;
     const promises = [];
 
-    for (const dtsFile of dtsFiles) {
-        const target = path.join(
-            'code',
-            'es-modules',
-            'masters',
-            path.relative('code', dtsFile)
-        );
-        const source = path.relative(
-            path.dirname(target),
-            dtsFile.substring(0, dtsFile.length - 5)
-        );
+    for (const folder of ESM_FOLDERS) {
+        for (const dtsFile of dtsFiles) {
+            const target = path.join(
+                'code',
+                folder,
+                path.relative('code', dtsFile)
+            );
+            const source = path.relative(
+                path.dirname(target),
+                dtsFile.substring(0, dtsFile.length - 5)
+            );
 
-        fsLib.makePath(path.dirname(target));
+            fsLib.makePath(path.dirname(target));
 
-        promises.push(fs.promises.writeFile(
-            target,
-            productBundles.some(
-                product => dtsFile.endsWith(`${product}.src.d.ts`)
-            ) ?
-                [
-                    `import * as Highcharts from '${fsLib.path(source, true)}';`,
-                    'export default Highcharts;',
-                    ''
-                ].join('\n') :
-                [
-                    `import '${fsLib.path(source, true)}';`,
-                    ''
-                ].join('\n')
-        ));
+            promises.push(fs.promises.writeFile(
+                target,
+                (
+                    !argv.assembler ||
+                    PRODUCT_BUNDLES.some(
+                        product => dtsFile.endsWith(`${product}.src.d.ts`)
+                    ) ?
+                        [
+                            `import * as Highcharts from '${fsLib.path(source, true)}';`,
+                            'export default Highcharts;',
+                            ''
+                        ].join('\n') :
+                        [
+                            `import '${fsLib.path(source, true)}';`,
+                            ''
+                        ].join('\n')
+                )
+            ));
+        }
     }
 
     return Promise.all(promises);
@@ -108,6 +120,7 @@ function jsDocDTS() {
             .then(() => highchartsDeclarationsGenerator.task())
             .then(resolve)
             .catch(reject);
+
     });
 }
 

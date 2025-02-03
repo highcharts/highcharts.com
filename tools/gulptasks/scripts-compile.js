@@ -32,17 +32,17 @@ function scriptsCompile(filePaths, config = {}, product = 'highcharts') {
         path = require('path'),
         swc = require('@swc/core'),
         argv = require('yargs').argv;
-    let esModulesFolder,
+    let esModulesFolders,
         targetFolder;
 
     if (product === 'highcharts') {
-        esModulesFolder = '/es-modules/';
+        esModulesFolders = ['/esm/', '/es-modules/'];
         targetFolder = 'code';
     } else if (product === 'dashboards') {
-        esModulesFolder = config.esModulesFolder;
+        esModulesFolders = [config.esModulesFolder];
         targetFolder = config.bundleTargetFolder;
     } else if (product === 'datagrid') {
-        esModulesFolder = config.esModulesFolderDataGrid;
+        esModulesFolders = [config.esModulesFolderDataGrid];
         targetFolder = config.bundleTargetFolderDataGrid;
     }
 
@@ -67,7 +67,10 @@ function scriptsCompile(filePaths, config = {}, product = 'highcharts') {
     ) {
         inputPath = filePaths[i];
 
-        if (inputPath.includes(esModulesFolder) || !inputPath.endsWith('.src.js')) {
+        if (
+            esModulesFolders.some(folder => inputPath.includes(folder)) ||
+            !inputPath.endsWith('.src.js')
+        ) {
             continue;
         }
 
@@ -100,6 +103,10 @@ function scriptsCompile(filePaths, config = {}, product = 'highcharts') {
                 );
 
                 return result;
+            })
+            .catch(error => {
+                logLib.failure('ERROR:', inputPath, '=>', outputPath);
+                throw error;
             });
 
         if (i % 2 || argv.CI) {

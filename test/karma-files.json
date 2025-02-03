@@ -15,6 +15,7 @@
     "code/modules/map.src.js",
     "code/modules/gantt.src.js",
 
+    "code/modules/datagrouping.src.js",
     "code/modules/exporting.src.js",
     "code/modules/parallel-coordinates.src.js",
     "code/modules/accessibility.src.js",

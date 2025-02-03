@@ -80,11 +80,20 @@ function createUMDConfig(namespace, ...pathMembers) {
  * @param {string} namespace
  * Source folder with masters.
  *
- * @return
+ * @param {string} [externalsType]
+ * Externals type to consider.
+ *
+ * @return {unknown}
  * UMD config for external reference, or `undefined` to include reference in
  * bundle.
  */
-export async function resolveExternals(info, masterName, sourceFolder, namespace) {
+export async function resolveExternals(
+    info,
+    masterName,
+    sourceFolder,
+    namespace,
+    externalsType = 'umd'
+) {
     const path = Path
         .relative(sourceFolder, Path.join(info.context, info.request))
         .replace(/(?:\.src)?\.js$/u, '')
@@ -103,17 +112,29 @@ export async function resolveExternals(info, masterName, sourceFolder, namespace
 
     for (const external of externals) {
         if (external.files.includes(path)) {
-            return (
-                external.included.includes(masterName) ?
-                    void 0 :
-                    createUMDConfig(
-                        namespace,
-                        ...external.namespacePath
-                            .replace(/\{name\}/gsu, namespaceName)
-                            .split('.')
-                            .slice(1)
-                    )
-            );
+
+            if (external.included.includes(masterName)) {
+                return void 0;
+            }
+
+            let namespacePath = [
+                namespace,
+                ...external.namespacePath
+                    .replace(/\{name\}/gsu, namespaceName)
+                    .split('.')
+                    .slice(1)
+            ];
+
+            switch (externalsType) {
+                case 'import':
+                    return `${externalsType} ${external.included[0]}`;
+                case 'umd':
+                    return createUMDConfig(...namespacePath);
+                default:
+                    return {
+                        [externalsType]: namespacePath
+                    };
+            }
         }
     }
 

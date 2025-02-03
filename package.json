@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "api": "gulp api",
+    "clean": "gulp --series clean update-vendor",
     "dapi": "gulp dashboards/api",
     "dapi2": "gulp dashboards/api2",
     "dbuild": "gulp dashboards/dist",
@@ -45,7 +46,7 @@
     "ts-compile:test": "npx tsc -p test && npx tsc -p samples",
     "gulp": "npx gulp",
     "utils": "highcharts-utils",
-    "prepare": "husky install && gulp --series clean update-vendor",
+    "prepare": "husky install && npm run clean",
     "postinstall": "npx gulp update-vendor && npx gulp patch-ink-docstrap",
     "reset": "npx gulp reset-clone && npm i",
     "benchmark": "tsx test/ts-node-unit-tests/bench.ts",
