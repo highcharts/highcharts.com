@@ -183,6 +183,13 @@ function onMouseDown(
     point: DragNodesPoint,
     event: PointerEvent
 ): void {
+    const { panKey } = this.chart.options.chart,
+        panKeyPressed = panKey && event[`${panKey}Key`];
+
+    if (panKeyPressed) {
+        return;
+    }
+
     const normalizedEvent = this.chart.pointer?.normalize(event) || event;
 
     point.fixedPosition = {

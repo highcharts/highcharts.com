@@ -1,6 +1,14 @@
 Highcharts.chart('container', {
     chart: {
-        type: 'pie'
+        type: 'pie',
+        zooming: {
+            type: 'xy'
+        },
+        panning: {
+            enabled: true,
+            type: 'xy'
+        },
+        panKey: 'shift'
     },
     title: {
         text: 'Egg Yolk Composition'

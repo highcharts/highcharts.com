@@ -1,0 +1,6 @@
+---
+ name: Highcharts Demo
+ authors:
+   - Hubert Kozik
+ js_wrap: b
+...

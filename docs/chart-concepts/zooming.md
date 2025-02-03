@@ -32,6 +32,15 @@ Since v11.1, mouse wheel zooming is available through the [zooming.mouseWheel](h
 file](https://code.highcharts.com/modules/mouse-wheel-zoom.js) for Highcharts Core,
 but is bundled in Highcharts Stock.
 
+Since Highcharts vX.X.X, zooming is available for non-cartesian series, such as
+pie, treegraph, sankey amongst others. To enable zooming for non-cartesian
+series, you need to include an [additional module file](https://code.highcharts.com/modules/non-cartesian-zoom.js).
+The panning and zooming behavior for non-cartesian series mirrors that of
+cartesian series, with support for mouse drag, touch gestures, and mouse wheel
+zooming (when enabled). The zoom rectangle in non-cartesian zooming has a fixed
+aspect ratio that matches the chart's width-to-height ratio, as this ensures
+consistent and meaningful zoom behavior for these types of series.
+
 ### Highcharts Stock
 
 In Highcharts Stock, we also have the Navigator, Range Selector, and Scrollbar to ease

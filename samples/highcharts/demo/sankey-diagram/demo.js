@@ -1,5 +1,15 @@
 Highcharts.chart('container', {
 
+    chart: {
+        zooming: {
+            type: 'xy'
+        },
+        panning: {
+            enabled: true,
+            type: 'xy'
+        },
+        panKey: 'shift'
+    },
     title: {
         text: 'Estimated US Energy Consumption in 2022'
     },

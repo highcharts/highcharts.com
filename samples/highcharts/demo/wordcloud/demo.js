@@ -36,6 +36,16 @@ Highcharts.chart('container', {
                 '<div>{viewTableButton}</div>'
         }
     },
+    chart: {
+        zooming: {
+            type: 'xy'
+        },
+        panning: {
+            enabled: true,
+            type: 'xy'
+        },
+        panKey: 'shift'
+    },
     series: [{
         type: 'wordcloud',
         data,

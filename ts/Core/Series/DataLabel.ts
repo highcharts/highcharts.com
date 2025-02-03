@@ -497,7 +497,8 @@ namespace DataLabel {
             'dataLabelsGroup',
             'data-labels',
             this.hasRendered ? 'inherit' : 'hidden', // #5133, #10220
-            (this.options.dataLabels as any).zIndex || 6
+            (this.options.dataLabels as any).zIndex || 6,
+            this.chart.dataLabelsGroup
         );
     }
 

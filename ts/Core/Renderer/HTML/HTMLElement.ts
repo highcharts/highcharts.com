@@ -139,6 +139,17 @@ const decorateSVGGroup = (
             g.doTransform = true;
         };
 
+        g.scaleXSetter = g.scaleYSetter = (
+            value: number|string|null,
+            key: string
+        ) : void => {
+            g[key] = value;
+
+            div.style.transform = `scale(${g.scaleX}, ${g.scaleY})`;
+
+            g.doTransform = true;
+        };
+
         g.opacitySetter = (g as any).visibilitySetter = commonSetter;
 
         // Extend the parent group's css function by updating the parallel div

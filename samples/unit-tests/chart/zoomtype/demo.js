@@ -100,6 +100,193 @@ QUnit.test('Zoom type', function (assert) {
     );
 });
 
+QUnit.test('Non-cartesian series zooming', function (assert) {
+    let chart = Highcharts.chart('container', {
+            chart: {
+                zooming: {
+                    type: 'xy'
+                },
+                panning: {
+                    enabled: true,
+                    type: 'xy'
+                },
+                panKey: 'shift'
+            },
+            series: [{}]
+        }),
+        series = chart.series[0],
+        controller = new TestController(chart);
+
+    const defaultData = [1, 2, 3],
+        nonCartesianSeries = [{
+            type: 'pie'
+        }, {
+            type: 'packedbubble'
+        }, {
+            type: 'item'
+        }, {
+            type: 'funnel'
+        }, {
+            type: 'pyramid'
+        }, {
+            type: 'sankey',
+            data: [{
+                from: 'Category1',
+                to: 'Category2',
+                weight: 2
+            }, {
+                from: 'Category1',
+                to: 'Category3',
+                weight: 5
+            }]
+        }, {
+            type: 'arcdiagram',
+            data: [{
+                from: 'Category1',
+                to: 'Category2',
+                weight: 2
+            }, {
+                from: 'Category1',
+                to: 'Category3',
+                weight: 5
+            }]
+        }, {
+            type: 'dependencywheel',
+            data: [{
+                from: 'Category1',
+                to: 'Category2',
+                weight: 2
+            }, {
+                from: 'Category1',
+                to: 'Category3',
+                weight: 5
+            }]
+        }, {
+            type: 'sunburst'
+        }, {
+            type: 'variablepie'
+        }, {
+            type: 'venn',
+            data: [{
+                sets: ['Core'],
+                value: 10,
+                name: 'Highcharts Core'
+            }]
+        }, {
+            type: 'wordcloud',
+            data: [['Lorem', 1]]
+        }, {
+            type: 'organization',
+            data: [{
+                from: 'Category1',
+                to: 'Category2',
+                weight: 2
+            }, {
+                from: 'Category1',
+                to: 'Category3',
+                weight: 5
+            }]
+        }],
+        testZoomingAndPanning = (cont, ser, el) => {
+            // Zoom
+            cont.pan([200, 150], [250, 200]);
+            assert.ok(
+                ser.group.scaleX > 1,
+                `Zooming works for ${el.type} series.`
+            );
+
+            let { translateX, translateY } = ser.group;
+            // Pan to the right (right side of chart) - horizontally
+            cont.pan([350, 200], [300, 200], { shiftKey: true });
+            assert.ok(
+                ser.group.translateX < translateX,
+                `Chart should be panned to right, ${el.type} series.`
+            );
+
+            // Pan to the top (top side of chart) - vertically
+            cont.pan([250, 200], [250, 150], { shiftKey: true });
+            assert.ok(
+                ser.group.translateY < translateY,
+                `Chart should be panned to top, ${el.type} series.`
+            );
+
+            ({ translateX, translateY } = series.group);
+
+            // Pan to the left (left side of chart) - horizontally
+            cont.pan([250, 200], [300, 200], { shiftKey: true });
+            assert.ok(
+                ser.group.translateX > translateX,
+                `Chart should be panned to left, ${el.type} series.`
+            );
+
+            // Pan to the top (top side of chart) - vertically
+            cont.pan([250, 150], [250, 200], { shiftKey: true });
+            assert.ok(
+                ser.group.translateY > translateY,
+                `Chart should be panned to top, ${el.type} series.`
+            );
+
+            series.update({
+                zoomEnabled: false
+            });
+
+            cont.pan([200, 150], [250, 200]);
+            assert.ok(
+                ser.group.scaleX = 1,
+                `Zooming should not work for ${el.type} series, when zooming
+                is disabled.`
+            );
+        };
+
+    nonCartesianSeries.forEach(seriesEl => {
+        series.update({
+            type: seriesEl.type,
+            zoomEnabled: true,
+            data: seriesEl.data || defaultData
+        });
+
+        testZoomingAndPanning(controller, series, seriesEl);
+        chart.zoomOut();
+    });
+
+    chart.destroy();
+
+    // Due to errors when updating from other series to networkgraph or
+    // treegraph series test them as new chart instance
+    const otherNonCartSeries = [{
+        type: 'networkgraph',
+        data: [['A', 'B'], ['A', 'C']]
+    }, {
+        type: 'treegraph',
+        data: [{
+            id: 'A'
+        }, {
+            id: 'B',
+            parent: 'A'
+        }]
+    }];
+
+    otherNonCartSeries.forEach(seriesEl => {
+        chart = Highcharts.chart('container', {
+            chart: {
+                zooming: {
+                    type: 'xy'
+                },
+                panning: {
+                    enabled: true,
+                    type: 'xy'
+                },
+                panKey: 'shift'
+            },
+            series: [seriesEl]
+        });
+        series = chart.series[0];
+        controller = new TestController(chart);
+
+        testZoomingAndPanning(controller, series, seriesEl);
+    });
+});
+
 QUnit.test('Zooming scatter charts', function (assert) {
     var chart = Highcharts.chart('container', {
         chart: {

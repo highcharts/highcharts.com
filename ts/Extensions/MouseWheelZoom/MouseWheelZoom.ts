@@ -49,7 +49,6 @@ const composedClasses: Array<(Function|GlobalsLike)> = [],
 
 let wheelTimer: number;
 
-
 /* *
  *
  *  Functions

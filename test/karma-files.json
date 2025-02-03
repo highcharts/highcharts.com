@@ -41,6 +41,7 @@
     "code/modules/geoheatmap.src.js",
     "code/modules/pyramid3d.src.js",
     "code/modules/networkgraph.src.js",
+    "code/modules/non-cartesian-zoom.src.js",
     "code/modules/overlapping-datalabels.src.js",
     "code/modules/pareto.src.js",
     "code/modules/pattern-fill.src.js",
