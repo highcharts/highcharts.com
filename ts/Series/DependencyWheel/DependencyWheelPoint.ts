@@ -30,7 +30,7 @@ const {
 } = SeriesRegistry.seriesTypes;
 import U from '../../Core/Utilities.js';
 const {
-    pInt,
+    isNumber,
     wrap
 } = U;
 
@@ -80,9 +80,13 @@ class DependencyWheelPoint extends SankeyPoint {
         const point = this,
             renderer = point.series.chart.renderer,
             shapeArgs = point.shapeArgs,
-            upperHalf = point.angle < 0 || point.angle > Math.PI,
+            angle = point.angle,
+            upperHalf = angle < 0 || angle > Math.PI,
             start = shapeArgs.start || 0,
-            end = shapeArgs.end || 0;
+            end = shapeArgs.end || 0,
+            r = shapeArgs.r || 0,
+            distanceOption = label.options?.distance,
+            distance = isNumber(distanceOption) ? distanceOption : 0;
 
         // First time
         if (!point.dataLabelPath) {
@@ -103,25 +107,52 @@ class DependencyWheelPoint extends SankeyPoint {
             delete point.dataLabelPath;
         }
 
-        // All times
-        point.dataLabelPath = renderer
-            .arc({
-                open: true,
-                longArc: Math.abs(
-                    Math.abs(start) - Math.abs(end)
-                ) < Math.PI ? 0 : 1
-            })
-            .attr({
-                x: shapeArgs.x,
-                y: shapeArgs.y,
-                r: (
-                    (shapeArgs.r || 0) + pInt(label.options?.distance || 0)
-                ),
-                start: (upperHalf ? start : end),
-                end: (upperHalf ? end : start),
-                clockwise: +upperHalf
-            })
-            .add(renderer.defs);
+        const measuredWidth = label.add(point.series.dataLabelsGroup)
+            .getBBox()
+            .width;
+
+        if (
+            measuredWidth <
+            ((shapeArgs.r || 0) + distance) * (end - start)
+        ) {
+            // Wide slice, go for circular
+            point.dataLabelPath = renderer
+                .arc({
+                    open: true,
+                    longArc: Math.abs(
+                        Math.abs(start) - Math.abs(end)
+                    ) < Math.PI ? 0 : 1
+                })
+                .attr({
+                    x: shapeArgs.x,
+                    y: shapeArgs.y,
+                    r: r + distance,
+                    start: (upperHalf ? start : end),
+                    end: (upperHalf ? end : start),
+                    clockwise: +upperHalf
+                })
+                .add(renderer.defs);
+        } else {
+            // Slice too narrow for the text, go for radial
+            const x = (r + distance / 2) * Math.cos(angle) + (shapeArgs.x || 0),
+                y = (r + distance / 2) * Math.sin(angle) + (shapeArgs.y || 0),
+                p1 = [Math.round(x), Math.round(y)],
+                p2 = [
+                    Math.round(x + Math.cos(angle) * measuredWidth),
+                    Math.round(y + Math.sin(angle) * measuredWidth)
+                ],
+                leftHalf = -Math.PI / 2 > angle || angle > Math.PI / 2;
+
+            point.dataLabelPath = renderer.path({
+                d: leftHalf ? [
+                    ['M', p2[0], p2[1]],
+                    ['L', p1[0], p1[1]]
+                ] : [
+                    ['M', p1[0], p1[1]],
+                    ['L', p2[0], p2[1]]
+                ]
+            }).add(label);
+        }
 
         return point.dataLabelPath;
     }
