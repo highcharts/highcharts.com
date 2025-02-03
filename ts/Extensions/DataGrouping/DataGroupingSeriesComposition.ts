@@ -22,6 +22,7 @@ import type {
 } from './ApproximationType';
 import type Axis from '../../Core/Axis/Axis';
 import type DataGroupingOptions from './DataGroupingOptions';
+import type DataTable from '../../Data/DataTable';
 import type IndicatorLike from '../../Stock/Indicators/IndicatorLike';
 import type Point from '../../Core/Series/Point';
 import type {
@@ -31,7 +32,7 @@ import type {
 import type Series from '../../Core/Series/Series';
 import type TimeTicksInfoObject from '../../Core/Axis/TimeTicksInfoObject';
 import type { SeriesTypeOptions } from '../../Core/Series/SeriesType';
-import type { TypedArray } from '../../Core/Series/SeriesOptions';
+import type Types from '../../Shared/Types';
 
 import ApproximationRegistry from './ApproximationRegistry.js';
 import DataGroupingDefaults from './DataGroupingDefaults.js';
@@ -132,7 +133,7 @@ const baseGeneratePoints = seriesProto.generatePoints;
  */
 function adjustExtremes(
     xAxis: Axis,
-    groupedXData: Array<number>|TypedArray
+    groupedXData: Array<number>|Types.TypedArray
 ): void {
     // Make sure the X axis extends to show the first group (#2533)
     // But only for visible series (#5493, #6393)
@@ -191,7 +192,7 @@ function adjustExtremes(
  */
 function anchorPoints(
     series: Series,
-    groupedXData: Array<number>|TypedArray,
+    groupedXData: Array<number>|Types.TypedArray,
     xMax: number
 ): void {
     const options = series.options,
@@ -387,7 +388,7 @@ function applyGrouping(
 
         let modified = groupedData.modified,
             groupedXData = modified.getColumn('x', true) as
-                Array<number>|TypedArray,
+                Array<number>|Types.TypedArray,
             gapSize = 0;
 
         // The smoothed option is deprecated, instead, there is a fallback
@@ -760,7 +761,7 @@ function groupData(
         }
     }
 
-    const columns: DataTableCore.ColumnCollection = {
+    const columns: DataTable.ColumnCollection = {
         x: groupedXData
     };
     (pointArrayMap || ['y']).forEach((key, i): void => {

@@ -86,7 +86,7 @@ class JSONConverter extends DataConverter {
      *
      * */
 
-    private columns: Array<DataTable.Column> = [];
+    private columns: Array<DataTable.BasicColumn> = [];
     private headers: Array<string>|ColumnNamesOptions = [];
 
     /**

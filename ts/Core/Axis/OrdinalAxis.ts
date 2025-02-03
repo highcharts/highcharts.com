@@ -22,7 +22,7 @@ import type FlagSeries from '../../Series/Flags/FlagsSeries';
 import type Point from '../Series/Point.js';
 import type TickPositionsArray from './TickPositionsArray';
 import type Time from '../Time';
-import type { TypedArray } from '../../Core/Series/SeriesOptions';
+import type Types from '../../Shared/Types';
 
 import Axis from './Axis.js';
 import DataTableCore from '../../Data/DataTableCore.js';
@@ -56,7 +56,7 @@ declare module './AxisComposition' {
             min: number,
             max: number,
             startOfWeek?: number,
-            positions?: Array<number>|TypedArray,
+            positions?: Array<number>|Types.TypedArray,
             closestDistance?: number,
             findHigherRanks?: boolean
         ): TickPositionsArray;
@@ -112,7 +112,7 @@ namespace OrdinalAxis {
             min: number,
             max: number,
             startOfWeek: number,
-            positions?: Array<number>|TypedArray,
+            positions?: Array<number>|Types.TypedArray,
             closestDistance?: number,
             findHigherRanks?: boolean
         ): TickPositionsArray;

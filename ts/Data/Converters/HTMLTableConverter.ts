@@ -121,7 +121,7 @@ class HTMLTableConverter extends DataConverter {
      *
      * */
 
-    private columns: DataTable.CellType[][];
+    private columns: DataTable.BasicColumn[];
     private headers: string[];
 
     /**
@@ -176,7 +176,17 @@ class HTMLTableConverter extends DataConverter {
             // of each column is a subcategory
             if (useMultiLevelHeaders) {
                 for (const name of columnNames) {
-                    const subhead = (columns[name].shift() || '').toString();
+                    let column = columns[name];
+
+                    if (!Array.isArray(column)) {
+                        // Convert to conventional array from typed array
+                        // if needed
+                        column = Array.from(column);
+                    }
+
+                    const subhead = (column.shift() || '').toString();
+                    columns[name] = column;
+
                     subcategories.push(subhead);
                 }
 
@@ -397,7 +407,7 @@ class HTMLTableConverter extends DataConverter {
         eventDetail?: DataEvent.Detail
     ): void {
         const converter = this,
-            columns: Array<DataTable.Column> = [],
+            columns: Array<DataTable.BasicColumn> = [],
             headers: string[] = [],
             parseOptions = merge(converter.options, options),
             {

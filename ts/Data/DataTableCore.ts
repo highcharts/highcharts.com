@@ -27,10 +27,12 @@ import type DataEvent from './DataEvent.js';
 import type DataTable from './DataTable.js';
 import type DataTableOptions from './DataTableOptions.js';
 
+import ColumnUtils from './ColumnUtils.js';
+const { setLength, splice } = ColumnUtils;
+
 import U from '../Core/Utilities.js';
 const {
     fireEvent,
-    isArray,
     objectEach,
     uniqueKey
 } = U;
@@ -85,7 +87,7 @@ class DataTableCore {
         this.columns = {};
 
         /**
-         * ID of the table for indentification purposes.
+         * ID of the table for identification purposes.
          *
          * @name Highcharts.DataTable#id
          * @type {string}
@@ -142,11 +144,43 @@ class DataTableCore {
         rowCount: number
     ): void {
         this.rowCount = rowCount;
-        objectEach(this.columns, (column): void => {
-            if (isArray(column)) { // Not on typed array
-                column.length = rowCount;
+        objectEach(this.columns, (column, columnName): void => {
+            if (column.length !== rowCount) {
+                this.columns[columnName] = setLength(column, rowCount);
             }
         });
+    }
+
+    /**
+     * Delete rows. Simplified version of the full
+     * `DataTable.deleteRows` method.
+     *
+     * @param {number} rowIndex
+     * The start row index
+     *
+     * @param {number} [rowCount=1]
+     * The number of rows to delete
+     *
+     * @return {void}
+     *
+     * @emits #afterDeleteRows
+     */
+    public deleteRows(
+        rowIndex: number,
+        rowCount = 1
+    ): void {
+        if (rowCount > 0 && rowIndex < this.rowCount) {
+            let length = 0;
+            objectEach(this.columns, (column, columnName): void => {
+                this.columns[columnName] =
+                    splice(column, rowIndex, rowCount).array;
+                length = column.length;
+            });
+            this.rowCount = length;
+        }
+
+        fireEvent(this, 'afterDeleteRows', { rowIndex, rowCount });
+        this.versionTag = uniqueKey();
     }
 
     /**
@@ -209,7 +243,7 @@ class DataTableCore {
         columnNames?: Array<string>
     ): (DataTable.Row|undefined) {
         return (columnNames || Object.keys(this.columns)).map(
-            (key): DataTableCore.CellType => this.columns[key]?.[rowIndex]
+            (key): DataTable.CellType => this.columns[key]?.[rowIndex]
         );
     }
 
@@ -222,7 +256,7 @@ class DataTableCore {
      * @param {Highcharts.DataTableColumn} [column]
      * Values to set in the column.
      *
-     * @param {number} [rowIndex=0]
+     * @param {number} [rowIndex]
      * Index of the first row to change. (Default: 0)
      *
      * @param {Record<string, (boolean|number|string|null|undefined)>} [eventDetail]
@@ -241,15 +275,16 @@ class DataTableCore {
     }
 
     /**
-     * * Sets cell values for multiple columns. Will insert new columns, if not
-     * found. Simplified version of the full `DataTable.setColumns`, limited to
-     * full replacement of the columns (undefined `rowIndex`).
+     * Sets cell values for multiple columns. Will insert new columns, if not
+     * found. Simplified version of the full `DataTableCore.setColumns`, limited
+     * to full replacement of the columns (undefined `rowIndex`).
      *
      * @param {Highcharts.DataTableColumnCollection} columns
      * Columns as a collection, where the keys are the column names.
      *
      * @param {number} [rowIndex]
-     * Index of the first row to change. Keep undefined to reset.
+     * Index of the first row to change. Ignored in the `DataTableCore`, as it
+     * always replaces the full column.
      *
      * @param {Record<string, (boolean|number|string|null|undefined)>} [eventDetail]
      * Custom information for pending events.
@@ -263,12 +298,10 @@ class DataTableCore {
         eventDetail?: DataEvent.Detail
     ): void {
         let rowCount = this.rowCount;
-
         objectEach(columns, (column, columnName): void => {
             this.columns[columnName] = column.slice();
             rowCount = column.length;
         });
-
         this.applyRowCount(rowCount);
 
         if (!eventDetail?.silent) {
@@ -286,7 +319,7 @@ class DataTableCore {
      * Cell values to set.
      *
      * @param {number} [rowIndex]
-     * Index of the row to set. Leave `undefind` to add as a new row.
+     * Index of the row to set. Leave `undefined` to add as a new row.
      *
      * @param {boolean} [insert]
      * Whether to insert the row at the given index, or to overwrite the row.
@@ -306,11 +339,17 @@ class DataTableCore {
             indexRowCount = insert ? this.rowCount + 1 : rowIndex + 1;
 
         objectEach(row, (cellValue, columnName): void => {
-            const column = columns[columnName] ||
+            let column = columns[columnName] ||
                 eventDetail?.addColumns !== false && new Array(indexRowCount);
             if (column) {
                 if (insert) {
-                    column.splice(rowIndex, 0, cellValue);
+                    column = splice(
+                        column,
+                        rowIndex,
+                        0,
+                        true,
+                        [cellValue]
+                    ).array;
                 } else {
                     column[rowIndex] = cellValue;
                 }
@@ -347,73 +386,12 @@ namespace DataTableCore {
      * */
 
     /**
-     * Possible value types for a table cell.
-     */
-    export type CellType = (boolean|number|null|string|undefined);
-
-    /**
-     * Array of table cells in vertical expansion.
-     */
-    export interface Column extends Array<DataTable.CellType> {
-        [index: number]: CellType;
-    }
-
-    /**
-     * Collection of columns, where the key is the column name and
-     * the value is an array of column values.
-     */
-    export interface ColumnCollection {
-        [columnName: string]: Column;
-    }
-
-    /**
-     * Event object for column-related events.
-     */
-    export interface ColumnEvent extends DataEvent {
-        readonly type: (
-            'deleteColumns'|'afterDeleteColumns'|
-            'setColumns'|'afterSetColumns'
-        );
-        readonly columns?: ColumnCollection;
-        readonly columnNames: Array<string>;
-        readonly rowIndex?: number;
-    }
-
-    /**
      * All information objects of DataTable events.
      */
     export type Event = (
-        ColumnEvent|
-        RowEvent
+        DataTable.ColumnEvent|
+        DataTable.RowEvent
     );
-
-    /**
-     * Array of table cells in horizontal expansion. Index of the array is the
-     * index of the column names.
-     */
-    export interface Row extends Array<CellType> {
-        [index: number]: CellType;
-    }
-
-    /**
-     * Event object for row-related events.
-     */
-    export interface RowEvent extends DataEvent {
-        readonly type: (
-            'deleteRows'|'afterDeleteRows'|
-            'setRows'|'afterSetRows'
-        );
-        readonly rowCount: number;
-        readonly rowIndex: number;
-        readonly rows?: Array<(Row|RowObject)>;
-    }
-
-    /**
-     * Object of row values, where the keys are the column names.
-     */
-    export interface RowObject extends Record<string, CellType> {
-        [column: string]: CellType;
-    }
 }
 
 
@@ -434,8 +412,11 @@ export default DataTableCore;
  * */
 
 /**
+ * A typed array.
+ * @typedef {Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Int32Array|Uint32Array|Float32Array|Float64Array} Highcharts.TypedArray
+ * //**
  * A column of values in a data table.
- * @typedef {Array<boolean|null|number|string|undefined>} Highcharts.DataTableColumn
+ * @typedef {Array<boolean|null|number|string|undefined>|TypedArray} Highcharts.DataTableColumn
  *//**
  * A collection of data table columns defined by a object where the key is the
  * column name and the value is an array of the column values.

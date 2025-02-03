@@ -78,7 +78,7 @@ function toJSON(
 ): DataTableHelper.JSON {
     const json: DataTableHelper.JSON = {
         $class: 'Data.DataTable',
-        columns: obj.getColumns()
+        columns: obj.getColumns(void 0, false, true)
     };
 
     // Custom ID

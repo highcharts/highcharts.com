@@ -29,7 +29,7 @@ import type Pointer from '../../Core/Pointer';
 import type Series from '../../Core/Series/Series';
 import type SeriesOptions from '../../Core/Series/SeriesOptions';
 import type SVGElement from '../../Core/Renderer/SVG/SVGElement';
-import type { TypedArray } from '../../Core/Series/SeriesOptions';
+import type Types from '../../Shared/Types';
 
 import BoostableMap from './BoostableMap.js';
 import H from '../../Core/Globals.js';
@@ -369,7 +369,7 @@ function onChartCallback(
  * @return {number}
  * Max value
  */
-function patientMax(...args: Array<Array<unknown>|TypedArray>): number {
+function patientMax(...args: Array<Array<unknown>|Types.TypedArray>): number {
     let r = -Number.MAX_VALUE;
 
     args.forEach((t): boolean|undefined => {

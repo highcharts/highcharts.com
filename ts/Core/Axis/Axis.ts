@@ -46,7 +46,7 @@ import type SVGAttributes from '../Renderer/SVG/SVGAttributes';
 import type SVGElement from '../Renderer/SVG/SVGElement';
 import type SVGPath from '../Renderer/SVG/SVGPath';
 import type TickPositionsArray from './TickPositionsArray';
-import type { TypedArray } from '../../Core/Series/SeriesOptions';
+import type Types from '../../Shared/Types';
 
 import A from '../Animation/AnimationUtilities.js';
 const { animObject } = A;
@@ -1309,7 +1309,7 @@ class Axis {
                 // to closestPointRange that applies to processed points
                 // (cropped and grouped)
                 closestDataRange = getClosestDistance(
-                    axis.series.map((s): number[]|TypedArray => {
+                    axis.series.map((s): number[]|Types.TypedArray => {
                         const xData = s.getColumn('x');
                         // If xIncrement, we only need to measure the two first
                         // points to get the distance. Saves processing time.

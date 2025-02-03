@@ -319,13 +319,16 @@ class InvertModifier extends DataModifier {
         const modified = table.modified;
 
         if (table.hasColumns(['columnNames'])) { // Inverted table
-            const columnNames: Array<string> = (
+            const columnNamesColumn = (
                     (table.deleteColumns(['columnNames']) || {})
                         .columnNames || []
-                ).map(
-                    (column): string => `${column}`
                 ),
-                columns: DataTable.ColumnCollection = {};
+                columns: DataTable.ColumnCollection = {},
+                columnNames: Array<string> = [];
+
+            for (let i = 0, iEnd = columnNamesColumn.length; i < iEnd; ++i) {
+                columnNames.push('' + columnNamesColumn[i]);
+            }
 
             for (
                 let i = 0,

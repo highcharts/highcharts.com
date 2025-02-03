@@ -490,6 +490,8 @@ QUnit.test('DataTable.setColumns', function (assert) {
         }
     });
 
+    let columns;
+
     table.setColumns({
         x: [8, 9],
         y: [0, 1]
@@ -515,6 +517,61 @@ QUnit.test('DataTable.setColumns', function (assert) {
             y: [0, 1]
         },
         'Table should contain two rows of valid values.'
+    );
+
+    table.setColumns({
+        x: new Float32Array([10, 9, 8, 7, 6, 5])
+    });
+
+    columns = table.getColumns();
+    
+    assert.ok(
+        columns.x instanceof Float32Array,
+        'x column should be a Float32Array.'
+    );
+
+    assert.strictEqual(
+        columns.x.length,
+        6,
+        'x column should contain 6 values.'
+    )
+
+    table.setColumns({
+        x: [0, 1, 2]
+    }, 0, void 0, true);
+    columns = table.getColumns();
+
+    assert.ok(
+        columns.x instanceof Float32Array,
+        'x column should stay a Float32Array when typeAsOriginal is true.'
+    );
+
+    assert.deepEqual(
+        table.getColumns(void 0, false, true), // Get all columns as arrays
+        {
+            x: [0, 1, 2, 7, 6, 5],
+            y: [0, 1, void 0, void 0, void 0, void 0]
+        },
+        'Table should contain six rows of valid values.'
+    );
+
+    table.setColumns({
+        x: [5, 5, 5]
+    }, 0);
+    columns = table.getColumns();
+
+    assert.ok(
+        Array.isArray(columns.x),
+        'x column should be transformed to a conventional array.'
+    );
+
+    assert.deepEqual(
+        columns,
+        {
+            x: [5, 5, 5, 7, 6, 5],
+            y: [0, 1, void 0, void 0, void 0, void 0]
+        },
+        'Table should be valid after x column type change.'
     );
 });
 
@@ -583,7 +640,7 @@ QUnit.test('DataTable.setModifier', function (assert) {
             assert.strictEqual(
                 table.modified.getLocalRowIndex(1), 2,
                 'Sorted table should allow to retrieve the local row index' +
-                'from the origianl row index.'
+                'from the original row index.'
             );
 
             assert.strictEqual(

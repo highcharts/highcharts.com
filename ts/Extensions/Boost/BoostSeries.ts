@@ -31,7 +31,7 @@ import type {
     PointShortOptions
 } from '../../Core/Series/PointOptions';
 import type Series from '../../Core/Series/Series';
-import type { TypedArray } from '../../Core/Series/SeriesOptions';
+import type Types from '../../Shared/Types';
 import type SeriesRegistry from '../../Core/Series/SeriesRegistry';
 import type { SeriesTypePlotOptions } from '../../Core/Series/SeriesType';
 import BoostableMap from './BoostableMap.js';
@@ -611,7 +611,7 @@ function destroyGraphics(
  * Set to true to skip timeouts.
  */
 function eachAsync(
-    arr: Array<unknown>|TypedArray,
+    arr: Array<unknown>|Types.TypedArray,
     fn: Function,
     finalFunc: Function,
     chunkSize?: number,
@@ -792,7 +792,7 @@ function hasExtremes(
  */
 const getSeriesBoosting = (
     series: BoostSeriesComposition,
-    data?: Array<(PointOptions|PointShortOptions)>|TypedArray
+    data?: Array<(PointOptions|PointShortOptions)>|Types.TypedArray
 ): boolean => {
     // Check if will be grouped.
     if (series.forceCrop) {
@@ -1556,8 +1556,9 @@ function wrapSeriesProcessData(
     this: Series,
     proceed: Function
 ): void {
-    let dataToMeasure: (PointOptions|PointShortOptions)[]|TypedArray|undefined =
-        this.options.data;
+    let dataToMeasure: (
+        PointOptions|PointShortOptions
+    )[]|Types.TypedArray|undefined = this.options.data;
 
     if (boostEnabled(this.chart) && BoostableMap[this.type]) {
         const series = this as BoostSeriesComposition,
