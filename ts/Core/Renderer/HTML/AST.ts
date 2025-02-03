@@ -381,7 +381,7 @@ class AST {
                     key = pair.shift();
 
                 if (key && pair.length) {
-                    (styles as any)[key.replace(
+                    (styles as any)[key.indexOf('--') === 0 ? key : key.replace(
                         /-([a-z])/g,
                         (g): string => g[1].toUpperCase()
                     )] = pair.join(':'); // #17146

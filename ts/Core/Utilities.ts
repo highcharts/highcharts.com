@@ -848,7 +848,15 @@ function css(
     el: DOMElementType,
     styles: CSSObject
 ): void {
-    extend(el.style, styles as any);
+    objectEach(styles, (val, prop): void => {
+        el.style.setProperty(
+            prop.replace(
+                /([A-Z])/g,
+                (a: string, b: string): string => `-${b.toLowerCase()}`
+            ),
+            val as any
+        );
+    });
 }
 
 /**
