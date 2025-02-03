@@ -21,7 +21,7 @@ import type Series from '../../Core/Series/Series';
 
 import Chart from '../../Core/Chart/Chart.js';
 import D from '../../Core/Defaults.js';
-const { setOptions } = D;
+const { setOptions, defaultOptions } = D;
 import H from '../../Core/Globals.js';
 const {
     composed
@@ -86,6 +86,7 @@ function compose(
         ChartClass.prototype.setFixedRange = setFixedRange;
 
         extend(getRendererType().prototype.symbols, NavigatorSymbols);
+        extend(defaultOptions, { navigator: NavigatorDefaults });
 
         addEvent(SeriesClass, 'afterUpdate', onSeriesAfterUpdate);
 

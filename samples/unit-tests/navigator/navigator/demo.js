@@ -63,6 +63,33 @@ QUnit.test(
     }
 );
 
+QUnit.test('Navigator in Highcharts.setOptions', function (assert) {
+    Highcharts.setOptions({
+        navigator: {
+            enabled: false
+        }
+    });
+
+    const chart = Highcharts.stockChart('container', {
+        series: [{
+            data: [1, 2, 3, 4, 5]
+        }]
+    });
+
+    assert.strictEqual(
+        chart.navigator.navigatorGroup,
+        undefined,
+        'Navigator should not be rendered when disabled in setOptions (#21217).'
+    );
+});
+
+// Enabled navigator again for further tests
+Highcharts.setOptions({
+    navigator: {
+        enabled: true
+    }
+});
+
 QUnit.test('Navigator (#4053)', function (assert) {
     var chart = new Highcharts.StockChart({
         chart: {
