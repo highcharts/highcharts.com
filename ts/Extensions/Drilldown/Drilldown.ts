@@ -47,7 +47,6 @@ import type Tick from '../../Core/Axis/Tick';
 import A from '../../Core/Animation/AnimationUtilities.js';
 const { animObject } = A;
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs.js';
-import Color from '../../Core/Color/Color.js';
 import H from '../../Core/Globals.js';
 const { noop } = H;
 import DrilldownDefaults from './DrilldownDefaults.js';
@@ -452,9 +451,7 @@ class ChartAdditions {
             shapeArgs: point.shapeArgs,
             // No graphic in line series with markers disabled
             bBox: point.graphic ? point.graphic.getBBox() : {},
-            color: point.isNull ?
-                Color.parse(colorProp.color).setOpacity(0).get() :
-                colorProp.color,
+            color: point.isNull ? 'rgba(0,0,0,0)' : colorProp.color,
             lowerSeriesOptions: ddOptions,
             pointOptions: point.options,
             pointIndex: point.index,

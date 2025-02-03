@@ -569,7 +569,8 @@ namespace DataLabel {
             // Make the labels for each point
             points.forEach((point): void => {
 
-                const dataLabels = point.dataLabels || [];
+                const dataLabels = point.dataLabels || [],
+                    pointColor = point.color || series.color;
 
                 // Merge in series options for the point.
                 // @note dataLabelAttribs (like pointAttribs) would eradicate
@@ -644,8 +645,13 @@ namespace DataLabel {
                                 }
 
                                 point.contrastColor = renderer.getContrast(
-                                    labelBgColor !== 'auto' && labelBgColor ||
-                                    (point.color || series.color) as any
+                                    (
+                                        labelBgColor !== 'auto' &&
+                                        isString(labelBgColor) &&
+                                        labelBgColor
+                                    ) ||
+                                    (isString(pointColor) ? pointColor : ''),
+                                    point.graphic
                                 );
 
                                 style.color = (

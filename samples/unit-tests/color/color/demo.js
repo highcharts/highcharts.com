@@ -34,19 +34,19 @@ QUnit.test('Interpolate colors', function (assert) {
 
     assert.equal(
         color('red').tweenTo(color('blue'), 0.5),
-        'blue',
+        'color-mix(in srgb,red,blue 50%)',
         'Named colors'
     );
 
     assert.equal(
         color('red').tweenTo(color('#FFFFFF'), 0.5),
-        '#FFFFFF',
+        'color-mix(in srgb,red,#FFFFFF 50%)',
         'Named color to hex'
     );
 
     assert.equal(
         color('#FFFFFF').tweenTo(color('red'), 0.5),
-        'red',
+        'color-mix(in srgb,#FFFFFF,red 50%)',
         'Hex to named color'
     );
 

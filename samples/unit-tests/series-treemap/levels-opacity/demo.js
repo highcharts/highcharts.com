@@ -98,11 +98,6 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
                 state
             );
         },
-        getOpacity = function (color) {
-            return color.indexOf('rgba') > -1 ?
-                +color.replace('rgba(', '').replace(')', '').split(',')[3] :
-                1;
-        },
         userOptions = {
             opacity: 1,
             states: {
@@ -112,12 +107,12 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
             }
         };
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
+        pointAttribs(point)['fill-opacity'],
         0.15,
         'Default opacity is expected to be 0.25'
     );
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
+        pointAttribs(point, 'hover')['fill-opacity'],
         0.75,
         'Default hover opacity is expected to be 0.75'
     );
@@ -126,25 +121,25 @@ QUnit.test('Treemap opacity on levels (#4700)', function (assert) {
     series.update(userOptions);
     point = series.points[0];
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
+        pointAttribs(point)['fill-opacity'],
         1,
         'userOption opacity is expected to be 1'
     );
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
+        pointAttribs(point, 'hover')['fill-opacity'],
         0.5,
         'userOption hover opacity is expected to be 0.5'
     );
     // Check if leafNode has opacity
     point = series.points[12]; // Susanne
     assert.strictEqual(
-        getOpacity(pointAttribs(point, undefined).fill),
-        1,
+        pointAttribs(point)['fill-opacity'],
+        void 0,
         'Leaf node opacity is expected to be undefined'
     );
     assert.strictEqual(
-        getOpacity(pointAttribs(point, 'hover').fill),
-        1,
+        pointAttribs(point, 'hover')['fill-opacity'],
+        void 0,
         'Leaf node hover opacity is expected to be undefined'
     );
 });

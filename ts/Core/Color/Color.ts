@@ -21,13 +21,28 @@ import type { ColorLike, ColorType } from './ColorType';
 import type GradientColor from './GradientColor';
 
 import H from '../Globals.js';
+const {
+    win
+} = H;
 import U from '../Utilities.js';
 const {
     isNumber,
+    isString,
     merge,
     pInt,
     defined
 } = U;
+
+/* *
+ *
+ *  Helpers
+ *
+ * */
+const colorMix = (color1: string, color2: string, weight: number): string =>
+    `color-mix(in srgb,${color1},${color2} ${weight * 100}%)`;
+
+const isStringColor = (color: ColorType): color is ColorString =>
+    isString(color) && color !== 'none' && color !== '';
 
 /* *
  *
@@ -116,7 +131,27 @@ class Color implements ColorLike {
                     (pInt(result[4], 16) / 255)
             ];
         }
+    }, {
+        // The color function with srgb values, as reported by browsers when
+        // doing getComputedStyle on variables
+        regex: /^color\(srgb ([0-9\.]+) ([0-9\.]+) ([0-9\.]+)\)$/i,
+        parse: (result: RegExpExecArray): Color.RGBA => [
+            Math.floor(parseFloat(result[1]) * 255),
+            Math.floor(parseFloat(result[2]) * 255),
+            Math.floor(parseFloat(result[3]) * 255),
+            1
+        ]
     }];
+
+    /**
+     * Whether to use CSS `color-mix` for color handling (brightening,
+     * tweening). This can be disabled from the outside.
+     * @private
+     */
+    public static useColorMix = win.CSS?.supports(
+        'color',
+        'color-mix(in srgb,red,blue 9%)'
+    );
 
     // Must be last static member for init cycle
     public static readonly None = new Color('');
@@ -200,6 +235,7 @@ class Color implements ColorLike {
      * */
 
     public input: ColorType;
+    public output?: string;
     public rgba: Color.RGBA = [NaN, NaN, NaN, NaN];
     public stops?: Array<Color>;
 
@@ -223,6 +259,10 @@ class Color implements ColorLike {
     public get(format?: ('a'|'rgb'|'rgba')): ColorType {
         const input = this.input,
             rgba = this.rgba;
+
+        if (this.output) {
+            return this.output;
+        }
 
         if (
             typeof input === 'object' &&
@@ -273,15 +313,23 @@ class Color implements ColorLike {
             });
 
         } else if (isNumber(alpha) && alpha !== 0) {
-            for (let i = 0; i < 3; i++) {
-                rgba[i] += pInt(alpha * 255);
+            if (isNumber(rgba[0])) {
+                for (let i = 0; i < 3; i++) {
+                    rgba[i] += pInt(alpha * 255);
 
-                if (rgba[i] < 0) {
-                    rgba[i] = 0;
+                    if (rgba[i] < 0) {
+                        rgba[i] = 0;
+                    }
+                    if (rgba[i] > 255) {
+                        rgba[i] = 255;
+                    }
                 }
-                if (rgba[i] > 255) {
-                    rgba[i] = 255;
-                }
+            } else if (Color.useColorMix && isStringColor(this.input)) {
+                this.output = colorMix(
+                    this.input,
+                    alpha > 0 ? 'white' : 'black',
+                    Math.abs(alpha)
+                );
             }
         }
 
@@ -325,6 +373,13 @@ class Color implements ColorLike {
 
         // Unsupported color, return to-color (#3920, #7034)
         if (!isNumber(fromRgba[0]) || !isNumber(toRgba[0])) {
+            if (
+                Color.useColorMix &&
+                isStringColor(this.input) &&
+                isStringColor(to.input)
+            ) {
+                return colorMix(this.input, to.input, pos);
+            }
             return to.input || 'none';
         }
 

@@ -27,8 +27,6 @@ import type KDPointSearchObjectLike from '../../Core/Series/KDPointSearchObjectL
 import type PointerEvent from '../../Core/PointerEvent';
 import BubbleLegendComposition from './BubbleLegendComposition.js';
 import BubblePoint from './BubblePoint.js';
-import Color from '../../Core/Color/Color.js';
-const { parse: color } = Color;
 import H from '../../Core/Globals.js';
 const {
     composed,
@@ -744,14 +742,10 @@ class BubbleSeries extends ScatterSeries {
         state?: StatesOptionsKey
     ): SVGAttributes {
         const markerOptions = this.options.marker,
-            fillOpacity = (markerOptions as any).fillOpacity,
+            fillOpacity = markerOptions?.fillOpacity,
             attr = Series.prototype.pointAttribs.call(this, point, state);
 
-        if (fillOpacity !== 1) {
-            attr.fill = color(attr.fill as any)
-                .setOpacity(fillOpacity)
-                .get('rgba');
-        }
+        attr['fill-opacity'] = fillOpacity ?? 1;
 
         return attr;
     }

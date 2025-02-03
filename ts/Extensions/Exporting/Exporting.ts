@@ -209,6 +209,8 @@ namespace Exporting {
         /** @requires modules/exporting */
         print(): void;
         /** @requires modules/exporting */
+        resolveCSSVariables(): void;
+        /** @requires modules/exporting */
         sanitizeSVG(svg: string, options: Options): string;
     }
 
@@ -642,6 +644,7 @@ namespace Exporting {
             chartProto.addButton = addButton;
             chartProto.destroyExport = destroyExport;
             chartProto.renderExporting = renderExporting;
+            chartProto.resolveCSSVariables = resolveCSSVariables;
 
             chartProto.callbacks.push(chartCallback);
             addEvent(
@@ -1060,6 +1063,7 @@ namespace Exporting {
         if (applyStyleSheets) {
             this.inlineStyles();
         }
+        this.resolveCSSVariables();
 
         return this.container.innerHTML;
     }
@@ -1564,6 +1568,28 @@ namespace Exporting {
         recurse(this.container.querySelector('svg') as any);
         tearDown();
 
+    }
+
+    /**
+     * Resolve CSS variables into hex colors
+     */
+    function resolveCSSVariables(
+        this: ChartComposition
+    ): void {
+        const svgElements = this.container.querySelectorAll('*'),
+            colorAttributes = ['color', 'fill', 'stop-color', 'stroke'];
+
+        Array.from(svgElements).forEach((element: Element): void => {
+            colorAttributes.forEach((attr): void => {
+                const attrValue = element.getAttribute(attr);
+                if (attrValue?.includes('var(')) {
+                    element.setAttribute(
+                        attr,
+                        getComputedStyle(element).getPropertyValue(attr)
+                    );
+                }
+            });
+        });
     }
 
     /**

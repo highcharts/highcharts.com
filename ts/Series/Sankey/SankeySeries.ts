@@ -309,7 +309,8 @@ class SankeySeries extends ColumnSeries {
 
         // Link attributes
         return {
-            fill: Color.parse(color).setOpacity(values.linkOpacity).get()
+            fill: color,
+            'fill-opacity': values.linkOpacity
         };
 
     }

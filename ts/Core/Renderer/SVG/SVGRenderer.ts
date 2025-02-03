@@ -661,7 +661,14 @@ class SVGRenderer implements SVGRendererLike {
      * @return {Highcharts.ColorString}
      * The contrast color, either `#000000` or `#FFFFFF`.
      */
-    public getContrast(color: ColorString): ColorString {
+    public getContrast(
+        color: ColorString,
+        element?: SVGElement
+    ): ColorString {
+        if (element && color.includes('var(')) {
+            color = getComputedStyle(element.element).fill;
+        }
+
         // #6216, #17273
         const rgba = Color.parse(color).rgba
             .map((b8): number => {
