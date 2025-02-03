@@ -59,7 +59,7 @@ function fireEventOnWrappedOrUnwrappedElement(
     const hcEvents = (el as SVGElement).hcEvents;
 
     if (
-        !!doc.createEvent &&
+        !!doc?.createEvent &&
         ((el as Element).dispatchEvent || (el as SVGElement).fireEvent)
     ) {
         if (el.dispatchEvent) {

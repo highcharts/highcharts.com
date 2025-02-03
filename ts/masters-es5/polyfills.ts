@@ -86,7 +86,10 @@ if (typeof ElementPrototype.closest !== 'function') {
 }
 
 (function () {
-    if (typeof window.CustomEvent === "function") return false;
+    if (
+        !document || !window ||
+        typeof window.CustomEvent === "function"
+    ) return false;
 
     function CustomEvent(type: string, params?: CustomEventInit) {
         params = params || { bubbles: false, cancelable: false, detail: undefined };

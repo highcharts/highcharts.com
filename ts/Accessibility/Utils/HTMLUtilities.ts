@@ -95,7 +95,7 @@ function cloneMouseEvent(e: MouseEvent): MouseEvent {
     }
 
     // No MouseEvent support, try using initMouseEvent
-    if (doc.createEvent) {
+    if (doc?.createEvent) {
         const evt = doc.createEvent('MouseEvent');
         if (evt.initMouseEvent) {
             evt.initMouseEvent(
@@ -229,7 +229,7 @@ function getFakeMouseEvent(
     }
 
     // No MouseEvent support, try using initMouseEvent
-    if (doc.createEvent) {
+    if (doc?.createEvent) {
         const evt = doc.createEvent('MouseEvent');
         if (evt.initMouseEvent) {
             evt.initMouseEvent(
