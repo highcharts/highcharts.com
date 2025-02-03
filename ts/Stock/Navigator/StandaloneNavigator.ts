@@ -179,13 +179,13 @@ class StandaloneNavigator {
                     if (
                         e.trigger === 'pan' ||
                         e.trigger === 'zoom' ||
-                        e.trigger === 'mouseWheelZoom'
+                        e.trigger === 'mousewheel'
                     ) {
                         nav.setRange(
                             e.min,
                             e.max,
                             true,
-                            e.trigger !== 'pan',
+                            e.trigger !== 'pan' && e.trigger !== 'mousewheel',
                             { trigger: axis }
                         );
                     }
