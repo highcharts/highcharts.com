@@ -215,6 +215,12 @@ namespace FocusBorderComposition {
         }
 
         this.focusElement = svgElement;
+
+        // #22122, focus border should re-render after window is resized
+        addEvent(this, 'endResize', function (): void {
+            this.renderFocusBorder();
+        });
+
         this.renderFocusBorder();
     }
 

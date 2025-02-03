@@ -255,7 +255,9 @@ class NavigatorComponent extends AccessibilityComponent {
     private updateNavigator(beforeAnnounce?: () => void): void {
         const performUpdate = (beforeAnnounce?: () => void): void => {
             const chart = this.chart,
-                { navigator, pointer } = chart;
+                { navigator, pointer } = chart,
+                keyboardNavigation =
+                    this.chart.accessibility?.keyboardNavigation;
             if (
                 navigator &&
                 pointer &&
@@ -289,6 +291,11 @@ class NavigatorComponent extends AccessibilityComponent {
                             );
                         }
                     });
+
+                // If navigating by keyboard, do not reset #22122
+                if (keyboardNavigation) {
+                    keyboardNavigation.keyboardReset = false;
+                }
 
                 if (beforeAnnounce) {
                     beforeAnnounce();
