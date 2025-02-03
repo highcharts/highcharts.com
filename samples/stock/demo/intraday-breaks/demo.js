@@ -8,12 +8,22 @@
     // create the chart
     Highcharts.stockChart('container', {
 
+        chart: {
+            spacingRight: 25
+        },
+
         title: {
             text: 'AAPL stock price by minute'
         },
 
         subtitle: {
             text: 'Using explicit breaks for nights and weekends'
+        },
+
+        yAxis: {
+            labels: {
+                align: 'left'
+            }
         },
 
         xAxis: {
@@ -71,7 +81,21 @@
                     ]
                 ]
             },
-            threshold: null
+            threshold: null,
+            lastPrice: {
+                enabled: true,
+                color: 'transparent',
+                label: {
+                    enabled: true,
+                    format: '{value:.2f}',
+                    backgroundColor: '#ffffff',
+                    borderColor: '#2caffe',
+                    borderWidth: 1,
+                    style: {
+                        color: '#000000'
+                    }
+                }
+            }
         }]
     });
 })();
