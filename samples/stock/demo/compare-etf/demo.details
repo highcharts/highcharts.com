@@ -1,0 +1,12 @@
+---
+name: Compare ETFs performance
+authors:
+  - Kamil Musialowski
+js_wrap: b
+new_until: 2025-05-01
+tags:
+  - Highcharts Stock demo
+categories:
+  - General:
+      priority: 8
+...
