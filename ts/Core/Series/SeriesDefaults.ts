@@ -553,6 +553,25 @@ const seriesDefaults: PlotOptionsOf<Series> = {
      */
 
     /**
+     * Whether or not data-points with the value of `null` should be interactive.
+     * When this is set to `true`, tooltips may highlight these points, and this
+     * option also enables keyboard navigation for such points. Format options
+     * for such points include [`nullFormat`](#tooltip.nullFormat) and [`nullFormater`](#tooltip.nullFormatter).
+     * Works for these series: `line`, `spline`, `area`, `area-spline`,
+     * `column`, `bar`, and* `timeline`.
+     *
+     * @sample {highcharts} highcharts/series/null-interaction/
+     *         Chart with interactive `null` points
+     *
+     * @sample {highcharts} highcharts/series-timeline/null-interaction/
+     *         Timeline series with `null` points
+     *
+     * @type      {boolean|undefined}
+     * @product   highcharts highstock
+     * @apioption plotOptions.series.nullInteraction
+     */
+
+    /**
      * Same as
      * [accessibility.point.descriptionFormat](#accessibility.point.descriptionFormat),
      * but for an individual series. Overrides the chart wide configuration.
@@ -1825,9 +1844,12 @@ const seriesDefaults: PlotOptionsOf<Series> = {
         /**
          * Format for points with the value of null. Works analogously to
          * [format](#plotOptions.series.dataLabels.format). `nullFormat` can
-         * be applied only to series which support displaying null points
-         * i.e `heatmap` or `tilemap`. Does not work with series that don't
-         * display null points, like `line`, `column`, `bar` or `pie`.
+         * be applied only to series which support displaying null points.
+         * `heatmap` and `tilemap` supports `nullFormat` by default while the
+         * following series requires [#series.nullInteraction] set to `true`:
+         * `line`, `spline`, `area`, `area-spline`, `column`, `bar`, and
+         * `timeline`. Does not work with series that don't display null
+         * points, like `pie`.
          *
          * @sample {highcharts} highcharts/plotoptions/series-datalabels-nullformat/
          *         Format data label for null points in heat map
@@ -1839,13 +1861,14 @@ const seriesDefaults: PlotOptionsOf<Series> = {
 
         /**
          * Callback JavaScript function that defines formatting for points
-         * with the value of null. Works analogously to
-         * [formatter](#plotOptions.series.dataLabels.formatter).
+         * with the value of null. Works analogously to [formatter](#plotOptions.series.dataLabels.formatter).
          * `nullFormatter` can be applied only to series which support
-         * displaying null points i.e `heatmap` or `tilemap`. Does not work
-         * with series that don't display null points, like `line`, `column`,
-         * `bar` or `pie`.
-         *
+         * displaying null points. `heatmap` and `tilemap` supports
+         * `nullFormatter` by default while the following series requires [#series.nullInteraction]
+         * set to `true`: `line`, `spline`, `area`, `area-spline`, `column`,
+         * `bar`, and `timeline`. Does not work with series that don't display
+         * null points, like `pie`.
+
          * @sample {highcharts} highcharts/plotoptions/series-datalabels-nullformat/
          *         Format data label for null points in heat map
          *

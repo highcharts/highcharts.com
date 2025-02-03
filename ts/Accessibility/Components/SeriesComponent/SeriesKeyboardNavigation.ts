@@ -140,7 +140,10 @@ function isSkipPoint(
         point.options.accessibility.enabled === false
     );
 
-    return point.isNull &&
+    return !(
+        !point.isNull ||
+        point.series.options?.nullInteraction
+    ) &&
         a11yOptions.keyboardNavigation.seriesNavigation.skipNullPoints ||
         point.visible === false ||
         point.isInside === false ||
@@ -1019,7 +1022,12 @@ namespace SeriesKeyboardNavigation {
         const chart = this.series.chart,
             tooltipElement = chart.tooltip?.label?.element;
 
-        if (!this.isNull && highlightVisually) {
+        if (
+            (
+                !this.isNull ||
+                this.series.options?.nullInteraction
+            ) && highlightVisually
+        ) {
             this.onMouseOver(); // Show the hover marker and tooltip
         } else {
             if (chart.tooltip) {

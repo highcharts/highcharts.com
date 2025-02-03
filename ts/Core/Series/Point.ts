@@ -710,6 +710,8 @@ class Point {
 
         this.resolveColor();
 
+        this.dataLabelOnNull ??= series.options.nullInteraction;
+
         series.chart.pointCount++;
 
         fireEvent(this, 'afterInit');

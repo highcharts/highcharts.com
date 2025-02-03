@@ -134,7 +134,8 @@ QUnit.test('Keyboard navigation', function (assert) {
                             eventProps = e;
                         }
                     },
-                    data: [0]
+                    data: [0, null],
+                    nullInteraction: true
                 },
                 {
                     data: [0]
@@ -144,6 +145,15 @@ QUnit.test('Keyboard navigation', function (assert) {
                 }
             ]
         }),
+        /*
+            KEYCODE DICTIONARY:
+                + Right =   39
+                + Left  =   37
+                + Up    =   38
+                + Down  =   40
+                + Tab   =   9
+                + Home  =   36
+        */
         keyboardNavigation = chart.accessibility.keyboardNavigation,
         eventDispatcher = keyCode => {
             const event = new KeyboardEvent('keydown', { keyCode });
@@ -158,6 +168,15 @@ QUnit.test('Keyboard navigation', function (assert) {
         eventProps.target,
         'Event target should be first points graphic'
     );
+
+    eventDispatcher(39);
+
+    assert.strictEqual(
+        chart.focusElement.element.outerHTML.includes('highcharts-null-point'),
+        true,
+        'Null points should be targetable via keyboard navigation'
+    );
+
 
     eventDispatcher(9);
     eventDispatcher(37);

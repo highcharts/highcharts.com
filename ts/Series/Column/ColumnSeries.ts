@@ -494,6 +494,11 @@ class ColumnSeries extends Series {
         const series = this,
             chart = series.chart,
             options = series.options,
+            // For points whithout graphics (null points) this value is used
+            // to reserve space around the point such that:
+            //      - normal/null points are spaced similarily,
+            //      - focusborders of null points are like those of "0" points
+            // This ensures consistent dimensions between null/normal points.
             dense = series.dense =
                 (series.closestPointRange as any) * series.xAxis.transA < 2,
             borderWidth = series.borderWidth = pick(
@@ -636,9 +641,9 @@ class ColumnSeries extends Series {
                 // #3169, drilldown from null must have a position to work from.
                 // #6585, dataLabel should be placed on xAxis, not floating in
                 // the middle of the chart.
-                point.isNull ? translatedThreshold : barY,
+                barY,
                 barW,
-                point.isNull ? 0 : barH
+                barH
             );
         });
 
@@ -690,7 +695,9 @@ class ColumnSeries extends Series {
             strokeWidth = (point && (point as any)[strokeWidthOption]) ||
                 (options as any)[strokeWidthOption] ||
                 (this as any)[strokeWidthOption] || 0,
-            opacity = pick(point && point.opacity, options.opacity, 1);
+            opacity = (point?.isNull && options.nullInteraction) ?
+                0 :
+                (point?.opacity ?? options.opacity ?? 1);
 
         // Handle zone colors
         if (point && this.zones.length) {
@@ -760,6 +767,7 @@ class ColumnSeries extends Series {
         const series = this,
             chart = this.chart,
             options = series.options,
+            nullInteraction = options.nullInteraction,
             renderer = chart.renderer,
             animationLimit = options.animationLimit || 250;
         let shapeArgs;
@@ -772,7 +780,7 @@ class ColumnSeries extends Series {
                 verb = graphic && chart.pointCount < animationLimit ?
                     'animate' : 'attr';
 
-            if (isNumber(plotY) && point.y !== null) {
+            if (isNumber(plotY) && (point.y !== null || nullInteraction)) {
                 shapeArgs = point.shapeArgs;
 
                 // When updating a series between 2d and 3d or cartesian and

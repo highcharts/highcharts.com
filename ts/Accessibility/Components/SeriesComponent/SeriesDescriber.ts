@@ -92,11 +92,13 @@ function findFirstPointWithGraphic(
         return null;
     }
 
+    const nullInteraction = point.series.options?.nullInteraction;
+
     return find(point.series.data, function (p: Point): boolean {
         return !!(
             p &&
             typeof p.index !== 'undefined' &&
-            p.index > sourcePointIndex &&
+            (nullInteraction || p.index > sourcePointIndex) &&
             p.graphic &&
             p.graphic.element
         );

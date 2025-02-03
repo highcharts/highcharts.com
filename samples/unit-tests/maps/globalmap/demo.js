@@ -102,7 +102,6 @@ QUnit.test('Set basemap on chart object', function (assert) {
         `The first point from a map source should be bn-te, its name should
         be taken from a map source.`
     );
-
     chart.series[0].setData(
         [{
             'hc-key': 'bn-be',

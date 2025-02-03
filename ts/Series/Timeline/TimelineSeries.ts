@@ -228,23 +228,26 @@ class TimelineSeries extends LineSeries {
 
         const series = this,
             points = series.points,
+            pointsLen = points.length,
             xData = series.getColumn('x');
 
-        for (let i = 0, iEnd = points.length; i < iEnd; ++i) {
-            points[i].applyOptions({
-                x: xData[i]
-            }, xData[i]);
+        for (let i = 0, iEnd = pointsLen; i < iEnd; ++i) {
+            const x = xData[i];
+            points[i].applyOptions({ x: x }, x);
         }
     }
 
     public getVisibilityMap(): Array<(boolean|TimelinePoint|TimelinePointOptions)> {
         const series = this,
+            nullInteraction = series.options.nullInteraction,
             map = (
                 (series.data.length ? series.data : series.options.data) || []
             ).map((
                 point: (TimelinePoint|TimelinePointOptions)
             ): (boolean|TimelinePoint|TimelinePointOptions) => (
-                point && point.visible !== false && !point.isNull ?
+                point &&
+                point.visible !== false &&
+                (!point.isNull || nullInteraction) ?
                     point :
                     false
             ));
@@ -285,7 +288,12 @@ class TimelineSeries extends LineSeries {
 
                     // New way of calculating closestPointRangePx value, which
                     // respects the real point visibility is needed.
-                    if (point.visible && !point.isNull) {
+                    if (
+                        point.visible && (
+                            !point.isNull ||
+                            series.options.nullInteraction
+                        )
+                    ) {
                         if (defined(lastPlotX)) {
                             closestPointRangePx = Math.min(
                                 closestPointRangePx,

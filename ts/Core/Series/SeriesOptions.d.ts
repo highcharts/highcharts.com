@@ -135,6 +135,7 @@ export interface SeriesOptions {
     marker?: PointMarkerOptions;
     name?: string;
     negativeColor?: ColorType;
+    nullInteraction?: boolean;
     opacity?: number;
     point?: SeriesPointOptions;
     pointPlacement?: (number|string);
