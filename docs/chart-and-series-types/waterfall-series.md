@@ -1,7 +1,13 @@
 Waterfall series
 ================
 
-A waterfall chart is a form of data visualization that helps in determining the cumulative effect of sequentially introduced positive or negative values. The waterfall chart is also known as a flying bricks chart or Mario chart due to the apparent suspension of columns (bricks) in mid-air. Often in finance, it will be referred to as a bridge. (Quote from Wikipedia).
+A waterfall chart is a form of data visualization that helps in determining the
+cumulative effect of sequentially introduced positive or negative values. The
+waterfall chart is also known as also known as **bridge**, especially in
+finance, or a flying bricks chart due to the apparent suspension of columns in
+mid-air. Waterfall charts are commonly used in financial reports to display
+changes in revenue or expenses over periods, showing how each factor contributes
+to the overall result.
 
 ![waterfall.png](waterfall.png)
 

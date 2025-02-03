@@ -30,7 +30,8 @@ module.exports = {
             'chart-concepts/drilldown',
             'chart-concepts/3d-charts',
             'chart-concepts/responsive',
-            'chart-concepts/security'
+            'chart-concepts/security',
+            'chart-concepts/dataviz-glossary'
         ],
         'Stock': [
             'stock/getting-started-stock',

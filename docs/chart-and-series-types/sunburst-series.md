@@ -1,7 +1,7 @@
 Sunburst
 ===
 
-A Sunburst displays hierarchical data, where a level in the hierarchy is represented by a circle. The center represents the root node of the tree. The visualization bear a resemblance to both treemap and pie charts.
+A Sunburst displays hierarchical data, where a level in the hierarchy is represented by a circle. The center represents the root node of the [tree](/docs/chart-concepts/dataviz-glossary#tree-data-structure). The visualization bear a resemblance to both treemap and pie charts.
 
 <iframe style="width: 100%; height: 850px; border: none;" src=https://www.highcharts.com/samples/embed/highcharts/demo/sunburst allow="fullscreen"></iframe>
 
@@ -18,7 +18,7 @@ Click [here](https://api.highcharts.com/highcharts/plotOptions.sunburst) to get 
 Data structure
 --------------
 
-The data is structured as a Tree, where each point represents a node. Each node can have its own children.
+The data is structured as a [tree](/docs/chart-concepts/dataviz-glossary#tree-data-structure), where each point represents a node. Each node can have its own children.
 
 The tree automatically has one node at the top representing the root node. If a point has an undefined parent, or the parent is not matching any id, the parent will be automatically set to the root node.
 
@@ -67,5 +67,5 @@ Below is an example where the first level will use have `colorByPoint: true`, an
 
 When the `allowTraversingTree` option is true, clicking on a point will set that point as the rendered root node. To help navigate through levels, breadcrumbs are rendered, showing a single button to the previous level or the full path back to the root node.
 
-Read more about the breadcrumbs [here](https://www.highcharts.com/docs/advanced-chart-features/breadcrumbs).
+Read more about the breadcrumbs [here](/docs/advanced-chart-features/breadcrumbs).
 

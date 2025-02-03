@@ -1,7 +1,7 @@
 Variwide chart
 ===
 
-A variwide chart is a column chart where each column has a separate width to represent the third dimension. A variwide chart is related to the [Marimekko chart](https://en.wikipedia.org/wiki/Mosaic_plot), but while a Marimekko computes the width for the stack to fill the whole plot area, the variwide chart simply lets the column widths reflect a value.
+A variwide chart is a column chart where each column has a separate width to represent the third dimension. A variwide chart is related to the [Marimekko chart](/docs/chart-concepts/dataviz-glossary#mosaic-plot), but while a Marimekko computes the width for the stack to fill the whole plot area, the variwide chart simply lets the column widths reflect a value.
 
 _For more detailed samples and documentation check the [API.](https://api.highcharts.com/highcharts/plotOptions.variwide)_
 

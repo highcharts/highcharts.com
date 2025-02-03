@@ -1,7 +1,9 @@
 Axes
 ====
 
-The x-axis and y-axis are shown by default in all charts containing data series with a [cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system). Here is a quick overview of the axis elements:
+The x-axis and y-axis are shown by default in all charts containing data series
+with a [cartesian coordinate system](/docs/chart-concepts/dataviz-glossary#cartesian-coordinate-system).
+Here is a quick overview of the axis elements:
 
 ![axis_description.png](axis_description.png)
 

@@ -57,7 +57,7 @@ data: [{
 Point and marker
 ----------------
 
-For cartesian charts, a point represents a (x, y) pair on the chart. Points can be given separate options inside the series data. For other chart types, the point represents other values than (x, y). For instance, in a range chart, the point represents (x, low, high). In an OHLC chart, the point represents (x, open, high, low, close). In a pie chart or gauge, the point represents a single value.
+For [cartesian](/docs/chart-concepts/dataviz-glossary#cartesian-coordinate-system) charts, a point represents a (x, y) pair on the chart. Points can be given separate options inside the series data. For other chart types, the point represents other values than (x, y). For instance, in a range chart, the point represents (x, low, high). In an OHLC chart, the point represents (x, open, high, low, close). In a pie chart or gauge, the point represents a single value.
 
 The point option can be applied to all charts. Here is an example showing how to edit the color of a specific point:
 

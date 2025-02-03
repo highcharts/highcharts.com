@@ -56,7 +56,7 @@ series: [{
 }]
 ```
 
-In the above example we define a pattern as the series color, and set the `pattern.color` option for each point color. Note the usage of the [series.keys](https://api.highcharts.com/highcharts/plotOptions.series.keys) option to avoid having to create an object structure for each of the points. For an example demo of creating custom SVG patterns, see the [pattern-fill area](http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/series/pattern-fill-area/) demo.
+In the above example we define a pattern as the series color, and set the `pattern.color` option for each point color. Note the usage of the [series.keys](https://api.highcharts.com/highcharts/plotOptions.series.keys) option to avoid having to create an object structure for each of the points. For an example demo of creating custom SVG patterns, see the [pattern-fill area](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/series/pattern-fill-area/) demo.
 
 Image patterns
 --------------

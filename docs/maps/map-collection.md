@@ -1,25 +1,25 @@
-Map collection
-===
+Map Collection
+==============
 
 For your convenience, Highcharts Maps offers a free [collection of maps](https://code.highcharts.com/mapdata/), optimized for use with Highcharts Maps. For common maps, it saves you the trouble of finding or drawing suitable SVG or GeoJSON/TopoJSON maps. Instead, you can choose between hundreds of pre-generated maps of countries, regions and other administration levels.
 
-The Highcharts Maps collection maps mainly follow [United Nations cartographic standards](https://www.un.org/geospatial/mapsgeo). These maps are specifically designed to reflect internationally recognized boundaries and regions. For users requiring a specific geopolitical perspective, such as [World with Palestine areas](https://code.highcharts.com/mapdata/), the collection offers three different resolutions. These maps detail regions like the West Bank and Gaza to ensure accurate representation based on the UN's view of world borders.
+The Highcharts Maps Collection maps mainly follow [United Nations cartographic standards](https://www.un.org/geospatial/mapsgeo). These maps are specifically designed to reflect internationally recognized boundaries and regions. For users requiring a specific geopolitical perspective, such as [World with Palestine areas](https://code.highcharts.com/mapdata/), the collection offers three different resolutions. These maps detail regions like the West Bank and Gaza to ensure accurate representation based on the UN's view of world borders.
 
 ![west-bank-gaza.jpg](west-bank-gaza.jpg)
 
 License
 -------
 
-The Highcharts Maps Map Collection comes with the license of the source data. For Admin0 (countries) and Admin1 (US states, German Bundesländer, Dutch regions etc), the source data is [Natural Earth](https://www.naturalearthdata.com/), which is [Public Domain](https://en.wikipedia.org/wiki/Public_domain). For Admin2, we have only compiled selected countries, and these maps are created from national files with their own license which is specified on the SVG map and in the other format files as meta data. If your country is missing from the list, please contact us and we'll try to find a suitable shapefile and generate more maps. 
+The Highcharts Maps Map Collection comes with the license of the source data. For most of Admin0 (countries) and Admin1 (US states, German Bundesländer, Dutch regions, etc.), the source data is [Natural Earth](https://www.naturalearthdata.com/), which is a public domain dataset. For Admin2, we have only compiled selected countries, and most of these maps are created from national files with their own license which is specified on the SVG map and in the other format files as meta data. If your country is missing from the list, please contact us and we'll try to find a suitable shapefile and generate more maps.
 
-For maps loaded using the default TopoJSON or GeoJSON input into the `mapData` option, a short version of the copyright will be printed in the chart's credits label.
+For maps loaded using the default TopoJSON or GeoJSON input into the [`series.mapData`](https://api.highcharts.com/highmaps/series.map.mapData) or [`chart.map`](https://api.highcharts.com/highmaps/chart.map) options, a short version of the copyright will be printed in the chart's credits label.
 
-Using the map collection
+Using the Map Collection
 ------------------------
 
 ### Install from our CDN
 
-In the [map collection reference](https://code.highcharts.com/mapdata/), each map name is followed by links to demos and data. Click the TopoJSON link and copy the URL.
+In the [Map Collection reference](https://code.highcharts.com/mapdata/), each map name is followed by links to demos and data. Click the TopoJSON link and copy the URL.
 
 1. Load the map and parse the JSON
 
@@ -35,7 +35,9 @@ const topology = await fetch(
 
 2. Apply it in [`chart.map`](https://api.highcharts.com/highmaps/chart.map) to make it the default map for all series:
 ```js
-map: topology
+chart: {
+    map: topology,
+    ...
 ```
 Alternatively, you can apply different maps for different series ([view demo](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/series/affectsmapview/)):
 ```js
@@ -45,7 +47,7 @@ series: [{
 ```
 
 
-3. Join your data with the map. By default Highcharts Maps is set up to map your data against the `hc-key` property of the map collection, allowing you to define your data like this:
+3. Join your data with the map. By default Highcharts Maps is set up to map your data against the `hc-key` property of the Map Collection, allowing you to define your data like this:
 ```js
 data: [['us-ny', 0], ['us-mi', 5], ['us-tx', 3], ['us-ak', 5]]
 ```
@@ -53,7 +55,7 @@ For other data joining options, see the [`series.joinBy`](https://api.highcharts
 
 ### Install from npm
 
-Our map collection is available on npm as [@highcharts/map-collection](https://www.npmjs.com/package/@highcharts/map-collection) and can be installed as following:
+The Map Collection is available on npm as [@highcharts/map-collection](https://www.npmjs.com/package/@highcharts/map-collection) and can be installed as following:
 ```sh
 npm i @highcharts/map-collection
 ```
@@ -101,8 +103,6 @@ The following table outlines the properties available in the Highcharts Maps Map
 
 
 
-
-
 The **hc-key** property reflects the naming convention of the maps, and can be used for dynamic drilldown purposes. This is illustrated in the [Map drilldown demo](https://highcharts.com/maps/demo/map-drilldown). The property follows the following format:
 
 ```
@@ -118,17 +118,17 @@ Some maps may provide additional properties that are not mentioned in the above 
 Using parts of a map
 --------------------
 
-If you can't find the exact map that you want in the collection, it is easy to use only selected parts of a larger area. Say you want a comparative map of Canada, USA and Mexico. Since we don't have that exact combination in the collection (as of now), you can use the map called "North America without Central". This map also contains Greenland as well as Caribbean islands. So we apply a data set only for the three countries we want, and set the [allAreas](https://api.highcharts.com/highmaps/plotOptions.map.allAreas) option to false. This option makes sure all null points (the countries that don't have data), are hidden. See [demo on jsFiddle](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-allareas-false/).
+If you can't find the exact map that you want in the Map Collection, it is easy to use only selected parts of a larger area. Say you want a comparative map of Canada, USA and Mexico. Since we don't have that exact combination in the Map Collection (as of now), you can use the map called "North America without Central". This map also contains Greenland as well as Caribbean islands. So we apply a data set only for the three countries we want, and set the [`allAreas`](https://api.highcharts.com/highmaps/plotOptions.map.allAreas) option to false. This option makes sure all null points (the countries that don't have data), are hidden. See [demo on jsFiddle](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-allareas-false/).
 
 Combine maps
 ------------
 
-Another way to approach the same problem, is to combine two or more map sources into the same chart. This is supported since Highcharts v9.3, where client-side projection is available. To achieve this, the unprojected TopoJSON maps must be used. See the [demo on jsFiddle](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/series/mapdata-multiple/). See also the demo for the [series.affectsMapView](https://api.highcharts.com/highmaps/series.map.affectsMapView) feature, which lets you load one map as a [backdrop that doesn't affect the map view](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/series/affectsmapview/).
+Another way to approach the same problem, is to combine two or more map sources into the same chart. This is supported since Highcharts v9.3, where client-side projection is available. To achieve this, the unprojected TopoJSON maps must be used. See the [demo on jsFiddle](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/series/mapdata-multiple/). See also the demo for the [`series.affectsMapView`](https://api.highcharts.com/highmaps/series.map.affectsMapView) feature, which lets you load one map as a [backdrop that doesn't affect the map view](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/series/affectsmapview/).
 
 Modify our maps
 ---------------
 
-Our maps are also a good starting points for your own modified maps. Borders can be moved, areas joined, and labels modified by loading the SVG map in Inkscape, the free SVG editor. Our article on [Custom maps](https://www.highcharts.com/docs/maps/create-custom-maps) explains in detail how to draw your maps from scratch. Modifying existing maps is easier - instead of drawing shapes use the existing ones (SVG files can be downloaded from [here](https://code.highcharts.com/mapdata)) and perform the same operations as described in the article. Alternatively, follow the article on [Custom GeoJSON maps](https://highcharts.com/docs/maps/custom-geojson-maps) to edit the map with a GIS editor for even more control and advanced mapping features.
+Our maps are also a good starting points for your own modified maps. Borders can be moved, areas joined, and labels modified by loading the SVG map in Inkscape, the free SVG editor. Our article on [Custom maps](https://www.highcharts.com/docs/maps/create-custom-maps) explains in detail how to draw your maps from scratch. Modifying existing maps is easier - instead of drawing shapes use the existing ones (SVG files can be downloaded from [here](https://code.highcharts.com/mapdata/)) and perform the same operations as described in the article. Alternatively, follow the article on [Custom GeoJSON maps](https://highcharts.com/docs/maps/custom-geojson-maps) to edit the map with a GIS editor for even more control and advanced mapping features.
 
 Disclaimer
 ----------

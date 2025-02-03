@@ -185,7 +185,7 @@ as illustrated with the below example.
   [Highcharts types](https://api.highcharts.com/class-reference/Highcharts) and
   [interfaces](https://api.highcharts.com/class-reference/Highcharts.Dictionary_T_)
 * For a deep dive into TypeScript declarations take a look at the official
-  [TypeScript guide](http://www.typescriptlang.org/docs/handbook/declaration-files/deep-dive.html).
+  [TypeScript guide](https://www.typescriptlang.org/docs/handbook/declaration-files/deep-dive.html).
 
 
 ### Example
@@ -274,7 +274,7 @@ npm install typescript && npx tsc --init
 
 More information about migrating JavaScript projects to TypeScript can be found
 in the official
-[TypeScript handbook](http://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html).
+[TypeScript handbook](https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html).
 
 
 ### Migration from Definitely Typed

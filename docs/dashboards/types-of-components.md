@@ -17,7 +17,7 @@ The most basic and generic component type allows you to add everything that coul
 
 The HTML component can be defined in two ways:  
 ### 1. Abstract Syntax Tree (AST) style  
-Defines the HTML code as a nested tree structure.
+Defines the HTML code as a nested [tree structure](/docs/chart-concepts/dataviz-glossary#tree-data-structure).
 
 Code snippet:
 ```js
@@ -161,7 +161,7 @@ Code snippet with data embedded in the `DataGrid` data table; no data connector 
     }
 }
 ```
-The above code snippet is part of a [DataGrid example](http://utils.highcharts.local/samples/#view/data-grid/demo/your-first-datagrid) that uses embedded data.
+The above code snippet is part of a [DataGrid example](https://www.highcharts.com/samples/embed/data-grid/demo/your-first-datagrid) that uses embedded data.
 
 Code snippet using a data connector.
 ```js

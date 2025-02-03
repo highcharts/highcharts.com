@@ -10,7 +10,7 @@ For use with [colorAxis](https://api.highcharts.com/highmaps/colorAxis), the `mo
 
 ### Data structure
 
-The data is structured as a [Tree](https://en.wikipedia.org/wiki/Tree_(data_structure)), where each point represents a node. Each node can have its own children.
+The data is structured as a [tree](/docs/chart-concepts/dataviz-glossary#tree-data-structure), where each point represents a node. Each node can have its own children.
 
 The tree automatically has one node at the top representing the root node. If a point has an undefined parent, or the parent is not matching any id, the parent will be automatically set to the root node.
 

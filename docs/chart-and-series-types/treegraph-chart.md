@@ -1,6 +1,6 @@
 Treegraph chart
 ===
-A Tree graph is a way of visualizing a tree or hierarchy data structure. You can read more about this data structure [on Wikipedia](https://en.wikipedia.org/wiki/Tree_(data_structure)). The best examples of a tree data structure are:
+A Tree graph is a way of visualizing a [tree](/docs/chart-concepts/dataviz-glossary#tree-data-structure) or hierarchy data structure. The best examples of a tree data structure are:
 
 * genealogy trees
 * directories in computer science
@@ -14,7 +14,7 @@ In order to use this series type, you need to load the `modules/treemap.js` and 
 
 ### Data structure
 
-The data is structured as a [tree](https://en.wikipedia.org/wiki/Tree_(data_structure)), where each point represents a node. Each node can have its own children.  The tree automatically has one node at the top representing the root node. If a point has an undefined parent, or the parent is not matching any `id`, the parent will be automatically set to the root node. There can be multiple nodes without a parent, and they will be positioned as separate trees.
+The data is structured as a [tree](/docs/chart-concepts/dataviz-glossary#tree-data-structure), where each point represents a node. Each node can have its own children.  The tree automatically has one node at the top representing the root node. If a point has an undefined parent, or the parent is not matching any `id`, the parent will be automatically set to the root node. There can be multiple nodes without a parent, and they will be positioned as separate trees.
 
 The following is an example of how the tree is built in Highcharts:
 

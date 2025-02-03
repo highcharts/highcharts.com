@@ -202,7 +202,7 @@ This tutorial shows how to implement a `Custom Data Connector` for the
 ### About MQTT
 [MQTT](https://en.wikipedia.org/wiki/MQTT) is the de facto standard protocol for low-resource, low-power devices and is widely used in [IoT](https://en.wikipedia.org/wiki/Internet_of_things) applications across a wide range of industries: mobile internet, Smart Hardware, the Internet of Vehicles, Smart Cities, Telemedicine, Power, Oil, Energy, and other fields.
 
-The hub of the **MQTT** network infrastructure is the so-called broker, a server to which applications can send messages and where clients (e.g., a web application) can subscribe to a topic. MQTT is a protocol on top of **TCP/IP** and for web clients available as [WebSocket](https://en.wikipedia.org/wiki/WebSocket) or TCP.
+The hub of the **MQTT** network infrastructure is the so-called broker, a server to which applications can send messages and where clients (e.g., a web application) can subscribe to a topic. MQTT is a protocol on top of **TCP/IP** and for web clients available as [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) or TCP.
 
 ### MQTT data
 The **MQTT** data packet consists of a `topic` that uniquely defines a data set for a specific connection and a text payload. The payload is typically a **JSON** object, and the `MQTT custom connector` described in this tutorial supports JSON only.

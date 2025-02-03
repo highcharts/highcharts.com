@@ -74,7 +74,8 @@ Available providers
 
 * `Stamen`
 
-    Stamen is a San Francisco design and development studio focused on data visualization and map-making. Stamen heavily uses OpenStreetMap data in many of their map visualizations, and their developers have worked on many important tools and product offerings around OpenStreetMap. URL: http://maps.stamen.com/
+    Stamen is a San Francisco design and development studio focused on data visualization and map-making. Stamen heavily uses OpenStreetMap data in many of their map visualizations, and their developers have worked on many important tools and product offerings around OpenStreetMap.
+    URL: https://maps.stamen.com/
 
     Available properties:
 
@@ -83,11 +84,12 @@ Available providers
 
 * `USGS`
 
-    The United States Geological Survey (USGS), formerly simply known as the Geological Survey, is a scientific agency of the United States government. URL: https://www.usgs.gov/
+    The United States Geological Survey (USGS), formerly simply known as the Geological Survey, is a scientific agency of the United States government.
+    URL: https://www.usgs.gov/
 
     Available properties:
 
-    theme: ‘USTopo’, ‘USImagery’, ‘USImageryTopo’
+        theme: ‘USTopo’, ‘USImagery’, ‘USImageryTopo’
 
 * `LimaLabs`
 
