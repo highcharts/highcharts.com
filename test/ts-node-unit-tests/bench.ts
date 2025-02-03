@@ -201,7 +201,12 @@ async function benchmark(){
         for (const testFile of testFiles) {
             const testdir = testFile.replace(/[^/]*$/, '').replace(BENCH_PATH, '');
             const dirPath = reportDir + testdir;
+
+            console.time(`Benchmark ${relative(__dirname, testFile)} took`);
+
             const data = await runRest(testFile);
+
+            console.timeEnd(`Benchmark ${relative(__dirname, testFile)} took`);
 
             if (!existsSync(dirPath)){
                 await mkdir(dirPath, { recursive: true });
