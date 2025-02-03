@@ -247,6 +247,7 @@ class PointAndFigureSeries extends ScatterSeries {
 
         const processedXData: number[] = [];
         const processedYData: number[] = [];
+        const processedUpTrendData: boolean[] = [];
 
         pnfDataGroups.forEach((point): void => {
             const x = point.x,
@@ -255,6 +256,7 @@ class PointAndFigureSeries extends ScatterSeries {
             point.y.forEach((y): void => {
                 processedXData.push(x);
                 processedYData.push(y);
+                processedUpTrendData.push(upTrend);
                 finalData.push({
                     x,
                     y,
@@ -264,8 +266,8 @@ class PointAndFigureSeries extends ScatterSeries {
         });
         modified.setColumn('x', processedXData);
         modified.setColumn('y', processedYData);
+        modified.setColumn('upTrend', processedUpTrendData);
         series.pnfDataGroups = pnfDataGroups;
-        series.processedData = finalData;
 
         return {
             modified,

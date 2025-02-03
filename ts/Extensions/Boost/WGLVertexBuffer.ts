@@ -233,7 +233,7 @@ class WGLVertexBuffer {
         drawMode: WGLDrawModeValue
     ): boolean {
         const length = this.preAllocated ?
-            this.preAllocated.length : (this.data as any).length;
+            this.preAllocated.length : this.data?.length || 0;
 
         if (!this.buffer) {
             return false;

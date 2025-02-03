@@ -150,6 +150,37 @@ class DataTableCore {
     }
 
     /**
+     * Delete rows. Simplified version of the full
+     * `DataTable.deleteRows` method.
+     *
+     * @param {number} rowIndex
+     * The start row index
+     *
+     * @param {number} [rowCount=1]
+     * The number of rows to delete
+     *
+     * @return {void}
+     *
+     * @emits #afterDeleteRows
+     */
+    public deleteRows(
+        rowIndex: number,
+        rowCount = 1
+    ): void {
+        if (rowCount > 0 && rowIndex < this.rowCount) {
+            let length = 0;
+            objectEach(this.columns, (column): void => {
+                column.splice(rowIndex, rowCount);
+                length = column.length;
+            });
+            this.rowCount = length;
+        }
+
+        fireEvent(this, 'afterDeleteRows', { rowIndex, rowCount });
+        this.versionTag = uniqueKey();
+    }
+
+    /**
      * Fetches the given column by the canonical column name. Simplified version
      * of the full `DataTable.getRow` method, always returning by reference.
      *
@@ -210,6 +241,46 @@ class DataTableCore {
     ): (DataTable.Row|undefined) {
         return (columnNames || Object.keys(this.columns)).map(
             (key): DataTableCore.CellType => this.columns[key]?.[rowIndex]
+        );
+    }
+
+    /**
+     * Retrieves the row at a given index.
+     *
+     * @param {number} rowIndex
+     * Row index to retrieve. First row has index 0.
+     *
+     * @param {Array<string>} [columnNames]
+     * Column names to retrieve.
+     *
+     * @return {Record<string, number|string|undefined>|undefined}
+     * Returns the row values, or `undefined` if not found.
+     */
+    public getRowObject(
+        rowIndex: number,
+        columnNames?: Array<string>
+    ): (DataTable.RowObject|undefined) {
+        const row = {} as DataTable.RowObject,
+            columns = this.columns;
+
+        columnNames ??= Object.keys(this.columns);
+
+        for (const columnName of columnNames) {
+            row[columnName] = columns[columnName]?.[rowIndex];
+        }
+        return row;
+    }
+
+    /**
+     * Output the table in the console.
+     * @todo remove/comment out this method before production
+     */
+    public log(limit = Infinity): void {
+        /* eslint-disable-next-line no-console */
+        console.table(
+            new Array(Math.min(this.rowCount, limit))
+                .fill(void 0)
+                .map((_, i): DataTable.RowObject => this.getRowObject(i) || {})
         );
     }
 
@@ -323,7 +394,7 @@ class DataTableCore {
         }
 
         if (!eventDetail?.silent) {
-            fireEvent(this, 'afterSetRows');
+            fireEvent(this, 'afterSetRows', { rowIndex });
             this.versionTag = uniqueKey();
         }
     }

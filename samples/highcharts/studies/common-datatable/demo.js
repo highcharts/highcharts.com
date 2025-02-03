@@ -25,66 +25,6 @@ const previewTable = () => {
     document.getElementById('data-table').innerHTML = html;
 };
 
-
-(({ addEvent, DataTableCore, Series, wrap }) => {
-
-    let chartRedrawTimer;
-
-    wrap(Series.prototype, 'init', function (proceed, chart, options) {
-        const dataTable = chart.options.dataTable;
-
-        const getTableSpecificColumns = () => [
-            'x',
-            ...(this.pointArrayMap || ['y'])
-        ].reduce((acc, key) => {
-            const assignment = options.columnAssignment.find(
-                assignment => assignment.key === key
-            );
-            acc[key] = dataTable.getColumn(
-                assignment?.columnName || key
-            );
-            return acc;
-        }, {});
-
-        if (dataTable) {
-
-            // Create a new DataTable for each series. This is the simplest way
-            // to handle aliases, and doesn't come with a memory cost if we copy
-            // the columns by reference.
-            // @todo Copy the columns by reference.
-            this.dataTable = new DataTableCore({
-                columns: getTableSpecificColumns()
-            });
-
-            addEvent(this.dataTable, 'afterSetColumns', () => {
-                this.isDirtyData = true;
-                clearTimeout(chartRedrawTimer);
-                setTimeout(() => chart.redraw(), 0);
-            });
-
-            addEvent(dataTable, 'afterSetRows', () => {
-                this.dataTable.setColumns(getTableSpecificColumns());
-                previewTable();
-            });
-        }
-
-        proceed.apply(this, [].slice.call(arguments, 1));
-    });
-
-    wrap(Series.prototype, 'setData', function (
-        proceed,
-        data,
-        redraw,
-        animation,
-        updatePoints
-    ) {
-        if (this.chart.options.dataTable) {
-            return;
-        }
-        proceed.call(this, data, redraw, animation, updatePoints);
-    });
-})(Highcharts);
-
 previewTable();
 
 Highcharts.chart('container', {
@@ -116,15 +56,6 @@ Highcharts.chart('container', {
     }]
 });
 
-/*
-document.getElementById('updaterow').addEventListener('click', e => {
-    dataTable.setRow({
-        year: 2021,
-        cost: Math.round(15 * Math.random()),
-        revenue: Math.round(10 * Math.random())
-    }, 1);
-});
-*/
 
 document.getElementById('addrow').addEventListener('click', e => {
     dataTable.setRow({
@@ -132,5 +63,26 @@ document.getElementById('addrow').addEventListener('click', e => {
         cost: 15,
         revenue: 20
     });
+    previewTable();
     e.target.disabled = true;
+});
+
+// @todo: Support for setColumn too. Fails to update the point because in
+// generatePoints, before the `new PointClass` call, the point already exists.
+// Probably need to refactor the `updateData` method to a true data-matching
+// method between old table and updated table, instead of working on options.
+// This could run either at the end of setData, or possibly within
+// generatePoints.
+document.getElementById('updaterow').addEventListener('click', e => {
+    dataTable.setRow({
+        cost: Math.round(15 * Math.random()),
+        revenue: Math.round(10 * Math.random())
+    }, 1);
+    previewTable();
+});
+
+document.getElementById('deleterow').addEventListener('click', e => {
+    dataTable.deleteRows(0);
+    e.target.disabled = true;
+    previewTable();
 });

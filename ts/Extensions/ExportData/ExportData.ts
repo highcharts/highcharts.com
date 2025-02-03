@@ -515,7 +515,7 @@ function chartGetDataRows(
 
             // Export directly from options.data because we need the uncropped
             // data (#7913), and we need to support Boost (#7026).
-            (series.options.data as any).forEach(function eachData(
+            series.options.data?.forEach(function eachData(
                 options: (PointOptions|PointShortOptions),
                 pIdx: number
             ): void {

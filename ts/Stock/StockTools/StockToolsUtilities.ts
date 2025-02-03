@@ -246,7 +246,7 @@ function addFlagFromForm(
                 ): void {
                     navigation.fieldsToOptions(
                         data.fields,
-                        (seriesOptions.data as any)[0]
+                        seriesOptions.data?.[0]
                     );
                     chart.addSeries(seriesOptions);
                 }

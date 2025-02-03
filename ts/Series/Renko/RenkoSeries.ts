@@ -89,6 +89,8 @@ class RenkoSeries extends ColumnSeries {
         const processedXData: number[] = [];
         const processedYData: number[] = [];
         const processedLowData: number[] = [];
+        const processedColorData: (ColorType|undefined)[] = [];
+        const processedUpTrendData: (boolean|undefined)[] = [];
         const xData = this.getColumn('x', true);
         const yData = this.getColumn('y', true);
         if (!this.renkoData || this.renkoData.length > 0) {
@@ -152,13 +154,15 @@ class RenkoSeries extends ColumnSeries {
             processedXData.push(point.x);
             processedYData.push(point.y);
             processedLowData.push(point.low);
+            processedColorData.push(point.color);
+            processedUpTrendData.push(point.upTrend);
         }
-
-        this.processedData = renkoData;
 
         modified.setColumn('x', processedXData);
         modified.setColumn('y', processedYData);
         modified.setColumn('low', processedLowData);
+        modified.setColumn('color', processedColorData as any);
+        modified.setColumn('upTrend', processedUpTrendData);
 
         return {
             modified,

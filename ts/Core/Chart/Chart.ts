@@ -61,6 +61,7 @@ import D from '../Defaults.js';
 const {
     defaultOptions
 } = D;
+import DataTableCore from '../../Data/DataTableCore.js';
 import Templating from '../Templating.js';
 const { numberFormat } = Templating;
 import Foundation from '../Foundation.js';
@@ -321,6 +322,7 @@ class Chart {
     public containerBox?: { height: number, width: number };
     public credits?: SVGElement;
     public caption?: SVGElement;
+    public dataTable?: DataTableCore;
     public eventOptions!: Record<string, EventCallback<Series, Event>>;
     public hasCartesianSeries?: boolean;
     public hasLoaded?: boolean;
@@ -353,6 +355,7 @@ class Chart {
     public plotWidth!: number;
     public pointCount!: number;
     public pointer?: Pointer;
+    public redrawTimeout?: number;
     public reflowTimeout?: number;
     public renderer!: Chart.Renderer;
     public renderTo!: globalThis.HTMLElement;
@@ -561,6 +564,12 @@ class Chart {
              */
             chart.index = charts.length; // Add the chart to the global lookup
 
+            if (options.dataTable instanceof DataTableCore) {
+                chart.dataTable = options.dataTable;
+            } else if (options.dataTable) {
+                chart.dataTable = new DataTableCore(options.dataTable);
+            }
+
             charts.push(chart);
             H.chartCount++;
 
@@ -636,7 +645,7 @@ class Chart {
         this.getSeriesOrderByLinks().forEach(function (series): void {
             // We need to set data for series with sorting after series init
             if (!series.points && !series.data && series.enabledDataSorting) {
-                series.setData(series.options.data as any, false);
+                series.setData(series.options.data, false);
             }
         });
     }
@@ -2952,7 +2961,7 @@ class Chart {
 
                     if (series.enabledDataSorting) {
                         // We need to call `setData` after `linkSeries`
-                        series.setData(options.data as any, false);
+                        series.setData(options.data, false);
                     }
 
                     fireEvent(chart, 'afterAddSeries', { series: series });

@@ -845,17 +845,17 @@ QUnit.test('Map set data with updated data (#3894)', function (assert) {
         ]
     });
 
+    chart.series[0].setData([{
+        'hc-key': 'us',
+        value: 155
+    }]);
+
     const series = chart.series[0],
         mapView = chart.mapView,
         columnNames = Object.keys(series.dataTable.columns);
 
     let centerBeforeUpdate,
         zoomBeforeUpdate;
-
-    series.setData([{
-        'hc-key': 'us',
-        value: 155
-    }]);
 
     // Check both updates: "allAreas: true" and back to "allAreas: false"
     // The view should be changed.

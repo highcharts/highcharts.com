@@ -17,6 +17,8 @@
 import type Chart from './Chart/Chart';
 import type ColorString from './Color/ColorString';
 import type CSSObject from './Renderer/CSSObject';
+import type DataTableCore from '../Data/DataTableCore';
+import type DataTableOptions from '../Data/DataTableOptions';
 import type { SeriesTypePlotOptions } from './Series/SeriesType';
 import type { SymbolKey } from './Renderer/SVG/SymbolType';
 
@@ -71,6 +73,7 @@ export interface NumberFormatterCallbackFunction {
 
 export interface Options {
     colors?: Array<ColorString>;
+    dataTable?: DataTableOptions|DataTableCore;
     lang: LangOptions;
     loading?: LoadingOptions;
     plotOptions: SeriesTypePlotOptions;

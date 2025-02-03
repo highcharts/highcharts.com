@@ -48,18 +48,18 @@ const {
  **/
 const binsNumberFormulas: Record<string, Function> = {
     'square-root': function (baseSeries: Series): number {
-        return Math.ceil(Math.sqrt((baseSeries.options.data as any).length));
+        return Math.ceil(Math.sqrt(baseSeries.dataTable.rowCount));
     },
 
     'sturges': function (baseSeries: Series): number {
         return Math.ceil(
-            Math.log((baseSeries.options.data as any).length) * Math.LOG2E
+            Math.log(baseSeries.dataTable.rowCount) * Math.LOG2E
         );
     },
 
     'rice': function (baseSeries: Series): number {
         return Math.ceil(
-            2 * Math.pow((baseSeries.options.data as any).length, 1 / 3)
+            2 * Math.pow(baseSeries.dataTable.rowCount, 1 / 3)
         );
     }
 };

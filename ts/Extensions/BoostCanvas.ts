@@ -31,10 +31,6 @@ import type Chart from '../Core/Chart/Chart';
 import type ColumnSeries from '../Series/Column/ColumnSeries';
 import type HeatmapSeries from '../Series/Heatmap/HeatmapSeries';
 import type HTMLElement from '../Core/Renderer/HTML/HTMLElement';
-import type {
-    PointOptions,
-    PointShortOptions
-} from '../Core/Series/PointOptions';
 import type { TypedArray } from '../Core/Series/SeriesOptions';
 import type ScatterSeries from '../Series/Scatter/ScatterSeries';
 import type Series from '../Core/Series/Series';
@@ -479,7 +475,7 @@ namespace BoostCanvas {
             },
             xData = series.getColumn('x', true),
             yData = series.getColumn('y', true),
-            rawData: Array<(PointOptions|PointShortOptions)> = options.data as any,
+            rawData = options.data || [],
             xExtremes = xAxis.getExtremes(),
             xMin = xExtremes.min,
             xMax = xExtremes.max,

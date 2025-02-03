@@ -43,6 +43,7 @@ import A from '../../Core/Animation/AnimationUtilities.js';
 const { animObject, stop } = A;
 import ColorMapComposition from '../ColorMapComposition.js';
 import CU from '../CenteredUtilities.js';
+import DataTableCore from '../../Data/DataTableCore.js';
 import H from '../../Core/Globals.js';
 const { noop } = H;
 import MapChart from '../../Core/Chart/MapChart.js';
@@ -715,7 +716,7 @@ class MapSeries extends ScatterSeries {
         }
     }
 
-    public dataColumnKeys(): Array<string> {
+    public getDataColumnKeys(): Array<string> {
         // No x data for maps
         return this.pointArrayMap;
     }
@@ -729,7 +730,8 @@ class MapSeries extends ScatterSeries {
      */
     public processData(): (boolean|undefined) {
         const options = this.options,
-            data = options.data,
+            optionsData = this.useDataTable ? void 0 : options.data,
+            dataTable = this.dataTable,
             chart = this.chart,
             chartOptions = chart.options.chart,
             joinBy = this.joinBy,
@@ -764,70 +766,82 @@ class MapSeries extends ScatterSeries {
         let mapData: MapPointOptions[]|undefined;
         if (isArray(options.mapData)) {
             mapData = options.mapData;
-        } else if (
-            mapDataObject && mapDataObject.type === 'FeatureCollection'
-        ) {
+        } else if (mapDataObject?.type === 'FeatureCollection') {
             this.mapTitle = mapDataObject.title;
             mapData = (H as AnyRecord).geojson(mapDataObject, this.type, this);
         }
 
+        const modified = new DataTableCore();
+
+        Object.entries(dataTable.columns).forEach(([key, column]): void => {
+            modified.setColumn(key, column);
+        });
+
         // Reset processedData
         this.processedData = [];
-        const processedData = this.processedData;
+        const processedData = this.useDataTable ? void 0 : this.processedData;
+        if (!this.useDataTable && processedData) {
+            // Pick up numeric values, add index. Convert Array point
+            // definitions to objects using pointArrayMap.
+            if (optionsData) {
+                let val: (MapPointOptions|PointOptions|PointShortOptions);
 
-        // Pick up numeric values, add index. Convert Array point definitions to
-        // objects using pointArrayMap.
-        if (data) {
-            let val: (MapPointOptions|PointOptions|PointShortOptions);
+                for (let i = 0, iEnd = optionsData.length; i < iEnd; ++i) {
+                    val = optionsData[i];
 
-            for (let i = 0, iEnd = data.length; i < iEnd; ++i) {
-                val = data[i];
-
-                if (isNumber(val)) {
-                    processedData[i] = {
-                        value: val
-                    };
-                } else if (isArray(val)) {
-                    let ix = 0;
-                    processedData[i] = {};
-                    // Automatically copy first item to hc-key if there is
-                    // an extra leading string
-                    if (
-                        !options.keys &&
-                        val.length > pointArrayMap.length &&
-                        typeof val[0] === 'string'
-                    ) {
-                        (processedData[i] as AnyRecord)['hc-key'] = val[0];
-                        ++ix;
-                    }
-                    // Run through pointArrayMap and what's left of the
-                    // point data array in parallel, copying over the values
-                    for (let j = 0; j < pointArrayMap.length; ++j, ++ix) {
+                    if (isNumber(val)) {
+                        processedData[i] = {
+                            value: val
+                        };
+                    } else if (isArray(val)) {
+                        let ix = 0;
+                        processedData[i] = {};
+                        // Automatically copy first item to hc-key if there is
+                        // an extra leading string
                         if (
-                            pointArrayMap[j] &&
-                            typeof val[ix] !== 'undefined'
+                            !options.keys &&
+                            val.length > pointArrayMap.length &&
+                            typeof val[0] === 'string'
                         ) {
-                            if (pointArrayMap[j].indexOf('.') > 0) {
-                                MapPoint.prototype.setNestedProperty(
-                                    processedData[i], val[ix], pointArrayMap[j]
-                                );
-                            } else {
-                                (processedData[i] as AnyRecord)[
-                                    pointArrayMap[j]
-                                ] = val[ix];
+                            (processedData[i] as AnyRecord)['hc-key'] = val[0];
+                            ++ix;
+                        }
+                        // Run through pointArrayMap and what's left of the
+                        // point data array in parallel, copying over the values
+                        for (let j = 0; j < pointArrayMap.length; ++j, ++ix) {
+                            if (
+                                pointArrayMap[j] &&
+                                typeof val[ix] !== 'undefined'
+                            ) {
+                                if (pointArrayMap[j].indexOf('.') > 0) {
+                                    MapPoint.prototype.setNestedProperty(
+                                        processedData[i],
+                                        val[ix],
+                                        pointArrayMap[j]
+                                    );
+                                } else {
+                                    (processedData[i] as AnyRecord)[
+                                        pointArrayMap[j]
+                                    ] = val[ix];
+                                }
                             }
                         }
+                    } else {
+                        processedData[i] = optionsData[i];
                     }
-                } else {
-                    processedData[i] = data[i];
-                }
-                if (
-                    joinBy &&
-                    joinBy[0] === '_i'
-                ) {
-                    (processedData[i] as AnyRecord)._i = i;
+                    if (
+                        joinBy &&
+                        joinBy[0] === '_i'
+                    ) {
+                        (processedData[i] as AnyRecord)._i = i;
+                    }
                 }
             }
+        }
+
+        // Automatically copy first item to hc-key
+        if (!options.keys && modified.columns.name) {
+            modified.setColumn('hc-key', modified.columns.name);
         }
 
         if (mapData) {
@@ -850,27 +864,42 @@ class MapSeries extends ScatterSeries {
             // Registered the point codes that actually hold data
             if (joinBy[1]) {
                 const joinKey = joinBy[1];
-                processedData.forEach((pointOptions): void => {
-                    const mapKey = getNestedProperty(
-                        joinKey,
-                        pointOptions
-                    ) as string;
-                    if (mapMap[mapKey]) {
-                        dataUsed.push(mapMap[mapKey]);
+                if (this.useDataTable) {
+                    for (let i = 0; i < modified.rowCount; i++) {
+                        const mapKey = getNestedProperty(
+                            joinKey,
+                            modified.getRowObject(i)
+                        ) as string;
+                        if (mapMap[mapKey]) {
+                            dataUsed.push(mapMap[mapKey]);
+                        }
                     }
-                });
+                } else if (processedData) {
+                    processedData.forEach((pointOptions): void => {
+                        const mapKey = getNestedProperty(
+                            joinKey,
+                            pointOptions
+                        ) as string;
+                        if (mapMap[mapKey]) {
+                            dataUsed.push(mapMap[mapKey]);
+                        }
+                    });
+                }
             }
 
             if (options.allAreas) {
                 // Register the point codes that actually hold data
-                if (joinBy[1]) {
-                    const joinKey = joinBy[1];
-                    processedData.forEach((pointOptions): void => {
-                        dataUsed.push(getNestedProperty(
-                            joinKey,
-                            pointOptions
-                        ) as MapPointOptions);
-                    });
+                if (!this.useDataTable && processedData) {
+                    if (joinBy[1]) {
+                        const joinKey = joinBy[1];
+
+                        processedData.forEach((pointOptions): void => {
+                            dataUsed.push(getNestedProperty(
+                                joinKey,
+                                pointOptions
+                            ) as MapPointOptions);
+                        });
+                    }
                 }
 
                 // Add those map points that don't correspond to data, which
@@ -895,14 +924,28 @@ class MapSeries extends ScatterSeries {
                             '|'
                         ) === -1
                     ) {
-                        processedData.push(merge(mapPoint, { value: null }));
+                        modified.setRow(
+                            merge(
+                                mapPoint,
+                                { value: null }
+                            ) as unknown as DataTableCore.RowObject
+                        );
+                        if (!this.useDataTable) {
+                            processedData?.push(
+                                merge(mapPoint, { value: null })
+                            );
+                        }
                     }
                 });
             }
         }
         // The processedXData array is used by general chart logic for checking
         // data length in various scanarios.
-        this.dataTable.rowCount = processedData.length;
+        if (this.useDataTable) {
+            this.dataTable.modified = modified;
+        } else if (processedData) {
+            this.dataTable.rowCount = processedData.length;
+        }
 
         return void 0;
     }

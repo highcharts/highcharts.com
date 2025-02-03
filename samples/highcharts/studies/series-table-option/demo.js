@@ -1,25 +1,4 @@
-const { DataTableCore, Series } = Highcharts;
-const setData = Series.prototype.setData;
-
-Series.prototype.setData = function (
-    data,
-    redraw,
-    animation,
-    updatePoints
-) {
-    const dataTable = this.options.dataTable;
-    if (dataTable) {
-        this.dataTable = dataTable instanceof DataTableCore ?
-            dataTable : new DataTableCore(dataTable);
-        this.isDirty = this.chart.isDirtyBox = true;
-        this.isDirtyData = true;
-
-        this.data = [];
-        return;
-    }
-    setData.call(this, data, redraw, animation, updatePoints);
-};
-
+const { DataTableCore } = Highcharts;
 
 Highcharts.chart('container', {
     plotOptions: {
@@ -69,6 +48,3 @@ Highcharts.chart('container', {
 setTimeout(() => {
     // chart.series[3].addPoint([7, 2]);
 }, 1234);
-
-
-Series.prototype.setData = setData;

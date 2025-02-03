@@ -1203,7 +1203,7 @@ function onTickLabelFormat(ctx: AxisLabelFormatterContextObject): void {
         const isFirst = value === tickPos[0];
         const isLast = value === tickPos[tickPos.length - 1];
         const point: (Point|undefined) =
-            series && find(series.options.data as any, function (
+            series && find((series.options.data || [] as any), function (
                 p: Point
             ): boolean {
                 return p[axis.isXAxis ? 'x' : 'y'] === value;

@@ -31,7 +31,6 @@ import Point from '../../Core/Series/Point.js';
 import U from '../../Core/Utilities.js';
 const {
     addEvent,
-    defined,
     extend,
     isNumber,
     pick,
@@ -199,7 +198,7 @@ class PiePoint extends Point {
      * Animation options.
      */
     public slice(
-        sliced: boolean,
+        sliced?: boolean,
         redraw?: boolean,
         animation?: (boolean|Partial<AnimationOptions>)
     ): void {
@@ -217,16 +216,14 @@ class PiePoint extends Point {
          * @name Highcharts.Point#sliced
          * @type {boolean|undefined}
          */
-        // if called without an argument, toggle
-        this.sliced = this.options.sliced = sliced =
-            defined(sliced) ? sliced : !this.sliced;
-        // Update userOptions.data
-        (series.options.data as any)[series.data.indexOf(this)] =
-            this.options;
+        this.sliced = this.options.sliced = sliced ?? !this.sliced;
 
-        if (this.graphic) {
-            this.graphic.animate(this.getTranslate());
+        // Update options.data
+        if (series.options.data) {
+            series.options.data[series.data.indexOf(this)] = this.options;
         }
+
+        this.graphic?.animate(this.getTranslate());
     }
 }
 
