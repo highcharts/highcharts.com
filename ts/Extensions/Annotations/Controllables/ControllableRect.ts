@@ -108,13 +108,26 @@ class ControllableRect extends Controllable {
 
         if (this.graphic) {
             const position = this.anchor(this.points[0]).absolutePosition;
+            let x, y, width, height;
+            if (this.points[1]) {
+                const position2 = this.anchor(this.points[1]).absolutePosition;
+                x = Math.min(position.x, position2.x);
+                y = Math.min(position.y, position2.y);
+                width = Math.abs(position2.x - position.x);
+                height = Math.abs(position2.y - position.y);
+            } else {
+                x = position.x;
+                y = position.y;
+                width = this.options.width || 0;
+                height = this.options.height || 0;
+            }
 
             if (position) {
                 this.graphic[animation ? 'animate' : 'attr']({
-                    x: position.x,
-                    y: position.y,
-                    width: this.options.width,
-                    height: this.options.height
+                    x,
+                    y,
+                    width,
+                    height
                 });
             } else {
                 this.attr({

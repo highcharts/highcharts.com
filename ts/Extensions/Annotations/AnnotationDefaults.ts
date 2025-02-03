@@ -429,7 +429,9 @@ const AnnotationDefaults: AnnotationOptions = {
      * for shapes which can use multiple points such as path. A
      * point can be either a point object or a point's id.
      *
-     * @see [annotations.shapes.point](annotations.shapes.point.html)
+     * @see [annotations.shapes.point](annotations.shapes.point)
+     * @sample {highcharts} highcharts/annotations/rectangle-annotation
+     *      Rect defined by point and points
      *
      * @type      {Array<Highcharts.AnnotationShapePointOptions>}
      * @extends   annotations.labels.point
