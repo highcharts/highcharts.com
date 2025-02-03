@@ -1,5 +1,5 @@
 describe('Component states', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit('dashboards/component-options/states');
     });
 
@@ -41,5 +41,18 @@ describe('Component states', () => {
                 'The second component\'s isActive property should be true.'
             );
         });
+    });
+
+    it('Click event should not change the active state when in edit mode', () => {
+        // Assert
+        cy.get('#dashboard-col-0').should('have.class', 'highcharts-dashboards-cell-state-active');
+
+        // Act
+        cy.toggleEditMode();
+        cy.get('#dashboard-col-1').click();
+
+        // Assert
+        cy.get('#dashboard-col-0').should('have.class', 'highcharts-dashboards-cell-state-active');
+        cy.get('#dashboard-col-1').should('not.have.class', 'highcharts-dashboards-cell-state-active');
     });
 });

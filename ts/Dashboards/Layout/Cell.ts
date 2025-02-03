@@ -521,21 +521,34 @@ class Cell extends GUIElement {
 
         // Reset other boxes
         cell.row.layout.board.mountedComponents.forEach(
-            (mountedComponent):void => {
+            (mountedComponent): void => {
                 if (mountedComponent.cell.container) {
+                    // Remove active class
                     mountedComponent.cell.container.classList.remove(
                         Globals.classNames.cellActive
+                    );
+
+                    // Remove ARIA attributes for non-active components
+                    mountedComponent.cell.container.removeAttribute('tabindex');
+                    mountedComponent.cell.container.removeAttribute('role');
+                    mountedComponent.cell.container.removeAttribute(
+                        'aria-label'
+                    );
+                    mountedComponent.cell.container.removeAttribute(
+                        'aria-current'
                     );
                 }
                 mountedComponent.component.isActive = false;
             }
         );
 
-        // Apply class
+        // Apply class and set ARIA attributes
         if (cell.container) {
-            cell.container.classList.add(
-                Globals.classNames.cellActive
-            );
+            cell.container.classList.add(Globals.classNames.cellActive);
+            cell.container.setAttribute('tabindex', '0');
+            cell.container.setAttribute('role', 'group');
+            cell.container.setAttribute('aria-label', 'Selected cell');
+            cell.container.setAttribute('aria-current', 'true');
         }
     }
 

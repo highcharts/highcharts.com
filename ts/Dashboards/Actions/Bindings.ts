@@ -221,6 +221,7 @@ namespace Bindings {
 
         // Events
         addEvent(componentContainer, 'click', ():void => {
+            const isEditMode = board.editMode?.isContextDetectionActive;
             // Call the component's click callback
             if (optionsEvents && optionsEvents.click) {
                 optionsEvents.click.call(component);
@@ -231,7 +232,8 @@ namespace Bindings {
                 cell &&
                 component &&
                 componentContainer &&
-                optionsStates?.active?.enabled
+                optionsStates?.active?.enabled &&
+                !isEditMode
             ) {
                 cell.setActiveState();
                 component.isActive = true;
