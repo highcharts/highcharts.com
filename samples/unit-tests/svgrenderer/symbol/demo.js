@@ -8,6 +8,8 @@ QUnit.test('Symbol tests', function (assert) {
         symbol1,
         symbol2,
         symbol3,
+        circleFloatError,
+        halfCircleSymbol,
         label,
         url =
             location.host.substr(0, 12) === 'localhost:98' ?
@@ -90,6 +92,29 @@ QUnit.test('Symbol tests', function (assert) {
                         })
                         .add();
                     total++;
+
+                    // Circle drawn at large coordinate leading to floating
+                    // point error when SVGRenderer draws with absolute
+                    // coordinates. (#21701)
+                    circleFloatError = ren
+                        .symbol('circle', 5000.5, 100, 6, 6)
+                        .attr({
+                            fill: 'blue'
+                        })
+                        .add();
+                    total++;
+
+                    halfCircleSymbol = ren
+                        .symbol('arc', 300, 300, 10, 10, {
+                            start: Math.PI * 0.5,
+                            end: 1.5 * Math.PI,
+                            open: false
+                        })
+                        .attr({
+                            fill: 'green'
+                        })
+                        .add();
+                    total++;
                 },
                 // images are loaded
                 load: function () {
@@ -146,6 +171,36 @@ QUnit.test('Symbol tests', function (assert) {
                         symbol3.symbolName,
                         'circle',
                         'Wrong symbol name defualts to "circle" (#6627)'
+                    );
+                    ifDone();
+
+                    assert.strictEqual(
+                        Math.round(
+                            symbol3.attr('d').split(' ')[10] // y-end
+                        ),
+                        210,
+                        'Circle should not draw with relative coordinates'
+                    );
+
+                    assert.strictEqual(
+                        Math.round(circleFloatError.element.getBBox().width),
+                        6,
+                        'Circles at large positions should be visible (#21701)'
+                    );
+
+                    assert.strictEqual(
+                        Math.round(
+                            circleFloatError.attr('d').split(' ')[10] * 10e6
+                        ),
+                        667,
+                        'Circle should draw with relative coordinates (#21701)'
+                    );
+                    ifDone();
+
+                    assert.strictEqual(
+                        +halfCircleSymbol.attr('d').split(' ')[10],
+                        290,
+                        'Arcs should draw with absolute coordinates (#21701)'
                     );
                     ifDone();
                 }

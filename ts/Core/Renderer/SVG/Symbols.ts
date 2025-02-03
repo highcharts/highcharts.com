@@ -22,6 +22,7 @@ import type { SymbolTypeRegistry } from './SymbolType';
 
 import U from '../../Utilities.js';
 const {
+    correctFloat,
     defined,
     isNumber,
     pick
@@ -34,6 +35,14 @@ const {
  * */
 
 /* eslint-disable require-jsdoc, valid-jsdoc */
+
+/**
+ * Returns the closest 32-bit float.
+ * @private
+ */
+const fround: (num: number) => number = Math.fround ?
+    Math.fround :
+    (num: number): number => correctFloat(num, 7);
 
 /**
  *
@@ -56,7 +65,7 @@ function arc(
             // affects the constant, therefore the division by `rx`. If the
             // proximity is too small, the arc disappears. If it is too great, a
             // gap appears. This can be seen in the animation of the official
-            // bubble demo (#20586).
+            // bubble demo (#20585).
             proximity = 0.0002 / (options.borderRadius ? 1 : Math.max(rx, 1)),
             fullCircle = (
                 Math.abs((options.end || 0) - start - 2 * Math.PI) <
@@ -64,38 +73,53 @@ function arc(
             ),
             end = (options.end || 0) - (fullCircle ? proximity : 0),
             innerRadius = options.innerR,
+            useInnerRadius = defined(innerRadius),
             open = pick(options.open, fullCircle),
             cosStart = Math.cos(start),
             sinStart = Math.sin(start),
             cosEnd = Math.cos(end),
             sinEnd = Math.sin(end),
+            startX = cx + rx * cosStart,
+            startY = cy + ry * sinStart,
+            endX = cx + rx * cosEnd,
+            // Use relative coordinates when drawing a circle where the floating
+            // point number is inaccurate, e.g with large numbers. (#21701)
+            useRelativeCoordinates = fullCircle && !useInnerRadius &&
+                fround(startX) === fround(endX),
             // Proximity takes care of rounding errors around PI (#6971)
             longArc = pick(
                 options.longArc,
                 end - start - Math.PI < proximity ? 0 : 1
-            );
+            ),
+            arcCommand = useRelativeCoordinates ? 'a' : 'A',
+            arcEndX = useRelativeCoordinates ?
+                1 - proximity :
+                endX,
+            arcEndY = useRelativeCoordinates ?
+                proximity :
+                cy + ry * sinEnd;
 
         let arcSegment: SVGPath.Arc = [
-            'A', // ArcTo
+            arcCommand, // ArcTo
             rx, // X radius
             ry, // Y radius
             0, // Slanting
             longArc, // Long or short arc
             pick(options.clockwise, 1), // Clockwise
-            cx + rx * cosEnd,
-            cy + ry * sinEnd
+            arcEndX,
+            arcEndY
         ];
         arcSegment.params = { start, end, cx, cy }; // Memo for border radius
         arc.push(
             [
                 'M',
-                cx + rx * cosStart,
-                cy + ry * sinStart
+                startX,
+                startY
             ],
             arcSegment
         );
 
-        if (defined(innerRadius)) {
+        if (useInnerRadius) {
             arcSegment = [
                 'A', // ArcTo
                 innerRadius, // X radius
