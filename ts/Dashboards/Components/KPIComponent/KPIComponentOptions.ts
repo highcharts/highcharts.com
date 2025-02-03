@@ -150,6 +150,13 @@ export interface Options extends Component.Options {
      *
      */
     sync?: SyncOptions;
+
+    /**
+     * The calculated value that is displayed in KPI component, according to the
+     * provided option. Allows to provide the callback function that updates the
+     * internal KPI component value.
+     */
+    calculateValueAs?: 'sum'|'average'|'median'|CalculateValueAsCallbackFunction;
 }
 /**
  * Options for linking KPI value to the chart point.
@@ -193,6 +200,14 @@ export interface ValueFormatterCallbackFunction {
         this: KPIComponent,
         value: (number|string)
     ): string;
+}
+
+/** @internal */
+export interface CalculateValueAsCallbackFunction {
+    (
+        this: KPIComponent,
+        values: number[]
+    ): (string|number);
 }
 
 /**

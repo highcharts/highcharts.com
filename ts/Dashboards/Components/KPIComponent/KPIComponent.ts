@@ -49,7 +49,8 @@ const {
     diffObjects,
     isArray,
     isNumber,
-    merge
+    merge,
+    isFunction
 } = U;
 
 /* *
@@ -405,6 +406,118 @@ class KPIComponent extends Component {
         this.chart?.destroy();
         super.destroy();
     }
+
+    /**
+     * Calculates value sum based on the provided values.
+     *
+     * @param values
+     * All particular column values.
+     *
+     * @returns
+     * The calculated sum value.
+     *
+     * @internal
+     */
+    private calculateSumValue(values: number[]): number {
+        let calculatedValue = 0;
+
+        for (let i = 0; i < values.length; i++) {
+            const value = values[i];
+
+            if (isNumber(value)) {
+                calculatedValue += value;
+            }
+        }
+
+        return calculatedValue;
+    }
+
+    /**
+     * Calculates value average based on the provided values.
+     *
+     * @param values
+     * All particular column values.
+     *
+     * @returns
+     * The calculated average value.
+     *
+     * @internal
+     */
+    private calculateAverageValue(values: number[]): number {
+        const valueSum = this.calculateSumValue(values);
+        return valueSum / values.length;
+    }
+
+    /**
+     * Calculates value median based on the provided values.
+     *
+     * @param values
+     * All particular column values.
+     *
+     * @returns
+     * The calculated median value.
+     *
+     * @internal
+     */
+    private calculateMedianValue(values: number[]): number {
+        const sortedValues = Array.from(values).sort((a, b): number => a - b);
+        const middleValue = Math.floor(sortedValues.length / 2);
+        const middleSortedValue = sortedValues[middleValue];
+
+        return sortedValues.length % 2 === 0 ?
+            (sortedValues[middleValue - 1] + middleSortedValue) / 2 :
+            middleSortedValue;
+    }
+
+    /**
+     * Gets the proper calculation value, according to the provided
+     * calculateValueAs option.
+     *
+     * @returns
+     * The calculated value or 0 if can't perform the calculation. Can be a 
+     * number internally, or a string from the callback function.
+     *
+     * @internal
+     */
+    private getCalculatedValue(): string|number {
+        const calculateValueAs = this.options.calculateValueAs;
+
+        const connector = this.getFirstConnector();
+        const table = connector?.table.modified;
+        const column = table?.getColumn(this.options.columnName);
+        
+        // Parse into numerical values to perform calculations.
+        const parsedColumnValues =
+            column?.map((value): number => Number(value));
+
+        let calculatedValue: string|number = 0;
+
+        // Provide external calculations without a strict type checking.
+        if (defined(parsedColumnValues) && isFunction(calculateValueAs)) {
+            calculatedValue = calculateValueAs.call(this, parsedColumnValues);
+
+        // Make sure all values are numbers to perform accurate calculations.
+        } else if (parsedColumnValues?.every(isNumber)) {
+            if (calculateValueAs === 'sum') {
+                calculatedValue = this.calculateSumValue(parsedColumnValues);
+
+            } else if (calculateValueAs === 'average') {
+                calculatedValue =
+                    this.calculateAverageValue(parsedColumnValues);
+
+            } else if (calculateValueAs === 'median') {
+                calculatedValue = this.calculateMedianValue(parsedColumnValues);
+
+            } else {
+                console.warn('Invalid calculate option value provided.'); // eslint-disable-line no-console
+            }
+        } else {
+            console.warn('All column values should be numerical to calculate.'); // eslint-disable-line no-console
+        }
+
+        return calculatedValue;
+    }
+
     /**
      * Gets the default value that should be displayed in the KPI.
      *
@@ -419,6 +532,10 @@ class KPIComponent extends Component {
         const connector = this.getFirstConnector();
 
         if (connector && this.options.columnName) {
+            if (defined(this.options.calculateValueAs)) {
+                return this.getCalculatedValue();
+            }
+            
             const table = connector.table.modified,
                 column = table.getColumn(this.options.columnName),
                 length = column?.length || 0;

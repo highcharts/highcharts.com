@@ -68,3 +68,32 @@ describe('Linking KPI value to chart point test', () => {
         });
     });
 });
+
+describe('KPI component value calculations.', () => {
+    before(() => {
+        cy.visit('/dashboards/cypress/kpi-with-connector');
+    });
+
+    it('KPI component value should be properly calculated.', () => {
+        cy.board().then(board => {
+            const kpiComponent = board.mountedComponents[1].component;
+
+            // Test the KPI component sum value.
+            cy.wrap(kpiComponent).invoke('update', { calculateValueAs: 'sum' });
+            cy.get('#kpi .highcharts-dashboards-component-kpi-value')
+                .should('have.text', 7800);
+
+            // Test the KPI component average value.
+            cy.wrap(kpiComponent)
+                .invoke('update', { calculateValueAs: 'average' });
+            cy.get('#kpi .highcharts-dashboards-component-kpi-value')
+                .should('have.text', 650);
+
+            // Test the KPI component median value.
+            cy.wrap(kpiComponent)
+                .invoke('update', { calculateValueAs: 'median' });
+            cy.get('#kpi .highcharts-dashboards-component-kpi-value')
+                .should('have.text', 650);
+        });
+    });
+});
