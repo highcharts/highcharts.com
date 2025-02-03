@@ -1,0 +1,12 @@
+---
+name: Two Standalone Navigators
+authors:
+  - Mateusz Bernacik
+js_wrap: b
+tags:
+  - Highcharts Stock demo
+categories:
+  - Various features:
+      priority: 1
+use_png_thumbnail: true
+...
