@@ -107,6 +107,7 @@ namespace OrdinalAxis {
         forceOrdinal?: boolean;
         isInternal?: boolean;
         ordinal: Additions;
+        oldMax?: number;
         getTimeTicks(
             normalizedInterval: Time.TimeNormalizedObject,
             min: number,
@@ -171,6 +172,7 @@ namespace OrdinalAxis {
             );
 
             addEvent(ChartClass, 'pan', onChartPan);
+            addEvent(ChartClass, 'beforeRedraw', restoreOldMax);
             addEvent(ChartClass, 'touchpan', onChartPan);
 
             addEvent(SeriesClass, 'updatedData', onSeriesUpdatedData);
@@ -595,6 +597,14 @@ namespace OrdinalAxis {
         }
     }
 
+    function restoreOldMax(this: Chart): void {
+        for (const axis of this.xAxis) {
+            if ((axis as Composition).oldMax) {
+                axis.max = (axis as Composition).oldMax;
+                (axis as Composition).oldMax = void 0;
+            }
+        }
+    }
     /**
      * Extending the Chart.pan method for ordinal axes
      * @private
@@ -602,29 +612,33 @@ namespace OrdinalAxis {
     function onChartPan(
         this: Chart,
         e: Event & {
-            originalEvent: PointerEvent,
+            originalEvent: PointerEvent & {
+                axes: Composition[]
+            },
             touches: Touch[] | undefined
         }
     ): void {
         const chart = this,
-            xAxis = chart.xAxis[0] as OrdinalAxis.Composition,
-            overscroll = xAxis.ordinal.convertOverscroll(
-                xAxis.options.overscroll
-            ),
+            xAxes = e.originalEvent.axes.filter((a):boolean => !!a.isXAxis),
             chartX = (e as any).originalEvent.chartX,
             panning = chart.options.chart.panning;
         let runBase = false;
 
         if (
+            xAxes.length > 0 &&
             panning &&
             panning.type !== 'y' &&
-            xAxis.options.ordinal &&
-            xAxis.series.length &&
+            xAxes[0].options.ordinal &&
+            xAxes[0].series.length &&
             // On touch devices, let default function handle the pinching
             (!e.touches || e.touches.length <= 1)
         ) {
 
             const mouseDownX = chart.mouseDownX,
+                xAxis = xAxes[0],
+                overscroll = xAxis.ordinal.convertOverscroll(
+                    xAxis.options.overscroll
+                ),
                 extremes = xAxis.getExtremes(),
                 dataMin = extremes.dataMin,
                 dataMax = extremes.dataMax,
@@ -738,8 +752,19 @@ namespace OrdinalAxis {
 
         // Revert to the linear chart.pan version
         if (runBase || (panning && /y/.test(panning.type))) {
-            if (overscroll) {
-                xAxis.max = (xAxis.dataMax as any) + overscroll;
+            const axis = (e.originalEvent.axes.filter(
+                (a): boolean => Boolean(a.isXAxis)
+            ))[0];
+
+            if (axis) {
+                const overscroll = axis.ordinal.convertOverscroll(
+                    axis.options.overscroll
+                );
+
+                if (overscroll) {
+                    axis.oldMax = axis.max;
+                    axis.max = (axis.dataMax as any) + overscroll;
+                }
             }
         } else {
             e.preventDefault();

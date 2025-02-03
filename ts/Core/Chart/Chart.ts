@@ -3652,14 +3652,24 @@ class Chart {
                         type: 'x'
                     }
             ),
-            type = panningOptions.type,
-            axes = type && chart[{
+            type = panningOptions.type;
+        let isPanningX = Math.abs(event.chartX - (chart.mouseDownX || 0)) > 0,
+            isPanningY = Math.abs(event.chartY - (chart.mouseDownY || 0)) > 0;
+        if (chart.inverted) {
+            [isPanningX, isPanningY] = [isPanningY, isPanningX];
+        }
+        const axes = type && chart[{
                 x: 'xAxis',
                 xy: 'axes',
                 y: 'yAxis'
             }[type] as ('axes'|'xAxis'|'yAxis')]
-                .filter((axis): boolean =>
-                    axis.options.panningEnabled && !axis.options.isInternal
+                .filter(
+                    (axis): boolean =>
+                        (axis.options.panningEnabled &&
+                        !axis.options.isInternal &&
+                        axis.isXAxis ?
+                            isPanningX :
+                            isPanningY)
                 ),
             chartOptions = chart.options.chart;
 
@@ -3667,18 +3677,22 @@ class Chart {
             chartOptions.panning = panningOptions;
         }
 
-        fireEvent(this, 'pan', { originalEvent: event }, (): void => {
-            chart.transform({
-                axes,
-                event,
-                to: {
-                    x: event.chartX - (chart.mouseDownX || 0),
-                    y: event.chartY - (chart.mouseDownY || 0)
-                },
-                trigger: 'pan'
+        fireEvent(
+            this,
+            'pan',
+            { originalEvent: { ...event, axes } },
+            (): void => {
+                chart.transform({
+                    axes,
+                    event,
+                    to: {
+                        x: event.chartX - (chart.mouseDownX || 0),
+                        y: event.chartY - (chart.mouseDownY || 0)
+                    },
+                    trigger: 'pan'
+                });
+                css(chart.container, { cursor: 'move' });
             });
-            css(chart.container, { cursor: 'move' });
-        });
     }
 
     /**

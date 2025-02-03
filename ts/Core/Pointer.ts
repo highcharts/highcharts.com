@@ -1307,8 +1307,16 @@ class Pointer {
         // be 0 when releasing, if touchend fires first
         } else if (lastTouches) {
 
+            const axes = chart.axes
+                .filter((axis): boolean|undefined =>
+                    axis.zoomEnabled &&
+                    (
+                        (this.zoomHor && axis.horiz) ||
+                            (this.zoomVert && !axis.horiz)
+                    )
+                );
             fireEvent(chart, 'touchpan', {
-                originalEvent: e,
+                originalEvent: { ...e, axes },
                 touches
             }, (): void => {
 
