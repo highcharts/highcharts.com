@@ -378,49 +378,49 @@ QUnit.test('DataTable.getColumnAsNumbers', function (assert) {
     });
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test1'),
+        table.getColumn('test1'),
         [null, 1, 2],
         'Table should return column "test1" without conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test2'),
+        table.getColumn('test2'),
         [void 0, 1, 2],
         'Table should return column "test2" without conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test3'),
+        table.getColumn('test3'),
         [null, 1, '2'],
         'Table should return column "test3" without conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test4'),
+        table.getColumn('test4'),
         [0, null, 2],
         'Table should return column "test4" without conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test5'),
+        table.getColumn('test5'),
         [0, 1, null],
         'Table should return column "test5" after conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test6'),
+        table.getColumn('test6'),
         [null, 1, 2],
         'Table should return column "test6" after conversion.'
     );
 
     assert.deepEqual(
-        table.getColumnAsNumbers('test7'),
+        table.getColumn('test7'),
         [null, 1, 2],
         'Table should return column "test7" after conversion. (#1)'
     );
 
     assert.ok(
-        isNaN(table.getColumnAsNumbers('test7', true)[0]),
+        isNaN(table.getColumn('test7', true)[0]),
         'Table should return column "test7" after conversion. (#2)'
     );
 
