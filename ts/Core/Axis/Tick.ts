@@ -921,7 +921,7 @@ class Tick {
                     lineWidth: gridLine.strokeWidth(),
                     force: 'pass',
                     old: old,
-                    acrossPanes: false // #18025
+                    acrossPanes: true // #18025 fix was wrong :)
                 }
             );
 

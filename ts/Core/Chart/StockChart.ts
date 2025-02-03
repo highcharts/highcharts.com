@@ -730,7 +730,6 @@ namespace StockChart {
             x2,
             y2,
             axes = [], // #3416 need a default array
-            axes2: Array<Axis>,
             uniqueAxes: Array<Axis>,
             transVal: number;
 
@@ -745,24 +744,6 @@ namespace StockChart {
 
             // Get the related axes based on series
             axes = getAxis(axis.coll);
-
-            // Get the related axes based options.*Axis setting #2810
-            axes2 = (axis.isXAxis ? chart.yAxis : chart.xAxis);
-            for (const A of axes2) {
-                if (!A.options.isInternal) {
-                    const a = (A.isXAxis ? 'yAxis' : 'xAxis'),
-                        relatedAxis: Axis = (
-                            defined((A.options as any)[a]) ?
-                                (chart as any)[a][(A.options as any)[a]] :
-                                (chart as any)[a][0]
-                        );
-
-                    if (axis === relatedAxis) {
-                        axes.push(A);
-                    }
-                }
-            }
-
 
             // Remove duplicates in the axes array. If there are no axes in the
             // axes array, we are adding an axis without data, so we need to

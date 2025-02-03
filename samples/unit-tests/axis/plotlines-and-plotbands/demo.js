@@ -831,8 +831,7 @@ QUnit.test('#14254: plotBands.acrossPanes', function (assert) {
             },
             {
                 data: [1, 2, 3, 4],
-                yAxis: 1,
-                xAxis: 1
+                yAxis: 1
             }
         ],
         yAxis: [
@@ -858,10 +857,6 @@ QUnit.test('#14254: plotBands.acrossPanes', function (assert) {
                         acrossPanes: true
                     }
                 ],
-                height: '50%'
-            },
-            {
-                top: '50%',
                 height: '50%'
             }
         ]
