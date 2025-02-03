@@ -303,8 +303,10 @@ class HTMLElement extends SVGElement {
 
         // SVG natively supports setting font size as numbers. With HTML, the
         // font size should behave in the same way (#21624).
-        if (isNumber(Number(styles?.fontSize))) {
-            styles.fontSize = styles.fontSize + 'px';
+        for (const prop of ['fontSize', 'borderRadius']) {
+            if (isNumber(Number((styles as any)[prop] || void 0))) {
+                (styles as any)[prop] += 'px';
+            }
         }
 
         extend(this.styles, styles);
