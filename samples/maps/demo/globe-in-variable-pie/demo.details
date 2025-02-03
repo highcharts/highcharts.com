@@ -1,0 +1,10 @@
+---
+name: Globe in Variable Pie
+authors:
+  - Lars Helge Boge
+js_wrap: b
+tags:
+  - Highcharts Maps demo
+categories:
+  - Dynamic
+...
