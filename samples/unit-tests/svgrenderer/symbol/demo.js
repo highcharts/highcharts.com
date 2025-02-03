@@ -169,6 +169,46 @@ QUnit.test('Arc', assert => {
         0,
         '#15382: Y radius should be 0'
     );
+
+    const ren = new Highcharts.Renderer(
+            document.getElementById('container'),
+            400,
+            400
+        ),
+        arcBox = ren.path({
+            d: ren.symbols.arc(150, 150, 150, 150, {
+                r: 150,
+                end: Math.PI * 2 - 1.1,
+                start: -1.1
+            })
+        }).attr({
+            stroke: 'black'
+        }).add().getBBox();
+
+    assert.close(
+        arcBox.y,
+        0,
+        0.001,
+        'Arc with changed start and end angle should create a correct circle.'
+    );
+    assert.close(
+        arcBox.x,
+        0,
+        0.001,
+        'Arc with changed start and end angle should create a correct circle.'
+    );
+    assert.close(
+        arcBox.width,
+        300,
+        0.001,
+        'Arc with changed start and end angle should create a correct circle.'
+    );
+    assert.close(
+        arcBox.height,
+        300,
+        0.001,
+        'Arc with changed start and end angle should create a correct circle.'
+    );
 });
 
 QUnit.test('Square/rect', assert => {

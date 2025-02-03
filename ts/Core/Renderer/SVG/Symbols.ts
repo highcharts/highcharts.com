@@ -48,22 +48,29 @@ function arc(
     const arc: SVGPath = [];
 
     if (options) {
-        const start = options.start || 0,
-            rx = pick(options.r, w),
+        let start = options.start || 0,
+            end = options.end || 0;
+
+        const rx = pick(options.r, w),
             ry = pick(options.r, h || w),
             // Subtract a small number to prevent cos and sin of start and end
             // from becoming equal on 360 arcs (#1561). The size of the circle
             // affects the constant, therefore the division by `rx`. If the
             // proximity is too small, the arc disappears. If it is too great, a
             // gap appears. This can be seen in the animation of the official
-            // bubble demo (#20586).
+            // bubble demo (#20585).
             proximity = 0.0002 / (options.borderRadius ? 1 : Math.max(rx, 1)),
             fullCircle = (
-                Math.abs((options.end || 0) - start - 2 * Math.PI) <
+                Math.abs(end - start - 2 * Math.PI) <
                 proximity
-            ),
-            end = (options.end || 0) - (fullCircle ? proximity : 0),
-            innerRadius = options.innerR,
+            );
+
+        if (fullCircle) {
+            start = Math.PI / 2;
+            end = Math.PI * 2.5 - proximity;
+        }
+
+        const innerRadius = options.innerR,
             open = pick(options.open, fullCircle),
             cosStart = Math.cos(start),
             sinStart = Math.sin(start),
